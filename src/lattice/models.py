@@ -38,18 +38,22 @@ class LatticeConfig:
     audit_roots: tuple[Path, ...] = ()
 
     @classmethod
-    def default(cls, root: Path) -> "LatticeConfig":
-        lattice_dir = root / "lattice"
+    def default(
+        cls, root: Path, *, lattice_dir: Path | str = ".lattice"
+    ) -> "LatticeConfig":
+        lattice_path = Path(lattice_dir)
+        if not lattice_path.is_absolute():
+            lattice_path = root / lattice_path
         return cls(
             root=root,
-            specs_dir=lattice_dir / "specs",
-            type_registry_path=lattice_dir / "registry" / "spec-types.json",
-            schemas_dir=lattice_dir / "schemas",
-            templates_dir=lattice_dir / "renderers" / "templates",
-            styles_dir=lattice_dir / "styles",
-            generated_docs_dir=lattice_dir / "generated" / "docs",
-            generated_llm_dir=lattice_dir / "generated" / "llm",
-            search_index_path=lattice_dir / "generated" / "docs" / "search-index.json",
+            specs_dir=lattice_path / "specs",
+            type_registry_path=lattice_path / "registry" / "spec-types.json",
+            schemas_dir=lattice_path / "schemas",
+            templates_dir=lattice_path / "renderers" / "templates",
+            styles_dir=lattice_path / "styles",
+            generated_docs_dir=lattice_path / "generated" / "docs",
+            generated_llm_dir=lattice_path / "generated" / "llm",
+            search_index_path=lattice_path / "generated" / "docs" / "search-index.json",
             audit_roots=(
                 root / "src",
                 root / "tests",
@@ -75,6 +79,15 @@ class Spec:
     def owner(self) -> str | None:
         value = self.data.get("owner")
         return value if isinstance(value, str) and value else None
+
+    @property
+    def short_name(self) -> str | None:
+        value = self.data.get("short_name")
+        return value if isinstance(value, str) and value else None
+
+    @property
+    def display_name(self) -> str:
+        return self.short_name or self.data.get("name", self.id)
 
     @property
     def status(self) -> str:

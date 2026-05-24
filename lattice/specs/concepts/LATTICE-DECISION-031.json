@@ -1,0 +1,17 @@
+{
+  "decision": "Knowledge units may include an optional short_name field. Renderers should prefer short_name for link labels, backlinks, navigation, and search-visible titles while preserving the full name as the canonical unit name.",
+  "id": "LATTICE-DECISION-031",
+  "kind": "decision",
+  "name": "Use optional short names for display",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-009",
+    "LATTICE-DECISION-022",
+    "LATTICE-DECISION-029",
+    "LATTICE-DECISION-030"
+  ],
+  "status": "active",
+  "tests": [
+    "LATTICE-TEST-003"
+  ]
+}

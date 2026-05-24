@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 from collections import Counter
 from html import escape
+from importlib.resources import files
 from pathlib import Path
 from typing import Any
 
@@ -135,6 +136,8 @@ def template_environment(config: LatticeConfig) -> Environment:
     env.globals["display_fields"] = display_fields
     env.globals["detail_sections"] = detail_sections
     env.globals["concept_sections"] = concept_sections
+    env.globals["field_anchor"] = field_anchor
+    env.globals["display_name"] = display_name
     env.globals["field_type_display"] = field_type_display
     env.globals["page_component"] = page_component
     env.globals["type_tone"] = type_tone
@@ -235,7 +238,7 @@ def lattice_registry_for(
         graph[key] = {
             "type": spec.kind,
             "id": spec.id,
-            "label": spec.data.get("name", spec.id),
+            "label": display_name(spec),
             "href": href_for(from_path, unit_output_path(config, spec)),
             "summary": spec.statement,
             "concept_role": spec.data.get("concept_role"),
@@ -244,9 +247,7 @@ def lattice_registry_for(
                 {
                     "type": registry.by_id[source_id].kind,
                     "id": registry.by_id[source_id].id,
-                    "label": registry.by_id[source_id].data.get(
-                        "name", registry.by_id[source_id].id
-                    ),
+                    "label": display_name(registry.by_id[source_id]),
                     "summary": registry.by_id[source_id].statement,
                     "concept_role": registry.by_id[source_id].data.get("concept_role"),
                     "href": href_for(
@@ -289,7 +290,7 @@ def build_search_index(
     ):
         type_def = registry.type_definition_for(spec)
         fields = type_def.search_fields if type_def else ("id", "name", "summary")
-        text_parts = [spec.id, spec.kind]
+        text_parts = [spec.id, spec.kind, spec.data.get("name", ""), spec.short_name or ""]
         for field in fields:
             text_parts.extend(flatten_search_value(spec.data.get(field)))
         node = graph[lattice_key(spec)]
@@ -300,7 +301,7 @@ def build_search_index(
             {
                 "id": spec.id,
                 "type": spec.kind,
-                "name": spec.data.get("name", spec.id),
+                "name": display_name(spec),
                 "summary": spec.statement,
                 "href": node["href"],
                 "text": " ".join(part for part in text_parts if part).lower(),
@@ -411,6 +412,8 @@ class LatticeLink extends LitElement {
   static properties = {
     type: { type: String, reflect: true },
     latticeId: { type: String, attribute: 'lattice-id', reflect: true },
+    label: { type: String, reflect: true },
+    fragment: { type: String, reflect: true },
     variant: { type: String, reflect: true },
   };
   static styles = css`
@@ -435,8 +438,12 @@ class LatticeLink extends LitElement {
   `;
   render() {
     const target = latticeRegistry[`${this.type}:${this.latticeId}`] || Object.values(latticeRegistry).find((node) => node.id === this.latticeId);
-    const label = (this.textContent || '').trim() || (target ? target.label : this.latticeId);
-    return html`<a href=${target ? target.href : '#'} part="anchor" data-lattice-type=${this.type || ''} data-lattice-id=${this.latticeId || ''}>${label}</a>`;
+    const explicitLabel = (this.label || '').trim();
+    const fragment = (this.fragment || '').trim();
+    const slotLabel = (this.textContent || '').trim();
+    const label = explicitLabel || slotLabel || (target ? target.label : this.latticeId);
+    const href = target ? `${target.href}${fragment ? `#${fragment}` : ''}` : fragment ? `#${fragment}` : '#';
+    return html`<a href=${href} part="anchor" data-lattice-type=${this.type || ''} data-lattice-id=${this.latticeId || ''}>${label}</a>`;
   }
 }
 
@@ -648,11 +655,16 @@ def lattice_link(
     unit_id: object,
     label: object | None = None,
     variant: str | None = None,
+    fragment: object | None = None,
 ) -> str:
     variant_attr = f' variant="{escape(variant)}"' if variant else ""
+    label_attr = f' label="{escape(str(label))}"' if label is not None else ""
+    fragment_attr = (
+        f' fragment="{escape(str(fragment))}"' if fragment is not None else ""
+    )
     text = str(label) if label is not None else str(unit_id)
     return (
-        f'<lattice-link type="{escape(str(type_name))}" lattice-id="{escape(str(unit_id))}"{variant_attr}>'
+        f'<lattice-link type="{escape(str(type_name))}" lattice-id="{escape(str(unit_id))}"{label_attr}{fragment_attr}{variant_attr}>'
         f"{escape(text)}</lattice-link>"
     )
 
@@ -728,6 +740,7 @@ DETAIL_FIELD_EXCLUDES = {
     "type",
     "kind",
     "name",
+    "short_name",
     "owner",
     "status",
     "references",
@@ -778,8 +791,16 @@ def field_type_display(field_type: object, registry: SpecRegistry) -> str:
     if target is None:
         return f'<span class="pill field-type">{escape(type_name)}</span>'
     return lattice_link(
-        target.kind, target.id, target.data.get("name", target.id), "field-type"
+        target.kind, target.id, display_name(target), "field-type"
     )
+
+
+def field_anchor(unit_id: object, field_name: object) -> str:
+    return f"field-{slugify(unit_id)}-{slugify(field_name)}"
+
+
+def display_name(spec: Spec) -> str:
+    return spec.display_name
 
 
 def field_type_target(type_name: str, registry: SpecRegistry) -> Spec | None:
@@ -866,10 +887,7 @@ def display_value(value: object) -> str:
 
 
 def default_css() -> str:
-    source = Path(__file__).resolve().parents[2] / "lattice" / "styles" / CSS_FILENAME
-    if source.exists():
-        return source.read_text(encoding="utf-8")
-    return "/* generated by lattice; central visual source of truth */\n"
+    return files("lattice.assets").joinpath(CSS_FILENAME).read_text(encoding="utf-8")
 
 
 DEFAULT_TEMPLATES: dict[str, str] = {
@@ -895,7 +913,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
         <span slot="label">{{ type_nav_label(type_name) }}</span>
         {% for nav_spec in units %}
         <lattice-nav-item tone="{{ type_tone(nav_spec.kind) }}"{% if current_spec and current_spec.id == nav_spec.id %} active{% endif %}>
-          {{ lattice_link(nav_spec.kind, nav_spec.id, nav_spec.data.name, "nav") | safe }}
+          {{ lattice_link(nav_spec.kind, nav_spec.id, display_name(nav_spec), "nav") | safe }}
         </lattice-nav-item>
         {% endfor %}
       </lattice-nav-group>
@@ -923,7 +941,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   <div class="pd-cards">
   {% for spec in units %}
     <lattice-unit-card>
-      <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, spec.data.name, "card-title") | safe }}</h3>
+      <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
       <p class="pd-card-desc">{{ spec.statement }}</p>
       <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
     </lattice-unit-card>
@@ -950,7 +968,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   <div class="pd-cards">
   {% for spec in units %}
     <lattice-unit-card>
-      <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, spec.data.name, "card-title") | safe }}</h3>
+      <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
       <p class="pd-card-desc">{{ spec.statement }}</p>
       <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
     </lattice-unit-card>
@@ -988,7 +1006,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
       </thead>
       <tbody>
     {% for field in rows %}
-      <tr class="field-row">
+      <tr class="field-row" id="{{ field_anchor(spec.id, field['name']) }}">
         <td class="ft-num field-index">{{ loop.index }}</td>
         <td class="ft-name field-name">{{ field["name"] }}</td>
         <td class="ft-type">{{ field_type_display(field["type"], registry) | safe }}</td>
