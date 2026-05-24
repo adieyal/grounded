@@ -14,8 +14,56 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
 - `LATTICE-THEORY-001` (concept, owner: lattice): Lattice is executable project memory: a schema-validated coordination layer that gives durable project knowledge one canonical owner, models knowledge units as a reference graph, and uses deterministic validation wherever possible to prevent drift between specs, docs, tests, code, and LLM context.
   Links: PROJECT-CONCEPT-001, PROJECT-RULE-001
 - `PROJECT-CONCEPT-001` (concept, owner: project): Durable project knowledge is owned by canonical Lattice specs and referenced by other artifacts.
+- `PROJECT-CONCEPT-002` (concept, owner: project): Model only the smallest coherent subset of a codebase that serves the current goal, with explicit in-scope and out-of-scope boundaries, so Lattice can stay partial without becoming misleading.
+  Links: PROJECT-CONCEPT-001, PROJECT-RULE-002
 - `LATTICE-DECISION-001` (decision, owner: lattice): Lattice core models project memory as strongly typed knowledge units derived from a generic knowledge_unit parent. Type-specific JSON Schemas, verification bindings, rendering templates, graph links, and search fields are configured by type definitions rather than hardcoded domain semantics.
   Links: LATTICE-THEORY-001, PROJECT-CONCEPT-001
+- `LATTICE-DECISION-002` (decision, owner: lattice): Generated project documentation presents project-owned domain units as the primary page. Lattice concepts, project memory guardrails, and generated-system metadata remain available on a separate background page through a non-prominent link.
+  Links: LATTICE-DECISION-001
+- `LATTICE-DECISION-003` (decision, owner: lattice): Generated unit pages render structured fields and typed details before implementation data. Raw JSON remains available for debugging and traceability, but it is hidden by default behind a disclosure control.
+  Links: LATTICE-DECISION-001
+- `LATTICE-DECISION-004` (decision, owner: lattice): Invariants should be represented as explicit Lattice concepts with stable IDs and links to the units they constrain, rather than embedded as anonymous strings inside another unit.
+  Links: LATTICE-DECISION-001
+- `LATTICE-DECISION-005` (decision, owner: lattice): Status values should be represented as explicit lifecycle_value units with stable IDs, definitions, and links to the lifecycle types or typed units that use them, rather than embedded as lifecycle-state strings.
+  Links: LATTICE-DECISION-004
+- `LATTICE-DECISION-006` (decision, owner: lattice): Generated HTML documentation includes the search interface and embedded search index in the shared shell template so every page can search the primary project-domain documentation without requiring a web server.
+  Links: LATTICE-DECISION-002, LATTICE-DECISION-003
+- `LATTICE-DECISION-007` (decision, owner: lattice): Generated unit pages avoid prominent implementation metadata such as unit type and owner in the hero. The stable item ID remains available through an unobtrusive copy control.
+  Links: LATTICE-DECISION-003, LATTICE-DECISION-006
+- `LATTICE-DECISION-008` (decision, owner: lattice): Generated unit pages render outgoing typed context inline with summaries, so invariants, lifecycle values, and other domain context provide meaning in the main page instead of appearing only as graph links or backlinks.
+  Links: LATTICE-DECISION-004, LATTICE-DECISION-005, LATTICE-DECISION-007
+- `LATTICE-DECISION-009` (decision, owner: lattice): Lattice links are color-coded by referenced unit type. Dense navigation areas such as outgoing links and backlinks use the text-only lattice-link variant to preserve scanability while keeping type color.
+  Links: LATTICE-DECISION-006, LATTICE-DECISION-008
+- `LATTICE-DECISION-010` (decision, owner: lattice): Generated unit pages show the unit's object type as quiet page context while keeping owner metadata hidden and the stable ID available through an unobtrusive copy control.
+  Links: LATTICE-DECISION-007
+- `LATTICE-DECISION-011` (decision, owner: lattice): Generated unit pages group linked typed context into dedicated sections such as Invariants and Status Values. Invariants are concept units with explicit concept roles; status values are lifecycle_value units. Uncategorized concept links retain a Related Concepts fallback outside business entity pages.
+  Links: LATTICE-DECISION-004, LATTICE-DECISION-005, LATTICE-DECISION-008
+- `LATTICE-DECISION-012` (decision, owner: lattice): Lifecycle vocabularies should be modeled as lifecycle_type units rather than domain_object units, so domain objects remain reserved for durable nouns and lifecycle/state vocabularies render with their own type identity.
+  Links: LATTICE-DECISION-005, LATTICE-DECISION-011
+- `LATTICE-DECISION-013` (decision, owner: lattice): Concrete domain nouns with identity, fields, and lifecycle should be modeled as business_entity units rather than one-off domain-specific Lattice types, so the entity name does not get conflated with the knowledge-unit type name.
+  Links: LATTICE-DECISION-001
+- `LATTICE-DECISION-014` (decision, owner: lattice): Named collections with identity and relationships should be modeled as business_entity units rather than domain_object units when they are concrete business entities, not only glossary-style domain nouns.
+  Links: LATTICE-DECISION-013
+- `LATTICE-DECISION-015` (decision, owner: lattice): Generated business entity pages should render constraining invariant concepts in an explicit Invariants section by combining outgoing concept links with typed concept backlinks, and should not render a generic Related Concepts fallback for untyped concept context.
+  Links: LATTICE-DECISION-011, LATTICE-DECISION-013, LATTICE-DECISION-014
+- `LATTICE-DECISION-016` (decision, owner: lattice): Status value labels should be friendly value names such as Open, In progress, Blocked, Done, and Removed because lifecycle pages and Status Values sections already provide the status context.
+  Links: LATTICE-DECISION-005, LATTICE-DECISION-011
+- `LATTICE-DECISION-017` (decision, owner: lattice): Status values should be modeled as lifecycle_value units rather than concept units because they are members of a lifecycle vocabulary.
+  Links: LATTICE-DECISION-005, LATTICE-DECISION-016
+- `LATTICE-DECISION-018` (decision, owner: lattice): Invariants should link to the business entity they constrain, not to unrelated lifecycle types. Lifecycle type pages should focus on lifecycle values and only receive invariant context when an invariant actually constrains the lifecycle vocabulary itself.
+  Links: LATTICE-DECISION-011, LATTICE-DECISION-015
+- `LATTICE-DECISION-019` (decision, owner: lattice): Generated unit pages hide decision units from visible outgoing-link and backlink panels except on decision pages. Decisions remain in the underlying graph and search data, but domain documentation should foreground domain concepts, invariants, lifecycle values, and entities instead of build-history decisions.
+  Links: LATTICE-DECISION-009, LATTICE-DECISION-015
+- `LATTICE-DECISION-020` (decision, owner: lattice): Generated field tables render field type names as Lattice links. Field types should be modeled as canonical data_type or lifecycle_type units when the project wants every displayed type to have a link target.
+  Links: LATTICE-DECISION-003, LATTICE-DECISION-009
+- `LATTICE-DECISION-021` (decision, owner: lattice): Business entities should link to lifecycle types rather than directly linking to every lifecycle value. The lifecycle type owns and renders the values, keeping entity pages focused on fields and invariants while preserving the full status vocabulary on the lifecycle page.
+  Links: LATTICE-DECISION-005, LATTICE-DECISION-017
+- `LATTICE-DECISION-022` (decision, owner: lattice): Generated HTML documentation adopts the compact project-docs shell from the downloaded design while preserving the Lattice rendering infrastructure. The shared shell owns top search and sidebar navigation; unit, index, and background templates reuse the same shell, design tokens, and lattice-link variants instead of reimplementing page chrome.
+  Links: LATTICE-DECISION-003, LATTICE-DECISION-006, LATTICE-DECISION-009, LATTICE-DECISION-019
+- `LATTICE-DECISION-023` (decision, owner: lattice): Generated HTML documentation is assembled from LitElement custom elements for the app shell, top bar, search, navigation, generic unit page, type-specific page wrappers, field tables, concept sections, link panels, copy controls, and raw JSON disclosure. Type-specific pages wrap the generic lattice-unit-page through named slots so custom pages can add or reorder content without duplicating the core page structure.
+  Links: LATTICE-DECISION-003, LATTICE-DECISION-009, LATTICE-DECISION-020, LATTICE-DECISION-022
+- `LATTICE-DECISION-024` (decision, owner: lattice): Example domains are packaged as standalone Lattice projects under examples instead of living in the distribution's own lattice/specs tree. The distribution docs should describe Lattice itself by default, while each example owns its domain units, generated docs, and local lattice.yml configuration.
+  Links: LATTICE-DECISION-002, LATTICE-DECISION-022, LATTICE-DECISION-023
 - `PROJECT-DOMAIN-001` (domain_object, owner: project): A durable unit of project knowledge with exactly one Lattice spec as its source of truth.
   Links: PROJECT-CONCEPT-001, PROJECT-RULE-001
 - `PROJECT-RULE-001-EX001` (example, owner: project): Generated docs reference canonical specs
@@ -82,3 +130,5 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: PROJECT-RULE-001
 - `PROJECT-TEST-001` (test_binding, owner: project): Bootstrap validation covers single-owner rule
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
+- `PROJECT-WORKFLOW-001` (workflow, owner: project): An LLM interviews the user with a structured question ladder to define a bounded modeling slice of an existing codebase, clarify the relevant comparison semantics and analysis rubric, and refine the boundary until the scope is stable.
+  Links: PROJECT-CONCEPT-002, PROJECT-RULE-002

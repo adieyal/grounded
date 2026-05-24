@@ -1,0 +1,15 @@
+{
+  "decision": "Status value labels should be friendly value names such as Open, In progress, Blocked, Done, and Removed because lifecycle pages and Status Values sections already provide the status context.",
+  "id": "LATTICE-DECISION-016",
+  "kind": "decision",
+  "name": "Use friendly status value labels",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-005",
+    "LATTICE-DECISION-011"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

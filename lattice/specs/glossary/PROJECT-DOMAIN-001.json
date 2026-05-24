@@ -30,14 +30,6 @@
   "relationships": [
     "May be referenced by rules, examples, tests, plans, code comments, or generated docs."
   ],
-  "key_invariants": [
-    "A durable fact has one canonical owner even when many generated artifacts repeat it."
-  ],
-  "lifecycle_states": [
-    "draft",
-    "active",
-    "retired"
-  ],
   "open_questions": [],
   "owner": "project",
   "preferred_term": "Canonical project fact",

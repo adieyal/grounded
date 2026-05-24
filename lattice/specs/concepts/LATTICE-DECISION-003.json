@@ -1,0 +1,14 @@
+{
+  "decision": "Generated unit pages render structured fields and typed details before implementation data. Raw JSON remains available for debugging and traceability, but it is hidden by default behind a disclosure control.",
+  "id": "LATTICE-DECISION-003",
+  "kind": "decision",
+  "name": "Render structured fields before raw JSON",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-001"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

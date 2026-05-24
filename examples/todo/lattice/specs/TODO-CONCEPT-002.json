@@ -1,0 +1,13 @@
+{
+  "id": "TODO-CONCEPT-002",
+  "concept_role": "invariant",
+  "name": "TodoItem belongs to one TodoList",
+  "owner": "example",
+  "references": [
+    "TODO-ITEM-001",
+    "TODO-LIST-001"
+  ],
+  "status": "active",
+  "summary": "A TodoItem belongs to exactly one TodoList.",
+  "type": "concept"
+}

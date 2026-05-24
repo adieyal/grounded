@@ -1,0 +1,12 @@
+{
+  "command": "lattice validate && lattice audit",
+  "id": "PROJECT-VERIFY-001",
+  "kind": "verification",
+  "name": "Bootstrap validation",
+  "owner": "lattice",
+  "references": [
+    "PROJECT-DOMAIN-001"
+  ],
+  "status": "active",
+  "target": "PROJECT-DOMAIN-001"
+}

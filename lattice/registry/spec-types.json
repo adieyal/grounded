@@ -67,8 +67,6 @@
       "not",
       "fields",
       "relationships",
-      "key_invariants",
-      "lifecycle_states",
       "open_questions"
     ],
     "reference_fields": [
@@ -83,6 +81,97 @@
       "owner",
       "status",
       "definition"
+    ]
+  },
+  "lifecycle_type": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "renderer": "unit.html.j2",
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "definition"
+    ],
+    "schema": {
+      "additionalProperties": true,
+      "properties": {
+        "definition": {
+          "type": "string"
+        },
+        "kind": {
+          "const": "lifecycle_type"
+        },
+        "type": {
+          "const": "lifecycle_type"
+        }
+      },
+      "required": [
+        "definition"
+      ],
+      "type": "object"
+    },
+    "search_fields": [
+      "id",
+      "name",
+      "definition",
+      "summary"
+    ]
+  },
+  "lifecycle_value": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "renderer": "unit.html.j2",
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "summary"
+    ],
+    "schema": {
+      "additionalProperties": true,
+      "properties": {
+        "kind": {
+          "const": "lifecycle_value"
+        },
+        "summary": {
+          "type": "string"
+        },
+        "type": {
+          "const": "lifecycle_value"
+        }
+      },
+      "required": [
+        "summary"
+      ],
+      "type": "object"
+    },
+    "search_fields": [
+      "id",
+      "name",
+      "summary"
     ]
   },
   "example": {
@@ -169,6 +258,52 @@
       "definition"
     ]
   },
+  "data_type": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "renderer": "unit.html.j2",
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "definition"
+    ],
+    "schema": {
+      "additionalProperties": true,
+      "properties": {
+        "definition": {
+          "type": "string"
+        },
+        "kind": {
+          "const": "data_type"
+        },
+        "type": {
+          "const": "data_type"
+        }
+      },
+      "required": [
+        "definition"
+      ],
+      "type": "object"
+    },
+    "search_fields": [
+      "id",
+      "name",
+      "definition",
+      "summary"
+    ]
+  },
   "test_binding": {
     "list_fields": [
       "references"
@@ -187,6 +322,87 @@
     ],
     "single_reference_fields": [
       "target"
+    ]
+  },
+  "business_entity": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples",
+      "fields"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "renderer": "unit.html.j2",
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "definition"
+    ],
+    "schema": {
+      "additionalProperties": true,
+      "properties": {
+        "definition": {
+          "type": "string"
+        },
+        "fields": {
+          "items": {
+            "additionalProperties": true,
+            "properties": {
+              "allowed_values": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "description": {
+                "type": "string"
+              },
+              "name": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "required": {
+                "type": "boolean"
+              },
+              "type": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "type"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "kind": {
+          "const": "business_entity"
+        },
+        "type": {
+          "const": "business_entity"
+        }
+      },
+      "required": [
+        "definition"
+      ],
+      "type": "object"
+    },
+    "search_fields": [
+      "id",
+      "name",
+      "definition",
+      "fields",
+      "summary"
     ]
   },
   "workflow": {

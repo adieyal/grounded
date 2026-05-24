@@ -1,0 +1,16 @@
+{
+  "definition": "The lifecycle vocabulary for a todo item. Each allowed status is an explicit linked lifecycle value with its own definition.",
+  "id": "TODO-LIFECYCLE-001",
+  "type": "lifecycle_type",
+  "name": "TodoStatus",
+  "owner": "example",
+  "references": [
+    "TODO-ITEM-001",
+    "TODO-STATUS-001",
+    "TODO-STATUS-002",
+    "TODO-STATUS-003",
+    "TODO-STATUS-004",
+    "TODO-STATUS-005"
+  ],
+  "status": "active"
+}

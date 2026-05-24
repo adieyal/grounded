@@ -8,8 +8,12 @@ from .registry import SpecRegistry
 from .render import render_all
 
 
-REFERENCE_PATTERN = re.compile(r"\b[A-Z][A-Z0-9]+(?:-[A-Z0-9]+)+-\d{3,}(?:-EX\d{3,})?\b")
-HARD_CODED_STYLE_PATTERN = re.compile(r"(?:#[0-9a-fA-F]{3,8}\b|rgb[a]?\(|\b(?:margin|padding|gap|border-radius):\s*[0-9.]+(?:px|rem|em))")
+REFERENCE_PATTERN = re.compile(
+    r"\b[A-Z][A-Z0-9]+(?:-[A-Z0-9]+)+-\d{3,}(?:-EX\d{3,})?\b"
+)
+HARD_CODED_STYLE_PATTERN = re.compile(
+    r"(?:#[0-9a-fA-F]{3,8}\b|rgb[a]?\(|\b(?:margin|padding|gap|border-radius):\s*[0-9.]+(?:px|rem|em))"
+)
 
 
 def audit(config: LatticeConfig, registry: SpecRegistry) -> list[Issue]:
@@ -25,7 +29,9 @@ def audit(config: LatticeConfig, registry: SpecRegistry) -> list[Issue]:
 def audit_generated_views(config: LatticeConfig, registry: SpecRegistry) -> list[Issue]:
     stale = render_all(config, registry, check=True)
     return [
-        Issue("LATTICE-DRIFT-001", f"generated view is stale: {path}", config.root / path)
+        Issue(
+            "LATTICE-DRIFT-001", f"generated view is stale: {path}", config.root / path
+        )
         for path in stale
     ]
 
@@ -37,9 +43,17 @@ def audit_style_source(config: LatticeConfig) -> list[Issue]:
         return [Issue("LATTICE-STYLE-001", "central style.css is missing", source)]
     text = source.read_text(encoding="utf-8")
     if ":root" not in text or "--color-" not in text or "--space-" not in text:
-        issues.append(Issue("LATTICE-STYLE-002", "central style.css should define design tokens in :root", source))
+        issues.append(
+            Issue(
+                "LATTICE-STYLE-002",
+                "central style.css should define design tokens in :root",
+                source,
+            )
+        )
 
-    for path in _iter_audit_files(config, {".git", ".venv", "__pycache__", "node_modules", "generated"}):
+    for path in _iter_audit_files(
+        config, {".git", ".venv", "__pycache__", "node_modules", "generated"}
+    ):
         if path == source or path.suffix not in {".html", ".css"}:
             continue
         candidate = path.read_text(encoding="utf-8", errors="ignore")
@@ -79,22 +93,58 @@ def audit_test_coverage(config: LatticeConfig, registry: SpecRegistry) -> list[I
     return issues
 
 
-def audit_unknown_code_references(config: LatticeConfig, registry: SpecRegistry) -> list[Issue]:
+def audit_unknown_code_references(
+    config: LatticeConfig, registry: SpecRegistry
+) -> list[Issue]:
     issues: list[Issue] = []
     ignored_parts = {".git", ".venv", "__pycache__", "node_modules", "generated"}
     candidates = list(_iter_audit_files(config, ignored_parts))
+    known_ids = set(registry.by_id) | _external_example_ids(config)
     for path in candidates:
         if path.is_relative_to(config.specs_dir):
             continue
         text = path.read_text(encoding="utf-8", errors="ignore")
         for match in REFERENCE_PATTERN.findall(text):
-            if match not in registry.by_id:
-                issues.append(Issue("LATTICE-REF-004", f"artifact references unknown Lattice id {match}", path))
+            if match not in known_ids:
+                issues.append(
+                    Issue(
+                        "LATTICE-REF-004",
+                        f"artifact references unknown Lattice id {match}",
+                        path,
+                    )
+                )
     return issues
 
 
+def _external_example_ids(config: LatticeConfig) -> set[str]:
+    examples_dir = config.root / "examples"
+    if not examples_dir.exists():
+        return set()
+    ids: set[str] = set()
+    for path in examples_dir.glob("*/lattice/specs/**/*.json"):
+        try:
+            data = path.read_text(encoding="utf-8")
+        except OSError:
+            continue
+        for match in REFERENCE_PATTERN.findall(data):
+            ids.add(match)
+    return ids
+
+
 def _iter_audit_files(config: LatticeConfig, ignored_parts: set[str]):
-    suffixes = {".py", ".ts", ".tsx", ".js", ".jsx", ".md", ".json", ".yml", ".yaml", ".html", ".css"}
+    suffixes = {
+        ".py",
+        ".ts",
+        ".tsx",
+        ".js",
+        ".jsx",
+        ".md",
+        ".json",
+        ".yml",
+        ".yaml",
+        ".html",
+        ".css",
+    }
     for root in config.audit_roots:
         if not root.exists():
             continue
@@ -102,7 +152,9 @@ def _iter_audit_files(config: LatticeConfig, ignored_parts: set[str]):
         for path in paths:
             if not path.is_file():
                 continue
-            if any(part in ignored_parts for part in path.relative_to(config.root).parts):
+            if any(
+                part in ignored_parts for part in path.relative_to(config.root).parts
+            ):
                 continue
             if path.suffix in suffixes:
                 yield path

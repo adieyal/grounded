@@ -29,17 +29,39 @@ def load_config(root: Path | None = None) -> LatticeConfig:
         values[key.strip()] = value.strip().strip('"').strip("'")
 
     specs_dir = project_root / values.get("specs_dir", "lattice/specs")
-    type_registry_path = project_root / values.get("type_registry_path", "lattice/registry/spec-types.json")
+    type_registry_path = project_root / values.get(
+        "type_registry_path", "lattice/registry/spec-types.json"
+    )
     schemas_dir = project_root / values.get("schemas_dir", "lattice/schemas")
-    templates_dir = project_root / values.get("templates_dir", "lattice/renderers/templates")
+    templates_dir = project_root / values.get(
+        "templates_dir", "lattice/renderers/templates"
+    )
     styles_dir = project_root / values.get("styles_dir", "lattice/styles")
     docs_dir = project_root / values.get("generated_docs_dir", "lattice/generated/docs")
     llm_dir = project_root / values.get("generated_llm_dir", "lattice/generated/llm")
-    search_index_path = project_root / values.get("search_index_path", "lattice/generated/docs/search-index.json")
+    search_index_path = project_root / values.get(
+        "search_index_path", "lattice/generated/docs/search-index.json"
+    )
+    docs_title = values.get("docs_title", config.docs_title)
+    docs_eyebrow = values.get("docs_eyebrow", config.docs_eyebrow)
+    docs_description = values.get("docs_description", config.docs_description)
+    docs_nav_label = values.get("docs_nav_label", config.docs_nav_label)
+    docs_background_title = values.get(
+        "docs_background_title", config.docs_background_title
+    )
+    docs_background_description = values.get(
+        "docs_background_description", config.docs_background_description
+    )
     test_kinds = values.get("required_test_kinds", "business_rule,example")
-    required_test_kinds = frozenset(item.strip() for item in test_kinds.split(",") if item.strip())
+    required_test_kinds = frozenset(
+        item.strip() for item in test_kinds.split(",") if item.strip()
+    )
     audit_roots_value = values.get("audit_roots", "src,tests,docs,README.md,AGENTS.md")
-    audit_roots = tuple(project_root / item.strip() for item in audit_roots_value.split(",") if item.strip())
+    audit_roots = tuple(
+        project_root / item.strip()
+        for item in audit_roots_value.split(",")
+        if item.strip()
+    )
 
     return LatticeConfig(
         root=project_root,
@@ -51,6 +73,12 @@ def load_config(root: Path | None = None) -> LatticeConfig:
         generated_docs_dir=docs_dir,
         generated_llm_dir=llm_dir,
         search_index_path=search_index_path,
+        docs_title=docs_title,
+        docs_eyebrow=docs_eyebrow,
+        docs_description=docs_description,
+        docs_nav_label=docs_nav_label,
+        docs_background_title=docs_background_title,
+        docs_background_description=docs_background_description,
         required_test_kinds=required_test_kinds,
         audit_roots=audit_roots,
     )

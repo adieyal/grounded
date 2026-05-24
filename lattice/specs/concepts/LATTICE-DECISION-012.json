@@ -1,0 +1,15 @@
+{
+  "decision": "Lifecycle vocabularies should be modeled as lifecycle_type units rather than domain_object units, so domain objects remain reserved for durable nouns and lifecycle/state vocabularies render with their own type identity.",
+  "id": "LATTICE-DECISION-012",
+  "kind": "decision",
+  "name": "Model lifecycle vocabularies as lifecycle types",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-005",
+    "LATTICE-DECISION-011"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

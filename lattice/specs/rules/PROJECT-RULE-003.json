@@ -1,0 +1,14 @@
+{
+  "id": "PROJECT-RULE-003",
+  "kind": "business_rule",
+  "name": "Semantic slices may nest and overlap",
+  "owner": "project",
+  "references": [
+    "PROJECT-CONCEPT-001",
+    "PROJECT-CONCEPT-002",
+    "PROJECT-CONCEPT-003"
+  ],
+  "status": "active",
+  "statement": "Semantic slices may overlap, and a semantic slice may optionally declare a parent slice to form a nested hierarchy.",
+  "tests": []
+}

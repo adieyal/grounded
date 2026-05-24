@@ -1,0 +1,11 @@
+{
+  "id": "TODO-STATUS-003",
+  "name": "Blocked",
+  "owner": "example",
+  "references": [
+    "TODO-LIFECYCLE-001"
+  ],
+  "status": "active",
+  "summary": "Blocked means the TodoItem cannot move forward until a dependency, answer, or external condition changes.",
+  "type": "lifecycle_value"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "LATTICE-TEST-007",
+  "kind": "test_binding",
+  "name": "Tagged objects and fields render tag links and grouped tag pages",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-035"
+  ],
+  "status": "active",
+  "target": "LATTICE-DECISION-035",
+  "test": "uv run pytest tests/test_lattice.py -q"
+}

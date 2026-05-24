@@ -1,0 +1,14 @@
+{
+  "decision": "Enum knowledge units model a closed list of string values. Enum pages should render those values explicitly so the allowed set is visible in generated docs and downstream readers do not need to inspect raw JSON to understand the boundary.",
+  "id": "LATTICE-DECISION-034",
+  "kind": "decision",
+  "name": "Render enum values on enum pages",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-027"
+  ],
+  "status": "active",
+  "tests": [
+    "LATTICE-TEST-006"
+  ]
+}

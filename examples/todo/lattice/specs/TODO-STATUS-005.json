@@ -1,0 +1,11 @@
+{
+  "id": "TODO-STATUS-005",
+  "name": "Removed",
+  "owner": "example",
+  "references": [
+    "TODO-LIFECYCLE-001"
+  ],
+  "status": "active",
+  "summary": "Removed means the TodoItem is no longer part of the active list, while its historical record may remain traceable.",
+  "type": "lifecycle_value"
+}

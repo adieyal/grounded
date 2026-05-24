@@ -1,0 +1,11 @@
+{
+  "definition": "A named collection that groups todo items for a person or purpose.",
+  "id": "TODO-LIST-001",
+  "type": "business_entity",
+  "name": "TodoList",
+  "owner": "example",
+  "references": [
+    "TODO-ITEM-001"
+  ],
+  "status": "active"
+}

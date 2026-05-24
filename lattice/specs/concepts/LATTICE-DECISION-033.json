@@ -1,0 +1,15 @@
+{
+  "decision": "Field type resolution should only use exact canonical identifiers or exact display names and must not fall back to matching by kind. Generated unit output paths must reject slug collisions instead of silently overwriting one page with another.",
+  "id": "LATTICE-DECISION-033",
+  "kind": "decision",
+  "name": "Require exact type matches and collision checks",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-020",
+    "LATTICE-DECISION-031"
+  ],
+  "status": "active",
+  "tests": [
+    "LATTICE-TEST-005"
+  ]
+}

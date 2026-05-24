@@ -1,0 +1,12 @@
+{
+  "id": "PROJECT-WORKFLOW-001",
+  "kind": "workflow",
+  "name": "Scope a bounded Lattice model",
+  "owner": "project",
+  "references": [
+    "PROJECT-CONCEPT-002",
+    "PROJECT-RULE-002"
+  ],
+  "status": "active",
+  "summary": "An LLM interviews the user with a structured question ladder to define a bounded modeling slice of an existing codebase, clarify the relevant comparison semantics and analysis rubric, and refine the boundary until the scope is stable."
+}

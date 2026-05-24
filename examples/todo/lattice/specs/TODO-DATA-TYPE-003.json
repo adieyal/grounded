@@ -1,0 +1,11 @@
+{
+  "definition": "A calendar date value used for optional todo due dates.",
+  "id": "TODO-DATA-TYPE-003",
+  "name": "date",
+  "owner": "example",
+  "references": [
+    "TODO-ITEM-001"
+  ],
+  "status": "active",
+  "type": "data_type"
+}

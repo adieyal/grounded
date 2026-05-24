@@ -1,0 +1,11 @@
+{
+  "id": "TODO-STATUS-004",
+  "name": "Done",
+  "owner": "example",
+  "references": [
+    "TODO-LIFECYCLE-001"
+  ],
+  "status": "active",
+  "summary": "Done means the TodoItem's intended work has been completed and no further action is expected.",
+  "type": "lifecycle_value"
+}

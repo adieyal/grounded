@@ -1,0 +1,17 @@
+{
+  "decision": "Generated HTML documentation is assembled from LitElement custom elements for the app shell, top bar, search, navigation, generic unit page, type-specific page wrappers, field tables, concept sections, link panels, copy controls, and raw JSON disclosure. Type-specific pages wrap the generic lattice-unit-page through named slots so custom pages can add or reorder content without duplicating the core page structure.",
+  "id": "LATTICE-DECISION-023",
+  "kind": "decision",
+  "name": "Componentize generated docs with Lit",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-003",
+    "LATTICE-DECISION-009",
+    "LATTICE-DECISION-020",
+    "LATTICE-DECISION-022"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

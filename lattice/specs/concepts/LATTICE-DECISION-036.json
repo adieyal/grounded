@@ -1,0 +1,17 @@
+{
+  "decision": "The core renderer exposes a reusable unit-core.html.j2 template for projects to extend. The shared unit core owns page chrome, field rendering, field anchors, collection-aware field types, and field references, while project templates override only project-specific sections such as examples or invariants.",
+  "id": "LATTICE-DECISION-036",
+  "kind": "decision",
+  "name": "Expose a reusable unit core template",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-030",
+    "LATTICE-DECISION-031",
+    "LATTICE-DECISION-034",
+    "LATTICE-DECISION-035"
+  ],
+  "status": "active",
+  "tests": [
+    "LATTICE-TEST-008"
+  ]
+}

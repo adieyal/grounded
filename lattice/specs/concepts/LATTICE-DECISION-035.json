@@ -1,0 +1,14 @@
+{
+  "decision": "Knowledge units and their field definitions may include an optional tags array of project-defined strings. Tags are rendered as clickable lattice-links to generated tag pages, and each tag page groups matching members by type so the project can define semantics without baking them into the core registry.",
+  "id": "LATTICE-DECISION-035",
+  "kind": "decision",
+  "name": "Support project-defined tags with tag pages",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-027"
+  ],
+  "status": "active",
+  "tests": [
+    "LATTICE-TEST-007"
+  ]
+}

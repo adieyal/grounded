@@ -1,0 +1,12 @@
+{
+  "id": "PROJECT-TEST-002",
+  "kind": "test_binding",
+  "name": "Semantic slice nesting is covered by Lattice validation",
+  "owner": "project",
+  "references": [
+    "PROJECT-RULE-003"
+  ],
+  "status": "active",
+  "target": "PROJECT-RULE-003",
+  "test": "lattice validate && lattice audit"
+}

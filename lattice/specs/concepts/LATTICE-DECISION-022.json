@@ -1,0 +1,17 @@
+{
+  "decision": "Generated HTML documentation adopts the compact project-docs shell from the downloaded design while preserving the Lattice rendering infrastructure. The shared shell owns top search and sidebar navigation; unit, index, and background templates reuse the same shell, design tokens, and lattice-link variants instead of reimplementing page chrome.",
+  "id": "LATTICE-DECISION-022",
+  "kind": "decision",
+  "name": "Adopt compact docs shell",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-003",
+    "LATTICE-DECISION-006",
+    "LATTICE-DECISION-009",
+    "LATTICE-DECISION-019"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

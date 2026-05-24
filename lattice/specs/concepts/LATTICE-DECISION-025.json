@@ -1,0 +1,15 @@
+{
+  "decision": "New projects initialized with lattice init store project-local Lattice files under .lattice by default. Projects can override that location during initialization, and the generated lattice.yml records explicit paths so existing projects with a lattice directory continue to work.",
+  "id": "LATTICE-DECISION-025",
+  "kind": "decision",
+  "name": "Initialize project files under .lattice",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-001",
+    "LATTICE-DECISION-024"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

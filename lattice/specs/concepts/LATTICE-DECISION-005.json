@@ -1,0 +1,14 @@
+{
+  "decision": "Status values should be represented as explicit lifecycle_value units with stable IDs, definitions, and links to the lifecycle types or typed units that use them, rather than embedded as lifecycle-state strings.",
+  "id": "LATTICE-DECISION-005",
+  "kind": "decision",
+  "name": "Model statuses as lifecycle values",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-004"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

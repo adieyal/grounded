@@ -1,0 +1,14 @@
+{
+  "decision": "Generated unit pages show the unit's object type as quiet page context while keeping owner metadata hidden and the stable ID available through an unobtrusive copy control.",
+  "id": "LATTICE-DECISION-010",
+  "kind": "decision",
+  "name": "Show object type as quiet context",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-007"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

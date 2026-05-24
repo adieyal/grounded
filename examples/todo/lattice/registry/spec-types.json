@@ -1,0 +1,162 @@
+{
+  "business_entity": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples",
+      "fields"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "renderer": "unit.html.j2",
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "definition"
+    ],
+    "search_fields": [
+      "id",
+      "name",
+      "definition",
+      "fields",
+      "summary"
+    ]
+  },
+  "concept": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ]
+  },
+  "data_type": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "definition"
+    ],
+    "search_fields": [
+      "id",
+      "name",
+      "definition",
+      "summary"
+    ]
+  },
+  "lifecycle_type": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "definition"
+    ],
+    "search_fields": [
+      "id",
+      "name",
+      "definition",
+      "summary"
+    ]
+  },
+  "lifecycle_value": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "summary"
+    ]
+  },
+  "spec_type": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "definition"
+    ]
+  },
+  "workflow": {
+    "extends": "knowledge_unit",
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "summary"
+    ]
+  }
+}

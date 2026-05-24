@@ -1,0 +1,15 @@
+{
+  "decision": "Lattice links are color-coded by referenced unit type. Dense navigation areas such as outgoing links and backlinks use the text-only lattice-link variant to preserve scanability while keeping type color.",
+  "id": "LATTICE-DECISION-009",
+  "kind": "decision",
+  "name": "Color-code links by unit type",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-006",
+    "LATTICE-DECISION-008"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

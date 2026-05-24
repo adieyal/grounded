@@ -6,7 +6,13 @@ from html import escape
 from pathlib import Path
 from typing import Any
 
-from jinja2 import ChoiceLoader, DictLoader, Environment, FileSystemLoader, select_autoescape
+from jinja2 import (
+    ChoiceLoader,
+    DictLoader,
+    Environment,
+    FileSystemLoader,
+    select_autoescape,
+)
 
 from .models import LatticeConfig, Spec
 from .registry import SpecRegistry
@@ -18,7 +24,9 @@ LINK_COMPONENT_FILENAME = "lattice-link.js"
 SEARCH_FILENAME = "search-index.json"
 
 
-def render_all(config: LatticeConfig, registry: SpecRegistry, *, check: bool = False) -> list[str]:
+def render_all(
+    config: LatticeConfig, registry: SpecRegistry, *, check: bool = False
+) -> list[str]:
     site = build_site(config, registry)
     stale: list[str] = []
     for path, content in site.items():
@@ -44,31 +52,68 @@ def prune_obsolete_outputs(config: LatticeConfig, expected: set[Path]) -> None:
 
 def build_site(config: LatticeConfig, registry: SpecRegistry) -> dict[Path, str]:
     index_path = config.generated_docs_dir / "project-memory.html"
+    background_path = config.generated_docs_dir / "lattice-background.html"
     graph = lattice_registry_for(config, registry, index_path)
-    search_index = build_search_index(config, registry, graph)
+    primary_specs = primary_documentation_specs(registry)
+    primary_ids = {spec.id for spec in primary_specs}
+    background_specs = [
+        spec for spec in registry.active_specs if spec.id not in primary_ids
+    ]
     env = template_environment(config)
-    context = base_context(config, registry, graph, index_path)
+    context = base_context(
+        config,
+        registry,
+        graph,
+        index_path,
+        specs=primary_specs,
+        search_specs=primary_specs,
+    )
+    background_context = base_context(
+        config,
+        registry,
+        lattice_registry_for(config, registry, background_path),
+        background_path,
+        specs=background_specs,
+        search_specs=primary_specs,
+    )
+    search_index = build_search_index(config, registry, graph, specs=primary_specs)
     outputs = {
         config.generated_docs_dir / "project-memory.md": render_markdown(registry),
-        config.generated_docs_dir / "project-memory.html": env.get_template("index.html.j2").render(
+        config.generated_docs_dir / "project-memory.html": env.get_template(
+            "index.html.j2"
+        ).render(
             **context,
-            search_index_path=SEARCH_FILENAME,
+            background_href=href_for(index_path, background_path),
+        ),
+        background_path: env.get_template("background.html.j2").render(
+            **background_context,
+            main_href=href_for(background_path, index_path),
         ),
         config.generated_docs_dir / CSS_FILENAME: render_css(config),
         config.generated_docs_dir / LINK_COMPONENT_FILENAME: render_link_component(),
-        config.search_index_path: json.dumps(search_index, indent=2, sort_keys=True) + "\n",
+        config.search_index_path: json.dumps(search_index, indent=2, sort_keys=True)
+        + "\n",
         config.generated_llm_dir / "context-pack.md": render_llm_pack(registry),
     }
     for spec in registry.active_specs:
         output_path = unit_output_path(config, spec)
         unit_graph = lattice_registry_for(config, registry, output_path)
-        unit_context = base_context(config, registry, unit_graph, output_path)
+        nav_specs = primary_specs if spec.id in primary_ids else background_specs
+        unit_context = base_context(
+            config,
+            registry,
+            unit_graph,
+            output_path,
+            specs=nav_specs,
+            search_specs=primary_specs,
+        )
         type_def = registry.type_definition_for(spec)
         template_name = type_def.renderer if type_def else "unit.html.j2"
         if template_name not in env.list_templates():
             template_name = "unit.html.j2"
         outputs[output_path] = env.get_template(template_name).render(
             **unit_context,
+            current_spec=spec,
             spec=spec,
             data=spec.data,
             backlinks=unit_graph[lattice_key(spec)].get("backlinks", []),
@@ -82,23 +127,73 @@ def template_environment(config: LatticeConfig) -> Environment:
     if config.templates_dir.exists():
         loaders.append(FileSystemLoader(str(config.templates_dir)))
     loaders.append(DictLoader(DEFAULT_TEMPLATES))
-    env = Environment(loader=ChoiceLoader(loaders), autoescape=select_autoescape(("html", "j2")))
+    env = Environment(
+        loader=ChoiceLoader(loaders), autoescape=select_autoescape(("html", "j2"))
+    )
     env.filters["field_label"] = field_label
     env.filters["as_json"] = lambda value: json.dumps(value, indent=2, sort_keys=True)
+    env.globals["display_fields"] = display_fields
+    env.globals["detail_sections"] = detail_sections
+    env.globals["concept_sections"] = concept_sections
+    env.globals["field_type_display"] = field_type_display
+    env.globals["page_component"] = page_component
+    env.globals["type_tone"] = type_tone
+    env.globals["type_nav_label"] = type_nav_label
+    env.globals["visible_link_nodes"] = visible_link_nodes
     return env
 
 
-def base_context(config: LatticeConfig, registry: SpecRegistry, graph: dict[str, dict[str, Any]], output_path: Path) -> dict[str, Any]:
+def primary_documentation_specs(registry: SpecRegistry) -> list[Spec]:
+    primary = [
+        spec
+        for spec in registry.active_specs
+        if spec.owner not in {"lattice", "project"}
+    ]
+    return sorted(
+        primary or registry.active_specs, key=lambda item: (item.kind, item.id)
+    )
+
+
+def base_context(
+    config: LatticeConfig,
+    registry: SpecRegistry,
+    graph: dict[str, dict[str, Any]],
+    output_path: Path,
+    *,
+    specs: list[Spec] | None = None,
+    search_specs: list[Spec] | None = None,
+) -> dict[str, Any]:
+    visible_specs = sorted(
+        specs if specs is not None else registry.active_specs,
+        key=lambda item: (item.kind, item.id),
+    )
     return {
         "generated_header": GENERATED_HEADER,
         "registry": registry,
-        "specs": sorted(registry.active_specs, key=lambda item: (item.kind, item.id)),
-        "by_type": specs_by_type(registry.active_specs),
-        "type_counts": Counter(spec.kind for spec in registry.active_specs),
+        "specs": visible_specs,
+        "by_type": specs_by_type(visible_specs),
+        "type_counts": Counter(spec.kind for spec in visible_specs),
         "lattice_registry": graph,
         "lattice_registry_json": json.dumps(graph, sort_keys=True),
+        "search_index_json": json.dumps(
+            build_search_index(
+                config, registry, graph, specs=search_specs or visible_specs
+            ),
+            sort_keys=True,
+        ),
+        "docs_title": config.docs_title,
+        "docs_eyebrow": config.docs_eyebrow,
+        "docs_description": config.docs_description,
+        "docs_nav_label": config.docs_nav_label,
+        "docs_background_title": config.docs_background_title,
+        "docs_background_description": config.docs_background_description,
         "css_href": href_for(output_path, config.generated_docs_dir / CSS_FILENAME),
-        "link_component_href": href_for(output_path, config.generated_docs_dir / LINK_COMPONENT_FILENAME),
+        "docs_home_href": href_for(
+            output_path, config.generated_docs_dir / "project-memory.html"
+        ),
+        "link_component_href": href_for(
+            output_path, config.generated_docs_dir / LINK_COMPONENT_FILENAME
+        ),
         "unit_href": lambda spec: href_for(output_path, unit_output_path(config, spec)),
         "lattice_link": lattice_link,
     }
@@ -108,7 +203,10 @@ def specs_by_type(specs: list[Spec]) -> dict[str, list[Spec]]:
     by_type: dict[str, list[Spec]] = {}
     for spec in specs:
         by_type.setdefault(spec.kind, []).append(spec)
-    return {key: sorted(value, key=lambda spec: spec.id) for key, value in sorted(by_type.items())}
+    return {
+        key: sorted(value, key=lambda spec: spec.id)
+        for key, value in sorted(by_type.items())
+    }
 
 
 def lattice_key(spec: Spec) -> str:
@@ -119,7 +217,9 @@ def unit_output_path(config: LatticeConfig, spec: Spec) -> Path:
     return config.generated_docs_dir / "units" / f"{slugify(spec.id)}.html"
 
 
-def lattice_registry_for(config: LatticeConfig, registry: SpecRegistry, from_path: Path) -> dict[str, dict[str, Any]]:
+def lattice_registry_for(
+    config: LatticeConfig, registry: SpecRegistry, from_path: Path
+) -> dict[str, dict[str, Any]]:
     outgoing: dict[str, list[str]] = {}
     backlinks: dict[str, list[str]] = {}
     for spec in registry.active_specs:
@@ -138,13 +238,20 @@ def lattice_registry_for(config: LatticeConfig, registry: SpecRegistry, from_pat
             "label": spec.data.get("name", spec.id),
             "href": href_for(from_path, unit_output_path(config, spec)),
             "summary": spec.statement,
+            "concept_role": spec.data.get("concept_role"),
             "outgoing": outgoing.get(key, []),
             "backlinks": [
                 {
                     "type": registry.by_id[source_id].kind,
                     "id": registry.by_id[source_id].id,
-                    "label": registry.by_id[source_id].data.get("name", registry.by_id[source_id].id),
-                    "href": href_for(from_path, unit_output_path(config, registry.by_id[source_id])),
+                    "label": registry.by_id[source_id].data.get(
+                        "name", registry.by_id[source_id].id
+                    ),
+                    "summary": registry.by_id[source_id].statement,
+                    "concept_role": registry.by_id[source_id].data.get("concept_role"),
+                    "href": href_for(
+                        from_path, unit_output_path(config, registry.by_id[source_id])
+                    ),
                 }
                 for source_key in sorted(backlinks.get(key, []))
                 for source_id in [source_key.split(":", 1)[1]]
@@ -154,7 +261,9 @@ def lattice_registry_for(config: LatticeConfig, registry: SpecRegistry, from_pat
     return graph
 
 
-def outgoing_links_for(spec: Spec, registry: SpecRegistry, graph: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+def outgoing_links_for(
+    spec: Spec, registry: SpecRegistry, graph: dict[str, dict[str, Any]]
+) -> list[dict[str, Any]]:
     links = []
     for target_id in spec.references:
         target = registry.by_id.get(target_id)
@@ -166,16 +275,27 @@ def outgoing_links_for(spec: Spec, registry: SpecRegistry, graph: dict[str, dict
     return links
 
 
-def build_search_index(config: LatticeConfig, registry: SpecRegistry, graph: dict[str, dict[str, Any]]) -> list[dict[str, Any]]:
+def build_search_index(
+    config: LatticeConfig,
+    registry: SpecRegistry,
+    graph: dict[str, dict[str, Any]],
+    *,
+    specs: list[Spec] | None = None,
+) -> list[dict[str, Any]]:
     index: list[dict[str, Any]] = []
-    for spec in sorted(registry.active_specs, key=lambda item: (item.kind, item.id)):
+    for spec in sorted(
+        specs if specs is not None else registry.active_specs,
+        key=lambda item: (item.kind, item.id),
+    ):
         type_def = registry.type_definition_for(spec)
         fields = type_def.search_fields if type_def else ("id", "name", "summary")
         text_parts = [spec.id, spec.kind]
         for field in fields:
             text_parts.extend(flatten_search_value(spec.data.get(field)))
         node = graph[lattice_key(spec)]
-        text_parts.extend(str(backlink["label"]) for backlink in node.get("backlinks", []))
+        text_parts.extend(
+            str(backlink["label"]) for backlink in node.get("backlinks", [])
+        )
         index.append(
             {
                 "id": spec.id,
@@ -249,7 +369,9 @@ def render_llm_pack(registry: SpecRegistry) -> str:
         "",
     ]
     for spec in sorted(registry.active_specs, key=lambda item: (item.kind, item.id)):
-        lines.append(f"- `{spec.id}` ({spec.kind}, owner: {spec.owner or 'unknown'}): {spec.statement}")
+        lines.append(
+            f"- `{spec.id}` ({spec.kind}, owner: {spec.owner or 'unknown'}): {spec.statement}"
+        )
         refs = ", ".join(spec.references)
         if refs:
             lines.append(f"  Links: {refs}")
@@ -257,7 +379,12 @@ def render_llm_pack(registry: SpecRegistry) -> str:
 
 
 def _render_spec_summary(spec: Spec) -> list[str]:
-    lines = [f"### {spec.data.get('name', spec.id)}", "", f"- ID: `{spec.id}`", f"- Type: `{spec.kind}`"]
+    lines = [
+        f"### {spec.data.get('name', spec.id)}",
+        "",
+        f"- ID: `{spec.id}`",
+        f"- Type: `{spec.kind}`",
+    ]
     if spec.owner:
         lines.append(f"- Owner: `{spec.owner}`")
     if spec.statement:
@@ -271,48 +398,257 @@ def _render_spec_summary(spec: Spec) -> list[str]:
 
 def render_link_component() -> str:
     return """\
+import { LitElement, css, html, nothing } from 'https://cdn.jsdelivr.net/npm/lit@3/+esm';
+
 const registryElement = document.getElementById('lattice-registry');
+const searchElement = document.getElementById('lattice-search-index');
 const latticeRegistry = registryElement ? JSON.parse(registryElement.textContent || '{}') : {};
+const latticeSearchIndex = searchElement ? JSON.parse(searchElement.textContent || '[]') : [];
 window.latticeRegistry = latticeRegistry;
+window.latticeSearchIndex = latticeSearchIndex;
 
-const sheet = new CSSStyleSheet();
-sheet.replaceSync(`
-  :host { display: inline-flex; max-width: 100%; vertical-align: baseline; }
-  a { align-items: center; background: var(--color-chip-bg); border: 1px solid var(--color-chip-border); border-radius: var(--radius-sm); color: var(--color-accent-strong); display: inline-flex; font: 650 var(--font-size-sm)/1.2 var(--font-mono); max-width: 100%; padding: var(--space-2xs) var(--space-sm); text-decoration: none; }
-  a:hover, a:focus { background: var(--color-accent-soft); color: var(--color-accent-strong); }
-  a:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
-  :host([variant="text"]) a { background: transparent; border: 0; border-radius: 0; color: var(--color-link); display: inline; font: inherit; padding: 0; }
-`);
-
-class LatticeLink extends HTMLElement {
-  static observedAttributes = ['type', 'lattice-id'];
-  constructor() {
-    super();
-    this.attachShadow({ mode: 'open' });
-    this.shadowRoot.adoptedStyleSheets = [sheet];
-  }
-  attributeChangedCallback() { this.render(); }
-  connectedCallback() { this.render(); }
+class LatticeLink extends LitElement {
+  static properties = {
+    type: { type: String, reflect: true },
+    latticeId: { type: String, attribute: 'lattice-id', reflect: true },
+    variant: { type: String, reflect: true },
+  };
+  static styles = css`
+    :host { --lattice-link-fg: var(--color-link); --lattice-link-bg: var(--color-chip-bg); --lattice-link-border: var(--color-chip-border); display: inline-flex; max-width: 100%; vertical-align: baseline; }
+    :host([type="concept"]) { --lattice-link-fg: var(--color-concept); --lattice-link-bg: var(--color-concept-bg); --lattice-link-border: var(--color-border-tertiary); }
+    :host([type="domain_object"]), :host([type="business_entity"]) { --lattice-link-fg: var(--color-entity); --lattice-link-bg: var(--color-entity-bg); --lattice-link-border: var(--color-border-tertiary); }
+    :host([type="lifecycle_type"]), :host([type="lifecycle_value"]) { --lattice-link-fg: var(--color-text-secondary); --lattice-link-bg: var(--color-enum-bg); --lattice-link-border: var(--color-border-tertiary); }
+    :host([type="workflow"]) { --lattice-link-fg: var(--color-concept); --lattice-link-bg: var(--color-concept-bg); --lattice-link-border: var(--color-border-tertiary); }
+    :host([type="data_type"]) { --lattice-link-fg: var(--color-entity-dark); --lattice-link-bg: var(--color-type-bg); --lattice-link-border: var(--color-border-tertiary); }
+    :host([type="decision"]), :host([type="business_rule"]), :host([type="guardrail"]), :host([type="schema_gap"]), :host([type="spec_type"]), :host([type="test_binding"]) { --lattice-link-fg: var(--color-text-secondary); --lattice-link-bg: var(--color-bg-secondary); --lattice-link-border: var(--color-border-tertiary); }
+    a { align-items: center; background: var(--lattice-link-bg); border: var(--border-width) solid var(--lattice-link-border); border-radius: var(--radius-sm); color: var(--lattice-link-fg); display: inline-flex; font: var(--font-weight-medium) var(--font-size-xs)/1.2 var(--font-mono); max-width: 100%; padding: var(--space-2xs) var(--space-sm); text-decoration: none; }
+    a:hover, a:focus { filter: saturate(1.08) brightness(0.98); color: var(--lattice-link-fg); }
+    a:focus-visible { outline: 2px solid var(--lattice-link-fg); outline-offset: 2px; }
+    :host([variant="text"]) a { background: transparent; border: 0; border-radius: 0; color: var(--lattice-link-fg); display: inline; font: inherit; padding: 0; text-decoration: underline; text-decoration-thickness: 0.08em; text-underline-offset: 0.18em; }
+    :host([variant="plain"]) a { background: transparent; border: 0; border-radius: 0; color: var(--lattice-link-fg); display: inline; font: inherit; padding: 0; text-decoration: none; }
+    :host([variant="plain"]) a:hover { text-decoration: underline; }
+    :host([variant="nav"]) { display: block; min-width: 0; }
+    :host([variant="nav"]) a { background: transparent; border: 0; border-radius: 0; color: inherit; display: block; font: inherit; min-width: 0; padding: 0; text-decoration: none; }
+    :host([variant="card-title"]) a { background: transparent; border: 0; border-radius: 0; color: var(--lattice-link-fg); display: inline; font: var(--font-weight-medium) var(--font-size-md)/1.3 var(--font-sans); padding: 0; text-decoration: none; }
+    :host([variant="card-title"]) a:hover { text-decoration: underline; }
+    :host([variant="field-type"]) a { background: var(--color-type-bg); border-color: transparent; border-radius: var(--radius-xs); color: var(--color-entity-dark); font: var(--font-weight-medium) var(--font-size-xs)/1.2 var(--font-mono); padding: var(--space-3xs) var(--space-sm); }
+  `;
   render() {
-    const type = this.getAttribute('type');
-    const id = this.getAttribute('lattice-id');
-    if (!type || !id) return;
-    const target = latticeRegistry[`${type}:${id}`] || Object.values(latticeRegistry).find((node) => node.id === id);
-    const label = (this.textContent || '').trim() || (target ? target.label : id);
-    const anchor = document.createElement('a');
-    anchor.href = target ? target.href : '#';
-    anchor.part = 'anchor';
-    anchor.dataset.latticeType = type;
-    anchor.dataset.latticeId = id;
-    anchor.textContent = label;
-    this.shadowRoot.replaceChildren(anchor);
+    const target = latticeRegistry[`${this.type}:${this.latticeId}`] || Object.values(latticeRegistry).find((node) => node.id === this.latticeId);
+    const label = (this.textContent || '').trim() || (target ? target.label : this.latticeId);
+    return html`<a href=${target ? target.href : '#'} part="anchor" data-lattice-type=${this.type || ''} data-lattice-id=${this.latticeId || ''}>${label}</a>`;
   }
 }
-if (!customElements.get('lattice-link')) customElements.define('lattice-link', LatticeLink);
+
+class LatticeDocsApp extends LitElement {
+  static styles = css`
+    :host { display: block; min-height: 100vh; }
+    .pd-shell { display: grid; grid-template-columns: 14.75rem minmax(0, 1fr); min-height: calc(100vh - 2.375rem); }
+    @media (max-width: 760px) { .pd-shell { grid-template-columns: 1fr; } }
+  `;
+  render() {
+    return html`
+      <slot name="top"></slot>
+      <div class="pd-shell"><slot name="nav"></slot><slot name="main"></slot></div>
+    `;
+  }
+}
+
+class LatticeTopBar extends LitElement {
+  static properties = { homeHref: { type: String, attribute: 'home-href' }, label: { type: String } };
+  static styles = css`
+    :host { align-items: center; background: var(--color-bg-primary); border-bottom: var(--border-width) solid var(--color-border-primary); display: flex; gap: var(--space-lg); min-height: 2.375rem; padding: 0.5625rem var(--space-lg); position: sticky; top: 0; z-index: 10; }
+    a { color: var(--color-text-secondary); font: var(--font-weight-medium) var(--font-size-xs)/1 var(--font-mono); letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase; white-space: nowrap; }
+    ::slotted(lattice-search) { flex: 1; }
+    @media (max-width: 760px) { :host { align-items: stretch; flex-direction: column; } }
+  `;
+  render() {
+    return html`<a href=${this.homeHref || 'project-memory.html'}>${this.label || 'Project Docs'}</a><slot><lattice-search></lattice-search></slot>`;
+  }
+}
+
+class LatticeSearch extends LitElement {
+  static properties = { query: { type: String } };
+  constructor() {
+    super();
+    this.query = '';
+  }
+  static styles = css`
+    :host { align-items: center; background: var(--color-bg-secondary); border: var(--border-width) solid var(--color-border-primary); border-radius: var(--radius-md); display: flex; gap: var(--space-sm); max-width: 42rem; padding: 0.3125rem 0.625rem; position: relative; }
+    .icon { color: var(--color-text-tertiary); font-size: var(--font-size-md); }
+    input { background: transparent; border: 0; color: var(--color-text-primary); font: var(--font-weight-regular) var(--font-size-sm)/1.2 var(--font-sans); min-width: 0; outline: 0; width: 100%; }
+    input::placeholder { color: var(--color-text-tertiary); }
+    ul { background: var(--color-bg-primary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.08); display: grid; gap: var(--space-3xs); left: 0; list-style: none; margin: 0; max-height: 18rem; overflow: auto; padding: 0; position: absolute; right: 0; top: calc(100% + var(--space-xs)); z-index: 20; }
+    a { color: var(--color-text-primary); display: grid; gap: var(--space-3xs); padding: var(--space-sm) var(--space-md); text-decoration: none; }
+    a:hover { background: var(--color-bg-secondary); }
+    span { color: var(--color-text-tertiary); font: var(--font-weight-medium) var(--font-size-xs)/1.2 var(--font-mono); }
+  `;
+  get results() {
+    const query = this.query.trim().toLowerCase();
+    if (!query) return [];
+    return latticeSearchIndex.filter((item) => item.text.includes(query)).slice(0, 12);
+  }
+  render() {
+    return html`
+      <span class="icon" aria-hidden="true">/</span>
+      <input type="search" placeholder="Search knowledge units..." aria-label="Search knowledge units" .value=${this.query} @input=${(event) => { this.query = event.target.value; }}>
+      ${this.results.length ? html`<ul>${this.results.map((item) => html`<li><a href=${item.href}><strong>${item.name}</strong><span>${item.type} - ${item.id}</span></a></li>`)}</ul>` : nothing}
+    `;
+  }
+}
+
+class LatticeSidebar extends LitElement {
+  static styles = css`
+    :host { background: var(--color-bg-secondary); border-right: var(--border-width) solid var(--color-border-primary); display: block; height: calc(100vh - 2.375rem); overflow-y: auto; padding: var(--space-md) 0; position: sticky; top: 2.375rem; }
+    @media (max-width: 760px) { :host { border-bottom: var(--border-width) solid var(--color-border-primary); border-right: 0; height: auto; max-height: 14rem; position: static; } }
+  `;
+  render() { return html`<slot></slot>`; }
+}
+
+class LatticeNavGroup extends LitElement {
+  static styles = css`
+    :host { display: block; margin-bottom: var(--space-lg); }
+    h2 { color: var(--color-text-tertiary); font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); letter-spacing: 0.15em; margin: 0; padding: 0 var(--space-md) var(--space-xs); text-transform: uppercase; }
+  `;
+  render() { return html`<h2><slot name="label"></slot></h2><slot></slot>`; }
+}
+
+class LatticeNavItem extends LitElement {
+  static properties = { tone: { type: String, reflect: true }, active: { type: Boolean, reflect: true } };
+  static styles = css`
+    :host { align-items: flex-start; border-left: 2px solid transparent; color: var(--color-text-secondary); display: flex; font-size: var(--font-size-sm); gap: var(--space-sm); line-height: 1.35; padding: 0.3125rem var(--space-md); }
+    :host(:hover), :host([active]) { background: var(--color-bg-primary); color: var(--color-text-primary); }
+    :host([active]) { font-weight: var(--font-weight-medium); }
+    :host([active][tone="ent"]) { border-left-color: var(--color-entity); }
+    :host([active][tone="con"]) { border-left-color: var(--color-concept); }
+    :host([active][tone="enu"]) { border-left-color: var(--color-enum); }
+    .dot { background: var(--color-text-tertiary); border-radius: 999px; flex: 0 0 auto; height: 0.375rem; margin-top: 0.3125rem; width: 0.375rem; }
+    :host([tone="ent"]) .dot { background: var(--color-entity); }
+    :host([tone="con"]) .dot { background: #7f77dd; }
+    :host([tone="enu"]) .dot { background: var(--color-enum); }
+  `;
+  render() { return html`<span class="dot" aria-hidden="true"></span><slot></slot>`; }
+}
+
+class LatticeMain extends LitElement {
+  static styles = css`:host { display: block; min-width: 0; overflow-x: auto; }`;
+  render() { return html`<slot></slot>`; }
+}
+
+class LatticePageHero extends LitElement {
+  static styles = css`
+    :host { border-bottom: var(--border-width) solid var(--color-border-tertiary); display: block; padding: 1.375rem var(--space-2xl) 1.125rem; }
+    .eyebrow { color: var(--color-entity-dark); font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); letter-spacing: 0.2em; margin-bottom: var(--space-xs); text-transform: uppercase; }
+    h1 { font: var(--font-weight-regular) var(--font-size-title)/1.1 var(--font-serif); margin: 0 0 var(--space-sm); }
+    p { color: var(--color-text-secondary); font-size: var(--font-size-md); line-height: 1.6; margin: 0 0 var(--space-md); max-width: 36.25rem; }
+    @media (max-width: 760px) { :host { padding-inline: var(--space-lg); } }
+  `;
+  render() {
+    return html`<div class="eyebrow"><slot name="eyebrow"></slot></div><h1><slot name="title"></slot></h1><p><slot name="description"></slot></p><slot name="actions"></slot>`;
+  }
+}
+
+class LatticeCopyId extends LitElement {
+  static properties = { value: { type: String }, copied: { type: Boolean } };
+  constructor() {
+    super();
+    this.value = '';
+    this.copied = false;
+  }
+  static styles = css`
+    button { align-items: center; background: var(--color-bg-secondary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-sm); color: var(--color-text-tertiary); cursor: pointer; display: inline-flex; font: var(--font-weight-medium) var(--font-size-xs)/1.2 var(--font-mono); gap: var(--space-xs); padding: var(--space-2xs) var(--space-sm); }
+    button:hover { color: var(--color-text-secondary); }
+  `;
+  async copy() {
+    if (!this.value) return;
+    try {
+      await navigator.clipboard.writeText(this.value);
+      this.copied = true;
+      window.setTimeout(() => { this.copied = false; }, 1100);
+    } catch {
+      window.prompt('Copy ID', this.value);
+    }
+  }
+  render() { return html`<button type="button" aria-label=${`Copy item ID ${this.value}`} @click=${this.copy}>${this.copied ? 'Copied' : 'Copy ID'}</button>`; }
+}
+
+class LatticeSectionHeading extends LitElement {
+  static styles = css`
+    :host { align-items: center; color: var(--color-text-tertiary); display: flex; font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); gap: var(--space-sm); letter-spacing: 0.15em; margin-bottom: 0.625rem; text-transform: uppercase; }
+    :host([divider])::after { background: var(--color-border-tertiary); content: ""; flex: 1; height: var(--border-width); }
+  `;
+  render() { return html`<slot></slot>`; }
+}
+
+class LatticeIndexPage extends LitElement { render() { return html`<slot></slot>`; } }
+class LatticeBackgroundPage extends LitElement { render() { return html`<slot></slot>`; } }
+class LatticeUnitPage extends LitElement {
+  static styles = css`
+    .unit-layout { display: block; }
+    article { max-width: 64rem; padding: 1.25rem var(--space-2xl) 2rem; }
+    @media (max-width: 760px) { article { padding-inline: var(--space-lg); } }
+  `;
+  render() {
+    return html`<slot name="hero"></slot><div class="unit-layout"><article><slot name="fields"></slot><slot name="before-context"></slot><slot name="context"></slot><slot name="links"></slot><slot name="raw"></slot></article></div>`;
+  }
+}
+
+const unitSlots = html`
+  <slot name="hero" slot="hero"></slot>
+  <slot name="fields" slot="fields"></slot>
+  <slot name="before-context" slot="before-context"></slot>
+  <slot name="context" slot="context"></slot>
+  <slot name="links" slot="links"></slot>
+  <slot name="raw" slot="raw"></slot>
+`;
+class LatticeBusinessEntityPage extends LitElement { render() { return html`<lattice-unit-page>${unitSlots}</lattice-unit-page>`; } }
+class LatticeDomainObjectPage extends LitElement { render() { return html`<lattice-unit-page>${unitSlots}</lattice-unit-page>`; } }
+class LatticeLifecycleTypePage extends LitElement { render() { return html`<lattice-unit-page>${unitSlots}</lattice-unit-page>`; } }
+
+class LatticeFieldTable extends LitElement { static styles = css`:host { display: block; }`; render() { return html`<slot></slot>`; } }
+class LatticeConceptSection extends LitElement { static styles = css`:host { display: grid; gap: 0.4375rem; margin-bottom: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
+class LatticeConceptCard extends LitElement { static styles = css`:host { border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: block; padding: 0.625rem 0.875rem; }`; render() { return html`<slot></slot>`; } }
+class LatticeLinksPanel extends LitElement { static styles = css`:host { display: block; margin-bottom: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
+class LatticeRawJson extends LitElement { static styles = css`:host { display: block; }`; render() { return html`<slot></slot>`; } }
+class LatticeUnitSection extends LitElement { static styles = css`:host { border-bottom: var(--border-width) solid var(--color-border-tertiary); display: block; padding: var(--space-lg) var(--space-xl); }`; render() { return html`<slot></slot>`; } }
+class LatticeUnitCard extends LitElement { static styles = css`:host { background: var(--color-bg-primary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: flex; flex-direction: column; min-height: 6rem; padding: var(--space-md) var(--space-md) 0.625rem; } :host(:hover) { border-color: var(--color-border-primary); }`; render() { return html`<slot></slot>`; } }
+
+const define = (name, component) => {
+  if (!customElements.get(name)) customElements.define(name, component);
+};
+define('lattice-link', LatticeLink);
+define('lattice-docs-app', LatticeDocsApp);
+define('lattice-top-bar', LatticeTopBar);
+define('lattice-search', LatticeSearch);
+define('lattice-sidebar', LatticeSidebar);
+define('lattice-nav-group', LatticeNavGroup);
+define('lattice-nav-item', LatticeNavItem);
+define('lattice-main', LatticeMain);
+define('lattice-page-hero', LatticePageHero);
+define('lattice-copy-id', LatticeCopyId);
+define('lattice-section-heading', LatticeSectionHeading);
+define('lattice-index-page', LatticeIndexPage);
+define('lattice-background-page', LatticeBackgroundPage);
+define('lattice-unit-page', LatticeUnitPage);
+define('lattice-business-entity-page', LatticeBusinessEntityPage);
+define('lattice-domain-object-page', LatticeDomainObjectPage);
+define('lattice-lifecycle-type-page', LatticeLifecycleTypePage);
+define('lattice-field-table', LatticeFieldTable);
+define('lattice-concept-section', LatticeConceptSection);
+define('lattice-concept-card', LatticeConceptCard);
+define('lattice-links-panel', LatticeLinksPanel);
+define('lattice-raw-json', LatticeRawJson);
+define('lattice-unit-section', LatticeUnitSection);
+define('lattice-unit-card', LatticeUnitCard);
 """
 
 
-def lattice_link(type_name: object, unit_id: object, label: object | None = None, variant: str | None = None) -> str:
+def lattice_link(
+    type_name: object,
+    unit_id: object,
+    label: object | None = None,
+    variant: str | None = None,
+) -> str:
     variant_attr = f' variant="{escape(variant)}"' if variant else ""
     text = str(label) if label is not None else str(unit_id)
     return (
@@ -322,7 +658,11 @@ def lattice_link(type_name: object, unit_id: object, label: object | None = None
 
 
 def href_for(from_path: Path, to_path: Path) -> str:
-    return to_path.relative_to(from_path.parent).as_posix() if to_path.parent == from_path.parent else _relative_path(from_path.parent, to_path)
+    return (
+        to_path.relative_to(from_path.parent).as_posix()
+        if to_path.parent == from_path.parent
+        else _relative_path(from_path.parent, to_path)
+    )
 
 
 def _relative_path(from_dir: Path, to_path: Path) -> str:
@@ -343,59 +683,193 @@ def field_label(value: str) -> str:
     return value.replace("_", " ").title()
 
 
-def default_css() -> str:
-    return """/* generated by lattice; central visual source of truth */
-:root {
-  --color-ink: #172026;
-  --color-muted: #5d6872;
-  --color-page: #f7f8f5;
-  --color-panel: #ffffff;
-  --color-soft: #eef2ed;
-  --color-line: #d8ded6;
-  --color-accent: #0f766e;
-  --color-accent-strong: #115e59;
-  --color-accent-soft: #d9f2ed;
-  --color-chip-bg: #f2f6f4;
-  --color-chip-border: #cdd8d4;
-  --color-link: #0f5f59;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  --font-size-sm: 0.86rem;
-  --space-2xs: 0.18rem;
-  --space-xs: 0.35rem;
-  --space-sm: 0.6rem;
-  --space-md: 1rem;
-  --space-lg: 1.5rem;
-  --space-xl: 2.25rem;
-  --radius-sm: 0.35rem;
-  --radius-md: 0.5rem;
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+TYPE_TONES = {
+    "business_entity": "ent",
+    "domain_object": "ent",
+    "concept": "con",
+    "lifecycle_type": "enu",
+    "lifecycle_value": "enu",
+    "data_type": "type",
+    "workflow": "flow",
 }
-* { box-sizing: border-box; }
-body { margin: 0; color: var(--color-ink); background: var(--color-page); line-height: 1.55; }
-a { color: var(--color-link); }
-code { font-family: var(--font-mono); background: var(--color-soft); border-radius: var(--radius-sm); padding: 0.08rem 0.28rem; }
-.page { max-width: 76rem; margin: 0 auto; padding: var(--space-xl) var(--space-lg); }
-.hero { display: grid; gap: var(--space-md); margin-bottom: var(--space-xl); }
-.eyebrow { color: var(--color-accent-strong); font-size: 0.78rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
-h1 { margin: 0; font-size: clamp(2.2rem, 6vw, 4.8rem); line-height: 0.96; letter-spacing: 0; }
-h2 { margin-top: 0; }
-.dek { max-width: 52rem; margin: 0; color: var(--color-muted); font-size: 1.1rem; }
-.search { display: grid; gap: var(--space-sm); max-width: 44rem; margin-top: var(--space-lg); }
-.search input { width: 100%; border: 1px solid var(--color-line); border-radius: var(--radius-md); font: inherit; padding: var(--space-sm) var(--space-md); }
-.search-results { display: grid; gap: var(--space-xs); padding: 0; margin: 0; list-style: none; }
-.search-results a, .card { background: var(--color-panel); border: 1px solid var(--color-line); border-radius: var(--radius-md); }
-.search-results a { display: grid; padding: var(--space-sm) var(--space-md); text-decoration: none; }
-.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); gap: var(--space-md); align-items: start; }
-.card { padding: var(--space-lg); }
-.card h3 { margin: 0 0 var(--space-xs); }
-.meta { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin-top: var(--space-md); }
-.pill { display: inline-flex; align-items: center; min-height: 1.65rem; border: 1px solid var(--color-chip-border); border-radius: var(--radius-sm); color: var(--color-muted); font: 650 var(--font-size-sm)/1.1 var(--font-mono); padding: 0 var(--space-sm); }
-.unit-layout { display: grid; grid-template-columns: minmax(0, 2fr) minmax(18rem, 0.8fr); gap: var(--space-lg); align-items: start; }
-.unit-body { white-space: pre-wrap; }
-.link-list { display: flex; flex-wrap: wrap; gap: var(--space-xs); padding: 0; margin: var(--space-sm) 0 0; list-style: none; }
-.raw-data { overflow: auto; max-height: 32rem; }
-@media (max-width: 800px) { .page { padding: var(--space-lg) var(--space-md); } .unit-layout { grid-template-columns: 1fr; } }
-"""
+
+
+TYPE_NAV_LABELS = {
+    "business_entity": "Business Entities",
+    "domain_object": "Domain",
+    "concept": "Concepts",
+    "lifecycle_type": "Enums",
+    "lifecycle_value": "Enum Values",
+    "data_type": "Data Types",
+    "workflow": "Workflows",
+    "spec_type": "Types",
+}
+
+
+def type_tone(type_name: object) -> str:
+    return TYPE_TONES.get(str(type_name), "meta")
+
+
+def type_nav_label(type_name: object) -> str:
+    return TYPE_NAV_LABELS.get(str(type_name), field_label(str(type_name)))
+
+
+def page_component(type_name: object) -> str:
+    components = {
+        "business_entity": "lattice-business-entity-page",
+        "domain_object": "lattice-domain-object-page",
+        "lifecycle_type": "lattice-lifecycle-type-page",
+    }
+    return components.get(str(type_name), "lattice-unit-page")
+
+
+DETAIL_FIELD_EXCLUDES = {
+    "id",
+    "type",
+    "kind",
+    "name",
+    "owner",
+    "status",
+    "references",
+    "tests",
+    "examples",
+    "links",
+    "fields",
+}
+
+
+def display_fields(spec: Spec) -> list[dict[str, Any]]:
+    fields = spec.data.get("fields")
+    if isinstance(fields, list) and fields:
+        rows = []
+        for field in fields:
+            if isinstance(field, dict):
+                rows.append(
+                    {
+                        "name": str(field.get("name", "")),
+                        "type": str(field.get("type", "value")),
+                        "required": field.get("required"),
+                        "description": field.get("description", ""),
+                        "allowed_values": field.get("allowed_values", []),
+                    }
+                )
+        if rows:
+            return rows
+
+    rows = []
+    for key, value in spec.data.items():
+        if key in DETAIL_FIELD_EXCLUDES:
+            continue
+        rows.append(
+            {
+                "name": key,
+                "type": value_type_name(value),
+                "required": key in {"definition", "summary", "statement", "decision"},
+                "description": display_value(value),
+                "allowed_values": [],
+            }
+        )
+    return rows
+
+
+def field_type_display(field_type: object, registry: SpecRegistry) -> str:
+    type_name = str(field_type)
+    target = field_type_target(type_name, registry)
+    if target is None:
+        return f'<span class="pill field-type">{escape(type_name)}</span>'
+    return lattice_link(
+        target.kind, target.id, target.data.get("name", target.id), "field-type"
+    )
+
+
+def field_type_target(type_name: str, registry: SpecRegistry) -> Spec | None:
+    if type_name in registry.by_id:
+        return registry.by_id[type_name]
+    normalized_type = type_name.casefold()
+    for spec in registry.active_specs:
+        if str(spec.data.get("name", "")).casefold() == normalized_type:
+            return spec
+    for spec in registry.active_specs:
+        if spec.kind == type_name:
+            return spec
+    return None
+
+
+def detail_sections(spec: Spec) -> list[dict[str, Any]]:
+    sections = []
+    for key in ("open_questions",):
+        value = spec.data.get(key)
+        if isinstance(value, list) and value:
+            sections.append(
+                {
+                    "title": field_label(key),
+                    "items": [display_value(item) for item in value],
+                }
+            )
+    return sections
+
+
+def concept_sections(
+    *node_groups: list[dict[str, Any]], include_related: bool = True
+) -> list[dict[str, Any]]:
+    sections = [
+        {"role": "invariant", "title": "Invariants", "items": []},
+        {"role": "lifecycle_value", "title": "Status Values", "items": []},
+        {"role": None, "title": "Related Concepts", "items": []},
+    ]
+    by_role = {section["role"]: section for section in sections}
+    seen: set[str] = set()
+    for nodes in node_groups:
+        for node in nodes:
+            if node.get("type") not in {"concept", "lifecycle_value"}:
+                continue
+            node_id = str(node.get("id", ""))
+            if node_id in seen:
+                continue
+            seen.add(node_id)
+            role = (
+                "lifecycle_value"
+                if node.get("type") == "lifecycle_value"
+                else node.get("concept_role")
+            )
+            if role is None and not include_related:
+                continue
+            section = by_role.get(role, by_role[None])
+            section["items"].append(node)
+    return [section for section in sections if section["items"]]
+
+
+def visible_link_nodes(spec: Spec, nodes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    if spec.kind == "decision":
+        return nodes
+    return [node for node in nodes if node.get("type") != "decision"]
+
+
+def value_type_name(value: object) -> str:
+    if isinstance(value, bool):
+        return "boolean"
+    if isinstance(value, int | float):
+        return "number"
+    if isinstance(value, list):
+        return "list"
+    if isinstance(value, dict):
+        return "object"
+    return "string"
+
+
+def display_value(value: object) -> str:
+    if isinstance(value, str):
+        return value
+    if isinstance(value, int | float | bool):
+        return str(value).lower()
+    return json.dumps(value, sort_keys=True)
+
+
+def default_css() -> str:
+    source = Path(__file__).resolve().parents[2] / "lattice" / "styles" / CSS_FILENAME
+    if source.exists():
+        return source.read_text(encoding="utf-8")
+    return "/* generated by lattice; central visual source of truth */\n"
 
 
 DEFAULT_TEMPLATES: dict[str, str] = {
@@ -404,100 +878,194 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{% block title %}Lattice Project Memory{% endblock %}</title>
+  <title>{% block title %}{{ docs_title }}{% endblock %}</title>
   <link rel="stylesheet" href="{{ css_href }}" />
-  <script defer src="{{ link_component_href }}"></script>
+  <script type="module" src="{{ link_component_href }}"></script>
 </head>
 <body>
   <script type="application/json" id="lattice-registry">{{ lattice_registry_json | safe }}</script>
-  <main class="page">
-    {% block content %}{% endblock %}
-  </main>
+  <script type="application/json" id="lattice-search-index">{{ search_index_json | safe }}</script>
+  <lattice-docs-app>
+    <lattice-top-bar slot="top" home-href="{{ docs_home_href }}" label="{{ docs_nav_label }}">
+      <lattice-search></lattice-search>
+    </lattice-top-bar>
+    <lattice-sidebar slot="nav" aria-label="Knowledge units">
+      {% for type_name, units in by_type.items() %}
+      <lattice-nav-group>
+        <span slot="label">{{ type_nav_label(type_name) }}</span>
+        {% for nav_spec in units %}
+        <lattice-nav-item tone="{{ type_tone(nav_spec.kind) }}"{% if current_spec and current_spec.id == nav_spec.id %} active{% endif %}>
+          {{ lattice_link(nav_spec.kind, nav_spec.id, nav_spec.data.name, "nav") | safe }}
+        </lattice-nav-item>
+        {% endfor %}
+      </lattice-nav-group>
+      {% endfor %}
+    </lattice-sidebar>
+    <lattice-main slot="main" class="pd-body">
+      {% block content %}{% endblock %}
+    </lattice-main>
+  </lattice-docs-app>
 </body>
 </html>
 """,
     "index.html.j2": """{% extends "shell.html.j2" %}
 {% block content %}
-<header class="hero">
-  <div class="eyebrow">Lattice project memory</div>
-  <h1>Typed knowledge units, linked.</h1>
-  <p class="dek">Generated from schema-validated Lattice units. Search, backlinks, and links are derived from the same registry.</p>
-  <div class="search" data-search-root>
-    <input type="search" placeholder="Search knowledge units" aria-label="Search knowledge units" data-search-input>
-    <ul class="search-results" data-search-results></ul>
-  </div>
-</header>
+<lattice-index-page>
+<lattice-page-hero>
+  <span slot="eyebrow">{{ docs_eyebrow }}</span>
+  <span slot="title">{{ docs_title }}</span>
+  <span slot="description">{{ docs_description }}</span>
+  <p slot="actions" class="background-link"><a href="{{ background_href }}">Lattice background and generated metadata</a></p>
+</lattice-page-hero>
 {% for type_name, units in by_type.items() %}
-<section class="card" aria-labelledby="{{ type_name }}-title">
-  <h2 id="{{ type_name }}-title">{{ type_name | field_label }}</h2>
-  <div class="grid">
+<lattice-unit-section aria-labelledby="{{ type_name }}-title">
+  <lattice-section-heading divider id="{{ type_name }}-title">{{ type_nav_label(type_name) }}</lattice-section-heading>
+  <div class="pd-cards">
   {% for spec in units %}
-    <article>
-      <h3><a href="{{ unit_href(spec) }}">{{ spec.data.name }}</a></h3>
-      <p>{{ spec.statement }}</p>
-      <div class="meta"><span class="pill">{{ spec.id }}</span><span class="pill">{{ spec.kind }}</span></div>
-    </article>
+    <lattice-unit-card>
+      <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, spec.data.name, "card-title") | safe }}</h3>
+      <p class="pd-card-desc">{{ spec.statement }}</p>
+      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
+    </lattice-unit-card>
   {% endfor %}
   </div>
-</section>
+</lattice-unit-section>
 {% endfor %}
-<script>
-fetch('{{ search_index_path }}')
-  .then((response) => response.json())
-  .then((items) => {
-    const input = document.querySelector('[data-search-input]');
-    const results = document.querySelector('[data-search-results]');
-    const render = () => {
-      const query = input.value.trim().toLowerCase();
-      results.replaceChildren();
-      if (!query) return;
-      items.filter((item) => item.text.includes(query)).slice(0, 12).forEach((item) => {
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = item.href;
-        a.innerHTML = `<strong>${item.name}</strong><span>${item.type} · ${item.id}</span>`;
-        li.append(a);
-        results.append(li);
-      });
-    };
-    input.addEventListener('input', render);
-  });
-</script>
+</lattice-index-page>
+{% endblock %}
+""",
+    "background.html.j2": """{% extends "shell.html.j2" %}
+{% block title %}{{ docs_background_title }} · {{ docs_title }}{% endblock %}
+{% block content %}
+<lattice-background-page>
+<lattice-page-hero>
+  <span slot="eyebrow">Background</span>
+  <span slot="title">{{ docs_background_title }}</span>
+  <span slot="description">{{ docs_background_description }}</span>
+  <p slot="actions" class="background-link"><a href="{{ main_href }}">Back to {{ docs_title }}</a></p>
+</lattice-page-hero>
+{% for type_name, units in by_type.items() %}
+<lattice-unit-section aria-labelledby="{{ type_name }}-background-title">
+  <lattice-section-heading divider id="{{ type_name }}-background-title">{{ type_nav_label(type_name) }}</lattice-section-heading>
+  <div class="pd-cards">
+  {% for spec in units %}
+    <lattice-unit-card>
+      <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, spec.data.name, "card-title") | safe }}</h3>
+      <p class="pd-card-desc">{{ spec.statement }}</p>
+      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
+    </lattice-unit-card>
+  {% endfor %}
+  </div>
+</lattice-unit-section>
+{% endfor %}
+</lattice-background-page>
 {% endblock %}
 """,
     "unit.html.j2": """{% extends "shell.html.j2" %}
 {% block title %}{{ data.name }} · Lattice{% endblock %}
 {% block content %}
-<header class="hero">
-  <div class="eyebrow">{{ spec.kind | field_label }}</div>
-  <h1>{{ data.name }}</h1>
-  <p class="dek">{{ spec.statement }}</p>
-  <div class="meta"><span class="pill">{{ spec.id }}</span><span class="pill">owner: {{ spec.owner }}</span><span class="pill">status: {{ spec.status }}</span></div>
-</header>
-<div class="unit-layout">
-  <article class="card">
-    <h2>Details</h2>
-    {% for key, value in data.items() %}
-      {% if key not in ["id", "type", "kind", "name", "owner", "status", "references", "tests", "examples", "links"] %}
-      <h3>{{ key | field_label }}</h3>
-      <div class="unit-body">{{ value }}</div>
-      {% endif %}
+{% set page_tag = page_component(spec.kind) %}
+<{{ page_tag }}>
+<lattice-page-hero slot="hero">
+  <span slot="eyebrow">{{ spec.kind | field_label }}</span>
+  <span slot="title">{{ data.name }}</span>
+  <span slot="description">{{ spec.statement }}</span>
+  <lattice-copy-id slot="actions" value="{{ spec.id }}"></lattice-copy-id>
+</lattice-page-hero>
+<div slot="fields">
+    {% set rows = display_fields(spec) %}
+    <lattice-section-heading>Fields</lattice-section-heading>
+    <lattice-field-table>
+    <table class="pd-ft field-table">
+      <thead>
+        <tr>
+          <th class="ft-num"></th>
+          <th class="ft-name">Name</th>
+          <th class="ft-type">Type</th>
+          <th class="ft-req">Required</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+    {% for field in rows %}
+      <tr class="field-row">
+        <td class="ft-num field-index">{{ loop.index }}</td>
+        <td class="ft-name field-name">{{ field["name"] }}</td>
+        <td class="ft-type">{{ field_type_display(field["type"], registry) | safe }}</td>
+        {% if field["required"] is sameas true %}
+        <td class="ft-req"><span class="tag t-req field-required">required</span></td>
+        {% elif field["required"] is sameas false %}
+        <td class="ft-req"><span class="tag t-opt field-optional">optional</span></td>
+        {% else %}
+        <td class="ft-req"></td>
+        {% endif %}
+        <td class="ft-desc">
+          <p class="field-description">{{ field["description"] }}</p>
+          {% if field["allowed_values"] %}
+          <div class="allowed-values">
+            <span>Allowed values:</span>
+            {% for value in field["allowed_values"] %}<span class="tag t-type field-value">{{ value }}</span>{% endfor %}
+          </div>
+          {% endif %}
+        </td>
+      </tr>
+    {% else %}
+      <tr class="field-row"><td class="ft-num field-index">0</td><td class="ft-name field-name">No display fields</td><td></td><td></td><td></td></tr>
     {% endfor %}
-    <h2>Raw Unit</h2>
-    <pre class="raw-data"><code>{{ data | as_json }}</code></pre>
-  </article>
-  <aside class="card">
-    <h2>Links</h2>
-    <h3>Outgoing</h3>
-    <ul class="link-list">
-      {% for node in outgoing %}<li>{{ lattice_link(node.type, node.id, node.label) | safe }}</li>{% else %}<li class="pill">None</li>{% endfor %}
-    </ul>
-    <h3>Backlinks</h3>
-    <ul class="link-list">
-      {% for node in backlinks %}<li>{{ lattice_link(node.type, node.id, node.label) | safe }}</li>{% else %}<li class="pill">None</li>{% endfor %}
-    </ul>
-  </aside>
+      </tbody>
+    </table>
+    </lattice-field-table>
+    {% set sections = detail_sections(spec) %}
+    {% if sections %}
+    <div class="detail-panels">
+      {% for section in sections %}
+      <section class="detail-panel">
+        <h3>{{ section["title"] }}</h3>
+        <ul>
+          {% for item in section["items"] %}<li>{{ item }}</li>{% endfor %}
+        </ul>
+      </section>
+      {% endfor %}
+    </div>
+    {% endif %}
 </div>
+    {% for section in concept_sections(outgoing, backlinks, include_related=spec.kind != "business_entity") %}
+    <lattice-concept-section slot="context" aria-labelledby="{{ section["role"] or "related" }}-concepts-title">
+      <lattice-section-heading id="{{ section["role"] or "related" }}-concepts-title">{{ section["title"] }}</lattice-section-heading>
+      {% for node in section["items"] %}
+      <lattice-concept-card>
+        <h3 class="pd-inv-name">{{ lattice_link(node.type, node.id, node.label, "plain") | safe }}</h3>
+        <p class="pd-inv-desc">{{ node.summary }}</p>
+      </lattice-concept-card>
+      {% endfor %}
+    </lattice-concept-section>
+    {% endfor %}
+    <lattice-links-panel slot="links">
+      <lattice-section-heading>Links</lattice-section-heading>
+      {% set visible_outgoing = visible_link_nodes(spec, outgoing) %}
+      {% set visible_backlinks = visible_link_nodes(spec, backlinks) %}
+      <div class="pd-links-row">
+        <div class="pd-links-col">
+          <h3 class="pd-links-head">Outgoing</h3>
+          <div class="link-list">
+            {% for node in visible_outgoing %}{{ lattice_link(node.type, node.id, node.label, "plain") | safe }}{% else %}<span class="tag t-opt">None</span>{% endfor %}
+          </div>
+        </div>
+        <div class="pd-links-col">
+          <h3 class="pd-links-head">Backlinks</h3>
+          <div class="link-list">
+            {% for node in visible_backlinks %}{{ lattice_link(node.type, node.id, node.label, "plain") | safe }}{% else %}<span class="tag t-opt">None</span>{% endfor %}
+          </div>
+        </div>
+      </div>
+    </lattice-links-panel>
+    <lattice-raw-json slot="raw">
+      <details class="raw-unit">
+      <summary>Raw JSON</summary>
+      <pre class="raw-data"><code>{{ data | as_json }}</code></pre>
+      </details>
+    </lattice-raw-json>
+</{{ page_tag }}>
 {% endblock %}
 """,
     "domain_object.html.j2": """{% extends "unit.html.j2" %}""",

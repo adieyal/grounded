@@ -1,0 +1,12 @@
+{
+  "id": "PROJECT-TEST-003",
+  "kind": "test_binding",
+  "name": "Slice memberships render as lattice-links",
+  "owner": "project",
+  "references": [
+    "PROJECT-DECISION-001"
+  ],
+  "status": "active",
+  "target": "PROJECT-DECISION-001",
+  "test": "lattice validate && lattice audit"
+}

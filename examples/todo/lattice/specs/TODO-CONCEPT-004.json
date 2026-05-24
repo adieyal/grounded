@@ -1,0 +1,12 @@
+{
+  "id": "TODO-CONCEPT-004",
+  "concept_role": "invariant",
+  "name": "Completed TodoItem remains traceable",
+  "owner": "example",
+  "references": [
+    "TODO-ITEM-001"
+  ],
+  "status": "active",
+  "summary": "A TodoItem marked done remains traceable until explicitly removed.",
+  "type": "concept"
+}

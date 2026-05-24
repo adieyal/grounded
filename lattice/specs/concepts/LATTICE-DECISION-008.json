@@ -1,0 +1,16 @@
+{
+  "decision": "Generated unit pages render outgoing typed context inline with summaries, so invariants, lifecycle values, and other domain context provide meaning in the main page instead of appearing only as graph links or backlinks.",
+  "id": "LATTICE-DECISION-008",
+  "kind": "decision",
+  "name": "Render related concepts inline on unit pages",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-004",
+    "LATTICE-DECISION-005",
+    "LATTICE-DECISION-007"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

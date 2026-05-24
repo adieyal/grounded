@@ -1,0 +1,12 @@
+{
+  "id": "LATTICE-TEST-006",
+  "kind": "test_binding",
+  "name": "Enum pages render closed value lists",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-034"
+  ],
+  "status": "active",
+  "target": "LATTICE-DECISION-034",
+  "test": "uv run pytest tests/test_lattice.py -q"
+}

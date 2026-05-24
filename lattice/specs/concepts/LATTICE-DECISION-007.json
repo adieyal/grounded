@@ -1,0 +1,15 @@
+{
+  "decision": "Generated unit pages avoid prominent implementation metadata such as unit type and owner in the hero. The stable item ID remains available through an unobtrusive copy control.",
+  "id": "LATTICE-DECISION-007",
+  "kind": "decision",
+  "name": "Keep unit metadata unobtrusive",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-003",
+    "LATTICE-DECISION-006"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

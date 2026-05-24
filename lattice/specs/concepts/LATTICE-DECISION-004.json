@@ -1,0 +1,14 @@
+{
+  "decision": "Invariants should be represented as explicit Lattice concepts with stable IDs and links to the units they constrain, rather than embedded as anonymous strings inside another unit.",
+  "id": "LATTICE-DECISION-004",
+  "kind": "decision",
+  "name": "Model invariants as explicit concepts",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-001"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

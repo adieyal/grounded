@@ -1,0 +1,12 @@
+{
+  "id": "LATTICE-TEST-004",
+  "kind": "test_binding",
+  "name": "Generated outputs are HTML-safe and render checks report obsolete pages",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-032"
+  ],
+  "status": "active",
+  "target": "LATTICE-DECISION-032",
+  "test": "uv run pytest tests/test_lattice.py -q"
+}

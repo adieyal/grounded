@@ -51,9 +51,21 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 "status": {"type": "string", "enum": ["active", "draft", "retired"]},
                 "summary": {"type": "string"},
                 "description": {"type": "string"},
-                "references": {"type": "array", "items": {"type": "string"}, "uniqueItems": True},
-                "tests": {"type": "array", "items": {"type": "string"}, "uniqueItems": True},
-                "examples": {"type": "array", "items": {"type": "string"}, "uniqueItems": True},
+                "references": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "uniqueItems": True,
+                },
+                "tests": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "uniqueItems": True,
+                },
+                "examples": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "uniqueItems": True,
+                },
                 "links": {
                     "type": "array",
                     "items": {
@@ -154,7 +166,11 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
     },
     "concept": {
         "extends": "knowledge_unit",
-        "schema": {"type": "object", "properties": {"type": {"const": "concept"}, "kind": {"const": "concept"}}, "additionalProperties": True},
+        "schema": {
+            "type": "object",
+            "properties": {"type": {"const": "concept"}, "kind": {"const": "concept"}},
+            "additionalProperties": True,
+        },
         "renderer": "unit.html.j2",
         "search_fields": ["id", "name", "summary", "description"],
         "reference_fields": [*BASE_LINK_FIELDS],
@@ -164,7 +180,11 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "schema": {
             "type": "object",
             "required": [*BASE_REQUIRED_FIELDS, "decision"],
-            "properties": {"type": {"const": "decision"}, "kind": {"const": "decision"}, "decision": {"type": "string"}},
+            "properties": {
+                "type": {"const": "decision"},
+                "kind": {"const": "decision"},
+                "decision": {"type": "string"},
+            },
             "additionalProperties": True,
         },
         "renderer": "unit.html.j2",
@@ -176,7 +196,11 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "schema": {
             "type": "object",
             "required": [*BASE_REQUIRED_FIELDS, "statement"],
-            "properties": {"type": {"const": "business_rule"}, "kind": {"const": "business_rule"}, "statement": {"type": "string"}},
+            "properties": {
+                "type": {"const": "business_rule"},
+                "kind": {"const": "business_rule"},
+                "statement": {"type": "string"},
+            },
             "additionalProperties": True,
         },
         "renderer": "unit.html.j2",
@@ -188,7 +212,11 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "schema": {
             "type": "object",
             "required": [*BASE_REQUIRED_FIELDS, "rule"],
-            "properties": {"type": {"const": "example"}, "kind": {"const": "example"}, "rule": {"type": "string"}},
+            "properties": {
+                "type": {"const": "example"},
+                "kind": {"const": "example"},
+                "rule": {"type": "string"},
+            },
             "additionalProperties": True,
         },
         "renderer": "unit.html.j2",
@@ -201,7 +229,10 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "schema": {
             "type": "object",
             "required": [*BASE_REQUIRED_FIELDS, "summary"],
-            "properties": {"type": {"const": "guardrail"}, "kind": {"const": "guardrail"}},
+            "properties": {
+                "type": {"const": "guardrail"},
+                "kind": {"const": "guardrail"},
+            },
             "additionalProperties": True,
         },
         "renderer": "unit.html.j2",
@@ -213,7 +244,27 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "schema": {
             "type": "object",
             "required": [*BASE_REQUIRED_FIELDS, "definition"],
-            "properties": {"type": {"const": "spec_type"}, "kind": {"const": "spec_type"}, "definition": {"type": "string"}},
+            "properties": {
+                "type": {"const": "spec_type"},
+                "kind": {"const": "spec_type"},
+                "definition": {"type": "string"},
+            },
+            "additionalProperties": True,
+        },
+        "renderer": "unit.html.j2",
+        "search_fields": ["id", "name", "definition", "summary"],
+        "reference_fields": [*BASE_LINK_FIELDS],
+    },
+    "data_type": {
+        "extends": "knowledge_unit",
+        "schema": {
+            "type": "object",
+            "required": [*BASE_REQUIRED_FIELDS, "definition"],
+            "properties": {
+                "type": {"const": "data_type"},
+                "kind": {"const": "data_type"},
+                "definition": {"type": "string"},
+            },
             "additionalProperties": True,
         },
         "renderer": "unit.html.j2",
@@ -225,7 +276,25 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "schema": {
             "type": "object",
             "required": [*BASE_REQUIRED_FIELDS, "summary"],
-            "properties": {"type": {"const": "workflow"}, "kind": {"const": "workflow"}},
+            "properties": {
+                "type": {"const": "workflow"},
+                "kind": {"const": "workflow"},
+            },
+            "additionalProperties": True,
+        },
+        "renderer": "unit.html.j2",
+        "search_fields": ["id", "name", "summary"],
+        "reference_fields": [*BASE_LINK_FIELDS],
+    },
+    "lifecycle_value": {
+        "extends": "knowledge_unit",
+        "schema": {
+            "type": "object",
+            "required": [*BASE_REQUIRED_FIELDS, "summary"],
+            "properties": {
+                "type": {"const": "lifecycle_value"},
+                "kind": {"const": "lifecycle_value"},
+            },
             "additionalProperties": True,
         },
         "renderer": "unit.html.j2",
@@ -236,7 +305,12 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
 
 
 class SpecRegistry:
-    def __init__(self, specs: list[Spec], issues: list[Issue], type_defs: dict[str, TypeDefinition]) -> None:
+    def __init__(
+        self,
+        specs: list[Spec],
+        issues: list[Issue],
+        type_defs: dict[str, TypeDefinition],
+    ) -> None:
         self.specs = specs
         self.issues = issues
         self.type_defs = type_defs
@@ -261,7 +335,17 @@ def load_registry(config: LatticeConfig) -> SpecRegistry:
     issues.extend(type_issues)
 
     if not config.specs_dir.exists():
-        return SpecRegistry([], [Issue("LATTICE-SPECS-001", "specs directory does not exist", config.specs_dir)], type_defs)
+        return SpecRegistry(
+            [],
+            [
+                Issue(
+                    "LATTICE-SPECS-001",
+                    "specs directory does not exist",
+                    config.specs_dir,
+                )
+            ],
+            type_defs,
+        )
 
     for path in sorted(config.specs_dir.rglob("*.json")):
         try:
@@ -270,16 +354,30 @@ def load_registry(config: LatticeConfig) -> SpecRegistry:
             issues.append(Issue("LATTICE-JSON-001", f"invalid JSON: {exc}", path))
             continue
         if not isinstance(data, dict):
-            issues.append(Issue("LATTICE-SCHEMA-001", "spec root must be a JSON object", path))
+            issues.append(
+                Issue("LATTICE-SCHEMA-001", "spec root must be a JSON object", path)
+            )
             continue
 
         spec_id = _string_field(data, "id")
         spec_type = _spec_type(data)
         if spec_id is None or spec_type is None:
-            issues.append(Issue("LATTICE-SCHEMA-002", "spec must contain string id and type or kind", path))
+            issues.append(
+                Issue(
+                    "LATTICE-SCHEMA-002",
+                    "spec must contain string id and type or kind",
+                    path,
+                )
+            )
             continue
         if spec_id in seen:
-            issues.append(Issue("LATTICE-ID-001", f"duplicate id {spec_id}; first defined at {seen[spec_id]}", path))
+            issues.append(
+                Issue(
+                    "LATTICE-ID-001",
+                    f"duplicate id {spec_id}; first defined at {seen[spec_id]}",
+                    path,
+                )
+            )
             continue
         seen[spec_id] = path
 
@@ -299,19 +397,33 @@ def default_type_registry_json() -> str:
     return json.dumps(DEFAULT_TYPE_REGISTRY, indent=2, sort_keys=True) + "\n"
 
 
-def load_type_registry(config: LatticeConfig) -> tuple[dict[str, TypeDefinition], list[Issue]]:
+def load_type_registry(
+    config: LatticeConfig,
+) -> tuple[dict[str, TypeDefinition], list[Issue]]:
     issues: list[Issue] = []
     raw: dict[str, object] = DEFAULT_TYPE_REGISTRY
     if config.type_registry_path.exists():
         try:
             loaded = json.loads(config.type_registry_path.read_text(encoding="utf-8"))
         except json.JSONDecodeError as exc:
-            issues.append(Issue("LATTICE-TYPE-001", f"invalid type registry JSON: {exc}", config.type_registry_path))
+            issues.append(
+                Issue(
+                    "LATTICE-TYPE-001",
+                    f"invalid type registry JSON: {exc}",
+                    config.type_registry_path,
+                )
+            )
             loaded = {}
         if isinstance(loaded, dict):
             raw = _merge_type_registry(DEFAULT_TYPE_REGISTRY, loaded)
         else:
-            issues.append(Issue("LATTICE-TYPE-002", "type registry root must be a JSON object", config.type_registry_path))
+            issues.append(
+                Issue(
+                    "LATTICE-TYPE-002",
+                    "type registry root must be a JSON object",
+                    config.type_registry_path,
+                )
+            )
             raw = {}
 
     definitions: dict[str, TypeDefinition] = {}
@@ -319,7 +431,13 @@ def load_type_registry(config: LatticeConfig) -> tuple[dict[str, TypeDefinition]
         if not isinstance(type_name, str) or not type_name:
             continue
         if not isinstance(value, dict):
-            issues.append(Issue("LATTICE-TYPE-003", f"type definition for {type_name} must be an object", config.type_registry_path))
+            issues.append(
+                Issue(
+                    "LATTICE-TYPE-003",
+                    f"type definition for {type_name} must be an object",
+                    config.type_registry_path,
+                )
+            )
             continue
         schema, schema_path, schema_issues = _load_schema(type_name, value, config)
         issues.extend(schema_issues)
@@ -329,21 +447,35 @@ def load_type_registry(config: LatticeConfig) -> tuple[dict[str, TypeDefinition]
             schema=schema,
             schema_path=schema_path,
             renderer=_string_value(value.get("renderer"), "unit.html.j2"),
-            search_fields=_string_tuple(value.get("search_fields", ("id", "name", "summary"))),
+            search_fields=_string_tuple(
+                value.get("search_fields", ("id", "name", "summary"))
+            ),
             verification_fields=_string_tuple(value.get("verification_fields", ())),
-            reference_fields=_string_tuple(value.get("reference_fields", ("references",))),
-            single_reference_fields=_string_tuple(value.get("single_reference_fields", ())),
+            reference_fields=_string_tuple(
+                value.get("reference_fields", ("references",))
+            ),
+            single_reference_fields=_string_tuple(
+                value.get("single_reference_fields", ())
+            ),
             required=_string_tuple(value.get("required", ())),
             list_fields=_string_tuple(value.get("list_fields", ())),
         )
 
     for type_name, definition in definitions.items():
         if definition.extends is not None and definition.extends not in definitions:
-            issues.append(Issue("LATTICE-TYPE-004", f"type {type_name} extends unknown parent type {definition.extends}", config.type_registry_path))
+            issues.append(
+                Issue(
+                    "LATTICE-TYPE-004",
+                    f"type {type_name} extends unknown parent type {definition.extends}",
+                    config.type_registry_path,
+                )
+            )
     return definitions, issues
 
 
-def _merge_type_registry(defaults: dict[str, dict[str, object]], loaded: dict[str, object]) -> dict[str, object]:
+def _merge_type_registry(
+    defaults: dict[str, dict[str, object]], loaded: dict[str, object]
+) -> dict[str, object]:
     merged: dict[str, object] = {key: dict(value) for key, value in defaults.items()}
     for type_name, value in loaded.items():
         if isinstance(value, dict) and isinstance(merged.get(type_name), dict):
@@ -355,7 +487,9 @@ def _merge_type_registry(defaults: dict[str, dict[str, object]], loaded: dict[st
     return merged
 
 
-def _load_schema(type_name: str, value: dict[str, object], config: LatticeConfig) -> tuple[dict[str, Any] | None, str | None, list[Issue]]:
+def _load_schema(
+    type_name: str, value: dict[str, object], config: LatticeConfig
+) -> tuple[dict[str, Any] | None, str | None, list[Issue]]:
     issues: list[Issue] = []
     schema_value = value.get("schema")
     schema_path = _optional_string(value.get("schema_path"))
@@ -365,22 +499,46 @@ def _load_schema(type_name: str, value: dict[str, object], config: LatticeConfig
     elif schema_path:
         path = config.root / schema_path
         if not path.exists():
-            issues.append(Issue("LATTICE-TYPE-005", f"type {type_name} schema_path does not exist: {schema_path}", config.type_registry_path))
+            issues.append(
+                Issue(
+                    "LATTICE-TYPE-005",
+                    f"type {type_name} schema_path does not exist: {schema_path}",
+                    config.type_registry_path,
+                )
+            )
         else:
             try:
                 loaded = json.loads(path.read_text(encoding="utf-8"))
             except json.JSONDecodeError as exc:
-                issues.append(Issue("LATTICE-TYPE-006", f"type {type_name} schema_path contains invalid JSON: {exc}", path))
+                issues.append(
+                    Issue(
+                        "LATTICE-TYPE-006",
+                        f"type {type_name} schema_path contains invalid JSON: {exc}",
+                        path,
+                    )
+                )
             else:
                 if isinstance(loaded, dict):
                     schema = loaded
                 else:
-                    issues.append(Issue("LATTICE-TYPE-007", f"type {type_name} schema root must be an object", path))
+                    issues.append(
+                        Issue(
+                            "LATTICE-TYPE-007",
+                            f"type {type_name} schema root must be an object",
+                            path,
+                        )
+                    )
     if schema is not None:
         try:
             Draft202012Validator.check_schema(schema)
         except SchemaError as exc:
-            issues.append(Issue("LATTICE-TYPE-008", f"type {type_name} JSON Schema is invalid: {exc.message}", config.type_registry_path))
+            issues.append(
+                Issue(
+                    "LATTICE-TYPE-008",
+                    f"type {type_name} JSON Schema is invalid: {exc.message}",
+                    config.type_registry_path,
+                )
+            )
     return schema, schema_path, issues
 
 
@@ -407,32 +565,60 @@ def _string_tuple(value: object) -> tuple[str, ...]:
     return tuple(item for item in value if isinstance(item, str) and item)
 
 
-def _validate_shape(spec: Spec, path: Path, type_defs: dict[str, TypeDefinition]) -> list[Issue]:
+def _validate_shape(
+    spec: Spec, path: Path, type_defs: dict[str, TypeDefinition]
+) -> list[Issue]:
     issues: list[Issue] = []
     type_def = type_defs.get(spec.kind)
     if type_def is None:
-        issues.append(Issue("LATTICE-KIND-001", f"unknown spec type {spec.kind}; add it to the type registry or correct the spec", path))
+        issues.append(
+            Issue(
+                "LATTICE-KIND-001",
+                f"unknown spec type {spec.kind}; add it to the type registry or correct the spec",
+                path,
+            )
+        )
         return issues
 
     for field in type_def.required:
         if not _string_field(spec.data, field):
-            issues.append(Issue("LATTICE-SCHEMA-003", f"missing required string field: {field}", path))
+            issues.append(
+                Issue(
+                    "LATTICE-SCHEMA-003",
+                    f"missing required string field: {field}",
+                    path,
+                )
+            )
 
     for list_field in type_def.list_fields:
         value = spec.data.get(list_field, [])
         if value is not None and not isinstance(value, list):
-            issues.append(Issue("LATTICE-SCHEMA-004", f"{list_field} must be a list when present", path))
+            issues.append(
+                Issue(
+                    "LATTICE-SCHEMA-004",
+                    f"{list_field} must be a list when present",
+                    path,
+                )
+            )
 
     for parent in _schema_chain(type_def, type_defs):
         if parent.schema is None:
             continue
         validator = Draft202012Validator(parent.schema)
         for error in sorted(validator.iter_errors(spec.data), key=str):
-            issues.append(Issue("LATTICE-SCHEMA-006", f"{parent.type} schema: {_format_schema_error(error)}", path))
+            issues.append(
+                Issue(
+                    "LATTICE-SCHEMA-006",
+                    f"{parent.type} schema: {_format_schema_error(error)}",
+                    path,
+                )
+            )
     return issues
 
 
-def _schema_chain(type_def: TypeDefinition, type_defs: dict[str, TypeDefinition]) -> tuple[TypeDefinition, ...]:
+def _schema_chain(
+    type_def: TypeDefinition, type_defs: dict[str, TypeDefinition]
+) -> tuple[TypeDefinition, ...]:
     chain: list[TypeDefinition] = []
     current: TypeDefinition | None = type_def
     while current is not None:
@@ -459,15 +645,39 @@ def _validate_references(registry: SpecRegistry) -> list[Issue]:
                 continue
             for ref in value:
                 if isinstance(ref, str) and ref not in registry.by_id:
-                    issues.append(Issue("LATTICE-REF-001", f"{spec.id}.{field} references unknown spec {ref}", spec.path))
+                    issues.append(
+                        Issue(
+                            "LATTICE-REF-001",
+                            f"{spec.id}.{field} references unknown spec {ref}",
+                            spec.path,
+                        )
+                    )
         for field in single_reference_fields:
             value = spec.data.get(field)
             if isinstance(value, str) and value not in registry.by_id:
-                issues.append(Issue("LATTICE-REF-002", f"{spec.id}.{field} points to unknown spec {value}", spec.path))
+                issues.append(
+                    Issue(
+                        "LATTICE-REF-002",
+                        f"{spec.id}.{field} points to unknown spec {value}",
+                        spec.path,
+                    )
+                )
         links = spec.data.get("links", [])
         if isinstance(links, list):
             for index, link in enumerate(links):
-                target = link if isinstance(link, str) else link.get("target_id") if isinstance(link, dict) else None
+                target = (
+                    link
+                    if isinstance(link, str)
+                    else link.get("target_id")
+                    if isinstance(link, dict)
+                    else None
+                )
                 if isinstance(target, str) and target not in registry.by_id:
-                    issues.append(Issue("LATTICE-REF-003", f"{spec.id}.links[{index}] points to unknown spec {target}", spec.path))
+                    issues.append(
+                        Issue(
+                            "LATTICE-REF-003",
+                            f"{spec.id}.links[{index}] points to unknown spec {target}",
+                            spec.path,
+                        )
+                    )
     return issues

@@ -54,19 +54,91 @@ def init_project(root: Path, *, force: bool = False) -> list[Path]:
     created: list[Path] = []
 
     created.extend(_write_if_missing(root / "lattice.yml", _lattice_yml(), force=force))
-    created.extend(_write_if_missing(config.type_registry_path, default_type_registry_json(), force=force))
-    created.extend(_write_if_missing(root / "lattice" / "schemas" / "spec.schema.json", _spec_schema(), force=force))
-    created.extend(_write_if_missing(root / "lattice" / "templates" / "domain_object.json", _domain_object_template(), force=force))
-    created.extend(_write_if_missing(root / "lattice" / "templates" / "schema_gap.json", _schema_gap_template(), force=force))
-    created.extend(_write_if_missing(config.styles_dir / "style.css", _default_css(), force=force))
-    created.extend(_write_if_missing(config.specs_dir / "concepts" / "PROJECT-CONCEPT-001.json", _project_concept(), force=force))
-    created.extend(_write_if_missing(config.specs_dir / "glossary" / "PROJECT-DOMAIN-001.json", _project_domain_object(), force=force))
-    created.extend(_write_if_missing(config.specs_dir / "rules" / "PROJECT-RULE-001.json", _project_rule(), force=force))
-    created.extend(_write_if_missing(config.specs_dir / "rules" / "PROJECT-RULE-002.json", _agent_maintenance_rule(), force=force))
-    created.extend(_write_if_missing(config.specs_dir / "schema_gaps" / "PROJECT-GAP-001.json", _schema_gap(), force=force))
-    created.extend(_write_if_missing(config.specs_dir / "examples" / "PROJECT-RULE-001-EX001.json", _project_example(), force=force))
-    created.extend(_write_if_missing(config.specs_dir / "test_bindings" / "PROJECT-TEST-001.json", _test_binding(), force=force))
-    created.extend(_write_if_missing(root / "skills" / "lattice-project-memory" / "SKILL.md", _skill(), force=force))
+    created.extend(
+        _write_if_missing(
+            config.type_registry_path, default_type_registry_json(), force=force
+        )
+    )
+    created.extend(
+        _write_if_missing(
+            root / "lattice" / "schemas" / "spec.schema.json",
+            _spec_schema(),
+            force=force,
+        )
+    )
+    created.extend(
+        _write_if_missing(
+            root / "lattice" / "templates" / "domain_object.json",
+            _domain_object_template(),
+            force=force,
+        )
+    )
+    created.extend(
+        _write_if_missing(
+            root / "lattice" / "templates" / "schema_gap.json",
+            _schema_gap_template(),
+            force=force,
+        )
+    )
+    created.extend(
+        _write_if_missing(config.styles_dir / "style.css", _default_css(), force=force)
+    )
+    created.extend(
+        _write_if_missing(
+            config.specs_dir / "concepts" / "PROJECT-CONCEPT-001.json",
+            _project_concept(),
+            force=force,
+        )
+    )
+    created.extend(
+        _write_if_missing(
+            config.specs_dir / "glossary" / "PROJECT-DOMAIN-001.json",
+            _project_domain_object(),
+            force=force,
+        )
+    )
+    created.extend(
+        _write_if_missing(
+            config.specs_dir / "rules" / "PROJECT-RULE-001.json",
+            _project_rule(),
+            force=force,
+        )
+    )
+    created.extend(
+        _write_if_missing(
+            config.specs_dir / "rules" / "PROJECT-RULE-002.json",
+            _agent_maintenance_rule(),
+            force=force,
+        )
+    )
+    created.extend(
+        _write_if_missing(
+            config.specs_dir / "schema_gaps" / "PROJECT-GAP-001.json",
+            _schema_gap(),
+            force=force,
+        )
+    )
+    created.extend(
+        _write_if_missing(
+            config.specs_dir / "examples" / "PROJECT-RULE-001-EX001.json",
+            _project_example(),
+            force=force,
+        )
+    )
+    created.extend(
+        _write_if_missing(
+            config.specs_dir / "test_bindings" / "PROJECT-TEST-001.json",
+            _test_binding(),
+            force=force,
+        )
+    )
+    created.extend(
+        _write_if_missing(
+            root / "skills" / "lattice-project-memory" / "SKILL.md",
+            _skill(),
+            force=force,
+        )
+    )
     created.extend(_patch_agents(root / "AGENTS.md"))
     return created
 
@@ -85,11 +157,18 @@ def _patch_agents(path: Path) -> list[Path]:
         if AGENTS_MARKER_START in text and AGENTS_MARKER_END in text:
             before, rest = text.split(AGENTS_MARKER_START, 1)
             _, after = rest.split(AGENTS_MARKER_END, 1)
-            path.write_text(before.rstrip() + "\n\n" + AGENTS_SECTION + after.lstrip(), encoding="utf-8")
+            path.write_text(
+                before.rstrip() + "\n\n" + AGENTS_SECTION + after.lstrip(),
+                encoding="utf-8",
+            )
         else:
             path.write_text(text.rstrip() + "\n\n" + AGENTS_SECTION, encoding="utf-8")
     else:
-        path.write_text("---\nlast_updated: 2026-05-23\n---\n\n# Agent Instructions\n\n" + AGENTS_SECTION, encoding="utf-8")
+        path.write_text(
+            "---\nlast_updated: 2026-05-23\n---\n\n# Agent Instructions\n\n"
+            + AGENTS_SECTION,
+            encoding="utf-8",
+        )
     return [path]
 
 
@@ -123,7 +202,10 @@ def _spec_schema() -> str:
             "anyOf": [{"required": ["type"]}, {"required": ["kind"]}],
             "additionalProperties": True,
             "properties": {
-                "id": {"type": "string", "pattern": "^[A-Z][A-Z0-9-]+-[0-9]{3,}(-EX[0-9]{3,})?$"},
+                "id": {
+                    "type": "string",
+                    "pattern": "^[A-Z][A-Z0-9-]+-[0-9]{3,}(-EX[0-9]{3,})?$",
+                },
                 "type": {"type": "string"},
                 "kind": {"type": "string"},
                 "name": {"type": "string"},
@@ -132,20 +214,38 @@ def _spec_schema() -> str:
                 "statement": {"type": "string"},
                 "definition": {"type": "string"},
                 "preferred_term": {"type": "string"},
-                "aliases": {"type": "array", "items": {"type": "string"}, "uniqueItems": True},
-                "not": {"type": "array", "items": {"type": "string"}, "uniqueItems": True},
+                "aliases": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "uniqueItems": True,
+                },
+                "not": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "uniqueItems": True,
+                },
                 "object_kind": {"type": "string"},
                 "fields": {"type": "array", "items": {"type": "object"}},
                 "relationships": {"type": "array", "items": {"type": "string"}},
-                "key_invariants": {"type": "array", "items": {"type": "string"}},
-                "lifecycle_states": {"type": "array", "items": {"type": "string"}},
                 "open_questions": {"type": "array", "items": {"type": "string"}},
                 "gap": {"type": "string"},
                 "suggested_improvement": {"type": "string"},
                 "summary": {"type": "string"},
-                "references": {"type": "array", "items": {"type": "string"}, "uniqueItems": True},
-                "examples": {"type": "array", "items": {"type": "string"}, "uniqueItems": True},
-                "tests": {"type": "array", "items": {"type": "string"}, "uniqueItems": True},
+                "references": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "uniqueItems": True,
+                },
+                "examples": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "uniqueItems": True,
+                },
+                "tests": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "uniqueItems": True,
+                },
                 "links": {"type": "array"},
             },
         }
@@ -244,7 +344,11 @@ def _agent_maintenance_rule() -> str:
             "owner": "project",
             "status": "active",
             "statement": "Agents must use, create, and maintain Lattice specs whenever project work changes durable knowledge.",
-            "references": ["PROJECT-CONCEPT-001", "PROJECT-DOMAIN-001", "PROJECT-RULE-001"],
+            "references": [
+                "PROJECT-CONCEPT-001",
+                "PROJECT-DOMAIN-001",
+                "PROJECT-RULE-001",
+            ],
             "tests": ["PROJECT-TEST-001"],
         }
     )

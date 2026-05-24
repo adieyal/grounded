@@ -19,7 +19,22 @@ class LatticeConfig:
     generated_docs_dir: Path
     generated_llm_dir: Path
     search_index_path: Path
-    required_test_kinds: frozenset[str] = field(default_factory=lambda: frozenset({"business_rule", "example"}))
+    docs_title: str = "Project Memory"
+    docs_eyebrow: str = "Project memory"
+    docs_description: str = (
+        "Generated from typed Lattice knowledge units. Search, backlinks, and "
+        "links are derived from the same registry."
+    )
+    docs_nav_label: str = "Project Docs"
+    docs_background_title: str = "Lattice background"
+    docs_background_description: str = (
+        "These units explain the documentation system, guardrails, and "
+        "generated metadata. They are available for traceability, but they are "
+        "not the primary project domain."
+    )
+    required_test_kinds: frozenset[str] = field(
+        default_factory=lambda: frozenset({"business_rule", "example"})
+    )
     audit_roots: tuple[Path, ...] = ()
 
     @classmethod
@@ -35,7 +50,13 @@ class LatticeConfig:
             generated_docs_dir=lattice_dir / "generated" / "docs",
             generated_llm_dir=lattice_dir / "generated" / "llm",
             search_index_path=lattice_dir / "generated" / "docs" / "search-index.json",
-            audit_roots=(root / "src", root / "tests", root / "docs", root / "README.md", root / "AGENTS.md"),
+            audit_roots=(
+                root / "src",
+                root / "tests",
+                root / "docs",
+                root / "README.md",
+                root / "AGENTS.md",
+            ),
         )
 
 
@@ -62,7 +83,11 @@ class Spec:
 
     @property
     def references(self) -> tuple[str, ...]:
-        refs = [*self.data.get("references", [])] if isinstance(self.data.get("references", []), list) else []
+        refs = (
+            [*self.data.get("references", [])]
+            if isinstance(self.data.get("references", []), list)
+            else []
+        )
         links = self.data.get("links", [])
         if isinstance(links, list):
             for link in links:

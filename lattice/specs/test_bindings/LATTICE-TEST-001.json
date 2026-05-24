@@ -1,0 +1,12 @@
+{
+  "id": "LATTICE-TEST-001",
+  "kind": "test_binding",
+  "name": "Lattice link label attribute is rendered and honored",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-029"
+  ],
+  "status": "active",
+  "target": "LATTICE-DECISION-029",
+  "test": "uv run pytest tests/test_lattice.py -q"
+}

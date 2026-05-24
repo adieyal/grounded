@@ -1,0 +1,11 @@
+{
+  "id": "TODO-STATUS-002",
+  "name": "In progress",
+  "owner": "example",
+  "references": [
+    "TODO-LIFECYCLE-001"
+  ],
+  "status": "active",
+  "summary": "In progress means active work has started on the TodoItem and it is not yet complete.",
+  "type": "lifecycle_value"
+}

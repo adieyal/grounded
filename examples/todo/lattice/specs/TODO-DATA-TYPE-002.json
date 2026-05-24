@@ -1,0 +1,11 @@
+{
+  "definition": "A textual value used for human-readable todo content.",
+  "id": "TODO-DATA-TYPE-002",
+  "name": "string",
+  "owner": "example",
+  "references": [
+    "TODO-ITEM-001"
+  ],
+  "status": "active",
+  "type": "data_type"
+}

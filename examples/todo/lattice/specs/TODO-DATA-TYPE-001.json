@@ -1,0 +1,11 @@
+{
+  "definition": "A stable identifier value for a TodoItem.",
+  "id": "TODO-DATA-TYPE-001",
+  "name": "TodoItemId",
+  "owner": "example",
+  "references": [
+    "TODO-ITEM-001"
+  ],
+  "status": "active",
+  "type": "data_type"
+}

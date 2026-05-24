@@ -1,0 +1,16 @@
+{
+  "decision": "The lattice-link component should accept an optional label attribute that overrides the visible link text while keeping the lattice-id as the canonical reference target. Existing slot text remains a fallback for backward compatibility.",
+  "id": "LATTICE-DECISION-029",
+  "kind": "decision",
+  "name": "Add optional lattice-link label",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-009",
+    "LATTICE-DECISION-022",
+    "PROJECT-DECISION-001"
+  ],
+  "status": "active",
+  "tests": [
+    "LATTICE-TEST-001"
+  ]
+}

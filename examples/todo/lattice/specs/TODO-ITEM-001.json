@@ -1,0 +1,50 @@
+{
+  "definition": "A single task or reminder that can move through a todo status until it is done or removed.",
+  "fields": [
+    {
+      "description": "Stable identifier for the todo item.",
+      "name": "id",
+      "required": true,
+      "type": "TodoItemId"
+    },
+    {
+      "description": "Short human-readable task text.",
+      "name": "title",
+      "required": true,
+      "type": "string"
+    },
+    {
+      "description": "Optional longer note explaining context or acceptance details.",
+      "name": "description",
+      "required": false,
+      "type": "string"
+    },
+    {
+      "description": "Current lifecycle state of the item, represented by one TodoStatus value.",
+      "name": "status",
+      "required": true,
+      "type": "TodoStatus"
+    },
+    {
+      "description": "Optional date when the task should be completed.",
+      "name": "due_date",
+      "required": false,
+      "type": "date"
+    }
+  ],
+  "id": "TODO-ITEM-001",
+  "name": "TodoItem",
+  "owner": "example",
+  "references": [
+    "TODO-LIST-001",
+    "TODO-DATA-TYPE-001",
+    "TODO-DATA-TYPE-002",
+    "TODO-DATA-TYPE-003",
+    "TODO-LIFECYCLE-001",
+    "TODO-CONCEPT-002",
+    "TODO-CONCEPT-003",
+    "TODO-CONCEPT-004"
+  ],
+  "status": "active",
+  "type": "business_entity"
+}

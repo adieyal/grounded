@@ -1,0 +1,13 @@
+{
+  "id": "TODO-WORKFLOW-001",
+  "type": "workflow",
+  "name": "Capture and complete a todo",
+  "owner": "example",
+  "status": "active",
+  "summary": "A user adds a TodoItem to a TodoList, updates its TodoStatus as work changes, and marks it done when complete.",
+  "references": [
+    "TODO-LIST-001",
+    "TODO-ITEM-001",
+    "TODO-LIFECYCLE-001"
+  ]
+}

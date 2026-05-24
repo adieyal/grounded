@@ -1,0 +1,11 @@
+{
+  "id": "TODO-STATUS-001",
+  "name": "Open",
+  "owner": "example",
+  "references": [
+    "TODO-LIFECYCLE-001"
+  ],
+  "status": "active",
+  "summary": "Open means the TodoItem is known and ready to be worked on, but work has not started.",
+  "type": "lifecycle_value"
+}
