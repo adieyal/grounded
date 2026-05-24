@@ -1,0 +1,17 @@
+{
+  "examples": [
+    "PROJECT-RULE-001-EX001"
+  ],
+  "id": "PROJECT-RULE-001",
+  "kind": "business_rule",
+  "name": "Single owner for durable facts",
+  "owner": "project",
+  "references": [
+    "PROJECT-CONCEPT-001"
+  ],
+  "statement": "Every durable project fact has exactly one canonical owner; other artifacts reference that owner instead of duplicating it.",
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

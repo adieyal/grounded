@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-TYPE-001",
+  "kind": "guardrail",
+  "name": "Invalid type registry JSON",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "The type registry must be valid JSON so spec kinds have an executable source of truth.",
+  "references": ["PROJECT-GAP-001", "PROJECT-RULE-001"]
+}

@@ -1,0 +1,27 @@
+[project]
+name = "lattice"
+version = "0.1.0"
+description = "Executable project memory with single-owner specs, generated views, and drift checks."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Lattice contributors" }]
+dependencies = [
+    "jinja2>=3.1.0",
+    "jsonschema>=4.0.0",
+]
+
+[project.scripts]
+lattice = "lattice.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.3",
+]

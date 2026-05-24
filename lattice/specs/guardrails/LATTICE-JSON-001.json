@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-JSON-001",
+  "kind": "guardrail",
+  "name": "Invalid JSON spec",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "Canonical JSON specs must parse before they can participate in validation or audits.",
+  "references": ["PROJECT-RULE-001"]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "LATTICE-TYPE-006",
+  "kind": "guardrail",
+  "name": "Invalid type schema JSON",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-001",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "summary": "A type definition schema_path must contain valid JSON."
+}

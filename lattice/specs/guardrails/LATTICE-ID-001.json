@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-ID-001",
+  "kind": "guardrail",
+  "name": "Duplicate canonical ID",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "Every canonical spec ID must be globally unique within the registry.",
+  "references": ["PROJECT-RULE-001"]
+}

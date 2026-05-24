@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-REF-002",
+  "kind": "guardrail",
+  "name": "Unknown structured reference",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "A structured spec field points to a canonical ID that does not exist in the registry.",
+  "references": ["PROJECT-RULE-001"]
+}

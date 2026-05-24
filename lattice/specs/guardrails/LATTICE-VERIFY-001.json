@@ -1,0 +1,12 @@
+{
+  "id": "LATTICE-VERIFY-001",
+  "kind": "guardrail",
+  "name": "Verification command failed",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-001",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "summary": "Project-specific verification commands declared by knowledge-unit type definitions must pass when lattice verify runs."
+}

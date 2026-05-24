@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-SCHEMA-005",
+  "kind": "guardrail",
+  "name": "Reference list contains non-string values",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "Reference arrays must contain only canonical ID strings.",
+  "references": ["PROJECT-RULE-001"]
+}

@@ -1,0 +1,49 @@
+{
+  "aliases": [
+    "canonical fact",
+    "project fact"
+  ],
+  "definition": "A durable unit of project knowledge with exactly one Lattice spec as its source of truth.",
+  "id": "PROJECT-DOMAIN-001",
+  "kind": "domain_object",
+  "name": "Canonical project fact",
+  "object_kind": "concept",
+  "not": [
+    "Generated documentation",
+    "A repeated prose summary",
+    "A test assertion"
+  ],
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Stable Lattice identifier used by other artifacts when they refer to the fact."
+    },
+    {
+      "name": "owner",
+      "type": "string",
+      "required": true,
+      "description": "Team, module, or project area responsible for maintaining the fact."
+    }
+  ],
+  "relationships": [
+    "May be referenced by rules, examples, tests, plans, code comments, or generated docs."
+  ],
+  "key_invariants": [
+    "A durable fact has one canonical owner even when many generated artifacts repeat it."
+  ],
+  "lifecycle_states": [
+    "draft",
+    "active",
+    "retired"
+  ],
+  "open_questions": [],
+  "owner": "project",
+  "preferred_term": "Canonical project fact",
+  "references": [
+    "PROJECT-CONCEPT-001",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active"
+}

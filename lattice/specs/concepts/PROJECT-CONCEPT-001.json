@@ -1,0 +1,9 @@
+{
+  "id": "PROJECT-CONCEPT-001",
+  "kind": "concept",
+  "name": "Lattice project memory",
+  "owner": "project",
+  "references": [],
+  "status": "active",
+  "summary": "Durable project knowledge is owned by canonical Lattice specs and referenced by other artifacts."
+}

@@ -1,0 +1,15 @@
+{
+  "id": "PROJECT-RULE-001-EX001",
+  "intent": "A generated context pack may repeat a rule for consumption, but the canonical statement remains owned by the rule spec.",
+  "kind": "example",
+  "name": "Generated docs reference canonical specs",
+  "owner": "project",
+  "references": [
+    "PROJECT-RULE-001"
+  ],
+  "rule": "PROJECT-RULE-001",
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

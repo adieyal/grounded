@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-TYPE-003",
+  "kind": "guardrail",
+  "name": "Invalid type definition",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "Each type registry entry must define its kind shape with an object.",
+  "references": ["PROJECT-GAP-001", "PROJECT-RULE-001"]
+}

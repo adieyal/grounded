@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-OWNERSHIP-001",
+  "kind": "guardrail",
+  "name": "Possible duplicate fact ownership",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "Specs with duplicate normalized statements are flagged because every durable fact should have one owner.",
+  "references": ["PROJECT-RULE-001"]
+}

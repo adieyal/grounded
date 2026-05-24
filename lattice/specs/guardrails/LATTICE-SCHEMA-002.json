@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-SCHEMA-002",
+  "kind": "guardrail",
+  "name": "Missing ID or kind",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "Every canonical spec must declare a string id and kind.",
+  "references": ["PROJECT-RULE-001"]
+}

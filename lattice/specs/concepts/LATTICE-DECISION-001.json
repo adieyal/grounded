@@ -1,0 +1,15 @@
+{
+  "decision": "Lattice core models project memory as strongly typed knowledge units derived from a generic knowledge_unit parent. Type-specific JSON Schemas, verification bindings, rendering templates, graph links, and search fields are configured by type definitions rather than hardcoded domain semantics.",
+  "id": "LATTICE-DECISION-001",
+  "kind": "decision",
+  "name": "Typed knowledge unit core",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-THEORY-001",
+    "PROJECT-CONCEPT-001"
+  ],
+  "status": "active",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

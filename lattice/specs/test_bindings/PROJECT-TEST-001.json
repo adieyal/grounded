@@ -1,0 +1,13 @@
+{
+  "id": "PROJECT-TEST-001",
+  "kind": "test_binding",
+  "name": "Bootstrap validation covers single-owner rule",
+  "owner": "project",
+  "references": [
+    "PROJECT-RULE-001",
+    "PROJECT-RULE-001-EX001"
+  ],
+  "status": "active",
+  "target": "PROJECT-RULE-001",
+  "test": "lattice validate && lattice audit"
+}

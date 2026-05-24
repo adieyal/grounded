@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-STYLE-002",
+  "kind": "guardrail",
+  "name": "Missing design tokens",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "The central stylesheet should expose reusable design tokens for colors and spacing.",
+  "references": ["PROJECT-RULE-001"]
+}

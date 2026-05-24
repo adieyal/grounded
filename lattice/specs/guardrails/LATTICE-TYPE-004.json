@@ -1,0 +1,12 @@
+{
+  "id": "LATTICE-TYPE-004",
+  "kind": "guardrail",
+  "name": "Unknown parent type",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-001",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "summary": "A type definition that derives from another type must name a parent type that exists in the merged type registry."
+}

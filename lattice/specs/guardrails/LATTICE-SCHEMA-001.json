@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-SCHEMA-001",
+  "kind": "guardrail",
+  "name": "Spec root is not an object",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "A canonical spec must be represented as a JSON object.",
+  "references": ["PROJECT-RULE-001"]
+}

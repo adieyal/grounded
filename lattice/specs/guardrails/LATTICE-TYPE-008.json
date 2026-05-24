@@ -1,0 +1,12 @@
+{
+  "id": "LATTICE-TYPE-008",
+  "kind": "guardrail",
+  "name": "Invalid JSON Schema for type",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-001",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "summary": "A type definition schema must itself be a valid Draft 2020-12 JSON Schema."
+}

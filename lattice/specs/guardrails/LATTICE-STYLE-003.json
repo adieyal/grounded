@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-STYLE-003",
+  "kind": "guardrail",
+  "name": "Hard-coded presentation outside style source",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "Presentation values outside the central stylesheet should be replaced with reusable design tokens.",
+  "references": ["PROJECT-RULE-001"]
+}

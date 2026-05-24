@@ -1,0 +1,12 @@
+{
+  "id": "LATTICE-SCHEMA-006",
+  "kind": "guardrail",
+  "name": "Type-specific schema validation failed",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-001",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "summary": "Each knowledge unit must satisfy the JSON Schemas declared by its type and parent types."
+}

@@ -1,0 +1,212 @@
+{
+  "business_rule": {
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "statement"
+    ]
+  },
+  "concept": {
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status"
+    ]
+  },
+  "decision": {
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "decision"
+    ]
+  },
+  "domain_object": {
+    "list_fields": [
+      "references",
+      "tests",
+      "examples",
+      "aliases",
+      "not",
+      "fields",
+      "relationships",
+      "key_invariants",
+      "lifecycle_states",
+      "open_questions"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "definition"
+    ]
+  },
+  "example": {
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "rule"
+    ],
+    "single_reference_fields": [
+      "rule"
+    ]
+  },
+  "guardrail": {
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "summary"
+    ]
+  },
+  "schema_gap": {
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "gap",
+      "suggested_improvement"
+    ]
+  },
+  "spec_type": {
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "definition"
+    ]
+  },
+  "test_binding": {
+    "list_fields": [
+      "references"
+    ],
+    "reference_fields": [
+      "references"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "target",
+      "test"
+    ],
+    "single_reference_fields": [
+      "target"
+    ]
+  },
+  "workflow": {
+    "list_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "reference_fields": [
+      "references",
+      "tests",
+      "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "summary"
+    ]
+  }
+}

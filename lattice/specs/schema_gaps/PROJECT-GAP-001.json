@@ -1,0 +1,16 @@
+{
+  "affected_kind": "spec_type",
+  "gap": "When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.",
+  "id": "PROJECT-GAP-001",
+  "kind": "schema_gap",
+  "name": "Project-specific fact shapes belong in the type registry",
+  "owner": "project",
+  "references": [
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "suggested_improvement": "Record the mismatch as a schema_gap, then evolve lattice/registry/spec-types.json and templates when the shape becomes stable.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

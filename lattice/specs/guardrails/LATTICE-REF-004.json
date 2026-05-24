@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-REF-004",
+  "kind": "guardrail",
+  "name": "Unknown artifact reference",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "A declared audit artifact references a Lattice-shaped ID that has no canonical owner.",
+  "references": ["PROJECT-RULE-001"]
+}

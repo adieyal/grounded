@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "properties": {
+    "examples": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "id": {
+      "pattern": "^[A-Z][A-Z0-9-]+-[0-9]{3,}(-EX[0-9]{3,})?$",
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "owner": {
+      "type": "string"
+    },
+    "references": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
+    "statement": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "active",
+        "draft",
+        "retired"
+      ],
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "tests": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "id",
+    "kind",
+    "name",
+    "owner",
+    "status"
+  ],
+  "title": "Lattice canonical spec",
+  "type": "object"
+}

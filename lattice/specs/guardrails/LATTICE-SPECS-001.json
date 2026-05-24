@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-SPECS-001",
+  "kind": "guardrail",
+  "name": "Specs directory is missing",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "A configured Lattice registry must have a specs directory.",
+  "references": ["PROJECT-RULE-001"]
+}

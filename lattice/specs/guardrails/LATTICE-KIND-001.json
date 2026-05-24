@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-KIND-001",
+  "kind": "guardrail",
+  "name": "Unknown spec kind",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "Every spec kind must be registered in the type registry before specs can use it.",
+  "references": ["PROJECT-RULE-001"]
+}

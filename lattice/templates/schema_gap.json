@@ -1,0 +1,12 @@
+{
+  "affected_kind": "domain_object",
+  "gap": "The durable fact cannot be expressed cleanly with the current type registry or templates.",
+  "id": "PROJECT-GAP-000",
+  "kind": "schema_gap",
+  "name": "Schema gap title",
+  "owner": "project",
+  "references": [],
+  "status": "draft",
+  "suggested_improvement": "Add or change a spec type, field, validation rule, or renderer affordance.",
+  "tests": []
+}

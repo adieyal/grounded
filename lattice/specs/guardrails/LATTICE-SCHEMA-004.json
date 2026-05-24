@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-SCHEMA-004",
+  "kind": "guardrail",
+  "name": "Reference field is not a list",
+  "owner": "lattice",
+  "status": "active",
+  "summary": "List-shaped reference fields must be encoded as JSON arrays.",
+  "references": ["PROJECT-RULE-001"]
+}

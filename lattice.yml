@@ -1,0 +1,10 @@
+# Lattice registry configuration.
+specs_dir: lattice/specs
+type_registry_path: lattice/registry/spec-types.json
+schemas_dir: lattice/schemas
+templates_dir: lattice/renderers/templates
+generated_docs_dir: lattice/generated/docs
+generated_llm_dir: lattice/generated/llm
+search_index_path: lattice/generated/docs/search-index.json
+required_test_kinds: business_rule,example
+audit_roots: src,tests,docs,README.md,AGENTS.md,THEORY.md
