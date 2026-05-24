@@ -13,6 +13,7 @@ This skill is the canonical workflow for:
 - subset-first Lattice bootstrapping in existing codebases
 - choosing the right unit kinds and granularity
 - connecting new units back to canonical owners without duplication
+- rendering canonical owners with `lattice-link`, including inline prose links when a unit or goal is mentioned in a sentence
 
 ## Canonical Lattice Owners
 
@@ -31,6 +32,10 @@ This skill is the canonical workflow for:
 
 - Model the smallest coherent slice that satisfies the user goal.
 - Ask before assuming scope when the boundary is not explicit.
+- Treat bootstrap requests as scoping-only until the user confirms the boundary.
+- Do not edit code, specs, tests, or generated artifacts before confirmation.
+- Do not move past the question ladder into implementation planning without explicit user confirmation.
+- Do not inspect implementation more deeply than needed to frame the scoping questions.
 - Prefer canonical owners over duplicated concepts or near-synonyms.
 - Choose the most specific existing type that fits the meaning.
 - Use `schema_gap` when the current registry cannot express the fact cleanly.
@@ -61,10 +66,12 @@ Ask the user for the minimum information needed to bound the work:
 
 Keep the questions narrow and sequential. Prefer one question at a time unless the user has already given enough detail.
 
+Important: the question ladder is the whole first pass. Do not draft the model, inspect deep implementation details, or propose changes until the user has answered enough to freeze the slice.
+
 ### 3. Anchor the slice in evidence
 
 Use repo evidence to ground the model:
-- inspect the code paths, docs, tests, and names that appear inside the requested slice
+- inspect only the minimal code paths, docs, tests, and names needed to understand the requested slice
 - collect the nouns, workflows, rules, and data shapes that repeat
 - separate stable domain meaning from implementation detail
 
@@ -101,6 +108,21 @@ Build a small graph, not a mesh:
 
 Avoid duplicate ownership and avoid “just in case” links.
 
+When referring to a canonical unit in prose, prefer an inline `lattice-link` over a bare ID. Use the short display label when it improves readability, and keep the canonical ID as the actual target. If the sentence is about a goal, rule, workflow, or owner, link the relevant canonical unit on first mention rather than collecting the links at the end.
+
+### 6b. Model deliberately
+
+Model stable meaning, not implementation noise:
+- keep metadata separate from modeled fields
+- use `short_name` or a display alias when the canonical name is too long for links or navigation
+- model durable nouns as `domain_object` or `business_entity` only when they have ownership and structure worth preserving
+- model durable ideas, policies, and explanatory vocabulary as `concept` or `business_rule`
+- model repeatable value shapes as `data_type`
+- model ordered behavior as `workflow`
+- use `schema_gap` when the current registry cannot express the fact cleanly
+
+If a concept is only useful as a presentation label, do not force it into a domain object. If a field is only operational metadata, do not elevate it into the core model just because the renderer can show it.
+
 ### 7. Refine interactively
 
 After the first draft, show the user:
@@ -119,6 +141,8 @@ Once the user agrees:
 - note any deliberate exclusions
 - proceed to implementation or spec updates
 
+If the user has not confirmed the slice, stop after the question ladder and return the plan/questions only.
+
 ## Default Template
 
 Start with the default modeling template for ordinary units and interactions. Override the concept pages below only when the default flow is too generic for the current slice.
@@ -131,6 +155,10 @@ Start with the default modeling template for ordinary units and interactions. Ov
 - [Scope boundary guidance](./references/scoping-boundary.md)
 - [Type selection guidance](./references/type-selection.md)
 - [Interlinking guidance](./references/interlinking.md)
+- [Link rendering guidance](./references/link-rendering.md)
+- [Modeling guidance](./references/modeling-guidance.md)
+- [Slice guidance](./references/slices.md)
+- [Short name guidance](./references/short-names.md)
 - [Template override notes](./references/template-overrides.md)
 
 ## Special Cases
