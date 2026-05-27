@@ -10,6 +10,7 @@ Rules:
 - `name` stays the canonical unit name.
 - `short_name` is optional.
 - Use `short_name` for links, backlinks, navigation, search titles, and other dense UI surfaces when the canonical name is too long.
+- Prefer `short_name` on long `domain_object`, `concept`, and `enum` names that would otherwise dominate the UI.
 - Do not use `short_name` as a replacement for the canonical identity of the unit.
 - Do not show `short_name` in field tables as if it were a modeled domain field.
 
@@ -17,6 +18,7 @@ Good uses:
 - `AnalysisReportSectionBlock` with `short_name` of `SectionBlock`
 - long concept names that need a compact label in navigation
 - link labels that would otherwise be too verbose to scan quickly
+- enum pages where the canonical value set has a long formal name
 
 When to skip it:
 - the canonical name is already short and clear

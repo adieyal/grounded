@@ -6,10 +6,16 @@ last_updated: 2026-05-24
 
 Use `lattice-link` whenever a response or generated page refers to a canonical Lattice unit by ID.
 
+When the target is a field, member, or sub-section, use the `fragment` attribute so the link points to the exact anchor.
+When the display label should differ from the canonical unit name, use the optional `label` attribute.
+When linking a project-defined tag, use `type="tag"` so the tag index resolves to the generated tag page.
+Use tag links for project-defined labels such as `deprecated` or `planned`, and use field-tag chips only on the field row they annotate.
+
 Prefer inline links when the unit is part of the sentence:
 - "Track the boundary in `PROJECT-WORKFLOW-001`."
 - "This rule is owned by `PROJECT-RULE-003`."
 - "The slice is described by `PROJECT-CONCEPT-003`."
+- "Deprecated items are grouped under the `deprecated` tag."
 
 Use the short display label when it improves readability, but keep the canonical ID as the target. If the same sentence mentions multiple canonical units, link each one on first mention.
 

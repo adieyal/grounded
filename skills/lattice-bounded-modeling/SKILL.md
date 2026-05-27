@@ -13,7 +13,9 @@ This skill is the canonical workflow for:
 - subset-first Lattice bootstrapping in existing codebases
 - choosing the right unit kinds and granularity
 - connecting new units back to canonical owners without duplication
-- rendering canonical owners with `lattice-link`, including inline prose links when a unit or goal is mentioned in a sentence
+- rendering canonical owners with `lattice-link`, including inline prose links, labels, and fragment links when a unit, field, tag, or goal is mentioned in a sentence
+- modeling display aliases, closed enums, and project-defined tags without smuggling them into domain fields
+- recognizing that tags can live on both knowledge units and field definitions
 
 ## Canonical Lattice Owners
 
@@ -39,6 +41,11 @@ This skill is the canonical workflow for:
 - Prefer canonical owners over duplicated concepts or near-synonyms.
 - Choose the most specific existing type that fits the meaning.
 - Use `schema_gap` when the current registry cannot express the fact cleanly.
+- Treat `short_name` as a display alias, not as canonical identity.
+- Treat `enum` as a closed vocabulary with explicit values.
+- Treat tags as project-defined metadata that may deserve their own browse pages.
+- Treat field tags as metadata on the field row, not as a modeled field of the parent object.
+- Use project-owned `verification` specs for runtime checks against code, files, or generated artifacts; do not overload core templates for validation behavior.
 - Keep interlinks intentional: every reference should explain ownership, constraint, example, or dependency.
 - Do not turn the first pass into a full-system inventory.
 
@@ -85,6 +92,7 @@ Draft the first model as a small set of linked units:
 - `workflow` for ordered behavior or user/system interaction
 - `business_rule` for invariants, policies, and must/never statements
 - `data_type` for reusable value shapes and scalar semantics
+- `enum` for closed sets of named values
 - `example` for concrete proof points
 - `schema_gap` when the registry cannot express the fact cleanly
 
@@ -157,8 +165,11 @@ Start with the default modeling template for ordinary units and interactions. Ov
 - [Interlinking guidance](./references/interlinking.md)
 - [Link rendering guidance](./references/link-rendering.md)
 - [Modeling guidance](./references/modeling-guidance.md)
+- [Enum guidance](./references/enum.md)
 - [Slice guidance](./references/slices.md)
 - [Short name guidance](./references/short-names.md)
+- [Tag guidance](./references/tags.md)
+- [Verification guidance](./references/verification.md)
 - [Template override notes](./references/template-overrides.md)
 
 ## Special Cases
@@ -167,3 +178,4 @@ Start with the default modeling template for ordinary units and interactions. Ov
 - Hidden complexity: if the requested slice reveals an essential adjacent concept, call it out and ask whether it belongs in the slice.
 - New subsystem introduction: anchor the model around user-visible workflows or public interfaces before drilling into internals.
 - Overlapping terminology: keep one canonical term and map alternatives back to it.
+- Display-heavy surfaces: prefer `short_name` for links, navigation, and summaries when the canonical name is too long.

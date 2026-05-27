@@ -13,6 +13,7 @@ Heuristics:
 - `workflow`: ordered interaction or operating sequence.
 - `business_rule`: invariant, policy, or must/never statement.
 - `data_type`: reusable value shape or scalar meaning.
+- `enum`: closed set of named values with explicit members.
 - `example`: concrete instance that proves a rule or illustrates a concept.
 - `schema_gap`: the current registry cannot express the fact cleanly.
 
@@ -21,5 +22,6 @@ Prefer:
 - no new type when an existing one already fits
 - `schema_gap` instead of smuggling new semantics into prose
 
-If a unit feels half-entity and half-concept, ask which part is actually stable and canonical before choosing the type.
+Do not introduce a new spec kind for tags. Tags are project-defined metadata that may drive tag pages or grouped navigation, but they are not a core unit type.
 
+If a unit feels half-entity and half-concept, ask which part is actually stable and canonical before choosing the type.

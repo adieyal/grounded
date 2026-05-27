@@ -1,5 +1,5 @@
 ---
-last_updated: 2026-05-23
+last_updated: 2026-05-24
 name: lattice-project-memory
 description: Use Lattice as the primary source of truth for specs, durable project knowledge, generated docs, and drift checks.
 ---
@@ -10,7 +10,7 @@ description: Use Lattice as the primary source of truth for specs, durable proje
 
 - Adding or changing durable project knowledge
 - Writing specs, rules, examples, workflows, decisions, or architecture notes
-- Defining or changing domain terminology and glossary entries
+- Defining or changing domain terminology, glossary entries, enum vocabularies, or project-defined tags
 - Preparing LLM context from project facts
 - Updating tests that prove project rules or examples
 - Reviewing drift between docs, code, tests, and specs
@@ -25,11 +25,15 @@ description: Use Lattice as the primary source of truth for specs, durable proje
 6. Check `lattice/registry/spec-types.json` before inventing a spec kind.
 7. Capture unmet schema needs as `schema_gap` specs.
 8. Check `domain_object` specs before naming domain concepts in code or docs.
-9. Reference specs by stable ID from tests, code, and non-generated docs.
-10. Update Lattice in the same change when work introduces or changes durable knowledge.
-11. Regenerate views with `lattice render`.
-12. Run `lattice validate` and `lattice audit`.
-13. Report changed Lattice IDs, or state that no durable knowledge changed.
+9. Use `short_name` when a durable unit needs a concise display alias in generated views.
+10. Model closed value sets as `enum` where the current registry supports it.
+11. Treat project-defined tags as metadata on knowledge units or field definitions, not as new domain concepts.
+12. Use project-owned `verification` specs for checks against code, files, or generated artifacts; do not encode those checks as template overrides.
+13. Reference specs by stable ID from tests, code, and non-generated docs.
+14. Update Lattice in the same change when work introduces or changes durable knowledge.
+15. Regenerate views with `lattice render`.
+16. Run `lattice validate` and `lattice audit`.
+17. Report changed Lattice IDs, or state that no durable knowledge changed.
 
 ## Non-Negotiables
 
@@ -38,6 +42,10 @@ description: Use Lattice as the primary source of truth for specs, durable proje
 - Do not define domain terms outside glossary/domain-object specs when the meaning is durable.
 - Do not invent new spec kinds without updating the type registry and templates.
 - Do not hide a schema limitation in prose; create a `schema_gap` owner.
+- Do not treat `short_name` as canonical identity.
+- Do not treat tags as modeled fields or as a substitute for ownership.
+- Do not treat field tags as parent-object fields.
+- Do not encode code-existence checks in templates when a verification spec is the right owner.
 - Do not manually edit files under `lattice/generated`.
 - Do not invent a competing term, rule, workflow, or decision if a canonical spec exists.
 - Treat broken references, stale generated views, and untested required specs as drift.
