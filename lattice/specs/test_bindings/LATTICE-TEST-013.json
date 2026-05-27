@@ -7,7 +7,7 @@
     "LATTICE-DECISION-043"
   ],
   "status": "active",
-  "description": "Binds LATTICE-DECISION-043 to an executable render test so Lattice can verify the generated bundled stylesheet includes the readable body font token.",
+  "description": "Binds LATTICE-DECISION-043 to an executable render test so Lattice can verify the generated bundled stylesheet includes the readable design-brief body font token.",
   "target": "LATTICE-DECISION-043",
   "test": "uv run pytest tests/test_lattice.py::LatticeTests::test_validate_and_render_check_round_trip -q"
 }

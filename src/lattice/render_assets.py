@@ -58,7 +58,7 @@ class LatticeLink extends LitElement {
     :host([variant="nav"]) a { background: transparent; border: 0; border-radius: 0; color: inherit; display: block; font: inherit; min-width: 0; padding: 0; text-decoration: none; }
     :host([variant="card-title"]) a { background: transparent; border: 0; border-radius: 0; color: var(--lattice-link-fg); display: inline; font: var(--font-weight-medium) var(--font-size-md)/1.3 var(--font-sans); padding: 0; text-decoration: none; }
     :host([variant="card-title"]) a:hover { text-decoration: underline; }
-    :host([variant="tag"]) a { background: var(--color-bg-secondary); border-color: var(--color-border-tertiary); border-radius: var(--radius-xs); color: var(--color-text-secondary); font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); padding: var(--space-3xs) 0.4375rem; text-decoration: none; }
+    :host([variant="tag"]) a { background: var(--color-bg-secondary); border-color: var(--color-border-tertiary); border-radius: var(--radius-pill); color: var(--color-text-secondary); font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); padding: var(--space-3xs) var(--space-md); text-decoration: none; }
     :host([variant="tag"]) a:hover { background: var(--color-bg-primary); text-decoration: none; }
     :host([variant="field-type"]) a { background: var(--color-type-bg); border-color: transparent; border-radius: var(--radius-xs); color: var(--color-entity-dark); font: var(--font-weight-medium) var(--font-size-xs)/1.2 var(--font-mono); padding: var(--space-3xs) var(--space-sm); }
   `;
@@ -96,6 +96,7 @@ class LatticeTopBar extends LitElement {
     :host { align-items: center; background: var(--color-bg-primary); border-bottom: var(--border-width) solid var(--color-border-primary); display: flex; gap: var(--space-lg); min-height: 2.375rem; padding: 0.5625rem var(--space-lg); position: sticky; top: 0; z-index: 10; }
     a { color: var(--color-text-secondary); font: var(--font-weight-medium) var(--font-size-xs)/1 var(--font-mono); letter-spacing: 0.08em; text-decoration: none; text-transform: uppercase; white-space: nowrap; }
     ::slotted(lattice-search) { flex: 1; }
+    ::slotted(lattice-theme-toggle) { flex: 0 0 auto; }
     @media (max-width: 760px) { :host { align-items: stretch; flex-direction: column; } }
   `;
   render() {
@@ -133,6 +134,78 @@ class LatticeSearch extends LitElement {
   }
 }
 
+const themeStorageKey = 'lattice-theme';
+const explicitThemes = new Set(['light', 'dark']);
+const storedTheme = () => {
+  try {
+    const theme = window.localStorage.getItem(themeStorageKey);
+    return explicitThemes.has(theme) ? theme : '';
+  } catch {
+    return '';
+  }
+};
+const systemTheme = () => window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
+class LatticeThemeToggle extends LitElement {
+  static properties = { theme: { type: String, reflect: true } };
+  constructor() {
+    super();
+    this.theme = storedTheme() || systemTheme();
+    this._mediaQuery = null;
+    this._onSystemThemeChange = () => {
+      if (!storedTheme()) this.theme = systemTheme();
+    };
+  }
+  connectedCallback() {
+    super.connectedCallback();
+    this.syncTheme();
+    if (window.matchMedia) {
+      this._mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+      this._mediaQuery.addEventListener('change', this._onSystemThemeChange);
+    }
+  }
+  disconnectedCallback() {
+    if (this._mediaQuery) {
+      this._mediaQuery.removeEventListener('change', this._onSystemThemeChange);
+    }
+    super.disconnectedCallback();
+  }
+  static styles = css`
+    :host { display: inline-flex; }
+    button { align-items: center; background: var(--color-bg-secondary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-sm); color: var(--color-text-secondary); cursor: pointer; display: inline-flex; font: var(--font-weight-medium) var(--font-size-xs)/1.2 var(--font-mono); gap: var(--space-xs); min-height: 1.75rem; padding: var(--space-2xs) var(--space-sm); white-space: nowrap; }
+    button:hover { border-color: var(--color-border-primary); color: var(--color-text-primary); }
+    button:focus-visible { outline: 2px solid var(--color-link); outline-offset: 2px; }
+    .mark { border: var(--border-width) solid var(--color-text-tertiary); border-radius: 999px; display: inline-block; height: 0.75rem; position: relative; width: 0.75rem; }
+    :host([theme="light"]) .mark { background: var(--color-text-secondary); box-shadow: 0 0 0 0.125rem var(--color-bg-secondary) inset; }
+    :host([theme="dark"]) .mark { background: transparent; box-shadow: inset -0.22rem -0.12rem 0 0 var(--color-text-secondary); }
+    @media (max-width: 760px) { button { justify-content: center; width: 100%; } }
+  `;
+  syncTheme() {
+    const theme = storedTheme();
+    if (theme) {
+      document.documentElement.dataset.theme = theme;
+      this.theme = theme;
+      return;
+    }
+    document.documentElement.removeAttribute('data-theme');
+    this.theme = systemTheme();
+  }
+  setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    try {
+      window.localStorage.setItem(themeStorageKey, theme);
+    } catch {}
+    this.theme = theme;
+  }
+  toggleTheme() {
+    this.setTheme(this.theme === 'dark' ? 'light' : 'dark');
+  }
+  render() {
+    const next = this.theme === 'dark' ? 'light' : 'dark';
+    return html`<button type="button" aria-label=${`Switch to ${next} theme`} title=${`Switch to ${next} theme`} @click=${this.toggleTheme}><span class="mark" aria-hidden="true"></span><span>${this.theme === 'dark' ? 'Dark' : 'Light'}</span></button>`;
+  }
+}
+
 class LatticeSidebar extends LitElement {
   static styles = css`
     :host { background: var(--color-bg-secondary); border-right: var(--border-width) solid var(--color-border-primary); display: block; height: calc(100vh - 2.375rem); overflow-y: auto; padding: var(--space-md) 0; position: sticky; top: 2.375rem; }
@@ -160,7 +233,7 @@ class LatticeNavItem extends LitElement {
     :host([active][tone="enu"]) { border-left-color: var(--color-enum); }
     .dot { background: var(--color-text-tertiary); border-radius: 999px; flex: 0 0 auto; height: 0.375rem; margin-top: 0.3125rem; width: 0.375rem; }
     :host([tone="ent"]) .dot { background: var(--color-entity); }
-    :host([tone="con"]) .dot { background: #7f77dd; }
+    :host([tone="con"]) .dot { background: var(--color-brand-primary); }
     :host([tone="enu"]) .dot { background: var(--color-enum); }
   `;
   render() { return html`<span class="dot" aria-hidden="true"></span><slot></slot>`; }
@@ -175,7 +248,7 @@ class LatticePageHero extends LitElement {
   static styles = css`
     :host { border-bottom: var(--border-width) solid var(--color-border-tertiary); display: block; padding: 1.375rem var(--space-2xl) 1.125rem; }
     .eyebrow { color: var(--color-entity-dark); font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); letter-spacing: 0.2em; margin-bottom: var(--space-xs); text-transform: uppercase; }
-    h1 { font: var(--font-weight-regular) var(--font-size-title)/1.1 var(--font-serif); margin: 0 0 var(--space-sm); }
+    h1 { font: var(--font-weight-medium) var(--font-size-title)/1 var(--font-serif); margin: 0 0 var(--space-sm); }
     p { color: var(--color-text-secondary); font-size: var(--font-size-md); line-height: 1.6; margin: 0 0 var(--space-md); max-width: 36.25rem; }
     @media (max-width: 760px) { :host { padding-inline: var(--space-lg); } }
   `;
@@ -189,7 +262,7 @@ class LatticeDocHeader extends LitElement {
     :host { border-bottom: var(--border-width) solid var(--color-border-tertiary); display: block; padding: 1.5rem var(--space-2xl) 1.25rem; }
     .eyebrow { align-items: center; display: flex; gap: var(--space-sm); margin-bottom: var(--space-sm); }
     .type-badge { background: var(--color-chip-bg); border: var(--border-width) solid var(--color-chip-border); border-radius: 999px; color: var(--color-text-secondary); display: inline-flex; font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); letter-spacing: 0.12em; padding: var(--space-2xs) var(--space-sm); text-transform: uppercase; }
-    h1 { color: var(--color-text-primary); font: var(--font-weight-medium) var(--font-size-title)/1.18 var(--font-serif); margin: 0 0 var(--space-md); }
+    h1 { color: var(--color-text-primary); font: var(--font-weight-medium) var(--font-size-title)/1 var(--font-serif); margin: 0 0 var(--space-md); }
     .lead { color: var(--color-text-secondary); font-size: var(--font-size-md); line-height: 1.65; margin: 0; max-width: 46rem; }
     .actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
     @media (max-width: 760px) { :host { padding-inline: var(--space-lg); } }
@@ -265,7 +338,7 @@ class LatticeLifecycleTypePage extends LitElement { render() { return html`<latt
 
 class LatticeFieldTable extends LitElement { static styles = css`:host { display: block; }`; render() { return html`<slot></slot>`; } }
 class LatticeConceptSection extends LitElement { static styles = css`:host { display: grid; gap: 0.4375rem; margin-bottom: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
-class LatticeConceptCard extends LitElement { static styles = css`:host { border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: block; padding: 0.625rem 0.875rem; }`; render() { return html`<slot></slot>`; } }
+class LatticeConceptCard extends LitElement { static styles = css`:host { background: var(--color-bg-secondary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: block; padding: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
 class LatticeSection extends LitElement {
   static properties = { label: { type: String } };
   static styles = css`
@@ -335,7 +408,7 @@ class LatticeDetailRow extends LitElement {
 class LatticeLinksPanel extends LitElement { static styles = css`:host { display: block; margin-bottom: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
 class LatticeRawJson extends LitElement { static styles = css`:host { display: block; }`; render() { return html`<slot></slot>`; } }
 class LatticeUnitSection extends LitElement { static styles = css`:host { border-bottom: var(--border-width) solid var(--color-border-tertiary); display: block; padding: var(--space-lg) var(--space-xl); }`; render() { return html`<slot></slot>`; } }
-class LatticeUnitCard extends LitElement { static styles = css`:host { background: var(--color-bg-primary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: flex; flex-direction: column; min-height: 6rem; padding: var(--space-md) var(--space-md) 0.625rem; } :host(:hover) { border-color: var(--color-border-primary); }`; render() { return html`<slot></slot>`; } }
+class LatticeUnitCard extends LitElement { static styles = css`:host { background: var(--color-bg-secondary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: flex; flex-direction: column; min-height: 6rem; padding: var(--space-xl); } :host(:hover) { border-color: var(--color-border-primary); }`; render() { return html`<slot></slot>`; } }
 
 const define = (name, component) => {
   if (!customElements.get(name)) customElements.define(name, component);
@@ -344,6 +417,7 @@ define('lattice-link', LatticeLink);
 define('lattice-docs-app', LatticeDocsApp);
 define('lattice-top-bar', LatticeTopBar);
 define('lattice-search', LatticeSearch);
+define('lattice-theme-toggle', LatticeThemeToggle);
 define('lattice-sidebar', LatticeSidebar);
 define('lattice-nav-group', LatticeNavGroup);
 define('lattice-nav-item', LatticeNavItem);

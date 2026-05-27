@@ -11,3 +11,8 @@ uv run lattice --root examples/todo render
 ```
 
 The generated documentation is written to `examples/todo/site`.
+
+When this repository is published on GitHub, enable GitHub Pages with the
+source set to GitHub Actions. The workflow at
+`../../.github/workflows/todo-pages.yml` renders this example and uploads
+`examples/todo/site` as the Pages artifact.

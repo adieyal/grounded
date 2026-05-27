@@ -6,6 +6,15 @@ last_updated: 2026-05-27
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
+## 0.8.0 - 2026-05-27
+
+- Added a bundled `lattice-theme-toggle` Lit component to generated docs.
+- Generated docs now persist explicit light/dark theme choices locally while
+  continuing to follow the system color scheme when no preference is set.
+- Updated the default generated documentation stylesheet to follow `DESIGN.md`
+  tokens for color, typography, spacing, radius, and metadata pills.
+- Added GitHub Pages publishing prep for the standalone Todo demo.
+
 ## 0.7.0 - 2026-05-27
 
 - Added `lattice graph SPEC-ID` to emit Graphviz DOT relationship graphs from

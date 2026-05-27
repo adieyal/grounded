@@ -101,7 +101,7 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-022, LATTICE-DECISION-023, LATTICE-DECISION-029, LATTICE-DECISION-039
 - `LATTICE-DECISION-042` (decision, owner: lattice): Documents the 0.5.0 version bump so the compact list release has a canonical Lattice owner. The package version is bumped to 0.5.0 for compact linked item list components and their tag page rendering usage.
   Links: LATTICE-DECISION-040, LATTICE-DECISION-041
-- `LATTICE-DECISION-043` (decision, owner: lattice): Documents the default documentation font-size token increase so the bundled stylesheet remains readable without project overrides. The bundled documentation stylesheet uses a more readable font token scale, with body-sized text at 1rem and compact labels scaled up proportionally. Generated documentation should prefer readable default prose over an overly dense small-text interface.
+- `LATTICE-DECISION-043` (decision, owner: lattice): Documents the default documentation font-size token scale so the bundled stylesheet remains readable and aligned with the design brief without project overrides. The bundled documentation stylesheet uses a readable font token scale derived from DESIGN.md, with body-sized text at the design brief's body-md size of 1.125rem and compact labels scaled to remain legible. Generated documentation should prefer readable default prose over an overly dense small-text interface.
   Links: LATTICE-DECISION-028, LATTICE-STYLE-002
 - `LATTICE-DECISION-045` (decision, owner: lattice): Documents the reusable Lit component extraction from a project-specific analytics documentation mock. Reusable documentation patterns identified from project-specific mocks are implemented as neutral bundled Lit components that consume Lattice design tokens. The reusable set includes lattice-doc-header, lattice-section, lattice-pill-link-list, lattice-detail-list, and lattice-detail-row; project-specific analytics concepts remain data or template content rather than core components.
   Links: LATTICE-DECISION-022, LATTICE-DECISION-023, LATTICE-DECISION-028, LATTICE-DECISION-041
@@ -111,6 +111,14 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-039, LATTICE-DECISION-045
 - `LATTICE-DECISION-048` (decision, owner: lattice): Documents the 0.7.0 version bump so the Graphviz relationship graph CLI release has a canonical Lattice owner. The package version is bumped to 0.7.0 for the Graphviz relationship graph CLI, including bounded traversal from a starting knowledge-unit ID, outgoing and backlink relationships, optional type include/exclude filters, stdout output, and file output.
   Links: LATTICE-DECISION-046, LATTICE-DECISION-047
+- `LATTICE-DECISION-049` (decision, owner: lattice): Documents the GitHub Pages preparation for the Todo demo so publishing uses generated artifacts without committing rendered site files. The Todo example is prepared for GitHub Pages through a GitHub Actions workflow that renders examples/todo into the ignored examples/todo/site directory, validates and audits the example, uploads the rendered site as a Pages artifact, and deploys it with the official GitHub Pages deployment action. Rendered demo output remains out of version control.
+  Links: LATTICE-DECISION-032, LATTICE-DECISION-046
+- `LATTICE-DECISION-050` (decision, owner: lattice): Documents the light and dark theme toggle for generated Lattice documentation so theme behavior has a canonical owner. Generated documentation includes a bundled lattice-theme-toggle Lit component in the shared top bar. The toggle switches between explicit light and dark themes, persists the preference in localStorage under lattice-theme, and applies the selected mode by setting data-theme on the document root. When no explicit preference is stored, generated docs follow the user's system color scheme.
+  Links: LATTICE-DECISION-022, LATTICE-DECISION-028, LATTICE-DECISION-045
+- `LATTICE-DECISION-051` (decision, owner: lattice): Documents DESIGN.md as the default rendered HTML styling source so bundled docs styling has a canonical owner. The bundled generated-documentation stylesheet adopts DESIGN.md as its default visual token source. The default rendered HTML uses the design brief's warm canvas, coffee ink, orange accent, Inter-first typography with a Degular Display fallback for display headings, 12px card and button radii, pill metadata badges, and a 4px-based spacing scale. Project styles may still override these tokens through the configured styles_dir.
+  Links: LATTICE-DECISION-028, LATTICE-DECISION-043, LATTICE-DECISION-045, LATTICE-DECISION-050
+- `LATTICE-DECISION-052` (decision, owner: lattice): Documents the 0.8.0 version bump so the publishing, theme toggle, and DESIGN.md styling release has a canonical Lattice owner. The package version is bumped to 0.8.0 for GitHub publishing preparation, Todo demo GitHub Pages deployment, the generated documentation light/dark theme toggle, and DESIGN.md-based default documentation styling.
+  Links: LATTICE-DECISION-049, LATTICE-DECISION-050, LATTICE-DECISION-051
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
 - `PROJECT-DOMAIN-001` (domain_object, owner: project): Defines the Canonical project fact domain object and explains how other specs should refer to it. A durable unit of project knowledge with exactly one Lattice spec as its source of truth.
@@ -205,12 +213,16 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-039
 - `LATTICE-TEST-012` (test_binding, owner: lattice): Binds LATTICE-DECISION-041 to an executable test so Lattice can verify compact list components render linked names and descriptions.
   Links: LATTICE-DECISION-041
-- `LATTICE-TEST-013` (test_binding, owner: lattice): Binds LATTICE-DECISION-043 to an executable render test so Lattice can verify the generated bundled stylesheet includes the readable body font token.
+- `LATTICE-TEST-013` (test_binding, owner: lattice): Binds LATTICE-DECISION-043 to an executable render test so Lattice can verify the generated bundled stylesheet includes the readable design-brief body font token.
   Links: LATTICE-DECISION-043
 - `LATTICE-TEST-015` (test_binding, owner: lattice): Binds LATTICE-DECISION-045 to an executable render test so Lattice can verify reusable Lit documentation components are emitted and consume design tokens.
   Links: LATTICE-DECISION-045
 - `LATTICE-TEST-016` (test_binding, owner: lattice): Binds LATTICE-DECISION-047 to an executable CLI test so Lattice can verify Graphviz DOT export includes outgoing and incoming relationships with bounded depth and type filters.
   Links: LATTICE-DECISION-047
+- `LATTICE-TEST-017` (test_binding, owner: lattice): Binds LATTICE-DECISION-050 to executable render tests so Lattice can verify the theme toggle is emitted with stylesheet token support.
+  Links: LATTICE-DECISION-050
+- `LATTICE-TEST-018` (test_binding, owner: lattice): Binds LATTICE-DECISION-051 to executable render tests so Lattice can verify the bundled stylesheet includes DESIGN.md color, type, and radius tokens.
+  Links: LATTICE-DECISION-051
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.

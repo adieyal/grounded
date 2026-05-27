@@ -7,6 +7,16 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}{{ docs_title }}{% endblock %}</title>
+  <script>
+    (() => {
+      try {
+        const theme = window.localStorage.getItem("lattice-theme");
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme;
+        }
+      } catch {}
+    })();
+  </script>
   <link rel="stylesheet" href="{{ css_href }}" />
   {% if extra_css_href %}<link rel="stylesheet" href="{{ extra_css_href }}" />{% endif %}
   <script type="module" src="{{ link_component_href }}"></script>
@@ -18,6 +28,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   <lattice-docs-app>
     <lattice-top-bar slot="top" home-href="{{ docs_home_href }}" label="{{ docs_nav_label }}">
       <lattice-search></lattice-search>
+      <lattice-theme-toggle></lattice-theme-toggle>
     </lattice-top-bar>
     <lattice-sidebar slot="nav" aria-label="Knowledge units">
       {% for type_name, units in by_type.items() %}

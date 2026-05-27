@@ -1,0 +1,18 @@
+{
+  "decision": "The bundled generated-documentation stylesheet adopts DESIGN.md as its default visual token source. The default rendered HTML uses the design brief's warm canvas, coffee ink, orange accent, Inter-first typography with a Degular Display fallback for display headings, 12px card and button radii, pill metadata badges, and a 4px-based spacing scale. Project styles may still override these tokens through the configured styles_dir.",
+  "id": "LATTICE-DECISION-051",
+  "kind": "decision",
+  "name": "Adopt DESIGN.md default documentation styling",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-028",
+    "LATTICE-DECISION-043",
+    "LATTICE-DECISION-045",
+    "LATTICE-DECISION-050"
+  ],
+  "status": "active",
+  "description": "Documents DESIGN.md as the default rendered HTML styling source so bundled docs styling has a canonical owner.",
+  "tests": [
+    "LATTICE-TEST-018"
+  ]
+}

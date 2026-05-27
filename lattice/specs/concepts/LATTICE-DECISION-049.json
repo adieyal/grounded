@@ -1,0 +1,13 @@
+{
+  "decision": "The Todo example is prepared for GitHub Pages through a GitHub Actions workflow that renders examples/todo into the ignored examples/todo/site directory, validates and audits the example, uploads the rendered site as a Pages artifact, and deploys it with the official GitHub Pages deployment action. Rendered demo output remains out of version control.",
+  "id": "LATTICE-DECISION-049",
+  "kind": "decision",
+  "name": "Prepare Todo demo for GitHub Pages",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-032",
+    "LATTICE-DECISION-046"
+  ],
+  "status": "active",
+  "description": "Documents the GitHub Pages preparation for the Todo demo so publishing uses generated artifacts without committing rendered site files."
+}

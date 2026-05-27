@@ -113,14 +113,22 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("<lattice-main", html)
             self.assertIn("<lattice-unit-card", html)
             self.assertIn("<lattice-search", html)
+            self.assertIn("<lattice-theme-toggle", html)
             self.assertIn("lattice-registry", html)
+            self.assertIn("lattice-theme", html)
             self.assertIn("lattice-link.js", html)
             self.assertIn("Canonical project fact", html)
             self.assertIn("Schema Gap", html)
             self.assertNotIn("Todo system", html)
             self.assertIn('href="style.css"', html)
             self.assertIn(":root", css)
-            self.assertIn("--font-size-md: 1rem;", css)
+            self.assertIn(':root[data-theme="dark"]', css)
+            self.assertIn("--color-brand-primary: #ff4f00;", css)
+            self.assertIn("--color-brand-canvas: #fffefb;", css)
+            self.assertIn('--font-serif: "Degular Display", Inter', css)
+            self.assertIn("--font-size-md: 1.125rem;", css)
+            self.assertIn("--radius-md: 0.75rem;", css)
+            self.assertIn("--radius-pill: 999px;", css)
             self.assertIn("Canonical project fact", search)
             self.assertNotIn("last_updated:", markdown)
             self.assertNotIn("last_updated:", context_pack)
@@ -373,6 +381,7 @@ class LatticeTests(unittest.TestCase):
 
         self.assertIn(":root", css)
         self.assertIn("--color-", css)
+        self.assertIn("--color-brand-primary: #ff4f00;", css)
 
     def test_render_focuses_domain_units_and_keeps_background_separate(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -615,6 +624,9 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("class LatticeSection extends LitElement", component_js)
             self.assertIn("class LatticePillLinkList extends LitElement", component_js)
             self.assertIn("class LatticeDetailRow extends LitElement", component_js)
+            self.assertIn("class LatticeThemeToggle extends LitElement", component_js)
+            self.assertIn("define('lattice-theme-toggle'", component_js)
+            self.assertIn("lattice-theme", component_js)
             self.assertIn("var(--color-text-primary)", component_js)
             self.assertIn("var(--space-md)", component_js)
 

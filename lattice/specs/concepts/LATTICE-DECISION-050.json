@@ -1,0 +1,17 @@
+{
+  "decision": "Generated documentation includes a bundled lattice-theme-toggle Lit component in the shared top bar. The toggle switches between explicit light and dark themes, persists the preference in localStorage under lattice-theme, and applies the selected mode by setting data-theme on the document root. When no explicit preference is stored, generated docs follow the user's system color scheme.",
+  "id": "LATTICE-DECISION-050",
+  "kind": "decision",
+  "name": "Add generated docs theme toggle",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-022",
+    "LATTICE-DECISION-028",
+    "LATTICE-DECISION-045"
+  ],
+  "status": "active",
+  "description": "Documents the light and dark theme toggle for generated Lattice documentation so theme behavior has a canonical owner.",
+  "tests": [
+    "LATTICE-TEST-017"
+  ]
+}
