@@ -4,129 +4,176 @@ last_updated: 2026-05-27
 
 # Lattice
 
-Lattice is executable project memory: strongly typed knowledge units, linked
-into a validated project graph.
+Lattice helps teams keep project knowledge from drifting.
 
-Every durable project fact should have one canonical owner. Generated docs,
-LLM context packs, audited artifacts, and tests should point back to that owner
-instead of duplicating the idea in prose. Drift is a bug.
+It gives important project facts — rules, decisions, domain terms, workflows, examples, and verification commands — one source of truth. From that source, Lattice can generate human docs, generate LLM context, validate links, run project-specific checks, and detect stale generated views.
 
-## MVP Commands
+Use it when your project has important knowledge scattered across README files, architecture docs, tests, prompts, issue comments, and source code — especially when LLMs are helping write code.
 
-```bash
-lattice init
-lattice validate
-lattice verify
-lattice render --check
-lattice audit
-lattice graph SPEC-ID --depth 2 --include-type domain_object --output graph.dot
+## The problem
+
+Most projects repeat the same idea in many places:
+
+- A business rule in a design doc.
+- A slightly different version in a README.
+- A test that proves the behaviour.
+- An LLM prompt that explains the rule.
+- A code comment that uses another name for the same concept.
+
+At first this is fine. Later, one copy changes and the others do not.
+
+Lattice treats that as drift.
+
+## What Lattice gives you
+
+- One canonical owner for each durable project fact.
+- Stable IDs that docs, tests, code, prompts, and plans can reference.
+- Structured JSON specs so important knowledge has a predictable shape.
+- Generated docs for humans.
+- Generated context for LLM agents.
+- Validation for broken references.
+- Verification commands for project-specific checks.
+- Audits for stale generated views and coverage drift.
+
+## A tiny example
+
+Imagine your project has this rule:
+
+> Date-only reports must use UTC semantics so the displayed date does not shift by user timezone.
+
+Instead of leaving that rule only in prose, give it a stable Lattice ID:
+
+```json
+{
+  "id": "REPORT-RULE-001",
+  "type": "business_rule",
+  "name": "Date-only reports use UTC",
+  "owner": "reporting",
+  "status": "active",
+  "description": "Defines how date-only values are displayed in generated reports.",
+  "statement": "Date-only report fields must be formatted using UTC semantics, not local browser timezone semantics.",
+  "tests": ["REPORT-VERIFY-001"]
+}
 ```
 
-See [CHANGELOG.md](CHANGELOG.md) for release notes starting with `0.3.0`.
-See [docs/PUBLISHING.md](docs/PUBLISHING.md) for the GitHub publishing
-checklist and Todo demo Pages workflow notes.
+Now docs, tests, generated LLM context, review comments, and implementation plans can all point to `REPORT-RULE-001` instead of rewriting the rule in five places.
 
-## Run From A Checkout
+That is the core idea: **important project knowledge gets one home, then everything else links back to it.**
+
+## Quick start
+
+From a checkout:
 
 ```bash
 uv sync
-uv run lattice --help
+uv run lattice init
 uv run lattice validate
 uv run lattice render
 ```
 
-The package exposes the `lattice` console script when installed. During local
-development, prefer `uv run lattice ...` so the command uses the checkout.
+This creates a Lattice project memory directory, a starter registry, starter schemas, generated docs, and generated LLM context.
 
-## Core Ideology
+Then add one real project fact: a domain term, business rule, architecture decision, workflow, or verification command. Do not start by modelling the whole project.
 
-- A fact is authored once.
-- Every fact is a typed knowledge unit derived from the core parent shape.
-- Every knowledge unit has a description explaining what it is and what it is
-  used for.
-- Other artifacts reference it by stable ID.
-- Type-specific JSON Schemas validate unit shape.
-- Optional verification units run project-specific commands.
-- Human docs and LLM context are generated views.
-- Slice docs can present scoped subsets of the graph with their own metadata,
-  index template, and stylesheet.
-- Rendering is template-based and overrideable.
-- Search is generated from the same registry as links and backlinks.
-- Validation detects stale views, broken references, and coverage drift.
-- Redundant project knowledge is suspicious until ownership is clear.
+Run the checks again:
 
-## Current Features
-
-- `knowledge_unit` is the shared base shape. Each unit requires `id`, `name`,
-  `owner`, `status`, and `description`.
-- Core built-in kinds include `domain_object`, `enum`, `schema_gap`,
-  `verification`, and `slice`.
-- Project registries can define richer kinds in `registry/spec-types.json`
-  without changing Lattice source code.
-- Generated docs use `index.html` as the default entry page.
-- Slice units render scoped documentation pages at
-  `slices/<slug>/index.html`; each slice can declare its own `description`,
-  explicit `members`, optional `index_template`, and optional `style_path`.
-- Prose fields support constrained inline rich text: `[[SPEC-ID]]`,
-  `[[SPEC-ID|label]]`, `[[SPEC-ID#fragment|label]]`, and
-  `[[tag:name|label]]` render as safe internal links, while linked spec IDs
-  participate in validation and backlinks.
-- Generated docs include compact list components for dense linked
-  name-and-description rows: `lattice-compact-list` and
-  `lattice-compact-item`.
-- Generated docs expose reusable Lit components that consume bundled design
-  tokens, including `lattice-doc-header`, `lattice-section`,
-  `lattice-pill-link-list`, `lattice-detail-list`, and `lattice-detail-row`.
-- Generated docs include a light/dark theme toggle in the top bar. The toggle
-  persists the selected theme locally and otherwise follows the user's system
-  color scheme.
-- Default generated docs styling follows the token brief in `DESIGN.md`,
-  including Notion-style neutral surfaces, purple accents, Notion Sans/Inter
-  typography, 8px controls, 12px cards, and pastel metadata badges.
-- Project templates can extend reusable bundled templates such as
-  `unit-core.html.j2` and `slice-index.html.j2`.
-- Project styles can override the packaged stylesheet through the configured
-  `styles_dir`.
-- Verification units can run project-specific commands during `lattice verify`.
-- `lattice graph SPEC-ID` emits Graphviz DOT for outgoing references and
-  backlinks around a starting knowledge unit; use `--depth` to expand the
-  neighborhood, `--include-type` / `--exclude-type` to filter node kinds, and
-  `--output` to write a `.dot` file.
-
-## Rich Text
-
-Use constrained inline rich text inside prose fields such as `description`,
-`summary`, `decision`, `definition`, `gap`, `suggested_improvement`, and field
-descriptions:
-
-```text
-[[SPEC-ID]]
-[[SPEC-ID|custom label]]
-[[SPEC-ID#fragment|field label]]
-[[tag:planned|planned work]]
-`inline code`
-**strong text**
-_emphasis_
+```bash
+uv run lattice validate
+uv run lattice render --check
+uv run lattice audit
 ```
 
-Spec links are validated and become graph references. Tag links render as tag
-links but do not create spec references. Raw HTML is escaped.
+## Your first useful spec
 
-## Extension Policy
+Good first candidates are facts that already cause confusion or repeated explanations:
 
-Do not directly edit bundled Lattice templates, validation code, or rendering
-functions to express project-specific behavior. Extend or override them instead:
+- “Revenue means sales excluding tax.”
+- “Manual supplier-item aliases outrank fuzzy matches.”
+- “Date-only report fields use UTC semantics.”
+- “Generated docs must not be edited by hand.”
+- “A completed todo cannot be reopened without an explicit reopen action.”
 
-- Add or refine kinds in the configured type registry.
-- Add JSON Schemas through type definitions when a kind needs stricter shape.
-- Add project templates under the configured `renderers/templates` directory and
-  extend the reusable core templates.
-- Use slice-level `index_template` and `style_path` for slice-specific pages.
-- Put project-specific checks in `verification` units rather than in templates
-  or renderer code.
-- Change presentation through the configured `styles_dir` and design tokens.
+Start with one fact. Give it a stable ID. Link other docs, tests, plans, and prompts back to that ID.
 
-## Project Layout
+## Common commands
+
+| Command | What it does |
+|---|---|
+| `lattice init` | Adds Lattice project memory to an existing repo. |
+| `lattice validate` | Checks that specs are well-formed and references resolve. |
+| `lattice render` | Generates human docs and LLM context from the specs. |
+| `lattice render --check` | Fails if generated outputs are stale. |
+| `lattice verify` | Runs project-specific verification commands declared in specs. |
+| `lattice audit` | Checks for drift and missing coverage. |
+| `lattice graph SPEC-ID` | Shows relationships around one project fact as Graphviz DOT. |
+
+During local development, prefer `uv run lattice ...` so the command uses the checkout.
+
+## Adopt incrementally
+
+You do not need to model your whole system on day one.
+
+### Level 1: Canonical glossary
+
+Use Lattice for important project terms.
+
+Good for domain language, renamed concepts, avoiding duplicate terminology, and giving LLMs stable vocabulary.
+
+### Level 2: Rules and decisions
+
+Add business rules, architecture decisions, assumptions, examples, and workflows.
+
+Good for keeping design intent visible and linking implementation plans to stable IDs.
+
+### Level 3: Generated docs and LLM context
+
+Render human docs and LLM-readable context from the same specs.
+
+Good for onboarding, code review, agent workflows, and reducing stale prompt instructions.
+
+### Level 4: Verification and drift checks
+
+Use verification specs and audits to prove that important facts still have checks.
+
+Good for CI, semantic contracts, executable documentation, and project governance.
+
+## When to use Lattice
+
+Use Lattice when:
+
+- project knowledge repeatedly drifts between docs, tests, code, and prompts
+- LLM agents need reliable project context
+- domain vocabulary matters
+- business rules must stay linked to tests or checks
+- generated docs should come from validated source material
+- you want a small, incremental path toward executable documentation
+
+## When not to use Lattice
+
+Lattice is probably too much if:
+
+- your project has very little durable domain knowledge
+- your docs rarely affect implementation
+- you only need a normal README
+- nobody will run validation, rendering, or audit commands
+- you are not ready to decide which artifact owns an important fact
+
+## Examples
+
+- [Todo example](examples/todo/README.md): a small domain showing terms, lifecycle states, rules, links, and generated docs.
+
+## Deeper docs
+
+- [Getting started](docs/getting-started.md)
+- [Core concepts](docs/concepts.md)
+- [Incremental adoption](docs/incremental-adoption.md)
+- [LLM workflows](docs/llm-workflows.md)
+- [Drift checks](docs/drift-checks.md)
+- [CLI reference](docs/cli-reference.md)
+- [Publishing notes](docs/PUBLISHING.md)
+- [Changelog](CHANGELOG.md)
+
+## Project layout
 
 ```text
 lattice.yml
@@ -142,13 +189,8 @@ lattice.yml
     llm/
 ```
 
-`lattice init` creates this layout.
-Use `lattice init --lattice-dir path/to/memory` to choose a different project
-directory.
-Use `lattice init --update-agents` to add a Lattice section to `AGENTS.md`.
+`lattice init` creates this layout. Use `lattice init --lattice-dir path/to/memory` to choose a different project directory. Use `lattice init --update-agents` to add a Lattice section to `AGENTS.md`.
 
-## Todo Demo
+## Todo demo publishing
 
-The Todo example lives in `examples/todo`. Its rendered site is ignored by git
-and is generated by the GitHub Pages workflow in
-`.github/workflows/todo-pages.yml`.
+The Todo example lives in `examples/todo`. Its rendered site is ignored by git and is generated by the GitHub Pages workflow in `.github/workflows/todo-pages.yml`.
