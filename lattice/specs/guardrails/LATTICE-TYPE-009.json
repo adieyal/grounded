@@ -1,0 +1,13 @@
+{
+  "id": "LATTICE-TYPE-009",
+  "kind": "guardrail",
+  "name": "Invalid tag type registry",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-035",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "description": "Defines the Invalid tag type registry guardrail so validation and maintenance work can recognize malformed tag type declarations.",
+  "summary": "The tag_types section of the type registry must be an object whose definitions are objects."
+}

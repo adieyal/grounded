@@ -5,6 +5,7 @@ from pathlib import Path
 
 from .models import LatticeConfig
 from .registry import default_type_registry_json
+from .tags import TAG_SCHEMA
 
 
 AGENTS_MARKER_START = "<!-- lattice:start -->"
@@ -214,6 +215,11 @@ def _spec_schema() -> str:
                 "owner": {"type": "string"},
                 "status": {"type": "string", "enum": ["active", "draft", "retired"]},
                 "description": {"type": "string", "minLength": 1},
+                "tags": {
+                    "type": "array",
+                    "items": TAG_SCHEMA,
+                    "uniqueItems": True,
+                },
                 "statement": {"type": "string"},
                 "definition": {"type": "string"},
                 "preferred_term": {"type": "string"},

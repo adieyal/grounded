@@ -6,6 +6,20 @@ last_updated: 2026-05-27
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
+## 0.11.0 - 2026-05-27
+
+- Added typed tags alongside legacy string tags. Knowledge units and field
+  definitions can now use tags such as
+  `{ "type": "EntityType", "value": "BusinessEntity" }`.
+- Added `tag_types` declarations in the type registry so projects can validate
+  typed tag vocabularies.
+- Added `reference_tag_constraints` for reference fields, allowing a spec type
+  to require referenced targets to carry a specific typed tag.
+- Added validation guardrails for unknown tag types, unknown tag values,
+  malformed tag lists, invalid tag constraints, and reference targets missing
+  required typed tags.
+- Documented typed tag usage in the README, concepts guide, and CLI reference.
+
 ## 0.10.0 - 2026-05-27
 
 - Added CLI project-memory search commands for maintainer and LLM workflows:

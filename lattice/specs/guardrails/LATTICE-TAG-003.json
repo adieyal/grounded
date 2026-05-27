@@ -1,0 +1,13 @@
+{
+  "id": "LATTICE-TAG-003",
+  "kind": "guardrail",
+  "name": "Malformed tag list",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-035",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "description": "Defines the Malformed tag list guardrail so validation and maintenance work can recognize invalid tag shapes.",
+  "summary": "A tags field must be a list whose entries are either non-empty strings or typed tag objects with non-empty type and value fields."
+}

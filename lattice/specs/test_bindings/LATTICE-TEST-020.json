@@ -1,0 +1,13 @@
+{
+  "id": "LATTICE-TEST-020",
+  "kind": "test_binding",
+  "name": "Typed tags validate and constrain references",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-035"
+  ],
+  "status": "active",
+  "description": "Binds typed tag rendering, tag type registry validation, and reference tag constraints to focused unit tests.",
+  "target": "LATTICE-DECISION-035",
+  "test": "uv run pytest tests/test_lattice.py::LatticeTests::test_typed_tags_render_and_validate_against_tag_registry tests/test_lattice.py::LatticeTests::test_reference_tag_constraints_require_target_typed_tags -q"
+}

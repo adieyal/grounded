@@ -67,6 +67,60 @@ Those references become links in generated docs and backlinks on the target page
 - What workflows depend on this term?
 - What generated context mentions this fact?
 
+## Tags and typed tags
+
+Tags are facets on knowledge units or field definitions. Plain string tags still
+work for loose grouping:
+
+```json
+{
+  "tags": ["planned"]
+}
+```
+
+Use typed tags when the tag has validation meaning:
+
+```json
+{
+  "tags": [
+    { "type": "EntityType", "value": "BusinessEntity" }
+  ]
+}
+```
+
+Projects can declare tag types in the type registry:
+
+```json
+{
+  "tag_types": {
+    "EntityType": {
+      "values": ["BusinessEntity", "CodeEntity"]
+    }
+  }
+}
+```
+
+A type definition can then constrain reference fields so the referenced target
+must own the classification:
+
+```json
+{
+  "workplan_requirement": {
+    "extends": "knowledge_unit",
+    "reference_fields": ["related_entities"],
+    "reference_tag_constraints": {
+      "related_entities": {
+        "type": "EntityType",
+        "value": "BusinessEntity"
+      }
+    }
+  }
+}
+```
+
+That keeps the source of truth on the referenced spec. The workplan says it
+requires business-entity targets; each target spec proves whether it is one.
+
 ## Generated docs
 
 Generated docs are human-readable views built from the specs.

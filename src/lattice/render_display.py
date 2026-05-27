@@ -7,6 +7,7 @@ from typing import Any
 from .models import Spec
 from .registry import SpecRegistry
 from .render_paths import slugify
+from .tags import tag_keys
 
 
 def lattice_link(
@@ -129,7 +130,9 @@ def display_fields(spec: Spec) -> list[dict[str, Any]]:
                         display_value(value) for value in allowed_values
                     ],
                     "tags": [
-                        str(value) for value in tags if isinstance(value, str) and value
+                        str(value)
+                        for value in tag_keys(tags)
+                        if isinstance(value, str) and value
                     ],
                     "references": [str(value) for value in references],
                 }

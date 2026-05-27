@@ -47,6 +47,36 @@
     "summary": {
       "type": "string"
     },
+    "tags": {
+      "items": {
+        "oneOf": [
+          {
+            "minLength": 1,
+            "type": "string"
+          },
+          {
+            "additionalProperties": false,
+            "properties": {
+              "type": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "value": {
+                "minLength": 1,
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "value"
+            ],
+            "type": "object"
+          }
+        ]
+      },
+      "type": "array",
+      "uniqueItems": true
+    },
     "tests": {
       "items": {
         "type": "string"

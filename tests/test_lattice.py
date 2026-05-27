@@ -499,6 +499,169 @@ class LatticeTests(unittest.TestCase):
                 )
             )
 
+    def test_typed_tags_render_and_validate_against_tag_registry(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            registry_path = root / ".lattice/registry/spec-types.json"
+            type_registry = json.loads(registry_path.read_text(encoding="utf-8"))
+            type_registry["tag_types"] = {
+                "EntityType": {
+                    "values": ["BusinessEntity", "CodeEntity"],
+                    "description": "Classifies specs by entity role.",
+                }
+            }
+            registry_path.write_text(json.dumps(type_registry), encoding="utf-8")
+
+            item = {
+                "id": "TODO-ITEM-001",
+                "kind": "domain_object",
+                "name": "TodoItem",
+                "owner": "todo",
+                "status": "active",
+                "description": "A business entity for a tracked todo.",
+                "tags": [{"type": "EntityType", "value": "BusinessEntity"}],
+                "fields": [
+                    {
+                        "name": "component",
+                        "type": "string",
+                        "description": "Related implementation component.",
+                        "tags": [{"type": "EntityType", "value": "CodeEntity"}],
+                    }
+                ],
+            }
+            item_path = root / ".lattice/specs/examples/TODO-ITEM-001.json"
+            item_path.parent.mkdir(exist_ok=True)
+            item_path.write_text(json.dumps(item), encoding="utf-8")
+
+            config = load_config(root)
+            registry = load_registry(config)
+            render_all(config, registry)
+
+            self.assertEqual([], registry.issues)
+            item_html = (
+                root / ".lattice/generated/docs/units/todo-item-001.html"
+            ).read_text(encoding="utf-8")
+            tag_html = (
+                root / ".lattice/generated/docs/tags/entitytype-businessentity.html"
+            ).read_text(encoding="utf-8")
+
+            self.assertIn(
+                "EntityType:BusinessEntity", registry.by_id["TODO-ITEM-001"].tags
+            )
+            self.assertIn(
+                '<lattice-link type="tag" lattice-id="EntityType:BusinessEntity" label="EntityType:BusinessEntity" variant="tag">EntityType:BusinessEntity</lattice-link>',
+                item_html,
+            )
+            self.assertIn("<lattice-tag-page>", tag_html)
+            self.assertIn("TodoItem", tag_html)
+
+            item["tags"] = [{"type": "EntityType", "value": "OtherEntity"}]
+            item_path.write_text(json.dumps(item), encoding="utf-8")
+            broken = load_registry(config)
+
+            self.assertTrue(
+                any(
+                    issue.code == "LATTICE-TAG-002" and "OtherEntity" in issue.message
+                    for issue in broken.issues
+                )
+            )
+
+    def test_reference_tag_constraints_require_target_typed_tags(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            registry_path = root / ".lattice/registry/spec-types.json"
+            type_registry = json.loads(registry_path.read_text(encoding="utf-8"))
+            type_registry["tag_types"] = {
+                "EntityType": {"values": ["BusinessEntity", "CodeEntity"]}
+            }
+            type_registry["workplan_requirement"] = {
+                "extends": "knowledge_unit",
+                "reference_fields": ["related_entities"],
+                "reference_tag_constraints": {
+                    "related_entities": {
+                        "type": "EntityType",
+                        "value": "BusinessEntity",
+                    }
+                },
+                "schema": {
+                    "type": "object",
+                    "required": [
+                        "id",
+                        "name",
+                        "owner",
+                        "status",
+                        "description",
+                        "related_entities",
+                    ],
+                    "properties": {
+                        "kind": {"const": "workplan_requirement"},
+                        "type": {"const": "workplan_requirement"},
+                        "related_entities": {
+                            "type": "array",
+                            "items": {"type": "string"},
+                        },
+                    },
+                    "additionalProperties": True,
+                },
+            }
+            registry_path.write_text(json.dumps(type_registry), encoding="utf-8")
+
+            item_id = "TODO" + "-ITEM-001"
+            code_id = "TODO" + "-CODE-001"
+            requirement_id = "TODO" + "-REQ-001"
+            business_entity = {
+                "id": item_id,
+                "kind": "domain_object",
+                "name": "TodoItem",
+                "owner": "todo",
+                "status": "active",
+                "description": "A business entity.",
+                "tags": [{"type": "EntityType", "value": "BusinessEntity"}],
+            }
+            code_entity = {
+                "id": code_id,
+                "kind": "domain_object",
+                "name": "TodoRepository",
+                "owner": "todo",
+                "status": "active",
+                "description": "A code entity.",
+                "tags": [{"type": "EntityType", "value": "CodeEntity"}],
+            }
+            requirement = {
+                "id": requirement_id,
+                "kind": "workplan_requirement",
+                "name": "Todo planning requirement",
+                "owner": "todo",
+                "status": "active",
+                "description": "Requires references to business entities.",
+                "related_entities": [item_id, code_id],
+            }
+            specs_dir = root / ".lattice/specs/examples"
+            specs_dir.mkdir(exist_ok=True)
+            for spec in (business_entity, code_entity, requirement):
+                (specs_dir / f"{spec['id']}.json").write_text(
+                    json.dumps(spec), encoding="utf-8"
+                )
+
+            registry = load_registry(load_config(root))
+
+            self.assertTrue(
+                any(
+                    issue.code == "LATTICE-REF-005"
+                    and code_id in issue.message
+                    and "EntityType:BusinessEntity" in issue.message
+                    for issue in registry.issues
+                )
+            )
+            self.assertFalse(
+                any(
+                    issue.code == "LATTICE-REF-005" and item_id in issue.message
+                    for issue in registry.issues
+                )
+            )
+
     def test_default_css_is_bundled_with_package(self) -> None:
         css = default_css()
 

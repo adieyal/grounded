@@ -61,6 +61,10 @@ uv run lattice validate
 
 Validation checks that specs have the expected shape and that links point to real Lattice IDs.
 
+If your project declares typed tag vocabularies or constrained reference fields,
+validation also checks that those tags exist and that constrained references
+point to targets with the required typed tag.
+
 ## 4. Render generated docs
 
 ```bash

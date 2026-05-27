@@ -85,7 +85,7 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-020, LATTICE-DECISION-031
 - `LATTICE-DECISION-034` (decision, owner: lattice): Documents the Render enum values on enum pages decision and explains how it guides Lattice behavior or project maintenance. Enum knowledge units model a closed list of string values. Enum pages should render those values explicitly so the allowed set is visible in generated docs and downstream readers do not need to inspect raw JSON to understand the boundary.
   Links: LATTICE-DECISION-027
-- `LATTICE-DECISION-035` (decision, owner: lattice): Documents the Support project-defined tags with tag pages decision and explains how it guides Lattice behavior or project maintenance. Knowledge units and their field definitions may include an optional tags array of project-defined strings. Tags are rendered as clickable lattice-links to generated tag pages, and each tag page groups matching members by type so the project can define semantics without baking them into the core registry.
+- `LATTICE-DECISION-035` (decision, owner: lattice): Documents the Support project-defined tags with tag pages decision and explains how it guides Lattice behavior or project maintenance. Knowledge units and their field definitions may include an optional tags array containing legacy string tags or typed tag objects with type and value fields. Tags are rendered as clickable lattice-links to generated tag pages, and each tag page groups matching members by type. Projects may declare tag_types in the type registry and may use reference_tag_constraints on reference fields so a source spec can require referenced targets to carry a specific typed tag, such as EntityType:BusinessEntity.
   Links: LATTICE-DECISION-027
 - `LATTICE-DECISION-036` (decision, owner: lattice): Documents the Expose a reusable unit core template decision and explains how it guides Lattice behavior or project maintenance. The core renderer exposes reusable templates such as unit-core.html.j2 for projects to extend. Project-specific behavior should use extension points such as the type registry, JSON Schemas, project template overrides, styles, slice metadata, and verification specs instead of directly editing bundled Lattice templates, validation code, or rendering functions. The shared unit core owns page chrome, field rendering, field anchors, collection-aware field types, and field references, while project templates override only project-specific sections such as examples or invariants.
   Links: LATTICE-DECISION-030, LATTICE-DECISION-031, LATTICE-DECISION-034, LATTICE-DECISION-035, LATTICE-EXTENSION-001
@@ -153,6 +153,8 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: PROJECT-RULE-001
 - `LATTICE-REF-004` (guardrail, owner: lattice): Defines the Unknown artifact reference guardrail so validation, audit, and maintenance work can recognize this class of drift. A declared audit artifact references a Lattice-shaped ID that has no canonical owner.
   Links: PROJECT-RULE-001
+- `LATTICE-REF-005` (guardrail, owner: lattice): Defines the Reference target missing required typed tag guardrail so validation and maintenance work can recognize constrained-reference drift. A reference field with a reference_tag_constraints rule points to a target spec that does not carry the required typed tag.
+  Links: LATTICE-DECISION-035, PROJECT-RULE-001
 - `LATTICE-SCHEMA-001` (guardrail, owner: lattice): Defines the Spec root is not an object guardrail so validation, audit, and maintenance work can recognize this class of drift. A canonical spec must be represented as a JSON object.
   Links: PROJECT-RULE-001
 - `LATTICE-SCHEMA-002` (guardrail, owner: lattice): Defines the Missing ID or kind guardrail so validation, audit, and maintenance work can recognize this class of drift. Every canonical spec must declare a string id and kind.
@@ -173,6 +175,12 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: PROJECT-RULE-001
 - `LATTICE-STYLE-003` (guardrail, owner: lattice): Defines the Hard-coded presentation outside style source guardrail so validation, audit, and maintenance work can recognize this class of drift. Presentation values outside the central stylesheet should be replaced with reusable design tokens.
   Links: PROJECT-RULE-001
+- `LATTICE-TAG-001` (guardrail, owner: lattice): Defines the Unknown typed tag type guardrail so validation and maintenance work can recognize typed tag registry drift. A typed tag or reference tag constraint uses a tag type that is not declared in tag_types.
+  Links: LATTICE-DECISION-035, PROJECT-RULE-001
+- `LATTICE-TAG-002` (guardrail, owner: lattice): Defines the Unknown typed tag value guardrail so validation and maintenance work can recognize typed tag vocabulary drift. A typed tag or reference tag constraint uses a value that is not allowed by the declared tag type.
+  Links: LATTICE-DECISION-035, PROJECT-RULE-001
+- `LATTICE-TAG-003` (guardrail, owner: lattice): Defines the Malformed tag list guardrail so validation and maintenance work can recognize invalid tag shapes. A tags field must be a list whose entries are either non-empty strings or typed tag objects with non-empty type and value fields.
+  Links: LATTICE-DECISION-035, PROJECT-RULE-001
 - `LATTICE-TYPE-001` (guardrail, owner: lattice): Defines the Invalid type registry JSON guardrail so validation, audit, and maintenance work can recognize this class of drift. The type registry must be valid JSON so spec kinds have an executable source of truth.
   Links: PROJECT-GAP-001, PROJECT-RULE-001
 - `LATTICE-TYPE-002` (guardrail, owner: lattice): Defines the Invalid type registry root guardrail so validation, audit, and maintenance work can recognize this class of drift. The type registry root must be an object keyed by spec kind.
@@ -189,6 +197,10 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
 - `LATTICE-TYPE-008` (guardrail, owner: lattice): Defines the Invalid JSON Schema for type guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition schema must itself be a valid Draft 2020-12 JSON Schema.
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
+- `LATTICE-TYPE-009` (guardrail, owner: lattice): Defines the Invalid tag type registry guardrail so validation and maintenance work can recognize malformed tag type declarations. The tag_types section of the type registry must be an object whose definitions are objects.
+  Links: LATTICE-DECISION-035, PROJECT-RULE-001
+- `LATTICE-TYPE-010` (guardrail, owner: lattice): Defines the Tag constraint on non-reference field guardrail so validation and maintenance work can recognize invalid reference_tag_constraints configuration. A reference_tag_constraints entry must target a field declared as a reference, single reference, or nested reference field.
+  Links: LATTICE-DECISION-035, PROJECT-RULE-001
 - `LATTICE-VERIFY-001` (guardrail, owner: lattice): Defines the Verification command failed guardrail so validation, audit, and maintenance work can recognize this class of drift. Project-specific verification commands declared by knowledge-unit type definitions must pass when lattice verify runs.
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
 - `PROJECT-GAP-001` (schema_gap, owner: project): Records the Project-specific fact shapes belong in the type registry schema gap so future registry or renderer work has a canonical owner. When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.
@@ -231,6 +243,8 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-051
 - `LATTICE-TEST-019` (test_binding, owner: lattice): Binds LATTICE-DECISION-054 to executable CLI tests so Lattice can verify search, specs --uses, and check-new behavior.
   Links: LATTICE-DECISION-054
+- `LATTICE-TEST-020` (test_binding, owner: lattice): Binds typed tag rendering, tag type registry validation, and reference tag constraints to focused unit tests.
+  Links: LATTICE-DECISION-035
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.

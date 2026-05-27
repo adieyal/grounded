@@ -33,6 +33,8 @@ Lattice treats that as drift.
 - One canonical owner for each durable project fact.
 - Stable IDs that docs, tests, code, prompts, and plans can reference.
 - Structured JSON specs so important knowledge has a predictable shape.
+- Typed tags for validation-sensitive classifications such as
+  `EntityType:BusinessEntity`.
 - Generated docs for humans.
 - Generated context for LLM agents.
 - Validation for broken references.
@@ -116,6 +118,31 @@ Start with one fact. Give it a stable ID. Link other docs, tests, plans, and pro
 | `lattice graph SPEC-ID` | Shows a documentation-oriented Graphviz relationship diagram around one project fact. |
 
 During local development, prefer `uv run lattice ...` so the command uses the checkout.
+
+## Typed tags and constrained references
+
+Plain string tags are useful for loose grouping:
+
+```json
+{
+  "tags": ["planned"]
+}
+```
+
+Use typed tags when the classification should be validated:
+
+```json
+{
+  "tags": [
+    { "type": "EntityType", "value": "BusinessEntity" }
+  ]
+}
+```
+
+Projects can declare typed tag vocabularies in the type registry and require
+reference fields to point only at targets with a specific typed tag. That lets a
+workplan requirement say “these references must be business entities” while the
+target specs themselves own the `EntityType:BusinessEntity` assertion.
 
 ## Adopt incrementally
 

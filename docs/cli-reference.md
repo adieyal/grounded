@@ -48,6 +48,33 @@ Use this after editing specs or the type registry.
 
 Validation is the first line of defence against broken links and malformed project memory.
 
+Validation also checks typed tags when the type registry declares `tag_types`,
+and it enforces `reference_tag_constraints` on reference fields. This lets a
+project require, for example, that a workplan field only references targets
+tagged `{ "type": "EntityType", "value": "BusinessEntity" }`.
+
+Minimal registry example:
+
+```json
+{
+  "tag_types": {
+    "EntityType": {
+      "values": ["BusinessEntity", "CodeEntity"]
+    }
+  },
+  "workplan_requirement": {
+    "extends": "knowledge_unit",
+    "reference_fields": ["related_entities"],
+    "reference_tag_constraints": {
+      "related_entities": {
+        "type": "EntityType",
+        "value": "BusinessEntity"
+      }
+    }
+  }
+}
+```
+
 ## `lattice render`
 
 Render generated docs and LLM context.

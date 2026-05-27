@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 from .rich_text import rich_text_reference_ids
+from .tags import normalize_tags
 
 
 JsonObject = dict[str, Any]
@@ -93,10 +94,7 @@ class Spec:
 
     @property
     def tags(self) -> tuple[str, ...]:
-        value = self.data.get("tags", [])
-        if not isinstance(value, list):
-            return ()
-        return tuple(tag for tag in value if isinstance(tag, str) and tag)
+        return tuple(tag.key for tag in normalize_tags(self.data.get("tags", [])))
 
     @property
     def status(self) -> str:

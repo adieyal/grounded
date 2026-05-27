@@ -1,0 +1,13 @@
+{
+  "id": "LATTICE-TAG-001",
+  "kind": "guardrail",
+  "name": "Unknown typed tag type",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-035",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "description": "Defines the Unknown typed tag type guardrail so validation and maintenance work can recognize typed tag registry drift.",
+  "summary": "A typed tag or reference tag constraint uses a tag type that is not declared in tag_types."
+}
