@@ -23,10 +23,13 @@ import { LitElement, css, html, nothing } from 'https://cdn.jsdelivr.net/npm/lit
 
 const registryElement = document.getElementById('lattice-registry');
 const searchElement = document.getElementById('lattice-search-index');
+const tagElement = document.getElementById('lattice-tag-index');
 const latticeRegistry = registryElement ? JSON.parse(registryElement.textContent || '{}') : {};
 const latticeSearchIndex = searchElement ? JSON.parse(searchElement.textContent || '[]') : [];
+const latticeTagIndex = tagElement ? JSON.parse(tagElement.textContent || '{}') : {};
 window.latticeRegistry = latticeRegistry;
 window.latticeSearchIndex = latticeSearchIndex;
+window.latticeTagIndex = latticeTagIndex;
 
 class LatticeLink extends LitElement {
   static properties = {
@@ -41,6 +44,7 @@ class LatticeLink extends LitElement {
     :host([type="concept"]) { --lattice-link-fg: var(--color-concept); --lattice-link-bg: var(--color-concept-bg); --lattice-link-border: var(--color-border-tertiary); }
     :host([type="domain_object"]), :host([type="business_entity"]) { --lattice-link-fg: var(--color-entity); --lattice-link-bg: var(--color-entity-bg); --lattice-link-border: var(--color-border-tertiary); }
     :host([type="enum"]), :host([type="lifecycle_type"]), :host([type="lifecycle_value"]) { --lattice-link-fg: var(--color-text-secondary); --lattice-link-bg: var(--color-enum-bg); --lattice-link-border: var(--color-border-tertiary); }
+    :host([type="tag"]) { --lattice-link-fg: var(--color-text-secondary); --lattice-link-bg: var(--color-bg-secondary); --lattice-link-border: var(--color-border-tertiary); }
     :host([type="workflow"]) { --lattice-link-fg: var(--color-concept); --lattice-link-bg: var(--color-concept-bg); --lattice-link-border: var(--color-border-tertiary); }
     :host([type="data_type"]) { --lattice-link-fg: var(--color-entity-dark); --lattice-link-bg: var(--color-type-bg); --lattice-link-border: var(--color-border-tertiary); }
     :host([type="decision"]), :host([type="business_rule"]), :host([type="guardrail"]), :host([type="schema_gap"]), :host([type="spec_type"]), :host([type="test_binding"]) { --lattice-link-fg: var(--color-text-secondary); --lattice-link-bg: var(--color-bg-secondary); --lattice-link-border: var(--color-border-tertiary); }
@@ -54,10 +58,15 @@ class LatticeLink extends LitElement {
     :host([variant="nav"]) a { background: transparent; border: 0; border-radius: 0; color: inherit; display: block; font: inherit; min-width: 0; padding: 0; text-decoration: none; }
     :host([variant="card-title"]) a { background: transparent; border: 0; border-radius: 0; color: var(--lattice-link-fg); display: inline; font: var(--font-weight-medium) var(--font-size-md)/1.3 var(--font-sans); padding: 0; text-decoration: none; }
     :host([variant="card-title"]) a:hover { text-decoration: underline; }
+    :host([variant="tag"]) a { background: var(--color-bg-secondary); border-color: var(--color-border-tertiary); border-radius: var(--radius-xs); color: var(--color-text-secondary); font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); padding: var(--space-3xs) 0.4375rem; text-decoration: none; }
+    :host([variant="tag"]) a:hover { background: var(--color-bg-primary); text-decoration: none; }
     :host([variant="field-type"]) a { background: var(--color-type-bg); border-color: transparent; border-radius: var(--radius-xs); color: var(--color-entity-dark); font: var(--font-weight-medium) var(--font-size-xs)/1.2 var(--font-mono); padding: var(--space-3xs) var(--space-sm); }
   `;
   render() {
-    const target = latticeRegistry[`${this.type}:${this.latticeId}`] || Object.values(latticeRegistry).find((node) => node.id === this.latticeId);
+    const target =
+      latticeRegistry[`${this.type}:${this.latticeId}`] ||
+      latticeTagIndex[this.latticeId] ||
+      Object.values(latticeRegistry).find((node) => node.id === this.latticeId);
     const explicitLabel = (this.label || '').trim();
     const fragment = (this.fragment || '').trim();
     const slotLabel = (this.textContent || '').trim();
@@ -209,6 +218,7 @@ class LatticeSectionHeading extends LitElement {
 
 class LatticeIndexPage extends LitElement { render() { return html`<slot></slot>`; } }
 class LatticeBackgroundPage extends LitElement { render() { return html`<slot></slot>`; } }
+class LatticeTagPage extends LitElement { render() { return html`<slot></slot>`; } }
 class LatticeUnitPage extends LitElement {
   static styles = css`
     .unit-layout { display: block; }
@@ -257,6 +267,7 @@ define('lattice-copy-id', LatticeCopyId);
 define('lattice-section-heading', LatticeSectionHeading);
 define('lattice-index-page', LatticeIndexPage);
 define('lattice-background-page', LatticeBackgroundPage);
+define('lattice-tag-page', LatticeTagPage);
 define('lattice-unit-page', LatticeUnitPage);
 define('lattice-business-entity-page', LatticeBusinessEntityPage);
 define('lattice-domain-object-page', LatticeDomainObjectPage);

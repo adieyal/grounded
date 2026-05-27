@@ -37,11 +37,13 @@ from .render_graph import (
     flatten_search_value,
     lattice_key,
     lattice_registry_for,
+    graph_reference_ids_for,
     outgoing_links_for,
 )
 from .render_markdown import render_llm_pack, render_markdown
 from .render_outputs import RenderedSite
 from .render_paths import href_for, slugify, unit_output_path
+from .render_tags import tag_index_for, tag_output_path, tag_sections_for, tags_by_name
 
 
 def render_all(
@@ -101,6 +103,7 @@ def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> Render
         search_specs=primary_specs,
     )
     search_index = build_search_index(config, registry, graph, specs=primary_specs)
+    tag_groups = tags_by_name(registry.active_specs, config, index_path)
 
     site = RenderedSite(config=config)
 
@@ -145,6 +148,31 @@ def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> Render
         render_llm_pack(registry),
         owner="LLM context pack",
     )
+
+    for tag, tagged_specs in tag_groups.items():
+        tag_path = tag_output_path(config, tag)
+        tag_context = base_context(
+            config,
+            registry,
+            lattice_registry_for(config, registry, tag_path),
+            tag_path,
+            specs=registry.active_specs,
+            search_specs=primary_specs,
+        )
+        tag_render_context = dict(tag_context)
+        tag_render_context.update(
+            {
+                "tag_name": tag,
+                "tag_count": len(tagged_specs),
+                "tag_sections": tag_sections_for(tag, tagged_specs, config, tag_path),
+                "current_spec": None,
+            }
+        )
+        site.add(
+            tag_path,
+            env.get_template("tag.html.j2").render(**tag_render_context),
+            owner=f"tag:{tag}",
+        )
 
     for spec in registry.active_specs:
         output_path = unit_output_path(config, spec)
@@ -208,6 +236,7 @@ __all__ = [
     "lattice_key",
     "lattice_link",
     "lattice_registry_for",
+    "graph_reference_ids_for",
     "outgoing_links_for",
     "page_component",
     "primary_documentation_specs",
@@ -222,6 +251,10 @@ __all__ = [
     "template_environment",
     "type_nav_label",
     "type_tone",
+    "tag_index_for",
+    "tag_output_path",
+    "tag_sections_for",
+    "tags_by_name",
     "unit_output_path",
     "value_type_name",
     "visible_link_nodes",

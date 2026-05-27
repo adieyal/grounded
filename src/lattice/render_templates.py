@@ -13,6 +13,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 <body>
   <script type="application/json" id="lattice-registry">{{ lattice_registry_json | safe }}</script>
   <script type="application/json" id="lattice-search-index">{{ search_index_json | safe }}</script>
+  <script type="application/json" id="lattice-tag-index">{{ tag_index_json | safe }}</script>
   <lattice-docs-app>
     <lattice-top-bar slot="top" home-href="{{ docs_home_href }}" label="{{ docs_nav_label }}">
       <lattice-search></lattice-search>
@@ -89,7 +90,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 </lattice-background-page>
 {% endblock %}
 """,
-    "unit.html.j2": """{% extends "shell.html.j2" %}
+    "unit-core.html.j2": """{% extends "shell.html.j2" %}
 {% block title %}{{ data.name }} · Lattice{% endblock %}
 {% block content %}
 {% set page_tag = page_component(spec.kind) %}
@@ -100,6 +101,15 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   <span slot="description">{{ spec.statement }}</span>
   <lattice-copy-id slot="actions" value="{{ spec.id }}"></lattice-copy-id>
 </lattice-page-hero>
+{% set tags = tag_values(spec) %}
+{% if tags %}
+<div class="tag-panel">
+  <lattice-section-heading>Tags</lattice-section-heading>
+  <div class="tag-list">
+    {% for tag in tags %}{{ lattice_link("tag", tag, tag, "tag") | safe }}{% endfor %}
+  </div>
+</div>
+{% endif %}
 <div slot="fields">
     {% set rows = display_fields(spec) %}
     <lattice-section-heading>Fields</lattice-section-heading>
@@ -135,6 +145,25 @@ DEFAULT_TEMPLATES: dict[str, str] = {
             {% for value in field["allowed_values"] %}<span class="tag t-type field-value">{{ value }}</span>{% endfor %}
           </div>
           {% endif %}
+          {% if field["tags"] %}
+          <div class="allowed-values">
+            <span>Tags:</span>
+            {% for tag in field["tags"] %}{{ lattice_link("tag", tag, tag, "tag") | safe }}{% endfor %}
+          </div>
+          {% endif %}
+          {% if field["references"] %}
+          <div class="allowed-values">
+            <span>References:</span>
+            {% for reference_id in field["references"] %}
+              {% if reference_id in registry.by_id %}
+                {% set reference = registry.by_id[reference_id] %}
+                {{ lattice_link(reference.kind, reference.id, display_name(reference), "plain") | safe }}
+              {% else %}
+                <span class="tag t-type field-value">{{ reference_id }}</span>
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
         </td>
       </tr>
     {% else %}
@@ -156,6 +185,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
       {% endfor %}
     </div>
     {% endif %}
+    {% block after_detail_sections %}{% endblock %}
 </div>
     {% block after_fields %}{% endblock %}
     {% for section in concept_sections(outgoing, backlinks, include_related=spec.kind != "business_entity") %}
@@ -195,6 +225,61 @@ DEFAULT_TEMPLATES: dict[str, str] = {
       </details>
     </lattice-raw-json>
 </{{ page_tag }}>
+{% endblock %}
+""",
+    "unit.html.j2": """{% extends "unit-core.html.j2" %}""",
+    "feature.html.j2": """{% extends "unit.html.j2" %}
+{% block after_fields %}
+{% set children = data.get("child_features", []) %}
+{% if children %}
+<lattice-unit-section slot="before-context" aria-labelledby="child-features-title">
+  <lattice-section-heading id="child-features-title">Child Features</lattice-section-heading>
+  <div class="pd-cards">
+  {% for child_id in children %}
+    {% if child_id in registry.by_id %}
+    {% set child = registry.by_id[child_id] %}
+    <lattice-unit-card>
+      <h3 class="pd-card-name nm-{{ type_tone(child.kind) }}">{{ lattice_link(child.kind, child.id, display_name(child), "card-title") | safe }}</h3>
+      <p class="pd-card-desc">{{ child.statement }}</p>
+      <div class="pd-card-foot"><span class="tag t-{{ type_tone(child.kind) }}">{{ child.kind }}</span></div>
+    </lattice-unit-card>
+    {% else %}
+    <lattice-unit-card>
+      <h3 class="pd-card-name">{{ child_id }}</h3>
+      <p class="pd-card-desc">Unknown child feature reference.</p>
+    </lattice-unit-card>
+    {% endif %}
+  {% endfor %}
+  </div>
+</lattice-unit-section>
+{% endif %}
+{% endblock %}
+""",
+    "tag.html.j2": """{% extends "shell.html.j2" %}
+{% block title %}{{ tag_name }} · Tags · {{ docs_title }}{% endblock %}
+{% block content %}
+<lattice-tag-page>
+<lattice-page-hero>
+  <span slot="eyebrow">Tag</span>
+  <span slot="title">{{ tag_name }}</span>
+  <span slot="description">{{ tag_count }} tagged element{% if tag_count != 1 %}s{% endif %}, grouped by type.</span>
+  <p slot="actions" class="background-link"><a href="{{ docs_home_href }}">Back to {{ docs_title }}</a></p>
+</lattice-page-hero>
+{% for section in tag_sections %}
+<lattice-unit-section>
+  <lattice-section-heading divider>{{ section["title"] }}</lattice-section-heading>
+  <div class="pd-cards">
+  {% for item in section["items"] %}
+    <lattice-unit-card>
+      <h3 class="pd-card-name nm-{{ type_tone(item['type']) }}">{{ lattice_link(item["type"], item["id"], item["label"], "card-title", item.get("fragment")) | safe }}</h3>
+      <p class="pd-card-desc">{{ item["summary"] }}</p>
+      <div class="pd-card-foot"><span class="tag t-{{ type_tone(item['type']) }}">{{ item["type"] }}</span></div>
+    </lattice-unit-card>
+  {% endfor %}
+  </div>
+</lattice-unit-section>
+{% endfor %}
+</lattice-tag-page>
 {% endblock %}
 """,
     "enum.html.j2": """{% extends "unit.html.j2" %}

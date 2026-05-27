@@ -12,7 +12,7 @@ from lattice.audit import audit
 from lattice.bootstrap import AGENTS_MARKER_START, init_project
 from lattice.config import load_config
 from lattice.registry import default_type_registry_json, load_registry
-from lattice.render import default_css, lattice_link, render_all
+from lattice.render import default_css, field_type_target, lattice_link, render_all
 from lattice.verify import verify
 
 
@@ -97,6 +97,12 @@ class LatticeTests(unittest.TestCase):
             search = (root / ".lattice/generated/docs/search-index.json").read_text(
                 encoding="utf-8"
             )
+            markdown = (
+                root / ".lattice/generated/docs/project-memory.md"
+            ).read_text(encoding="utf-8")
+            context_pack = (
+                root / ".lattice/generated/llm/context-pack.md"
+            ).read_text(encoding="utf-8")
             self.assertIn("<lattice-main", html)
             self.assertIn("<lattice-unit-card", html)
             self.assertIn("<lattice-search", html)
@@ -108,6 +114,95 @@ class LatticeTests(unittest.TestCase):
             self.assertIn('href="style.css"', html)
             self.assertIn(":root", css)
             self.assertIn("Canonical project fact", search)
+            self.assertNotIn("last_updated:", markdown)
+            self.assertNotIn("last_updated:", context_pack)
+
+    def test_render_escapes_json_in_script_tags(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            spec = {
+                "id": "ESCAPE-001",
+                "kind": "domain_object",
+                "name": 'Danger </script><script>alert("x")</script>',
+                "short_name": "Escape",
+                "owner": "todo",
+                "status": "active",
+                "summary": 'Summary with </script><script>alert("x")</script> text.',
+            }
+            path = root / ".lattice/specs/examples/ESCAPE-001.json"
+            path.parent.mkdir(exist_ok=True)
+            path.write_text(json.dumps(spec), encoding="utf-8")
+
+            config = load_config(root)
+            registry = load_registry(config)
+            render_all(config, registry)
+
+            html = (
+                root / ".lattice/generated/docs/project-memory.html"
+            ).read_text(encoding="utf-8")
+
+            self.assertIn("\\u003c/script\\u003e", html)
+            self.assertNotIn('Danger </script><script>alert("x")</script>', html)
+
+    def test_render_check_reports_obsolete_generated_unit_pages(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            config = load_config(root)
+            registry = load_registry(config)
+            render_all(config, registry)
+
+            obsolete = root / ".lattice/generated/docs/units/obsolete.html"
+            obsolete.write_text("stale", encoding="utf-8")
+
+            stale = render_all(config, registry, check=True)
+
+            self.assertIn(".lattice/generated/docs/units/obsolete.html", stale)
+
+    def test_field_type_target_requires_exact_display_match(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            config = load_config(root)
+            registry = load_registry(config)
+
+            self.assertIsNone(field_type_target("domain_object", registry))
+            self.assertIsNotNone(field_type_target("Canonical project fact", registry))
+
+    def test_render_rejects_slug_collisions(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            first_id = "".join(["FOO", "_BAR_001"])
+            second_id = "".join(["FOO", "-BAR-001"])
+            first = {
+                "id": first_id,
+                "kind": "domain_object",
+                "name": "First Object",
+                "owner": "todo",
+                "status": "active",
+                "summary": "First.",
+            }
+            second = {
+                "id": second_id,
+                "kind": "domain_object",
+                "name": "Second Object",
+                "owner": "todo",
+                "status": "active",
+                "summary": "Second.",
+            }
+            first_path = root / ".lattice/specs/examples" / f"{first_id}.json"
+            first_path.parent.mkdir(exist_ok=True)
+            first_path.write_text(json.dumps(first), encoding="utf-8")
+            second_path = root / ".lattice/specs/examples" / f"{second_id}.json"
+            second_path.write_text(json.dumps(second), encoding="utf-8")
+
+            config = load_config(root)
+            registry = load_registry(config)
+
+            with self.assertRaises(ValueError):
+                render_all(config, registry)
 
     def test_todo_example_is_a_separate_lattice_project(self) -> None:
         root = Path(__file__).resolve().parents[1]
@@ -261,6 +356,14 @@ class LatticeTests(unittest.TestCase):
                         "type": "TodoStatus",
                         "required": True,
                         "description": "Current lifecycle state of the item.",
+                        "tags": ["planned"],
+                    },
+                    {
+                        "name": "related_items",
+                        "type": "list[TodoItem] | None",
+                        "required": False,
+                        "description": "Related tasks.",
+                        "references": ["TODO-CONCEPT-001"],
                     },
                 ],
                 "references": [],
@@ -302,6 +405,20 @@ class LatticeTests(unittest.TestCase):
             )
             self.assertIn(
                 '<lattice-link type="lifecycle_type" lattice-id="TODO-LIFECYCLE-001" label="Status" variant="field-type">Status</lattice-link>',
+                html,
+            )
+            self.assertIn("<span>Tags:</span>", html)
+            self.assertIn(
+                '<lattice-link type="tag" lattice-id="planned" label="planned" variant="tag">planned</lattice-link>',
+                html,
+            )
+            self.assertIn(
+                'list[<lattice-link type="domain_object" lattice-id="TODO-ITEM-001" label="Task" variant="field-type">Task</lattice-link>]',
+                html,
+            )
+            self.assertIn("<span>References:</span>", html)
+            self.assertIn(
+                '<lattice-link type="concept" lattice-id="TODO-CONCEPT-001" label="One list" variant="plain">One list</lattice-link>',
                 html,
             )
             self.assertIn("Invariants", html)
@@ -352,6 +469,117 @@ class LatticeTests(unittest.TestCase):
                 html.index("field-table"),
                 html.index('<details class="raw-unit">'),
             )
+
+    def test_enum_page_renders_closed_values(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            enum_id = "".join(["TODO", "-PRIORITY-001"])
+            enum_spec = {
+                "id": enum_id,
+                "kind": "enum",
+                "name": "TaskPriority",
+                "short_name": "Priority",
+                "owner": "todo",
+                "status": "active",
+                "definition": "The closed set of priority values for a task.",
+                "values": ["low", "medium", "high"],
+            }
+            path = root / ".lattice/specs/examples" / f"{enum_id}.json"
+            path.parent.mkdir(exist_ok=True)
+            path.write_text(json.dumps(enum_spec), encoding="utf-8")
+
+            config = load_config(root)
+            registry = load_registry(config)
+            render_all(config, registry)
+
+            html = (
+                root / ".lattice/generated/docs/units/todo-priority-001.html"
+            ).read_text(encoding="utf-8")
+
+            self.assertIn('<lattice-enum-page>', html)
+            self.assertIn("<lattice-section-heading>Values</lattice-section-heading>", html)
+            self.assertIn('<span class="tag t-type field-value">low</span>', html)
+            self.assertIn('<span class="tag t-type field-value">medium</span>', html)
+            self.assertIn('<span class="tag t-type field-value">high</span>', html)
+            self.assertIn("The closed set of priority values for a task.", html)
+
+    def test_tag_pages_render_and_group_members_by_type(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            enum_id = "".join(["TODO", "-PRIORITY-001"])
+            deprecated = {
+                "id": "TODO-ITEM-001",
+                "kind": "domain_object",
+                "name": "TodoItem",
+                "short_name": "Task",
+                "owner": "todo",
+                "status": "active",
+                "summary": "A tracked task.",
+                "tags": ["deprecated", "planned"],
+                "fields": [
+                    {
+                        "name": "legacy_code",
+                        "type": "string",
+                        "required": False,
+                        "description": "Legacy identifier still carried for compatibility.",
+                        "tags": ["deprecated"],
+                    }
+                ],
+            }
+            planned_enum = {
+                "id": enum_id,
+                "kind": "enum",
+                "name": "TaskPriority",
+                "short_name": "Priority",
+                "owner": "todo",
+                "status": "active",
+                "definition": "Priority values for tasks.",
+                "values": ["low", "high"],
+                "tags": ["planned"],
+            }
+            item_path = root / ".lattice/specs/examples/TODO-ITEM-001.json"
+            item_path.parent.mkdir(exist_ok=True)
+            item_path.write_text(json.dumps(deprecated), encoding="utf-8")
+            enum_path = root / ".lattice/specs/examples" / f"{enum_id}.json"
+            enum_path.write_text(json.dumps(planned_enum), encoding="utf-8")
+
+            config = load_config(root)
+            registry = load_registry(config)
+            render_all(config, registry)
+
+            item_html = (
+                root / ".lattice/generated/docs/units/todo-item-001.html"
+            ).read_text(encoding="utf-8")
+            tag_html = (
+                root / ".lattice/generated/docs/tags/deprecated.html"
+            ).read_text(encoding="utf-8")
+            planned_html = (
+                root / ".lattice/generated/docs/tags/planned.html"
+            ).read_text(encoding="utf-8")
+
+            self.assertIn("lattice-tag-index", item_html)
+            self.assertIn(
+                '<lattice-link type="tag" lattice-id="deprecated" label="deprecated" variant="tag">deprecated</lattice-link>',
+                item_html,
+            )
+            self.assertIn(
+                '<lattice-link type="tag" lattice-id="planned" label="planned" variant="tag">planned</lattice-link>',
+                item_html,
+            )
+            self.assertIn('<lattice-tag-page>', tag_html)
+            self.assertIn("<span slot=\"title\">deprecated</span>", tag_html)
+            self.assertIn("<lattice-section-heading divider>Domain</lattice-section-heading>", tag_html)
+            self.assertIn("Task", tag_html)
+            self.assertIn("Task.legacy_code", tag_html)
+            self.assertIn(
+                'fragment="field-todo-item-001-legacy-code"',
+                tag_html,
+            )
+            self.assertIn("<lattice-section-heading divider>Domain</lattice-section-heading>", planned_html)
+            self.assertIn("<lattice-section-heading divider>Enums</lattice-section-heading>", planned_html)
+            self.assertIn("Priority", planned_html)
 
     def test_audit_requires_test_coverage_for_configured_kinds(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -28,6 +28,9 @@ class RenderedSite:
         for path in self.obsolete_unit_outputs():
             stale.append(self.path_label(path))
 
+        for path in self.obsolete_tag_outputs():
+            stale.append(self.path_label(path))
+
         return stale
 
     def write(self) -> None:
@@ -38,6 +41,9 @@ class RenderedSite:
         for path in self.obsolete_unit_outputs():
             path.unlink()
 
+        for path in self.obsolete_tag_outputs():
+            path.unlink()
+
     def obsolete_unit_outputs(self) -> list[Path]:
         units_dir = self.config.generated_docs_dir / "units"
         if not units_dir.exists():
@@ -45,6 +51,14 @@ class RenderedSite:
 
         expected = set(self.outputs)
         return sorted(path for path in units_dir.glob("*.html") if path not in expected)
+
+    def obsolete_tag_outputs(self) -> list[Path]:
+        tags_dir = self.config.generated_docs_dir / "tags"
+        if not tags_dir.exists():
+            return []
+
+        expected = set(self.outputs)
+        return sorted(path for path in tags_dir.glob("*.html") if path not in expected)
 
     def path_label(self, path: Path) -> str:
         try:

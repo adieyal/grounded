@@ -34,6 +34,7 @@ from .render_display import (
 from .render_graph import build_search_index
 from .render_paths import href_for, unit_output_path
 from .render_templates import DEFAULT_TEMPLATES
+from .render_tags import tag_index_for, tag_values
 
 
 def json_for_html_script(value: object) -> str:
@@ -64,6 +65,7 @@ def template_environment(config: LatticeConfig) -> Environment:
     env.globals["display_name"] = display_name
     env.globals["field_type_display"] = field_type_display
     env.globals["enum_values"] = enum_values
+    env.globals["tag_values"] = tag_values
     env.globals["page_component"] = page_component
     env.globals["type_tone"] = type_tone
     env.globals["type_nav_label"] = type_nav_label
@@ -101,6 +103,9 @@ def base_context(
         "type_counts": Counter(spec.kind for spec in visible_specs),
         "lattice_registry": graph,
         "lattice_registry_json": json_for_html_script(graph),
+        "tag_index_json": json_for_html_script(
+            tag_index_for(config, registry, output_path)
+        ),
         "search_index_json": json_for_html_script(
             build_search_index(config, registry, graph, specs=indexed_specs)
         ),

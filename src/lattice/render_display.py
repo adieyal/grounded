@@ -37,6 +37,7 @@ TYPE_TONES = {
     "domain_object": "ent",
     "concept": "con",
     "enum": "enu",
+    "feature": "flow",
     "lifecycle_type": "enu",
     "lifecycle_value": "enu",
     "data_type": "type",
@@ -49,6 +50,7 @@ TYPE_NAV_LABELS = {
     "domain_object": "Domain",
     "concept": "Concepts",
     "enum": "Enums",
+    "feature": "Features",
     "lifecycle_type": "Lifecycle Types",
     "lifecycle_value": "Lifecycle Values",
     "data_type": "Data Types",
@@ -81,6 +83,7 @@ DETAIL_FIELD_EXCLUDES = {
     "kind",
     "name",
     "short_name",
+    "tags",
     "owner",
     "status",
     "references",
@@ -105,6 +108,18 @@ def display_fields(spec: Spec) -> list[dict[str, Any]]:
             elif not isinstance(allowed_values, list):
                 allowed_values = [allowed_values]
 
+            references = field.get("references", [])
+            if references is None:
+                references = []
+            elif not isinstance(references, list):
+                references = [references]
+
+            tags = field.get("tags", [])
+            if tags is None:
+                tags = []
+            elif not isinstance(tags, list):
+                tags = [tags]
+
             rows.append(
                 {
                     "name": str(field.get("name", "")),
@@ -112,6 +127,8 @@ def display_fields(spec: Spec) -> list[dict[str, Any]]:
                     "required": field.get("required"),
                     "description": display_value(field.get("description", "")),
                     "allowed_values": [display_value(value) for value in allowed_values],
+                    "tags": [str(value) for value in tags if isinstance(value, str) and value],
+                    "references": [str(value) for value in references],
                 }
             )
 
@@ -129,6 +146,8 @@ def display_fields(spec: Spec) -> list[dict[str, Any]]:
                 "required": key in {"definition", "summary", "statement", "decision"},
                 "description": display_value(value),
                 "allowed_values": [],
+                "tags": [],
+                "references": [],
             }
         )
     return rows
@@ -136,10 +155,21 @@ def display_fields(spec: Spec) -> list[dict[str, Any]]:
 
 def field_type_display(field_type: object, registry: SpecRegistry) -> str:
     type_name = str(field_type)
-    target = field_type_target(type_name, registry)
+    stripped_type_name, is_collection = _split_field_type(type_name)
+    if stripped_type_name == "dict":
+        return '<span class="pill field-type">dict</span>'
+
+    target = field_type_target(stripped_type_name, registry)
     if target is None:
-        return f'<span class="pill field-type">{escape(type_name)}</span>'
-    return lattice_link(target.kind, target.id, display_name(target), "field-type")
+        rendered = escape(stripped_type_name)
+        if is_collection:
+            rendered = f"list[{rendered}]"
+        return f'<span class="pill field-type">{rendered}</span>'
+
+    rendered = lattice_link(target.kind, target.id, display_name(target), "field-type")
+    if is_collection:
+        return f"list[{rendered}]"
+    return rendered
 
 
 def display_name(spec: Spec) -> str:
@@ -177,6 +207,16 @@ def field_type_target(type_name: str, registry: SpecRegistry) -> Spec | None:
         return matches[0]
 
     return None
+
+
+def _split_field_type(type_name: str) -> tuple[str, bool]:
+    stripped = type_name.replace(" | None", "").replace("| None", "").strip()
+    is_collection = stripped.startswith("list[") and stripped.endswith("]")
+    if is_collection:
+        stripped = stripped[5:-1].strip()
+    if stripped.startswith("dict["):
+        return "dict", False
+    return stripped, is_collection
 
 
 def detail_sections(spec: Spec) -> list[dict[str, Any]]:

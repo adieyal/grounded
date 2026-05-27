@@ -90,6 +90,13 @@ class Spec:
         return self.short_name or self.data.get("name", self.id)
 
     @property
+    def tags(self) -> tuple[str, ...]:
+        value = self.data.get("tags", [])
+        if not isinstance(value, list):
+            return ()
+        return tuple(tag for tag in value if isinstance(tag, str) and tag)
+
+    @property
     def status(self) -> str:
         value = self.data.get("status")
         return value if isinstance(value, str) else "active"

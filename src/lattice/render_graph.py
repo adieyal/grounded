@@ -5,12 +5,22 @@ from typing import Any
 
 from .models import LatticeConfig, Spec
 from .registry import SpecRegistry
-from .render_display import display_name
+from .render_display import display_fields, display_name
 from .render_paths import href_for, unit_output_path
 
 
 def lattice_key(spec: Spec) -> str:
     return f"{spec.kind}:{spec.id}"
+
+
+def graph_reference_ids_for(spec: Spec) -> tuple[str, ...]:
+    refs = list(spec.references)
+    child_features = spec.data.get("child_features", [])
+    if isinstance(child_features, list):
+        refs.extend(
+            child_id for child_id in child_features if isinstance(child_id, str)
+        )
+    return tuple(dict.fromkeys(refs))
 
 
 def lattice_registry_for(
@@ -21,7 +31,9 @@ def lattice_registry_for(
 
     for spec in registry.active_specs:
         source = lattice_key(spec)
-        targets = [target for target in spec.references if target in registry.by_id]
+        targets = [
+            target for target in graph_reference_ids_for(spec) if target in registry.by_id
+        ]
         outgoing[source] = [lattice_key(registry.by_id[target]) for target in targets]
         for target in targets:
             backlinks.setdefault(lattice_key(registry.by_id[target]), []).append(source)
@@ -60,7 +72,7 @@ def outgoing_links_for(
     spec: Spec, registry: SpecRegistry, graph: dict[str, dict[str, Any]]
 ) -> list[dict[str, Any]]:
     links = []
-    for target_id in spec.references:
+    for target_id in graph_reference_ids_for(spec):
         target = registry.by_id.get(target_id)
         if target is None:
             continue
@@ -90,6 +102,9 @@ def build_search_index(
             str(spec.data.get("name", "")),
             str(spec.short_name or ""),
         ]
+        text_parts.extend(spec.tags)
+        for field in display_fields(spec):
+            text_parts.extend(field.get("tags", []))
         for field in fields:
             text_parts.extend(flatten_search_value(spec.data.get(field)))
         node = graph[lattice_key(spec)]
