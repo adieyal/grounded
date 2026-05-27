@@ -19,6 +19,7 @@ lattice validate
 lattice verify
 lattice render --check
 lattice audit
+lattice graph SPEC-ID --depth 2 --include-type domain_object --output graph.dot
 ```
 
 See [CHANGELOG.md](CHANGELOG.md) for release notes starting with `0.3.0`.
@@ -67,6 +68,10 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes starting with `0.3.0`.
 - Project styles can override the packaged stylesheet through the configured
   `styles_dir`.
 - Verification units can run project-specific commands during `lattice verify`.
+- `lattice graph SPEC-ID` emits Graphviz DOT for outgoing references and
+  backlinks around a starting knowledge unit; use `--depth` to expand the
+  neighborhood, `--include-type` / `--exclude-type` to filter node kinds, and
+  `--output` to write a `.dot` file.
 
 ## Rich Text
 

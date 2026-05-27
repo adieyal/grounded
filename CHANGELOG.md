@@ -6,6 +6,15 @@ last_updated: 2026-05-27
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
+## 0.7.0 - 2026-05-27
+
+- Added `lattice graph SPEC-ID` to emit Graphviz DOT relationship graphs from
+  the canonical Lattice registry.
+- Graph export traverses outgoing references and backlinks from a starting
+  knowledge unit with configurable `--depth`.
+- Added `--include-type` and `--exclude-type` filters for graph node kinds, plus
+  optional `--output` file writing.
+
 ## 0.6.0 - 2026-05-27
 
 - Added reusable bundled Lit components for documentation pages:

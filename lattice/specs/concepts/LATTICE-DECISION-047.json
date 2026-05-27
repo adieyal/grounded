@@ -1,0 +1,16 @@
+{
+  "decision": "The CLI includes a graph command that emits Graphviz DOT for relationships around a starting knowledge-unit ID. The command traverses both outgoing references and backlinks up to a configurable depth, can include or exclude specific spec types, writes to stdout by default, and can write to a requested output path.",
+  "id": "LATTICE-DECISION-047",
+  "kind": "decision",
+  "name": "Generate Graphviz relationship graphs",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-039",
+    "LATTICE-DECISION-045"
+  ],
+  "status": "active",
+  "description": "Documents the Graphviz DOT CLI export so Lattice relationship graphs can be generated from the same canonical registry references used by rendered docs.",
+  "tests": [
+    "LATTICE-TEST-016"
+  ]
+}

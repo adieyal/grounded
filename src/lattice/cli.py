@@ -7,6 +7,7 @@ from pathlib import Path
 from .audit import audit
 from .bootstrap import init_project
 from .config import load_config
+from .graphviz import graphviz_dot_for
 from .registry import load_registry
 from .render import render_all
 from .verify import verify
@@ -55,6 +56,34 @@ def main(argv: list[str] | None = None) -> int:
     subcommands.add_parser(
         "verify",
         help="Run project-specific verification commands declared by knowledge units.",
+    )
+    graph_parser = subcommands.add_parser(
+        "graph", help="Generate a Graphviz DOT relationship graph."
+    )
+    graph_parser.add_argument("start", help="Starting knowledge-unit ID.")
+    graph_parser.add_argument(
+        "--depth",
+        type=int,
+        default=1,
+        help="Relationship depth from the starting ID. Defaults to 1.",
+    )
+    graph_parser.add_argument(
+        "--output",
+        type=Path,
+        default=None,
+        help="Write DOT to this file. Defaults to stdout.",
+    )
+    graph_parser.add_argument(
+        "--include-type",
+        action="append",
+        default=[],
+        help="Only include these spec types. May be repeated or comma-separated.",
+    )
+    graph_parser.add_argument(
+        "--exclude-type",
+        action="append",
+        default=[],
+        help="Exclude these spec types. May be repeated or comma-separated.",
     )
 
     args = parser.parse_args(argv)
@@ -107,8 +136,39 @@ def main(argv: list[str] | None = None) -> int:
             success="Lattice verification passed.",
         )
 
+    if args.command == "graph":
+        if registry.issues:
+            return _print_issues(config.root, registry.issues)
+        try:
+            dot = graphviz_dot_for(
+                registry,
+                args.start,
+                depth=args.depth,
+                include_types=_type_filter_set(args.include_type),
+                exclude_types=_type_filter_set(args.exclude_type),
+            )
+        except KeyError:
+            print(f"unknown starting knowledge-unit ID: {args.start}", file=sys.stderr)
+            return 1
+        except ValueError as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
+        if args.output is None:
+            print(dot, end="")
+        else:
+            args.output.parent.mkdir(parents=True, exist_ok=True)
+            args.output.write_text(dot, encoding="utf-8")
+        return 0
+
     parser.error(f"unknown command {args.command}")
     return 2
+
+
+def _type_filter_set(values: list[str]) -> set[str] | None:
+    result = {
+        item.strip() for value in values for item in value.split(",") if item.strip()
+    }
+    return result or None
 
 
 def _print_issues(

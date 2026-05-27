@@ -107,6 +107,10 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-022, LATTICE-DECISION-023, LATTICE-DECISION-028, LATTICE-DECISION-041
 - `LATTICE-DECISION-046` (decision, owner: lattice): Documents the 0.6.0 version bump so the reusable documentation component release has a canonical Lattice owner. The package version is bumped to 0.6.0 for reusable bundled Lit documentation components, unit-page adoption of lattice-doc-header, and the readable bundled font token scale.
   Links: LATTICE-DECISION-042, LATTICE-DECISION-043, LATTICE-DECISION-045
+- `LATTICE-DECISION-047` (decision, owner: lattice): Documents the Graphviz DOT CLI export so Lattice relationship graphs can be generated from the same canonical registry references used by rendered docs. The CLI includes a graph command that emits Graphviz DOT for relationships around a starting knowledge-unit ID. The command traverses both outgoing references and backlinks up to a configurable depth, can include or exclude specific spec types, writes to stdout by default, and can write to a requested output path.
+  Links: LATTICE-DECISION-039, LATTICE-DECISION-045
+- `LATTICE-DECISION-048` (decision, owner: lattice): Documents the 0.7.0 version bump so the Graphviz relationship graph CLI release has a canonical Lattice owner. The package version is bumped to 0.7.0 for the Graphviz relationship graph CLI, including bounded traversal from a starting knowledge-unit ID, outgoing and backlink relationships, optional type include/exclude filters, stdout output, and file output.
+  Links: LATTICE-DECISION-046, LATTICE-DECISION-047
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
 - `PROJECT-DOMAIN-001` (domain_object, owner: project): Defines the Canonical project fact domain object and explains how other specs should refer to it. A durable unit of project knowledge with exactly one Lattice spec as its source of truth.
@@ -205,6 +209,8 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-043
 - `LATTICE-TEST-015` (test_binding, owner: lattice): Binds LATTICE-DECISION-045 to an executable render test so Lattice can verify reusable Lit documentation components are emitted and consume design tokens.
   Links: LATTICE-DECISION-045
+- `LATTICE-TEST-016` (test_binding, owner: lattice): Binds LATTICE-DECISION-047 to an executable CLI test so Lattice can verify Graphviz DOT export includes outgoing and incoming relationships with bounded depth and type filters.
+  Links: LATTICE-DECISION-047
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.
