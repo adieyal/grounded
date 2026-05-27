@@ -27,6 +27,7 @@ class TypeDefinition:
     verification_fields: tuple[str, ...]
     reference_fields: tuple[str, ...]
     single_reference_fields: tuple[str, ...]
+    nested_reference_fields: tuple[tuple[str, ...], ...]
     required: tuple[str, ...]
     list_fields: tuple[str, ...]
 
@@ -372,6 +373,9 @@ def load_type_registry(
             single_reference_fields=_string_tuple(
                 value.get("single_reference_fields", ())
             ),
+            nested_reference_fields=_nested_reference_paths(
+                value.get("nested_reference_fields", ())
+            ),
             required=_string_tuple(value.get("required", ())),
             list_fields=_string_tuple(value.get("list_fields", ())),
         )
@@ -480,6 +484,22 @@ def _string_tuple(value: object) -> tuple[str, ...]:
     return tuple(item for item in value if isinstance(item, str) and item)
 
 
+def _nested_reference_paths(value: object) -> tuple[tuple[str, ...], ...]:
+    if not isinstance(value, list | tuple):
+        return ()
+    paths: list[tuple[str, ...]] = []
+    for item in value:
+        if isinstance(item, str) and item:
+            parts = tuple(part for part in item.split(".") if part)
+            if parts:
+                paths.append(parts)
+        elif isinstance(item, list | tuple):
+            parts = tuple(part for part in item if isinstance(part, str) and part)
+            if parts:
+                paths.append(parts)
+    return tuple(paths)
+
+
 def _validate_shape(
     spec: Spec, path: Path, type_defs: dict[str, TypeDefinition]
 ) -> list[Issue]:
@@ -554,6 +574,7 @@ def _validate_references(registry: SpecRegistry) -> list[Issue]:
         type_def = registry.type_defs.get(spec.kind)
         reference_fields = type_def.reference_fields if type_def else ("references",)
         single_reference_fields = type_def.single_reference_fields if type_def else ()
+        nested_reference_fields = type_def.nested_reference_fields if type_def else ()
         for field in reference_fields:
             value = spec.data.get(field, [])
             if not isinstance(value, list):
@@ -577,6 +598,26 @@ def _validate_references(registry: SpecRegistry) -> list[Issue]:
                         spec.path,
                     )
                 )
+        for path in nested_reference_fields:
+            for ref in _nested_values(spec.data, path):
+                if isinstance(ref, str) and ref not in registry.by_id:
+                    issues.append(
+                        Issue(
+                            "LATTICE-REF-001",
+                            f"{spec.id}.{'.'.join(path)} references unknown spec {ref}",
+                            spec.path,
+                        )
+                    )
+                elif isinstance(ref, list):
+                    for item in ref:
+                        if isinstance(item, str) and item not in registry.by_id:
+                            issues.append(
+                                Issue(
+                                    "LATTICE-REF-001",
+                                    f"{spec.id}.{'.'.join(path)} references unknown spec {item}",
+                                    spec.path,
+                                )
+                            )
         links = spec.data.get("links", [])
         if isinstance(links, list):
             for index, link in enumerate(links):
@@ -605,3 +646,20 @@ def _validate_references(registry: SpecRegistry) -> list[Issue]:
                     )
                 )
     return issues
+
+
+def _nested_values(data: object, path: tuple[str, ...]) -> list[object]:
+    if not path:
+        return [data]
+    head, *tail = path
+    rest = tuple(tail)
+    if isinstance(data, dict):
+        if head not in data:
+            return []
+        return _nested_values(data[head], rest)
+    if isinstance(data, list):
+        values: list[object] = []
+        for item in data:
+            values.extend(_nested_values(item, path))
+        return values
+    return []

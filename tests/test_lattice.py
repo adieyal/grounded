@@ -378,6 +378,63 @@ class LatticeTests(unittest.TestCase):
                 )
             )
 
+    def test_validate_flags_unknown_nested_reference_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            registry_path = root / ".lattice/registry/spec-types.json"
+            type_registry = json.loads(registry_path.read_text(encoding="utf-8"))
+            type_registry["artifact_contract"] = {
+                "extends": "knowledge_unit",
+                "nested_reference_fields": ["fields.metric_contract"],
+                "schema": {
+                    "type": "object",
+                    "required": ["id", "name", "owner", "status", "description"],
+                    "properties": {
+                        "kind": {"const": "artifact_contract"},
+                        "type": {"const": "artifact_contract"},
+                        "fields": {
+                            "type": "array",
+                            "items": {"type": "object"},
+                        },
+                    },
+                    "additionalProperties": True,
+                },
+            }
+            registry_path.write_text(json.dumps(type_registry), encoding="utf-8")
+
+            artifact_id = "PROJECT" + "-ARTIFACT-001"
+            missing_metric_id = "PROJECT" + "-METRIC-999"
+            artifact = {
+                "id": artifact_id,
+                "kind": "artifact_contract",
+                "name": "Project artifact",
+                "owner": "project",
+                "status": "active",
+                "description": "A contract with field-level metric links.",
+                "fields": [
+                    {
+                        "name": "amount",
+                        "type": "Decimal",
+                        "metric_contract": missing_metric_id,
+                    }
+                ],
+            }
+            artifact_path = root / ".lattice/specs/artifacts" / f"{artifact_id}.json"
+            artifact_path.parent.mkdir()
+            artifact_path.write_text(json.dumps(artifact), encoding="utf-8")
+
+            registry = load_registry(load_config(root))
+
+            self.assertTrue(
+                any(
+                    issue.code == "LATTICE-REF-001"
+                    and "fields.metric_contract" in issue.message
+                    and missing_metric_id in issue.message
+                    for issue in registry.issues
+                )
+            )
+
     def test_default_css_is_bundled_with_package(self) -> None:
         css = default_css()
 
