@@ -51,6 +51,11 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 "status": {"type": "string", "enum": ["active", "draft", "retired"]},
                 "summary": {"type": "string"},
                 "description": {"type": "string"},
+                "tags": {
+                    "type": "array",
+                    "items": {"type": "string", "minLength": 1},
+                    "uniqueItems": True,
+                },
                 "references": {
                     "type": "array",
                     "items": {"type": "string"},
@@ -100,12 +105,32 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 "type": {"const": "domain_object"},
                 "kind": {"const": "domain_object"},
                 "definition": {"type": "string"},
-                "preferred_term": {"type": "string"},
             },
             "additionalProperties": True,
         },
         "renderer": "domain_object.html.j2",
-        "search_fields": ["id", "name", "preferred_term", "definition", "summary"],
+        "search_fields": ["id", "name", "definition", "summary", "description"],
+        "reference_fields": [*BASE_LINK_FIELDS],
+    },
+    "enum": {
+        "extends": "knowledge_unit",
+        "schema": {
+            "type": "object",
+            "required": [*BASE_REQUIRED_FIELDS, "values"],
+            "properties": {
+                "type": {"const": "enum"},
+                "kind": {"const": "enum"},
+                "definition": {"type": "string"},
+                "values": {
+                    "type": "array",
+                    "items": {"type": "string", "minLength": 1},
+                    "uniqueItems": True,
+                },
+            },
+            "additionalProperties": True,
+        },
+        "renderer": "enum.html.j2",
+        "search_fields": ["id", "name", "values", "definition", "summary"],
         "reference_fields": [*BASE_LINK_FIELDS],
     },
     "verification": {
@@ -128,25 +153,6 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "single_reference_fields": ["target"],
         "verification_fields": ["command"],
     },
-    "test_binding": {
-        "extends": "knowledge_unit",
-        "schema": {
-            "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "target", "test"],
-            "properties": {
-                "type": {"const": "test_binding"},
-                "kind": {"const": "test_binding"},
-                "target": {"type": "string", "minLength": 1},
-                "test": {"type": "string", "minLength": 1},
-            },
-            "additionalProperties": True,
-        },
-        "renderer": "verification.html.j2",
-        "search_fields": ["id", "name", "target", "test", "summary"],
-        "reference_fields": ["references"],
-        "single_reference_fields": ["target"],
-        "verification_fields": ["test"],
-    },
     "schema_gap": {
         "extends": "knowledge_unit",
         "schema": {
@@ -162,143 +168,6 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         },
         "renderer": "schema_gap.html.j2",
         "search_fields": ["id", "name", "gap", "suggested_improvement", "summary"],
-        "reference_fields": [*BASE_LINK_FIELDS],
-    },
-    "concept": {
-        "extends": "knowledge_unit",
-        "schema": {
-            "type": "object",
-            "properties": {"type": {"const": "concept"}, "kind": {"const": "concept"}},
-            "additionalProperties": True,
-        },
-        "renderer": "unit.html.j2",
-        "search_fields": ["id", "name", "summary", "description"],
-        "reference_fields": [*BASE_LINK_FIELDS],
-    },
-    "decision": {
-        "extends": "knowledge_unit",
-        "schema": {
-            "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "decision"],
-            "properties": {
-                "type": {"const": "decision"},
-                "kind": {"const": "decision"},
-                "decision": {"type": "string"},
-            },
-            "additionalProperties": True,
-        },
-        "renderer": "unit.html.j2",
-        "search_fields": ["id", "name", "decision", "summary"],
-        "reference_fields": [*BASE_LINK_FIELDS],
-    },
-    "business_rule": {
-        "extends": "knowledge_unit",
-        "schema": {
-            "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "statement"],
-            "properties": {
-                "type": {"const": "business_rule"},
-                "kind": {"const": "business_rule"},
-                "statement": {"type": "string"},
-            },
-            "additionalProperties": True,
-        },
-        "renderer": "unit.html.j2",
-        "search_fields": ["id", "name", "statement", "summary"],
-        "reference_fields": [*BASE_LINK_FIELDS],
-    },
-    "example": {
-        "extends": "knowledge_unit",
-        "schema": {
-            "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "rule"],
-            "properties": {
-                "type": {"const": "example"},
-                "kind": {"const": "example"},
-                "rule": {"type": "string"},
-            },
-            "additionalProperties": True,
-        },
-        "renderer": "unit.html.j2",
-        "search_fields": ["id", "name", "intent", "summary"],
-        "reference_fields": [*BASE_LINK_FIELDS],
-        "single_reference_fields": ["rule"],
-    },
-    "guardrail": {
-        "extends": "knowledge_unit",
-        "schema": {
-            "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "summary"],
-            "properties": {
-                "type": {"const": "guardrail"},
-                "kind": {"const": "guardrail"},
-            },
-            "additionalProperties": True,
-        },
-        "renderer": "unit.html.j2",
-        "search_fields": ["id", "name", "summary"],
-        "reference_fields": [*BASE_LINK_FIELDS],
-    },
-    "spec_type": {
-        "extends": "knowledge_unit",
-        "schema": {
-            "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "definition"],
-            "properties": {
-                "type": {"const": "spec_type"},
-                "kind": {"const": "spec_type"},
-                "definition": {"type": "string"},
-            },
-            "additionalProperties": True,
-        },
-        "renderer": "unit.html.j2",
-        "search_fields": ["id", "name", "definition", "summary"],
-        "reference_fields": [*BASE_LINK_FIELDS],
-    },
-    "data_type": {
-        "extends": "knowledge_unit",
-        "schema": {
-            "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "definition"],
-            "properties": {
-                "type": {"const": "data_type"},
-                "kind": {"const": "data_type"},
-                "definition": {"type": "string"},
-            },
-            "additionalProperties": True,
-        },
-        "renderer": "unit.html.j2",
-        "search_fields": ["id", "name", "definition", "summary"],
-        "reference_fields": [*BASE_LINK_FIELDS],
-    },
-    "workflow": {
-        "extends": "knowledge_unit",
-        "schema": {
-            "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "summary"],
-            "properties": {
-                "type": {"const": "workflow"},
-                "kind": {"const": "workflow"},
-            },
-            "additionalProperties": True,
-        },
-        "renderer": "unit.html.j2",
-        "search_fields": ["id", "name", "summary"],
-        "reference_fields": [*BASE_LINK_FIELDS],
-    },
-    "lifecycle_value": {
-        "extends": "knowledge_unit",
-        "schema": {
-            "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "summary"],
-            "properties": {
-                "type": {"const": "lifecycle_value"},
-                "kind": {"const": "lifecycle_value"},
-            },
-            "additionalProperties": True,
-        },
-        "renderer": "unit.html.j2",
-        "search_fields": ["id", "name", "summary"],
         "reference_fields": [*BASE_LINK_FIELDS],
     },
 }

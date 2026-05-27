@@ -37,7 +37,7 @@ class LatticeTests(unittest.TestCase):
                 (root / ".lattice/registry/spec-types.json").read_text(encoding="utf-8")
             )
             self.assertEqual(
-                ["domain_object", "knowledge_unit", "schema_gap", "verification"],
+                ["domain_object", "enum", "knowledge_unit", "schema_gap", "verification"],
                 sorted(type_registry),
             )
             self.assertNotIn("business_entity", type_registry)
@@ -130,7 +130,7 @@ class LatticeTests(unittest.TestCase):
         type_registry = json.loads(default_type_registry_json())
 
         self.assertEqual(
-            ["domain_object", "knowledge_unit", "schema_gap", "verification"],
+            ["domain_object", "enum", "knowledge_unit", "schema_gap", "verification"],
             sorted(type_registry),
         )
         self.assertNotIn("business_entity", type_registry)
