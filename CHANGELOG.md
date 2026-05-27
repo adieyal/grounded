@@ -6,6 +6,13 @@ last_updated: 2026-05-27
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
+## 0.12.1 - 2026-05-27
+
+- Updated generated documentation tooltips so rich-text Lattice references in
+  target descriptions render as clickable links instead of raw bracket syntax.
+- Kept hoisted tooltips interactive long enough for readers to move from the
+  source link into tooltip links.
+
 ## 0.12.0 - 2026-05-27
 
 - Added generated documentation link tooltips. Hovering or focusing a

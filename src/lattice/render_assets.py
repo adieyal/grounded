@@ -32,6 +32,41 @@ window.latticeSearchIndex = latticeSearchIndex;
 window.latticeTagIndex = latticeTagIndex;
 
 const tooltipId = 'lattice-link-tooltip';
+let tooltipHideTimer = null;
+function clearTooltipHideTimer() {
+  if (tooltipHideTimer) window.clearTimeout(tooltipHideTimer);
+  tooltipHideTimer = null;
+}
+function nodeForLatticeId(latticeId) {
+  return Object.values(latticeRegistry).find((node) => node.id === latticeId);
+}
+function appendTooltipRichText(container, text) {
+  const pattern = /\\[\\[([^\\]|#]+)(#[^\\]|]+)?(?:\\|([^\\]]+))?\\]\\]/g;
+  let cursor = 0;
+  for (const match of text.matchAll(pattern)) {
+    if (match.index > cursor) {
+      container.appendChild(document.createTextNode(text.slice(cursor, match.index)));
+    }
+    const targetId = match[1];
+    const fragment = match[2] || '';
+    const label = match[3] || targetId;
+    const target = nodeForLatticeId(targetId);
+    if (target) {
+      const link = document.createElement('a');
+      link.href = `${target.href}${fragment}`;
+      link.textContent = label;
+      link.style.color = '#0645ad';
+      link.style.textDecoration = 'underline';
+      container.appendChild(link);
+    } else {
+      container.appendChild(document.createTextNode(match[0]));
+    }
+    cursor = match.index + match[0].length;
+  }
+  if (cursor < text.length) {
+    container.appendChild(document.createTextNode(text.slice(cursor)));
+  }
+}
 function sharedTooltip() {
   let tooltip = document.getElementById(tooltipId);
   if (tooltip) return tooltip;
@@ -48,19 +83,23 @@ function sharedTooltip() {
     maxWidth: 'min(18rem, calc(100vw - 2rem))',
     minWidth: '12rem',
     padding: '0.5rem 0.75rem',
-    pointerEvents: 'none',
+    pointerEvents: 'auto',
     position: 'fixed',
     textAlign: 'left',
-    whiteSpace: 'pre-line',
+    whiteSpace: 'pre-wrap',
     zIndex: '9999',
   });
+  tooltip.addEventListener('mouseenter', clearTooltipHideTimer);
+  tooltip.addEventListener('mouseleave', scheduleHideHoistedTooltip);
   document.body.appendChild(tooltip);
   return tooltip;
 }
 function showHoistedTooltip(text, anchor) {
   if (!text || !anchor) return;
+  clearTooltipHideTimer();
   const tooltip = sharedTooltip();
-  tooltip.textContent = text;
+  tooltip.replaceChildren();
+  appendTooltipRichText(tooltip, text);
   tooltip.style.display = 'block';
   const anchorRect = anchor.getBoundingClientRect();
   const tooltipRect = tooltip.getBoundingClientRect();
@@ -77,8 +116,13 @@ function showHoistedTooltip(text, anchor) {
   tooltip.style.top = `${top}px`;
 }
 function hideHoistedTooltip() {
+  clearTooltipHideTimer();
   const tooltip = document.getElementById(tooltipId);
   if (tooltip) tooltip.style.display = 'none';
+}
+function scheduleHideHoistedTooltip() {
+  clearTooltipHideTimer();
+  tooltipHideTimer = window.setTimeout(hideHoistedTooltip, 120);
 }
 
 class LatticeLink extends LitElement {
@@ -147,7 +191,7 @@ class LatticeLink extends LitElement {
     const label = explicitLabel || slotLabel || (target ? target.label : this.latticeId);
     const href = target ? `${target.href}${fragment ? `#${fragment}` : ''}` : fragment ? `#${fragment}` : '#';
     const tooltip = this.tooltipFor(target, label);
-    return html`<a href=${href} aria-description=${tooltip || nothing} aria-describedby=${tooltip ? tooltipId : nothing} part="anchor" data-lattice-type=${this.type || ''} data-lattice-id=${this.latticeId || ''} @mouseenter=${(event) => this.showTooltip(event, tooltip)} @focus=${(event) => this.showTooltip(event, tooltip)} @mouseleave=${hideHoistedTooltip} @blur=${hideHoistedTooltip}>${label}</a>`;
+    return html`<a href=${href} aria-description=${tooltip || nothing} aria-describedby=${tooltip ? tooltipId : nothing} part="anchor" data-lattice-type=${this.type || ''} data-lattice-id=${this.latticeId || ''} @mouseenter=${(event) => this.showTooltip(event, tooltip)} @focus=${(event) => this.showTooltip(event, tooltip)} @mouseleave=${scheduleHideHoistedTooltip} @blur=${scheduleHideHoistedTooltip}>${label}</a>`;
   }
 }
 
