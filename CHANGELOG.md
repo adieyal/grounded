@@ -6,6 +6,12 @@ last_updated: 2026-05-27
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
+## 0.12.0 - 2026-05-27
+
+- Added generated documentation link tooltips. Hovering or focusing a
+  `lattice-link` now shows the referenced unit's label, stable ID, type, and
+  short description, or tag counts for tag links.
+
 ## 0.11.0 - 2026-05-27
 
 - Added typed tags alongside legacy string tags. Knowledge units and field

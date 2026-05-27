@@ -67,6 +67,10 @@ Those references become links in generated docs and backlinks on the target page
 - What workflows depend on this term?
 - What generated context mentions this fact?
 
+Hovering or focusing a generated link shows a short tooltip with the target
+name, stable ID, type, and description, so readers can inspect nearby facts
+without leaving the current page.
+
 ## Tags and typed tags
 
 Tags are facets on knowledge units or field definitions. Plain string tags still

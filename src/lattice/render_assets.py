@@ -31,6 +31,56 @@ window.latticeRegistry = latticeRegistry;
 window.latticeSearchIndex = latticeSearchIndex;
 window.latticeTagIndex = latticeTagIndex;
 
+const tooltipId = 'lattice-link-tooltip';
+function sharedTooltip() {
+  let tooltip = document.getElementById(tooltipId);
+  if (tooltip) return tooltip;
+  tooltip = document.createElement('div');
+  tooltip.id = tooltipId;
+  tooltip.setAttribute('role', 'tooltip');
+  Object.assign(tooltip.style, {
+    background: '#ffffff',
+    border: '1px solid #000000',
+    boxShadow: '0 0.375rem 1rem rgba(0, 0, 0, 0.16)',
+    color: '#000000',
+    display: 'none',
+    font: '400 0.75rem/1.45 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+    maxWidth: 'min(18rem, calc(100vw - 2rem))',
+    minWidth: '12rem',
+    padding: '0.5rem 0.75rem',
+    pointerEvents: 'none',
+    position: 'fixed',
+    textAlign: 'left',
+    whiteSpace: 'pre-line',
+    zIndex: '9999',
+  });
+  document.body.appendChild(tooltip);
+  return tooltip;
+}
+function showHoistedTooltip(text, anchor) {
+  if (!text || !anchor) return;
+  const tooltip = sharedTooltip();
+  tooltip.textContent = text;
+  tooltip.style.display = 'block';
+  const anchorRect = anchor.getBoundingClientRect();
+  const tooltipRect = tooltip.getBoundingClientRect();
+  const margin = 8;
+  const preferredTop = anchorRect.bottom + margin;
+  const fallbackTop = anchorRect.top - tooltipRect.height - margin;
+  const maxLeft = window.innerWidth - tooltipRect.width - margin;
+  const left = Math.max(margin, Math.min(anchorRect.left, maxLeft));
+  const top =
+    preferredTop + tooltipRect.height <= window.innerHeight - margin
+      ? preferredTop
+      : Math.max(margin, fallbackTop);
+  tooltip.style.left = `${left}px`;
+  tooltip.style.top = `${top}px`;
+}
+function hideHoistedTooltip() {
+  const tooltip = document.getElementById(tooltipId);
+  if (tooltip) tooltip.style.display = 'none';
+}
+
 class LatticeLink extends LitElement {
   static properties = {
     type: { type: String, reflect: true },
@@ -62,17 +112,42 @@ class LatticeLink extends LitElement {
     :host([variant="tag"]) a:hover { background: var(--color-bg-primary); text-decoration: none; }
     :host([variant="field-type"]) a { background: var(--color-type-bg); border-color: transparent; border-radius: var(--radius-xs); color: var(--color-entity-dark); font: var(--font-weight-medium) var(--font-size-xs)/1.2 var(--font-mono); padding: var(--space-3xs) var(--space-sm); }
   `;
-  render() {
-    const target =
+  disconnectedCallback() {
+    hideHoistedTooltip();
+    super.disconnectedCallback();
+  }
+  target() {
+    return (
       latticeRegistry[`${this.type}:${this.latticeId}`] ||
       latticeTagIndex[this.latticeId] ||
-      Object.values(latticeRegistry).find((node) => node.id === this.latticeId);
+      Object.values(latticeRegistry).find((node) => node.id === this.latticeId)
+    );
+  }
+  tooltipFor(target, label) {
+    if (!target) return '';
+    if (this.type === 'tag') {
+      const count = target.count === 1 ? '1 tagged element' : `${target.count || 0} tagged elements`;
+      return `Tag: ${target.label || label || this.latticeId}\\n${count}`;
+    }
+    const parts = [
+      label || target.label || this.latticeId,
+      [target.id, target.type].filter(Boolean).join(' · '),
+      target.summary || '',
+    ].filter(Boolean);
+    return parts.join('\\n');
+  }
+  showTooltip(event, tooltip) {
+    showHoistedTooltip(tooltip, event.currentTarget);
+  }
+  render() {
+    const target = this.target();
     const explicitLabel = (this.label || '').trim();
     const fragment = (this.fragment || '').trim();
     const slotLabel = (this.textContent || '').trim();
     const label = explicitLabel || slotLabel || (target ? target.label : this.latticeId);
     const href = target ? `${target.href}${fragment ? `#${fragment}` : ''}` : fragment ? `#${fragment}` : '#';
-    return html`<a href=${href} part="anchor" data-lattice-type=${this.type || ''} data-lattice-id=${this.latticeId || ''}>${label}</a>`;
+    const tooltip = this.tooltipFor(target, label);
+    return html`<a href=${href} aria-description=${tooltip || nothing} aria-describedby=${tooltip ? tooltipId : nothing} part="anchor" data-lattice-type=${this.type || ''} data-lattice-id=${this.latticeId || ''} @mouseenter=${(event) => this.showTooltip(event, tooltip)} @focus=${(event) => this.showTooltip(event, tooltip)} @mouseleave=${hideHoistedTooltip} @blur=${hideHoistedTooltip}>${label}</a>`;
   }
 }
 

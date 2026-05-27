@@ -36,6 +36,8 @@ Lattice treats that as drift.
 - Typed tags for validation-sensitive classifications such as
   `EntityType:BusinessEntity`.
 - Generated docs for humans.
+- Link tooltips in generated docs so readers can preview referenced facts
+  without navigating away.
 - Generated context for LLM agents.
 - Validation for broken references.
 - Verification commands for project-specific checks.
