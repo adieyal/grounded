@@ -13,6 +13,8 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
   continuing to follow the system color scheme when no preference is set.
 - Updated the default generated documentation stylesheet to follow `DESIGN.md`
   tokens for color, typography, spacing, radius, and metadata pills.
+- Switched the committed `DESIGN.md` source and rendered docs styling to the
+  Notion design brief.
 - Added GitHub Pages publishing prep for the standalone Todo demo.
 
 ## 0.7.0 - 2026-05-27

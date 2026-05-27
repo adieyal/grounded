@@ -123,12 +123,14 @@ class LatticeTests(unittest.TestCase):
             self.assertIn('href="style.css"', html)
             self.assertIn(":root", css)
             self.assertIn(':root[data-theme="dark"]', css)
-            self.assertIn("--color-brand-primary: #ff4f00;", css)
-            self.assertIn("--color-brand-canvas: #fffefb;", css)
-            self.assertIn('--font-serif: "Degular Display", Inter', css)
-            self.assertIn("--font-size-md: 1.125rem;", css)
-            self.assertIn("--radius-md: 0.75rem;", css)
-            self.assertIn("--radius-pill: 999px;", css)
+            self.assertIn("--color-brand-primary: #5645d4;", css)
+            self.assertIn("--color-brand-navy: #0a1530;", css)
+            self.assertIn("--color-card-tint-lavender: #e6e0f5;", css)
+            self.assertIn('--font-serif: "Notion Sans", Inter', css)
+            self.assertIn("--font-size-md: 1rem;", css)
+            self.assertIn("--radius-md: 0.5rem;", css)
+            self.assertIn("--radius-lg: 0.75rem;", css)
+            self.assertIn("--radius-pill: 9999px;", css)
             self.assertIn("Canonical project fact", search)
             self.assertNotIn("last_updated:", markdown)
             self.assertNotIn("last_updated:", context_pack)
@@ -381,7 +383,7 @@ class LatticeTests(unittest.TestCase):
 
         self.assertIn(":root", css)
         self.assertIn("--color-", css)
-        self.assertIn("--color-brand-primary: #ff4f00;", css)
+        self.assertIn("--color-brand-primary: #5645d4;", css)
 
     def test_render_focuses_domain_units_and_keeps_background_separate(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

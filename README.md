@@ -81,8 +81,8 @@ development, prefer `uv run lattice ...` so the command uses the checkout.
   persists the selected theme locally and otherwise follows the user's system
   color scheme.
 - Default generated docs styling follows the token brief in `DESIGN.md`,
-  including warm canvas surfaces, coffee ink text, orange accents, Inter-first
-  typography, 12px cards, and pill metadata badges.
+  including Notion-style neutral surfaces, purple accents, Notion Sans/Inter
+  typography, 8px controls, 12px cards, and pastel metadata badges.
 - Project templates can extend reusable bundled templates such as
   `unit-core.html.j2` and `slice-index.html.j2`.
 - Project styles can override the packaged stylesheet through the configured

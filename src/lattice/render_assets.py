@@ -338,7 +338,7 @@ class LatticeLifecycleTypePage extends LitElement { render() { return html`<latt
 
 class LatticeFieldTable extends LitElement { static styles = css`:host { display: block; }`; render() { return html`<slot></slot>`; } }
 class LatticeConceptSection extends LitElement { static styles = css`:host { display: grid; gap: 0.4375rem; margin-bottom: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
-class LatticeConceptCard extends LitElement { static styles = css`:host { background: var(--color-bg-secondary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: block; padding: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
+class LatticeConceptCard extends LitElement { static styles = css`:host { background: var(--color-bg-secondary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-lg); display: block; padding: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
 class LatticeSection extends LitElement {
   static properties = { label: { type: String } };
   static styles = css`
@@ -371,7 +371,7 @@ class LatticeCompactItem extends LitElement {
 }
 class LatticeDetailList extends LitElement {
   static styles = css`
-    :host { border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: block; overflow: hidden; }
+    :host { border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-lg); display: block; overflow: hidden; }
   `;
   render() { return html`<slot></slot>`; }
 }
@@ -408,7 +408,7 @@ class LatticeDetailRow extends LitElement {
 class LatticeLinksPanel extends LitElement { static styles = css`:host { display: block; margin-bottom: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
 class LatticeRawJson extends LitElement { static styles = css`:host { display: block; }`; render() { return html`<slot></slot>`; } }
 class LatticeUnitSection extends LitElement { static styles = css`:host { border-bottom: var(--border-width) solid var(--color-border-tertiary); display: block; padding: var(--space-lg) var(--space-xl); }`; render() { return html`<slot></slot>`; } }
-class LatticeUnitCard extends LitElement { static styles = css`:host { background: var(--color-bg-secondary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: flex; flex-direction: column; min-height: 6rem; padding: var(--space-xl); } :host(:hover) { border-color: var(--color-border-primary); }`; render() { return html`<slot></slot>`; } }
+class LatticeUnitCard extends LitElement { static styles = css`:host { background: var(--color-bg-secondary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-lg); display: flex; flex-direction: column; min-height: 6rem; padding: var(--space-xl); } :host(:hover) { border-color: var(--color-border-primary); }`; render() { return html`<slot></slot>`; } }
 
 const define = (name, component) => {
   if (!customElements.get(name)) customElements.define(name, component);

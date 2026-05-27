@@ -1,5 +1,5 @@
 {
-  "decision": "The bundled generated-documentation stylesheet adopts DESIGN.md as its default visual token source. The default rendered HTML uses the design brief's warm canvas, coffee ink, orange accent, Inter-first typography with a Degular Display fallback for display headings, 12px card and button radii, pill metadata badges, and a 4px-based spacing scale. Project styles may still override these tokens through the configured styles_dir.",
+  "decision": "The bundled generated-documentation stylesheet adopts DESIGN.md as its default visual token source. The default rendered HTML uses the Notion design brief's neutral canvas and surface colors, purple primary accent, blue link accent, Notion Sans typography with Inter/system fallbacks, 8px controls, 12px cards, pastel metadata badges, and 4px-based spacing scale. Project styles may still override these tokens through the configured styles_dir.",
   "id": "LATTICE-DECISION-051",
   "kind": "decision",
   "name": "Adopt DESIGN.md default documentation styling",
