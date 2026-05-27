@@ -28,19 +28,29 @@ def load_config(root: Path | None = None) -> LatticeConfig:
         key, value = line.split(":", 1)
         values[key.strip()] = value.strip().strip('"').strip("'")
 
-    specs_dir = project_root / values.get("specs_dir", "lattice/specs")
+    specs_dir = project_root / values.get(
+        "specs_dir", str(config.specs_dir.relative_to(project_root))
+    )
     type_registry_path = project_root / values.get(
-        "type_registry_path", "lattice/registry/spec-types.json"
+        "type_registry_path", str(config.type_registry_path.relative_to(project_root))
     )
-    schemas_dir = project_root / values.get("schemas_dir", "lattice/schemas")
+    schemas_dir = project_root / values.get(
+        "schemas_dir", str(config.schemas_dir.relative_to(project_root))
+    )
     templates_dir = project_root / values.get(
-        "templates_dir", "lattice/renderers/templates"
+        "templates_dir", str(config.templates_dir.relative_to(project_root))
     )
-    styles_dir = project_root / values.get("styles_dir", "lattice/styles")
-    docs_dir = project_root / values.get("generated_docs_dir", "lattice/generated/docs")
-    llm_dir = project_root / values.get("generated_llm_dir", "lattice/generated/llm")
+    styles_dir = project_root / values.get(
+        "styles_dir", str(config.styles_dir.relative_to(project_root))
+    )
+    docs_dir = project_root / values.get(
+        "generated_docs_dir", str(config.generated_docs_dir.relative_to(project_root))
+    )
+    llm_dir = project_root / values.get(
+        "generated_llm_dir", str(config.generated_llm_dir.relative_to(project_root))
+    )
     search_index_path = project_root / values.get(
-        "search_index_path", "lattice/generated/docs/search-index.json"
+        "search_index_path", str(config.search_index_path.relative_to(project_root))
     )
     docs_title = values.get("docs_title", config.docs_title)
     docs_eyebrow = values.get("docs_eyebrow", config.docs_eyebrow)

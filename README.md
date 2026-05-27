@@ -38,7 +38,7 @@ lattice audit
 
 ```text
 lattice.yml
-lattice/
+.lattice/
   specs/
   registry/
   schemas/
@@ -50,4 +50,7 @@ lattice/
     llm/
 ```
 
-`lattice init` creates this layout and adds a Lattice section to `AGENTS.md`.
+`lattice init` creates this layout.
+Use `lattice init --lattice-dir path/to/memory` to choose a different project
+directory.
+Use `lattice init --update-agents` to add a Lattice section to `AGENTS.md`.

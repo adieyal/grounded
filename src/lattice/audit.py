@@ -39,6 +39,7 @@ def audit_generated_views(config: LatticeConfig, registry: SpecRegistry) -> list
 def audit_style_source(config: LatticeConfig) -> list[Issue]:
     issues: list[Issue] = []
     source = config.styles_dir / "style.css"
+    bundled_source = config.root / "src" / "lattice" / "assets" / "style.css"
     if not source.exists():
         return [Issue("LATTICE-STYLE-001", "central style.css is missing", source)]
     text = source.read_text(encoding="utf-8")
@@ -54,7 +55,7 @@ def audit_style_source(config: LatticeConfig) -> list[Issue]:
     for path in _iter_audit_files(
         config, {".git", ".venv", "__pycache__", "node_modules", "generated"}
     ):
-        if path == source or path.suffix not in {".html", ".css"}:
+        if path in {source, bundled_source} or path.suffix not in {".html", ".css"}:
             continue
         candidate = path.read_text(encoding="utf-8", errors="ignore")
         if HARD_CODED_STYLE_PATTERN.search(candidate):

@@ -48,12 +48,20 @@ drift and resolve the ownership conflict.
 """
 
 
-def init_project(root: Path, *, force: bool = False) -> list[Path]:
+def init_project(
+    root: Path,
+    *,
+    force: bool = False,
+    lattice_dir: Path | str = ".lattice",
+    update_agents: bool = False,
+) -> list[Path]:
     root = root.resolve()
-    config = LatticeConfig.default(root)
+    config = LatticeConfig.default(root, lattice_dir=lattice_dir)
     created: list[Path] = []
 
-    created.extend(_write_if_missing(root / "lattice.yml", _lattice_yml(), force=force))
+    created.extend(
+        _write_if_missing(root / "lattice.yml", _lattice_yml(root, config), force=force)
+    )
     created.extend(
         _write_if_missing(
             config.type_registry_path, default_type_registry_json(), force=force
@@ -61,21 +69,21 @@ def init_project(root: Path, *, force: bool = False) -> list[Path]:
     )
     created.extend(
         _write_if_missing(
-            root / "lattice" / "schemas" / "spec.schema.json",
+            config.schemas_dir / "spec.schema.json",
             _spec_schema(),
             force=force,
         )
     )
     created.extend(
         _write_if_missing(
-            root / "lattice" / "templates" / "domain_object.json",
+            config.specs_dir.parent / "templates" / "domain_object.json",
             _domain_object_template(),
             force=force,
         )
     )
     created.extend(
         _write_if_missing(
-            root / "lattice" / "templates" / "schema_gap.json",
+            config.specs_dir.parent / "templates" / "schema_gap.json",
             _schema_gap_template(),
             force=force,
         )
@@ -85,29 +93,8 @@ def init_project(root: Path, *, force: bool = False) -> list[Path]:
     )
     created.extend(
         _write_if_missing(
-            config.specs_dir / "concepts" / "PROJECT-CONCEPT-001.json",
-            _project_concept(),
-            force=force,
-        )
-    )
-    created.extend(
-        _write_if_missing(
             config.specs_dir / "glossary" / "PROJECT-DOMAIN-001.json",
             _project_domain_object(),
-            force=force,
-        )
-    )
-    created.extend(
-        _write_if_missing(
-            config.specs_dir / "rules" / "PROJECT-RULE-001.json",
-            _project_rule(),
-            force=force,
-        )
-    )
-    created.extend(
-        _write_if_missing(
-            config.specs_dir / "rules" / "PROJECT-RULE-002.json",
-            _agent_maintenance_rule(),
             force=force,
         )
     )
@@ -120,15 +107,8 @@ def init_project(root: Path, *, force: bool = False) -> list[Path]:
     )
     created.extend(
         _write_if_missing(
-            config.specs_dir / "examples" / "PROJECT-RULE-001-EX001.json",
-            _project_example(),
-            force=force,
-        )
-    )
-    created.extend(
-        _write_if_missing(
-            config.specs_dir / "test_bindings" / "PROJECT-TEST-001.json",
-            _test_binding(),
+            config.specs_dir / "verifications" / "PROJECT-VERIFY-001.json",
+            _verification(),
             force=force,
         )
     )
@@ -139,7 +119,8 @@ def init_project(root: Path, *, force: bool = False) -> list[Path]:
             force=force,
         )
     )
-    created.extend(_patch_agents(root / "AGENTS.md"))
+    if update_agents:
+        created.extend(_patch_agents(root / "AGENTS.md"))
     return created
 
 
@@ -172,18 +153,33 @@ def _patch_agents(path: Path) -> list[Path]:
     return [path]
 
 
-def _lattice_yml() -> str:
-    return """\
+def _config_path(root: Path, path: Path) -> str:
+    try:
+        return path.relative_to(root).as_posix()
+    except ValueError:
+        return path.as_posix()
+
+
+def _lattice_yml(root: Path, config: LatticeConfig) -> str:
+    specs_dir = _config_path(root, config.specs_dir)
+    type_registry_path = _config_path(root, config.type_registry_path)
+    schemas_dir = _config_path(root, config.schemas_dir)
+    templates_dir = _config_path(root, config.templates_dir)
+    styles_dir = _config_path(root, config.styles_dir)
+    generated_docs_dir = _config_path(root, config.generated_docs_dir)
+    generated_llm_dir = _config_path(root, config.generated_llm_dir)
+    search_index_path = _config_path(root, config.search_index_path)
+    return f"""\
 # Lattice registry configuration.
-specs_dir: lattice/specs
-type_registry_path: lattice/registry/spec-types.json
-schemas_dir: lattice/schemas
-templates_dir: lattice/renderers/templates
-styles_dir: lattice/styles
-generated_docs_dir: lattice/generated/docs
-generated_llm_dir: lattice/generated/llm
-search_index_path: lattice/generated/docs/search-index.json
-required_test_kinds: business_rule,example
+specs_dir: {specs_dir}
+type_registry_path: {type_registry_path}
+schemas_dir: {schemas_dir}
+templates_dir: {templates_dir}
+styles_dir: {styles_dir}
+generated_docs_dir: {generated_docs_dir}
+generated_llm_dir: {generated_llm_dir}
+search_index_path: {search_index_path}
+required_test_kinds:
 audit_roots: src,tests,docs,README.md,AGENTS.md
 """
 
@@ -314,7 +310,7 @@ def _project_domain_object() -> str:
             "owner": "project",
             "status": "active",
             "definition": "A durable unit of project knowledge with exactly one Lattice spec as its source of truth.",
-            "references": ["PROJECT-CONCEPT-001", "PROJECT-RULE-001"],
+            "references": [],
         }
     )
 
@@ -363,10 +359,10 @@ def _schema_gap() -> str:
             "owner": "project",
             "status": "active",
             "gap": "When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.",
-            "suggested_improvement": "Record the mismatch as a schema_gap, then evolve lattice/registry/spec-types.json and templates when the shape becomes stable.",
+            "suggested_improvement": "Record the mismatch as a schema_gap, then evolve the configured type registry and templates when the shape becomes stable.",
             "affected_kind": "spec_type",
-            "references": ["PROJECT-RULE-001"],
-            "tests": ["PROJECT-TEST-001"],
+            "references": ["PROJECT-DOMAIN-001"],
+            "tests": ["PROJECT-VERIFY-001"],
         }
     )
 
@@ -387,17 +383,17 @@ def _project_example() -> str:
     )
 
 
-def _test_binding() -> str:
+def _verification() -> str:
     return _json(
         {
-            "id": "PROJECT-TEST-001",
-            "type": "test_binding",
-            "name": "Bootstrap validation covers single-owner rule",
+            "id": "PROJECT-VERIFY-001",
+            "type": "verification",
+            "name": "Bootstrap validation",
             "owner": "project",
             "status": "active",
-            "target": "PROJECT-RULE-001",
-            "test": "lattice validate && lattice audit",
-            "references": ["PROJECT-RULE-001", "PROJECT-RULE-001-EX001"],
+            "target": "PROJECT-DOMAIN-001",
+            "command": "lattice validate && lattice audit",
+            "references": ["PROJECT-DOMAIN-001"],
         }
     )
 
@@ -428,7 +424,7 @@ description: Use Lattice as the primary source of truth for specs, durable proje
 3. Identify the single canonical owner for each idea before editing.
 4. Update an existing spec when the fact already has an owner.
 5. Create a new spec only when no owner exists.
-6. Check `lattice/registry/spec-types.json` before inventing a knowledge-unit type.
+6. Check the configured type registry before inventing a knowledge-unit type.
 7. Capture unmet schema needs as `schema_gap` specs.
 8. Check `domain_object` units before naming durable domain concepts in code or docs.
 9. Reference specs by stable ID from tests, code, and non-generated docs.
@@ -444,7 +440,7 @@ description: Use Lattice as the primary source of truth for specs, durable proje
 - Do not define domain terms outside glossary/domain-object specs when the meaning is durable.
 - Do not invent new spec kinds without updating the type registry and templates.
 - Do not hide a schema limitation in prose; create a `schema_gap` owner.
-- Do not manually edit files under `lattice/generated`.
+- Do not manually edit files under the configured generated docs directory.
 - Do not invent a competing term, rule, workflow, or decision if a canonical spec exists.
 - Treat broken references, stale generated views, and untested required specs as drift.
 - If two artifacts disagree, resolve the source-of-truth ownership first.

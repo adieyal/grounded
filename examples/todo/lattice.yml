@@ -1,6 +1,6 @@
 # Lattice registry configuration for the standalone Todo example.
 specs_dir: lattice/specs
-type_registry_path: ../../lattice/registry/spec-types.json
+type_registry_path: lattice/registry/spec-types.json
 schemas_dir: lattice/schemas
 templates_dir: ../../lattice/renderers/templates
 styles_dir: ../../lattice/styles
