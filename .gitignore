@@ -2,3 +2,7 @@
 .pytest_cache/
 __pycache__/
 *.py[cod]
+
+# Rendered Lattice sites
+/lattice/generated/docs/
+/examples/todo/site/
