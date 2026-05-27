@@ -6,6 +6,19 @@ last_updated: 2026-05-27
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
+## 0.10.0 - 2026-05-27
+
+- Added CLI project-memory search commands for maintainer and LLM workflows:
+  `lattice search`, `lattice entities`, `lattice specs`, `lattice spec`, and
+  `lattice check-new`.
+- Search results rank exact ID/name matches, aliases, text matches, token
+  overlap, and fuzzy name matches, with JSON output for automation.
+- Added `specs --uses` to find specs related to a matching entity or spec.
+- Documented the search workflow in the README, CLI reference, and LLM workflow
+  guide.
+- Added Lattice coverage for the search workflow through
+  `LATTICE-DECISION-054` and `LATTICE-TEST-019`.
+
 ## 0.9.0 - 2026-05-27
 
 - Added graph output profiles for `lattice graph`: `docs`, `compact`, and

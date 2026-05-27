@@ -38,14 +38,15 @@ Before a non-trivial change, the agent should:
 <img src="images/workflow.png" alt="An LLM workflow where an agent checks lattice.yml, finds the existing Lattice owner, updates or creates specs, implements changes, runs validation and audits, and reports changed IDs." width="900">
 
 1. Read `lattice.yml`.
-2. Find relevant existing specs.
-3. Update the existing owner if the fact already exists.
-4. Create a new spec only when no owner exists.
-5. Use the registry before inventing a new kind.
-6. Add a `schema_gap` when the current shapes cannot express the fact cleanly.
-7. Regenerate docs and context with `lattice render`.
-8. Run `lattice validate` and `lattice audit`.
-9. Report changed Lattice IDs.
+2. Search project memory with `lattice search`, `lattice entities`, `lattice specs --uses`, or `lattice check-new`.
+3. Find relevant existing specs.
+4. Update the existing owner if the fact already exists.
+5. Create a new spec only when no owner exists.
+6. Use the registry before inventing a new kind.
+7. Add a `schema_gap` when the current shapes cannot express the fact cleanly.
+8. Regenerate docs and context with `lattice render`.
+9. Run `lattice validate` and `lattice audit`.
+10. Report changed Lattice IDs.
 
 This turns project memory into part of normal implementation work instead of a separate documentation chore.
 
@@ -123,5 +124,14 @@ Checks run:
 Do not ask the agent to model the whole repository.
 
 Ask it to find or create the canonical owner for the specific rule, term, workflow, or decision affected by the current change.
+
+Useful discovery commands:
+
+```bash
+uv run lattice search "revenue"
+uv run lattice entities
+uv run lattice specs --uses "revenue"
+uv run lattice check-new "net revenue"
+```
 
 That is where Lattice gives fast value.

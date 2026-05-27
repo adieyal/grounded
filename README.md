@@ -107,6 +107,10 @@ Start with one fact. Give it a stable ID. Link other docs, tests, plans, and pro
 | `lattice validate` | Checks that specs are well-formed and references resolve. |
 | `lattice render` | Generates human docs and LLM context from the specs. |
 | `lattice render --check` | Fails if generated outputs are stale. |
+| `lattice search QUERY` | Searches project memory by ID, name, aliases, text, and relationships. |
+| `lattice entities` | Lists entity-like knowledge units for discovery before creating new facts. |
+| `lattice specs --uses QUERY` | Shows specs related to a matching entity or spec. |
+| `lattice check-new NAME` | Checks whether a proposed entity or concept probably already exists. |
 | `lattice verify` | Runs project-specific verification commands declared in specs. |
 | `lattice audit` | Checks for drift and missing coverage. |
 | `lattice graph SPEC-ID` | Shows a documentation-oriented Graphviz relationship diagram around one project fact. |

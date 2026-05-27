@@ -4,12 +4,15 @@ import json
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from lattice.audit import audit
 from lattice.bootstrap import AGENTS_MARKER_START, init_project
+from lattice.cli import main
 from lattice.config import load_config
 from lattice.registry import default_type_registry_json, load_registry
 from lattice.render import default_css, field_type_target, lattice_link, render_all
@@ -264,6 +267,66 @@ class LatticeTests(unittest.TestCase):
         )
         self.assertNotIn("business_entity", type_registry)
         self.assertNotIn("lifecycle_type", type_registry)
+
+    def test_search_cli_finds_entities_and_related_specs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            specs_dir = root / ".lattice/specs/examples"
+            specs_dir.mkdir(parents=True)
+            item_id = "TODO-ITEM-001"
+            rule_id = "TODO" + "-RULE-001"
+            item = {
+                "id": item_id,
+                "kind": "domain_object",
+                "name": "Todo Item",
+                "short_name": "Task",
+                "owner": "todo",
+                "status": "active",
+                "description": "A user-visible task in the todo list.",
+                "definition": "A todo item is a task that can move through lifecycle states.",
+            }
+            rule = {
+                "id": rule_id,
+                "kind": "schema_gap",
+                "name": "Todo lifecycle rule",
+                "owner": "todo",
+                "status": "active",
+                "description": "Documents a missing lifecycle rule for todo items.",
+                "gap": "Todo item lifecycle rules need a stronger spec type.",
+                "suggested_improvement": "Add a lifecycle rule type.",
+                "references": [item_id],
+            }
+            (specs_dir / f"{item_id}.json").write_text(json.dumps(item), encoding="utf-8")
+            (specs_dir / f"{rule_id}.json").write_text(json.dumps(rule), encoding="utf-8")
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(["--root", str(root), "search", "task", "--kind", "entities"])
+
+            self.assertEqual(0, result)
+            self.assertIn("Todo Item", output.getvalue())
+            self.assertIn("exact id/name match", output.getvalue())
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(["--root", str(root), "specs", "--uses", "todo item"])
+
+            self.assertEqual(0, result)
+            self.assertIn("Todo lifecycle rule", output.getvalue())
+            self.assertNotIn("Todo Item\n", output.getvalue())
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(["--root", str(root), "check-new", "todo item", "--json"])
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual(
+                "Likely exists already; inspect the top entity before adding a new concept.",
+                payload["recommendation"],
+            )
+            self.assertEqual(item_id, payload["entity_matches"][0]["id"])
 
     def test_knowledge_units_require_description(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -1,0 +1,13 @@
+{
+  "id": "LATTICE-TEST-019",
+  "kind": "test_binding",
+  "name": "CLI search finds entities and related specs",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-054"
+  ],
+  "status": "active",
+  "description": "Binds LATTICE-DECISION-054 to executable CLI tests so Lattice can verify search, specs --uses, and check-new behavior.",
+  "target": "LATTICE-DECISION-054",
+  "test": "uv run pytest tests/test_lattice.py::LatticeTests::test_search_cli_finds_entities_and_related_specs -q"
+}

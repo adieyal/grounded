@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -10,6 +11,17 @@ from .config import load_config
 from .graphviz import graphviz_dot_for
 from .registry import load_registry
 from .render import render_all
+from .search import (
+    ENTITY_KINDS,
+    build_search_records,
+    check_new_payload,
+    filter_records,
+    print_records,
+    print_search_results,
+    records_json,
+    results_json,
+    search_records,
+)
 from .verify import verify
 
 
@@ -91,6 +103,46 @@ def main(argv: list[str] | None = None) -> int:
         default="docs",
         help="Graph output profile. Defaults to docs.",
     )
+    search_parser = subcommands.add_parser(
+        "search", help="Search specs, entities, concepts, and relationships."
+    )
+    search_parser.add_argument("query", help="Search query.")
+    search_parser.add_argument(
+        "--kind",
+        default="all",
+        help="Restrict to a kind, or use entities/specs/all. Defaults to all.",
+    )
+    search_parser.add_argument("--limit", type=int, default=8)
+    search_parser.add_argument("--json", action="store_true")
+
+    entities_parser = subcommands.add_parser(
+        "entities", help="List entity-like knowledge units."
+    )
+    entities_parser.add_argument("--json", action="store_true")
+    entities_parser.add_argument("--verbose", action="store_true")
+
+    specs_parser = subcommands.add_parser("specs", help="List available specs.")
+    specs_parser.add_argument("--kind", default="all", help="Restrict to one spec kind.")
+    specs_parser.add_argument(
+        "--uses",
+        help="Only show specs that reference the matching entity or spec.",
+    )
+    specs_parser.add_argument("--limit", type=int, default=None)
+    specs_parser.add_argument("--json", action="store_true")
+    specs_parser.add_argument("--verbose", action="store_true")
+
+    spec_parser = subcommands.add_parser("spec", help="Search spec records.")
+    spec_parser.add_argument("query", help="Spec search query.")
+    spec_parser.add_argument("--limit", type=int, default=5)
+    spec_parser.add_argument("--json", action="store_true")
+
+    check_new_parser = subcommands.add_parser(
+        "check-new",
+        help="Check whether a proposed entity or concept probably already exists.",
+    )
+    check_new_parser.add_argument("name", help="Proposed entity or concept name.")
+    check_new_parser.add_argument("--limit", type=int, default=5)
+    check_new_parser.add_argument("--json", action="store_true")
 
     args = parser.parse_args(argv)
     root = (args.root or Path.cwd()).resolve()
@@ -165,6 +217,93 @@ def main(argv: list[str] | None = None) -> int:
         else:
             args.output.parent.mkdir(parents=True, exist_ok=True)
             args.output.write_text(dot, encoding="utf-8")
+        return 0
+
+    if args.command == "search":
+        if registry.issues:
+            return _print_issues(config.root, registry.issues)
+        records = build_search_records(registry)
+        results = search_records(records, args.query, kind=args.kind, limit=args.limit)
+        if args.json:
+            print(results_json(results))
+            return 0
+        return print_search_results(results)
+
+    if args.command == "entities":
+        if registry.issues:
+            return _print_issues(config.root, registry.issues)
+        records = filter_records(build_search_records(registry), "entities")
+        if args.json:
+            print(records_json(records))
+            return 0
+        return print_records(records, verbose=args.verbose)
+
+    if args.command == "specs":
+        if registry.issues:
+            return _print_issues(config.root, registry.issues)
+        records = filter_records(build_search_records(registry), args.kind)
+        if args.uses:
+            matches = search_records(records, args.uses, kind="entities", limit=10)
+            if not matches:
+                matches = search_records(records, args.uses, kind="all", limit=10)
+            target_ids = {result.record.id for result in matches if result.score >= 75}
+            records = [
+                record
+                for record in records
+                if record.id not in target_ids
+                and (
+                    any(reference in target_ids for reference in record.references)
+                    or any(used_by in target_ids for used_by in record.used_by)
+                )
+            ]
+        if args.limit is not None:
+            records = records[: args.limit]
+        if args.json:
+            print(records_json(records))
+            return 0
+        return print_records(records, verbose=args.verbose)
+
+    if args.command == "spec":
+        if registry.issues:
+            return _print_issues(config.root, registry.issues)
+        records = build_search_records(registry)
+        results = [
+            result
+            for result in search_records(records, args.query, kind="specs", limit=args.limit)
+            if result.record.kind not in ENTITY_KINDS
+        ]
+        if args.json:
+            print(results_json(results))
+            return 0
+        return print_search_results(results)
+
+    if args.command == "check-new":
+        if registry.issues:
+            return _print_issues(config.root, registry.issues)
+        payload = check_new_payload(build_search_records(registry), args.name, limit=args.limit)
+        if args.json:
+            print(json.dumps(payload, indent=2))
+            return 0
+        print(f"Query: {payload['query']}")
+        print(f"Recommendation: {payload['recommendation']}")
+        print()
+        print("Closest entities:")
+        entity_matches = payload["entity_matches"]
+        if entity_matches:
+            for result in entity_matches:
+                print(f"- {result['name']} ({result['score']}) [{result['id']}]")
+                print(f"  {result['reason']}; {result['path']}")
+        else:
+            print("- none")
+        print()
+        print("Relevant specs:")
+        spec_matches = payload["spec_matches"]
+        if spec_matches:
+            for result in spec_matches:
+                print(f"- {result['name']} ({result['score']}) [{result['id']}]")
+                print(f"  {result['description'] or result['reason']}")
+        else:
+            print("- none")
         return 0
 
     parser.error(f"unknown command {args.command}")

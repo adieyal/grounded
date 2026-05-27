@@ -92,6 +92,71 @@ Use this when specs include executable checks for important facts.
 
 Verification is how Lattice moves from structured documentation to executable project memory.
 
+## `lattice search`
+
+Search project memory from the registry-backed specs.
+
+```bash
+uv run lattice search "todo item"
+```
+
+Useful options:
+
+```bash
+uv run lattice search "todo item" --kind entities
+uv run lattice search "lifecycle rule" --kind specs --limit 5
+uv run lattice search "TodoItem" --json
+```
+
+Search ranks exact ID/name matches, aliases such as `short_name`, text matches, token overlap, and fuzzy name matches. Use `--json` when another tool or agent needs structured results.
+
+## `lattice entities`
+
+List entity-like knowledge units, including concepts, domain objects, enums, lifecycle types, and lifecycle values.
+
+```bash
+uv run lattice entities
+uv run lattice entities --verbose
+uv run lattice entities --json
+```
+
+Use this before adding a durable domain noun so you can reuse an existing owner instead of inventing a synonym.
+
+## `lattice specs`
+
+List specs, optionally filtered by kind or by relationship to a matching entity or spec.
+
+```bash
+uv run lattice specs
+uv run lattice specs --kind decision
+uv run lattice specs --uses "todo item"
+uv run lattice specs --uses "todo item" --json
+```
+
+`--uses` first searches for the referenced entity or spec, then returns specs that reference it or are referenced by it.
+
+## `lattice spec`
+
+Search non-entity spec records such as rules, decisions, guardrails, test bindings, and schema gaps.
+
+```bash
+uv run lattice spec "generated docs"
+uv run lattice spec "sidebar navigation" --json
+```
+
+Use this when you already know you are looking for a rule, decision, workflow, test binding, or other non-entity owner.
+
+## `lattice check-new`
+
+Check whether a proposed entity or concept probably already exists.
+
+```bash
+uv run lattice check-new "todo item"
+uv run lattice check-new "supplier alias" --json
+```
+
+The command reports closest entity matches, relevant specs, and a recommendation. It is designed for maintainers and LLM agents before they create a new knowledge unit.
+
 ## `lattice graph`
 
 Generate a Graphviz DOT relationship graph around one project fact.

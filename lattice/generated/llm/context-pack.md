@@ -121,6 +121,10 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-049, LATTICE-DECISION-050, LATTICE-DECISION-051
 - `LATTICE-DECISION-053` (decision, owner: lattice): Documents the 0.9.0 version bump so the graph presentation and generated documentation navigation release has a canonical Lattice owner. The package version is bumped to 0.9.0 for documentation-oriented Graphviz profiles, generated docs sidebar accordion navigation, component script cache busting, and Todo graph artifacts.
   Links: LATTICE-DECISION-022, LATTICE-DECISION-047
+- `LATTICE-DECISION-054` (decision, owner: lattice): Documents the CLI search workflow so LLM agents can discover existing entities, concepts, and specs before creating new knowledge units. The CLI includes search-oriented commands for LLM and maintainer workflows: search ranks matching knowledge units, entities lists entity-like units, specs lists available specs and can filter by references, spec searches non-entity specs, and check-new recommends whether a proposed entity or concept likely already exists. Results are deterministic, registry-backed, and available as human-readable text or JSON.
+  Links: LATTICE-DECISION-001, PROJECT-RULE-001
+- `LATTICE-DECISION-055` (decision, owner: lattice): Documents the 0.10.0 version bump so the CLI project-memory search release has a canonical Lattice owner. The package version is bumped to 0.10.0 for CLI project-memory search commands, including search, entities, specs, spec, and check-new workflows with deterministic ranking and JSON output.
+  Links: LATTICE-DECISION-054
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
 - `PROJECT-DOMAIN-001` (domain_object, owner: project): Defines the Canonical project fact domain object and explains how other specs should refer to it. A durable unit of project knowledge with exactly one Lattice spec as its source of truth.
@@ -225,6 +229,8 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-050
 - `LATTICE-TEST-018` (test_binding, owner: lattice): Binds LATTICE-DECISION-051 to executable render tests so Lattice can verify the bundled stylesheet includes DESIGN.md color, type, and radius tokens.
   Links: LATTICE-DECISION-051
+- `LATTICE-TEST-019` (test_binding, owner: lattice): Binds LATTICE-DECISION-054 to executable CLI tests so Lattice can verify search, specs --uses, and check-new behavior.
+  Links: LATTICE-DECISION-054
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.
