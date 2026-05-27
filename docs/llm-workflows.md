@@ -89,7 +89,7 @@ Bad facts for LLM context are transient details:
 
 Prefer this:
 
-> Implement the report date formatting change according to `REPORT-RULE-001`. Update the verification if the rule changes.
+> Implement the report date formatting change according to the report date rule's Lattice ID. Update the verification if the rule changes.
 
 Avoid this:
 
@@ -110,8 +110,8 @@ Example:
 
 ```text
 Changed Lattice IDs:
-- REPORT-RULE-001
-- REPORT-VERIFY-001
+- REPORT-RULE-NNN
+- REPORT-VERIFY-NNN
 
 Checks run:
 - uv run lattice validate

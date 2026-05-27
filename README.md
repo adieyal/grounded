@@ -49,18 +49,18 @@ Instead of leaving that rule only in prose, give it a stable Lattice ID:
 
 ```json
 {
-  "id": "REPORT-RULE-001",
+  "id": "REPORT-RULE-NNN",
   "type": "business_rule",
   "name": "Date-only reports use UTC",
   "owner": "reporting",
   "status": "active",
   "description": "Defines how date-only values are displayed in generated reports.",
   "statement": "Date-only report fields must be formatted using UTC semantics, not local browser timezone semantics.",
-  "tests": ["REPORT-VERIFY-001"]
+  "tests": ["REPORT-VERIFY-NNN"]
 }
 ```
 
-Now docs, tests, generated LLM context, review comments, and implementation plans can all point to `REPORT-RULE-001` instead of rewriting the rule in five places.
+Now docs, tests, generated LLM context, review comments, and implementation plans can all point to the same report rule ID instead of rewriting the rule in five places.
 
 That is the core idea: **important project knowledge gets one home, then everything else links back to it.**
 

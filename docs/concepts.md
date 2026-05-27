@@ -52,7 +52,7 @@ Stable IDs let docs, tests, plans, generated context, and code comments point to
 
 A stable ID is useful because people and agents can say:
 
-> This change updates `REPORT-RULE-001`.
+> This change updates the report date rule.
 
 That is much better than repeating a paragraph and hoping every copy stays aligned.
 
