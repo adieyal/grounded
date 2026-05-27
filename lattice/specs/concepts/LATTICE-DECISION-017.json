@@ -9,6 +9,7 @@
     "LATTICE-DECISION-016"
   ],
   "status": "active",
+  "description": "Documents the Model status values as lifecycle values decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

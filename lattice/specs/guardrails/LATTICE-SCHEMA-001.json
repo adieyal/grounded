@@ -4,6 +4,9 @@
   "name": "Spec root is not an object",
   "owner": "lattice",
   "status": "active",
+  "description": "Defines the Spec root is not an object guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "A canonical spec must be represented as a JSON object.",
-  "references": ["PROJECT-RULE-001"]
+  "references": [
+    "PROJECT-RULE-001"
+  ]
 }

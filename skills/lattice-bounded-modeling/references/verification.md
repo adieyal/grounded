@@ -1,5 +1,5 @@
 ---
-last_updated: 2026-05-24
+last_updated: 2026-05-27
 ---
 
 # Verification Guidance
@@ -24,4 +24,5 @@ Example:
 Avoid:
 - putting code-existence checks into page templates
 - replacing the core Lattice verification command when the check is project-specific
+- editing validation or rendering functions when a project-owned verification spec can express the check
 - combining unrelated checks into one giant command unless they are inseparable

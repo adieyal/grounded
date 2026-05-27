@@ -4,6 +4,9 @@
   "name": "Missing design tokens",
   "owner": "lattice",
   "status": "active",
+  "description": "Defines the Missing design tokens guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "The central stylesheet should expose reusable design tokens for colors and spacing.",
-  "references": ["PROJECT-RULE-001"]
+  "references": [
+    "PROJECT-RULE-001"
+  ]
 }

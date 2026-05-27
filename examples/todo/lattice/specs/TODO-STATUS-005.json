@@ -6,6 +6,7 @@
     "TODO-LIFECYCLE-001"
   ],
   "status": "active",
+  "description": "Defines the Removed lifecycle value and explains how it is used in the modeled domain.",
   "summary": "Removed means the TodoItem is no longer part of the active list, while its historical record may remain traceable.",
   "type": "lifecycle_value"
 }

@@ -6,7 +6,13 @@ from pathlib import Path
 from .models import LatticeConfig
 from .registry import SpecRegistry
 from .render_assets import default_css, render_css, render_link_component
-from .render_constants import CSS_FILENAME, GENERATED_HEADER, LINK_COMPONENT_FILENAME, SEARCH_FILENAME
+from .render_constants import (
+    CSS_FILENAME,
+    GENERATED_HEADER,
+    INDEX_FILENAME,
+    LINK_COMPONENT_FILENAME,
+    SEARCH_FILENAME,
+)
 from .render_context import (
     base_context,
     json_for_html_script,
@@ -43,6 +49,16 @@ from .render_graph import (
 from .render_markdown import render_llm_pack, render_markdown
 from .render_outputs import RenderedSite
 from .render_paths import href_for, slugify, unit_output_path
+from .render_slices import (
+    SLICE_INDEX_TEMPLATE,
+    slice_description,
+    slice_members,
+    slice_output_path,
+    slice_specs,
+    slice_style_output_path,
+    slice_style_source,
+    slice_template_name,
+)
 from .render_tags import tag_index_for, tag_output_path, tag_sections_for, tags_by_name
 
 
@@ -73,7 +89,7 @@ def build_site(config: LatticeConfig, registry: SpecRegistry) -> dict[Path, str]
 
 
 def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> RenderedSite:
-    index_path = config.generated_docs_dir / "project-memory.html"
+    index_path = config.generated_docs_dir / INDEX_FILENAME
     background_path = config.generated_docs_dir / "lattice-background.html"
 
     graph = lattice_registry_for(config, registry, index_path)
@@ -113,12 +129,12 @@ def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> Render
         owner="project-memory markdown",
     )
     site.add(
-        config.generated_docs_dir / "project-memory.html",
+        config.generated_docs_dir / INDEX_FILENAME,
         env.get_template("index.html.j2").render(
             **context,
             background_href=href_for(index_path, background_path),
         ),
-        owner="project-memory html",
+        owner="index html",
     )
     site.add(
         background_path,
@@ -174,6 +190,53 @@ def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> Render
             owner=f"tag:{tag}",
         )
 
+    for slice_spec in slice_specs(registry):
+        members = slice_members(slice_spec, registry)
+        output_path = slice_output_path(config, slice_spec)
+        slice_graph = lattice_registry_for(config, registry, output_path, specs=members)
+        slice_context = base_context(
+            config,
+            registry,
+            slice_graph,
+            output_path,
+            specs=members,
+            search_specs=members,
+            tag_specs=members,
+        )
+        slice_render_context = dict(slice_context)
+        style_source = slice_style_source(config, slice_spec)
+        style_output_path = slice_style_output_path(config, slice_spec)
+        if (
+            style_source is not None
+            and style_output_path is not None
+            and style_source.exists()
+        ):
+            site.add(
+                style_output_path,
+                style_source.read_text(encoding="utf-8"),
+                owner=f"slice-style:{slice_spec.id}",
+            )
+            slice_render_context["extra_css_href"] = href_for(
+                output_path, style_output_path
+            )
+
+        template_name = slice_template_name(slice_spec)
+        if template_name not in available_templates:
+            template_name = SLICE_INDEX_TEMPLATE
+        slice_render_context.update(
+            {
+                "slice": slice_spec,
+                "slice_members": members,
+                "slice_description": slice_description(slice_spec),
+                "current_spec": None,
+            }
+        )
+        site.add(
+            output_path,
+            env.get_template(template_name).render(**slice_render_context),
+            owner=f"slice:{slice_spec.id}",
+        )
+
     for spec in registry.active_specs:
         output_path = unit_output_path(config, spec)
         unit_graph = lattice_registry_for(config, registry, output_path)
@@ -212,6 +275,7 @@ def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> Render
 __all__ = [
     "GENERATED_HEADER",
     "CSS_FILENAME",
+    "INDEX_FILENAME",
     "LINK_COMPONENT_FILENAME",
     "SEARCH_FILENAME",
     "RenderedSite",
@@ -247,6 +311,13 @@ __all__ = [
     "render_llm_pack",
     "render_markdown",
     "slugify",
+    "slice_description",
+    "slice_members",
+    "slice_output_path",
+    "slice_specs",
+    "slice_style_output_path",
+    "slice_style_source",
+    "slice_template_name",
     "specs_by_type",
     "template_environment",
     "type_nav_label",

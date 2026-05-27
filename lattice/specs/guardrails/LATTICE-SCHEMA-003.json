@@ -4,6 +4,9 @@
   "name": "Missing required fields",
   "owner": "lattice",
   "status": "active",
+  "description": "Defines the Missing required fields guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "Specs must include the required fields for their kind.",
-  "references": ["PROJECT-RULE-001"]
+  "references": [
+    "PROJECT-RULE-001"
+  ]
 }

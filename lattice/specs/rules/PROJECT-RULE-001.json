@@ -11,6 +11,7 @@
   ],
   "statement": "Every durable project fact has exactly one canonical owner; other artifacts reference that owner instead of duplicating it.",
   "status": "active",
+  "description": "Defines the Single owner for durable facts rule so agents and maintainers know when and how to apply it.",
   "tests": [
     "PROJECT-TEST-001"
   ]

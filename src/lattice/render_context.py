@@ -15,7 +15,12 @@ from jinja2 import (
 
 from .models import LatticeConfig, Spec
 from .registry import SpecRegistry
-from .render_constants import CSS_FILENAME, GENERATED_HEADER, LINK_COMPONENT_FILENAME
+from .render_constants import (
+    CSS_FILENAME,
+    GENERATED_HEADER,
+    INDEX_FILENAME,
+    LINK_COMPONENT_FILENAME,
+)
 from .render_display import (
     concept_sections,
     detail_sections,
@@ -75,9 +80,13 @@ def template_environment(config: LatticeConfig) -> Environment:
 
 def primary_documentation_specs(registry: SpecRegistry) -> list[Spec]:
     primary = [
-        spec for spec in registry.active_specs if spec.owner not in {"lattice", "project"}
+        spec
+        for spec in registry.active_specs
+        if spec.owner not in {"lattice", "project"}
     ]
-    return sorted(primary or registry.active_specs, key=lambda item: (item.kind, item.id))
+    return sorted(
+        primary or registry.active_specs, key=lambda item: (item.kind, item.id)
+    )
 
 
 def base_context(
@@ -88,6 +97,7 @@ def base_context(
     *,
     specs: list[Spec] | None = None,
     search_specs: list[Spec] | None = None,
+    tag_specs: list[Spec] | None = None,
 ) -> dict[str, Any]:
     visible_specs = sorted(
         specs if specs is not None else registry.active_specs,
@@ -104,7 +114,7 @@ def base_context(
         "lattice_registry": graph,
         "lattice_registry_json": json_for_html_script(graph),
         "tag_index_json": json_for_html_script(
-            tag_index_for(config, registry, output_path)
+            tag_index_for(config, registry, output_path, specs=tag_specs)
         ),
         "search_index_json": json_for_html_script(
             build_search_index(config, registry, graph, specs=indexed_specs)
@@ -116,8 +126,9 @@ def base_context(
         "docs_background_title": config.docs_background_title,
         "docs_background_description": config.docs_background_description,
         "css_href": href_for(output_path, config.generated_docs_dir / CSS_FILENAME),
+        "extra_css_href": None,
         "docs_home_href": href_for(
-            output_path, config.generated_docs_dir / "project-memory.html"
+            output_path, config.generated_docs_dir / INDEX_FILENAME
         ),
         "link_component_href": href_for(
             output_path, config.generated_docs_dir / LINK_COMPONENT_FILENAME

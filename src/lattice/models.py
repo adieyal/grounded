@@ -102,6 +102,11 @@ class Spec:
         return value if isinstance(value, str) else "active"
 
     @property
+    def description(self) -> str:
+        value = self.data.get("description") or self.statement
+        return value if isinstance(value, str) else ""
+
+    @property
     def references(self) -> tuple[str, ...]:
         refs = (
             [*self.data.get("references", [])]
@@ -134,6 +139,7 @@ class Spec:
             or self.data.get("summary")
             or self.data.get("gap")
             or self.data.get("decision")
+            or self.data.get("description")
             or self.data.get("name")
             or ""
         )

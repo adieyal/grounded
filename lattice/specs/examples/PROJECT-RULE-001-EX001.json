@@ -9,6 +9,7 @@
   ],
   "rule": "PROJECT-RULE-001",
   "status": "active",
+  "description": "Provides a concrete example for PROJECT-RULE-001 so the rule can be understood and verified in context.",
   "tests": [
     "PROJECT-TEST-001"
   ]

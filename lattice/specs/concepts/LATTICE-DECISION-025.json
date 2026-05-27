@@ -9,6 +9,7 @@
     "LATTICE-DECISION-024"
   ],
   "status": "active",
+  "description": "Documents the Initialize project files under .lattice decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

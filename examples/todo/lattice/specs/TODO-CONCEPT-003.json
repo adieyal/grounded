@@ -7,6 +7,7 @@
     "TODO-ITEM-001"
   ],
   "status": "active",
+  "description": "Explains the TodoItem has one current status concept and how it should be used as canonical Lattice knowledge.",
   "summary": "A TodoItem has exactly one current TodoStatus.",
   "type": "concept"
 }

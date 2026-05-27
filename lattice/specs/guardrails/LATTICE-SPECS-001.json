@@ -4,6 +4,9 @@
   "name": "Specs directory is missing",
   "owner": "lattice",
   "status": "active",
+  "description": "Defines the Specs directory is missing guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "A configured Lattice registry must have a specs directory.",
-  "references": ["PROJECT-RULE-001"]
+  "references": [
+    "PROJECT-RULE-001"
+  ]
 }

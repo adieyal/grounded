@@ -46,5 +46,6 @@
     "TODO-CONCEPT-004"
   ],
   "status": "active",
+  "description": "Defines the TodoItem business entity and explains how it is used in the modeled domain.",
   "type": "business_entity"
 }

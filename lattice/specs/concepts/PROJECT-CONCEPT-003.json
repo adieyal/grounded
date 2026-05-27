@@ -10,5 +10,6 @@
     "PROJECT-RULE-002"
   ],
   "status": "active",
+  "description": "Explains the Semantic slice concept and how it should be used as canonical Lattice knowledge.",
   "summary": "A semantically meaningful grouping of modeled units that captures an implicit or explicit boundary in the system being modeled; semantic slices may overlap, may optionally have a parent slice, and are useful for focusing Lattice on a coherent subset without requiring a partition."
 }

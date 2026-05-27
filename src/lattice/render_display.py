@@ -37,7 +37,6 @@ TYPE_TONES = {
     "domain_object": "ent",
     "concept": "con",
     "enum": "enu",
-    "feature": "flow",
     "lifecycle_type": "enu",
     "lifecycle_value": "enu",
     "data_type": "type",
@@ -50,7 +49,6 @@ TYPE_NAV_LABELS = {
     "domain_object": "Domain",
     "concept": "Concepts",
     "enum": "Enums",
-    "feature": "Features",
     "lifecycle_type": "Lifecycle Types",
     "lifecycle_value": "Lifecycle Values",
     "data_type": "Data Types",
@@ -86,6 +84,7 @@ DETAIL_FIELD_EXCLUDES = {
     "tags",
     "owner",
     "status",
+    "description",
     "references",
     "tests",
     "examples",
@@ -126,8 +125,12 @@ def display_fields(spec: Spec) -> list[dict[str, Any]]:
                     "type": str(field.get("type", "value")),
                     "required": field.get("required"),
                     "description": display_value(field.get("description", "")),
-                    "allowed_values": [display_value(value) for value in allowed_values],
-                    "tags": [str(value) for value in tags if isinstance(value, str) and value],
+                    "allowed_values": [
+                        display_value(value) for value in allowed_values
+                    ],
+                    "tags": [
+                        str(value) for value in tags if isinstance(value, str) and value
+                    ],
                     "references": [str(value) for value in references],
                 }
             )
@@ -200,7 +203,9 @@ def field_type_target(type_name: str, registry: SpecRegistry) -> Spec | None:
             spec.short_name or "",
             str(spec.data.get("name", "")),
         ]
-        if any(candidate.casefold() == normalized_type for candidate in candidate_names):
+        if any(
+            candidate.casefold() == normalized_type for candidate in candidate_names
+        ):
             matches.append(spec)
 
     if len(matches) == 1:

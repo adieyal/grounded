@@ -4,6 +4,9 @@
   "name": "Unknown artifact reference",
   "owner": "lattice",
   "status": "active",
+  "description": "Defines the Unknown artifact reference guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "A declared audit artifact references a Lattice-shaped ID that has no canonical owner.",
-  "references": ["PROJECT-RULE-001"]
+  "references": [
+    "PROJECT-RULE-001"
+  ]
 }

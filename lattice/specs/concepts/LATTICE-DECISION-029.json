@@ -10,6 +10,7 @@
     "PROJECT-DECISION-001"
   ],
   "status": "active",
+  "description": "Documents the Add optional lattice-link label decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "LATTICE-TEST-001"
   ]

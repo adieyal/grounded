@@ -8,6 +8,7 @@
     "PROJECT-RULE-001-EX001"
   ],
   "status": "active",
+  "description": "Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.",
   "target": "PROJECT-RULE-001",
   "test": "lattice validate && lattice audit"
 }

@@ -1,7 +1,7 @@
 ---
 name: lattice-bounded-modeling
 description: Use when introducing Lattice into an existing codebase, defining only a subset of the system to model, or helping a user bound, type, and interlink a coherent slice before expanding further.
-last_updated: 2026-05-24
+last_updated: 2026-05-27
 ---
 
 # Lattice Bounded Modeling
@@ -16,6 +16,7 @@ This skill is the canonical workflow for:
 - rendering canonical owners with `lattice-link`, including inline prose links, labels, and fragment links when a unit, field, tag, or goal is mentioned in a sentence
 - modeling display aliases, closed enums, and project-defined tags without smuggling them into domain fields
 - recognizing that tags can live on both knowledge units and field definitions
+- creating scoped slice pages with explicit members, slice metadata, and optional per-slice template or stylesheet overrides
 
 ## Canonical Lattice Owners
 
@@ -40,12 +41,14 @@ This skill is the canonical workflow for:
 - Do not inspect implementation more deeply than needed to frame the scoping questions.
 - Prefer canonical owners over duplicated concepts or near-synonyms.
 - Choose the most specific existing type that fits the meaning.
+- Give every knowledge unit a `description` that explains what it is and what it is used for.
 - Use `schema_gap` when the current registry cannot express the fact cleanly.
 - Treat `short_name` as a display alias, not as canonical identity.
 - Treat `enum` as a closed vocabulary with explicit values.
 - Treat tags as project-defined metadata that may deserve their own browse pages.
 - Treat field tags as metadata on the field row, not as a modeled field of the parent object.
 - Use project-owned `verification` specs for runtime checks against code, files, or generated artifacts; do not overload core templates for validation behavior.
+- Do not directly edit bundled Lattice templates, validation code, or rendering functions for project-specific behavior; extend through the type registry, JSON Schemas, project template overrides, styles, slice metadata, or verification specs instead.
 - Keep interlinks intentional: every reference should explain ownership, constraint, example, or dependency.
 - Do not turn the first pass into a full-system inventory.
 

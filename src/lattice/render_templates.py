@@ -8,6 +8,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{% block title %}{{ docs_title }}{% endblock %}</title>
   <link rel="stylesheet" href="{{ css_href }}" />
+  {% if extra_css_href %}<link rel="stylesheet" href="{{ extra_css_href }}" />{% endif %}
   <script type="module" src="{{ link_component_href }}"></script>
 </head>
 <body>
@@ -53,7 +54,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   {% for spec in units %}
     <lattice-unit-card>
       <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
-      <p class="pd-card-desc">{{ spec.statement }}</p>
+      <p class="pd-card-desc">{{ spec.description }}</p>
       <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
     </lattice-unit-card>
   {% endfor %}
@@ -80,7 +81,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   {% for spec in units %}
     <lattice-unit-card>
       <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
-      <p class="pd-card-desc">{{ spec.statement }}</p>
+      <p class="pd-card-desc">{{ spec.description }}</p>
       <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
     </lattice-unit-card>
   {% endfor %}
@@ -98,7 +99,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 <lattice-page-hero slot="hero">
   <span slot="eyebrow">{{ spec.kind | field_label }}</span>
   <span slot="title">{{ data.name }}</span>
-  <span slot="description">{{ spec.statement }}</span>
+  <span slot="description">{{ spec.description }}</span>
   <lattice-copy-id slot="actions" value="{{ spec.id }}"></lattice-copy-id>
 </lattice-page-hero>
 {% set tags = tag_values(spec) %}
@@ -228,31 +229,31 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 {% endblock %}
 """,
     "unit.html.j2": """{% extends "unit-core.html.j2" %}""",
-    "feature.html.j2": """{% extends "unit.html.j2" %}
-{% block after_fields %}
-{% set children = data.get("child_features", []) %}
-{% if children %}
-<lattice-unit-section slot="before-context" aria-labelledby="child-features-title">
-  <lattice-section-heading id="child-features-title">Child Features</lattice-section-heading>
+    "slice-index.html.j2": """{% extends "shell.html.j2" %}
+{% block title %}{{ slice.data.name }} · {{ docs_title }}{% endblock %}
+{% block content %}
+<lattice-index-page>
+<lattice-page-hero>
+  <span slot="eyebrow">Slice</span>
+  <span slot="title">{{ slice.data.name }}</span>
+  <span slot="description">{{ slice_description }}</span>
+  <p slot="actions" class="background-link"><a href="{{ docs_home_href }}">All project memory</a></p>
+</lattice-page-hero>
+{% for type_name, units in by_type.items() %}
+<lattice-unit-section aria-labelledby="{{ type_name }}-slice-title">
+  <lattice-section-heading divider id="{{ type_name }}-slice-title">{{ type_nav_label(type_name) }}</lattice-section-heading>
   <div class="pd-cards">
-  {% for child_id in children %}
-    {% if child_id in registry.by_id %}
-    {% set child = registry.by_id[child_id] %}
+  {% for spec in units %}
     <lattice-unit-card>
-      <h3 class="pd-card-name nm-{{ type_tone(child.kind) }}">{{ lattice_link(child.kind, child.id, display_name(child), "card-title") | safe }}</h3>
-      <p class="pd-card-desc">{{ child.statement }}</p>
-      <div class="pd-card-foot"><span class="tag t-{{ type_tone(child.kind) }}">{{ child.kind }}</span></div>
+      <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
+      <p class="pd-card-desc">{{ spec.description }}</p>
+      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
     </lattice-unit-card>
-    {% else %}
-    <lattice-unit-card>
-      <h3 class="pd-card-name">{{ child_id }}</h3>
-      <p class="pd-card-desc">Unknown child feature reference.</p>
-    </lattice-unit-card>
-    {% endif %}
   {% endfor %}
   </div>
 </lattice-unit-section>
-{% endif %}
+{% endfor %}
+</lattice-index-page>
 {% endblock %}
 """,
     "tag.html.j2": """{% extends "shell.html.j2" %}

@@ -4,6 +4,10 @@
   "name": "Invalid type registry JSON",
   "owner": "lattice",
   "status": "active",
+  "description": "Defines the Invalid type registry JSON guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "The type registry must be valid JSON so spec kinds have an executable source of truth.",
-  "references": ["PROJECT-GAP-001", "PROJECT-RULE-001"]
+  "references": [
+    "PROJECT-GAP-001",
+    "PROJECT-RULE-001"
+  ]
 }

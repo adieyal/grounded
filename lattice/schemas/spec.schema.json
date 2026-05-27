@@ -40,6 +40,10 @@
       ],
       "type": "string"
     },
+    "description": {
+      "minLength": 1,
+      "type": "string"
+    },
     "summary": {
       "type": "string"
     },
@@ -56,7 +60,8 @@
     "kind",
     "name",
     "owner",
-    "status"
+    "status",
+    "description"
   ],
   "title": "Lattice canonical spec",
   "type": "object"

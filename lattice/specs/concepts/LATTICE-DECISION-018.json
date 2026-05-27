@@ -9,6 +9,7 @@
     "LATTICE-DECISION-015"
   ],
   "status": "active",
+  "description": "Documents the Attach invariants to constrained units decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

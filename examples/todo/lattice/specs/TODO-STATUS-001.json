@@ -6,6 +6,7 @@
     "TODO-LIFECYCLE-001"
   ],
   "status": "active",
+  "description": "Defines the Open lifecycle value and explains how it is used in the modeled domain.",
   "summary": "Open means the TodoItem is known and ready to be worked on, but work has not started.",
   "type": "lifecycle_value"
 }

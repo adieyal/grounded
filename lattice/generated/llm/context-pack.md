@@ -4,182 +4,192 @@
 
 Use these canonical knowledge units as the source of truth. Do not duplicate or invent competing facts.
 
-- `PROJECT-RULE-001` (business_rule, owner: project): Every durable project fact has exactly one canonical owner; other artifacts reference that owner instead of duplicating it.
+- `PROJECT-RULE-001` (business_rule, owner: project): Defines the Single owner for durable facts rule so agents and maintainers know when and how to apply it. Every durable project fact has exactly one canonical owner; other artifacts reference that owner instead of duplicating it.
   Links: PROJECT-CONCEPT-001
-- `PROJECT-RULE-002` (business_rule, owner: project): Agents must use, create, and maintain Lattice specs whenever project work changes durable knowledge.
+- `PROJECT-RULE-002` (business_rule, owner: project): Defines the Agents maintain Lattice during project work rule so agents and maintainers know when and how to apply it. Agents must use, create, and maintain Lattice specs whenever project work changes durable knowledge.
   Links: PROJECT-CONCEPT-001, PROJECT-DOMAIN-001, PROJECT-RULE-001
-- `PROJECT-RULE-003` (business_rule, owner: project): Semantic slices may overlap, and a semantic slice may optionally declare a parent slice to form a nested hierarchy.
+- `PROJECT-RULE-003` (business_rule, owner: project): Defines the Semantic slices may nest and overlap rule so agents and maintainers know when and how to apply it. Semantic slices may overlap, and a semantic slice may optionally declare a parent slice to form a nested hierarchy.
   Links: PROJECT-CONCEPT-001, PROJECT-CONCEPT-002, PROJECT-CONCEPT-003
-- `LATTICE-THEORY-001` (concept, owner: lattice): Lattice is executable project memory: a schema-validated coordination layer that gives durable project knowledge one canonical owner, models knowledge units as a reference graph, and uses deterministic validation wherever possible to prevent drift between specs, docs, tests, code, and LLM context.
+- `LATTICE-THEORY-001` (concept, owner: lattice): Explains the Lattice theory concept and how it should be used as canonical Lattice knowledge. Lattice is executable project memory: a schema-validated coordination layer that gives durable project knowledge one canonical owner, models knowledge units as a reference graph, and uses deterministic validation wherever possible to prevent drift between specs, docs, tests, code, and LLM context.
   Links: PROJECT-CONCEPT-001, PROJECT-RULE-001
-- `PROJECT-CONCEPT-001` (concept, owner: project): Durable project knowledge is owned by canonical Lattice specs and referenced by other artifacts.
-- `PROJECT-CONCEPT-002` (concept, owner: project): Model only the smallest coherent subset of a codebase that serves the current goal, with explicit in-scope and out-of-scope boundaries, so Lattice can stay partial without becoming misleading.
+- `PROJECT-CONCEPT-001` (concept, owner: project): Explains the Lattice project memory concept and how it should be used as canonical Lattice knowledge. Durable project knowledge is owned by canonical Lattice specs and referenced by other artifacts.
+- `PROJECT-CONCEPT-002` (concept, owner: project): Explains the Bounded modeling slice concept and how it should be used as canonical Lattice knowledge. Model only the smallest coherent subset of a codebase that serves the current goal, with explicit in-scope and out-of-scope boundaries, so Lattice can stay partial without becoming misleading.
   Links: PROJECT-CONCEPT-001, PROJECT-CONCEPT-003, PROJECT-RULE-002
-- `PROJECT-CONCEPT-003` (concept, owner: project): A semantically meaningful grouping of modeled units that captures an implicit or explicit boundary in the system being modeled; semantic slices may overlap, may optionally have a parent slice, and are useful for focusing Lattice on a coherent subset without requiring a partition.
+- `PROJECT-CONCEPT-003` (concept, owner: project): Explains the Semantic slice concept and how it should be used as canonical Lattice knowledge. A semantically meaningful grouping of modeled units that captures an implicit or explicit boundary in the system being modeled; semantic slices may overlap, may optionally have a parent slice, and are useful for focusing Lattice on a coherent subset without requiring a partition.
   Links: PROJECT-CONCEPT-001, PROJECT-CONCEPT-002, PROJECT-RULE-003, PROJECT-RULE-002
-- `LATTICE-DECISION-001` (decision, owner: lattice): Lattice core models project memory as strongly typed knowledge units derived from a generic knowledge_unit parent. Type-specific JSON Schemas, verification bindings, rendering templates, graph links, and search fields are configured by type definitions rather than hardcoded domain semantics.
+- `LATTICE-DECISION-001` (decision, owner: lattice): Documents the typed knowledge unit core so maintainers know the base fields and extension points shared by every spec. Lattice core models project memory as strongly typed knowledge units derived from a generic knowledge_unit parent. Every knowledge unit must include a description that explains what the spec is and what it is used for. Type-specific JSON Schemas, verification bindings, rendering templates, graph links, and search fields are configured by type definitions rather than hardcoded domain semantics.
   Links: LATTICE-THEORY-001, PROJECT-CONCEPT-001
-- `LATTICE-DECISION-002` (decision, owner: lattice): Generated project documentation presents project-owned domain units as the primary page. Lattice concepts, project memory guardrails, and generated-system metadata remain available on a separate background page through a non-prominent link.
+- `LATTICE-DECISION-002` (decision, owner: lattice): Documents the Separate project domain docs from Lattice background decision and explains how it guides Lattice behavior or project maintenance. Generated project documentation presents project-owned domain units as the primary index.html entry page. Lattice concepts, project memory guardrails, and generated-system metadata remain available on a separate background page through a non-prominent link.
   Links: LATTICE-DECISION-001
-- `LATTICE-DECISION-003` (decision, owner: lattice): Generated unit pages render structured fields and typed details before implementation data. Raw JSON remains available for debugging and traceability, but it is hidden by default behind a disclosure control.
+- `LATTICE-DECISION-003` (decision, owner: lattice): Documents the Render structured fields before raw JSON decision and explains how it guides Lattice behavior or project maintenance. Generated unit pages render structured fields and typed details before implementation data. Raw JSON remains available for debugging and traceability, but it is hidden by default behind a disclosure control.
   Links: LATTICE-DECISION-001
-- `LATTICE-DECISION-004` (decision, owner: lattice): Invariants should be represented as explicit Lattice concepts with stable IDs and links to the units they constrain, rather than embedded as anonymous strings inside another unit.
+- `LATTICE-DECISION-004` (decision, owner: lattice): Documents the Model invariants as explicit concepts decision and explains how it guides Lattice behavior or project maintenance. Invariants should be represented as explicit Lattice concepts with stable IDs and links to the units they constrain, rather than embedded as anonymous strings inside another unit.
   Links: LATTICE-DECISION-001
-- `LATTICE-DECISION-005` (decision, owner: lattice): Status values should be represented as explicit lifecycle_value units with stable IDs, definitions, and links to the lifecycle types or typed units that use them, rather than embedded as lifecycle-state strings.
+- `LATTICE-DECISION-005` (decision, owner: lattice): Documents the Model statuses as lifecycle values decision and explains how it guides Lattice behavior or project maintenance. Status values should be represented as explicit lifecycle_value units with stable IDs, definitions, and links to the lifecycle types or typed units that use them, rather than embedded as lifecycle-state strings.
   Links: LATTICE-DECISION-004
-- `LATTICE-DECISION-006` (decision, owner: lattice): Generated HTML documentation includes the search interface and embedded search index in the shared shell template so every page can search the primary project-domain documentation without requiring a web server.
+- `LATTICE-DECISION-006` (decision, owner: lattice): Documents the Provide search on every generated HTML page decision and explains how it guides Lattice behavior or project maintenance. Generated HTML documentation includes the search interface and embedded search index in the shared shell template so every page can search the primary project-domain documentation without requiring a web server.
   Links: LATTICE-DECISION-002, LATTICE-DECISION-003
-- `LATTICE-DECISION-007` (decision, owner: lattice): Generated unit pages avoid prominent implementation metadata such as unit type and owner in the hero. The stable item ID remains available through an unobtrusive copy control.
+- `LATTICE-DECISION-007` (decision, owner: lattice): Documents the Keep unit metadata unobtrusive decision and explains how it guides Lattice behavior or project maintenance. Generated unit pages avoid prominent implementation metadata such as unit type and owner in the hero. The stable item ID remains available through an unobtrusive copy control.
   Links: LATTICE-DECISION-003, LATTICE-DECISION-006
-- `LATTICE-DECISION-008` (decision, owner: lattice): Generated unit pages render outgoing typed context inline with summaries, so invariants, lifecycle values, and other domain context provide meaning in the main page instead of appearing only as graph links or backlinks.
+- `LATTICE-DECISION-008` (decision, owner: lattice): Documents the Render related concepts inline on unit pages decision and explains how it guides Lattice behavior or project maintenance. Generated unit pages render outgoing typed context inline with summaries, so invariants, lifecycle values, and other domain context provide meaning in the main page instead of appearing only as graph links or backlinks.
   Links: LATTICE-DECISION-004, LATTICE-DECISION-005, LATTICE-DECISION-007
-- `LATTICE-DECISION-009` (decision, owner: lattice): Lattice links are color-coded by referenced unit type. Dense navigation areas such as outgoing links and backlinks use the text-only lattice-link variant to preserve scanability while keeping type color.
+- `LATTICE-DECISION-009` (decision, owner: lattice): Documents the Color-code links by unit type decision and explains how it guides Lattice behavior or project maintenance. Lattice links are color-coded by referenced unit type. Dense navigation areas such as outgoing links and backlinks use the text-only lattice-link variant to preserve scanability while keeping type color.
   Links: LATTICE-DECISION-006, LATTICE-DECISION-008
-- `LATTICE-DECISION-010` (decision, owner: lattice): Generated unit pages show the unit's object type as quiet page context while keeping owner metadata hidden and the stable ID available through an unobtrusive copy control.
+- `LATTICE-DECISION-010` (decision, owner: lattice): Documents the Show object type as quiet context decision and explains how it guides Lattice behavior or project maintenance. Generated unit pages show the unit's object type as quiet page context while keeping owner metadata hidden and the stable ID available through an unobtrusive copy control.
   Links: LATTICE-DECISION-007
-- `LATTICE-DECISION-011` (decision, owner: lattice): Generated unit pages group linked typed context into dedicated sections such as Invariants and Status Values. Invariants are concept units with explicit concept roles; status values are lifecycle_value units. Uncategorized concept links retain a Related Concepts fallback outside business entity pages.
+- `LATTICE-DECISION-011` (decision, owner: lattice): Documents the Render typed context as dedicated sections decision and explains how it guides Lattice behavior or project maintenance. Generated unit pages group linked typed context into dedicated sections such as Invariants and Status Values. Invariants are concept units with explicit concept roles; status values are lifecycle_value units. Uncategorized concept links retain a Related Concepts fallback outside business entity pages.
   Links: LATTICE-DECISION-004, LATTICE-DECISION-005, LATTICE-DECISION-008
-- `LATTICE-DECISION-012` (decision, owner: lattice): Lifecycle vocabularies should be modeled as lifecycle_type units rather than domain_object units, so domain objects remain reserved for durable nouns and lifecycle/state vocabularies render with their own type identity.
+- `LATTICE-DECISION-012` (decision, owner: lattice): Documents the Model lifecycle vocabularies as lifecycle types decision and explains how it guides Lattice behavior or project maintenance. Lifecycle vocabularies should be modeled as lifecycle_type units rather than domain_object units, so domain objects remain reserved for durable nouns and lifecycle/state vocabularies render with their own type identity.
   Links: LATTICE-DECISION-005, LATTICE-DECISION-011
-- `LATTICE-DECISION-013` (decision, owner: lattice): Concrete domain nouns with identity, fields, and lifecycle should be modeled as business_entity units rather than one-off domain-specific Lattice types, so the entity name does not get conflated with the knowledge-unit type name.
+- `LATTICE-DECISION-013` (decision, owner: lattice): Documents the Model concrete nouns as business entities decision and explains how it guides Lattice behavior or project maintenance. Concrete domain nouns with identity, fields, and lifecycle should be modeled as business_entity units rather than one-off domain-specific Lattice types, so the entity name does not get conflated with the knowledge-unit type name.
   Links: LATTICE-DECISION-001
-- `LATTICE-DECISION-014` (decision, owner: lattice): Named collections with identity and relationships should be modeled as business_entity units rather than domain_object units when they are concrete business entities, not only glossary-style domain nouns.
+- `LATTICE-DECISION-014` (decision, owner: lattice): Documents the Model collections as business entities decision and explains how it guides Lattice behavior or project maintenance. Named collections with identity and relationships should be modeled as business_entity units rather than domain_object units when they are concrete business entities, not only glossary-style domain nouns.
   Links: LATTICE-DECISION-013
-- `LATTICE-DECISION-015` (decision, owner: lattice): Generated business entity pages should render constraining invariant concepts in an explicit Invariants section by combining outgoing concept links with typed concept backlinks, and should not render a generic Related Concepts fallback for untyped concept context.
+- `LATTICE-DECISION-015` (decision, owner: lattice): Documents the Render entity invariants from backlinks decision and explains how it guides Lattice behavior or project maintenance. Generated business entity pages should render constraining invariant concepts in an explicit Invariants section by combining outgoing concept links with typed concept backlinks, and should not render a generic Related Concepts fallback for untyped concept context.
   Links: LATTICE-DECISION-011, LATTICE-DECISION-013, LATTICE-DECISION-014
-- `LATTICE-DECISION-016` (decision, owner: lattice): Status value labels should be friendly value names such as Open, In progress, Blocked, Done, and Removed because lifecycle pages and Status Values sections already provide the status context.
+- `LATTICE-DECISION-016` (decision, owner: lattice): Documents the Use friendly status value labels decision and explains how it guides Lattice behavior or project maintenance. Status value labels should be friendly value names such as Open, In progress, Blocked, Done, and Removed because lifecycle pages and Status Values sections already provide the status context.
   Links: LATTICE-DECISION-005, LATTICE-DECISION-011
-- `LATTICE-DECISION-017` (decision, owner: lattice): Status values should be modeled as lifecycle_value units rather than concept units because they are members of a lifecycle vocabulary.
+- `LATTICE-DECISION-017` (decision, owner: lattice): Documents the Model status values as lifecycle values decision and explains how it guides Lattice behavior or project maintenance. Status values should be modeled as lifecycle_value units rather than concept units because they are members of a lifecycle vocabulary.
   Links: LATTICE-DECISION-005, LATTICE-DECISION-016
-- `LATTICE-DECISION-018` (decision, owner: lattice): Invariants should link to the business entity they constrain, not to unrelated lifecycle types. Lifecycle type pages should focus on lifecycle values and only receive invariant context when an invariant actually constrains the lifecycle vocabulary itself.
+- `LATTICE-DECISION-018` (decision, owner: lattice): Documents the Attach invariants to constrained units decision and explains how it guides Lattice behavior or project maintenance. Invariants should link to the business entity they constrain, not to unrelated lifecycle types. Lifecycle type pages should focus on lifecycle values and only receive invariant context when an invariant actually constrains the lifecycle vocabulary itself.
   Links: LATTICE-DECISION-011, LATTICE-DECISION-015
-- `LATTICE-DECISION-019` (decision, owner: lattice): Generated unit pages hide decision units from visible outgoing-link and backlink panels except on decision pages. Decisions remain in the underlying graph and search data, but domain documentation should foreground domain concepts, invariants, lifecycle values, and entities instead of build-history decisions.
+- `LATTICE-DECISION-019` (decision, owner: lattice): Documents the Hide decisions from domain link panels decision and explains how it guides Lattice behavior or project maintenance. Generated unit pages hide decision units from visible outgoing-link and backlink panels except on decision pages. Decisions remain in the underlying graph and search data, but domain documentation should foreground domain concepts, invariants, lifecycle values, and entities instead of build-history decisions.
   Links: LATTICE-DECISION-009, LATTICE-DECISION-015
-- `LATTICE-DECISION-020` (decision, owner: lattice): Generated field tables render field type names as Lattice links. Field types should be modeled as canonical data_type or lifecycle_type units when the project wants every displayed type to have a link target.
+- `LATTICE-DECISION-020` (decision, owner: lattice): Documents the Link resolvable field types decision and explains how it guides Lattice behavior or project maintenance. Generated field tables render field type names as Lattice links. Field types should be modeled as canonical data_type or lifecycle_type units when the project wants every displayed type to have a link target.
   Links: LATTICE-DECISION-003, LATTICE-DECISION-009
-- `LATTICE-DECISION-021` (decision, owner: lattice): Business entities should link to lifecycle types rather than directly linking to every lifecycle value. The lifecycle type owns and renders the values, keeping entity pages focused on fields and invariants while preserving the full status vocabulary on the lifecycle page.
+- `LATTICE-DECISION-021` (decision, owner: lattice): Documents the Keep status values on lifecycle page decision and explains how it guides Lattice behavior or project maintenance. Business entities should link to lifecycle types rather than directly linking to every lifecycle value. The lifecycle type owns and renders the values, keeping entity pages focused on fields and invariants while preserving the full status vocabulary on the lifecycle page.
   Links: LATTICE-DECISION-005, LATTICE-DECISION-017
-- `LATTICE-DECISION-022` (decision, owner: lattice): Generated HTML documentation adopts the compact project-docs shell from the downloaded design while preserving the Lattice rendering infrastructure. The shared shell owns top search and sidebar navigation; unit, index, and background templates reuse the same shell, design tokens, and lattice-link variants instead of reimplementing page chrome.
+- `LATTICE-DECISION-022` (decision, owner: lattice): Documents the Adopt compact docs shell decision and explains how it guides Lattice behavior or project maintenance. Generated HTML documentation adopts the compact project-docs shell from the downloaded design while preserving the Lattice rendering infrastructure. The shared shell owns top search and sidebar navigation; unit, index, and background templates reuse the same shell, design tokens, and lattice-link variants instead of reimplementing page chrome.
   Links: LATTICE-DECISION-003, LATTICE-DECISION-006, LATTICE-DECISION-009, LATTICE-DECISION-019
-- `LATTICE-DECISION-023` (decision, owner: lattice): Generated HTML documentation is assembled from LitElement custom elements for the app shell, top bar, search, navigation, generic unit page, type-specific page wrappers, field tables, concept sections, link panels, copy controls, and raw JSON disclosure. Type-specific pages wrap the generic lattice-unit-page through named slots so custom pages can add or reorder content without duplicating the core page structure.
+- `LATTICE-DECISION-023` (decision, owner: lattice): Documents the Componentize generated docs with Lit decision and explains how it guides Lattice behavior or project maintenance. Generated HTML documentation is assembled from LitElement custom elements for the app shell, top bar, search, navigation, generic unit page, type-specific page wrappers, field tables, concept sections, link panels, copy controls, and raw JSON disclosure. Type-specific pages wrap the generic lattice-unit-page through named slots so custom pages can add or reorder content without duplicating the core page structure.
   Links: LATTICE-DECISION-003, LATTICE-DECISION-009, LATTICE-DECISION-020, LATTICE-DECISION-022
-- `LATTICE-DECISION-024` (decision, owner: lattice): Example domains are packaged as standalone Lattice projects under examples instead of living in the distribution's own lattice/specs tree. The distribution docs should describe Lattice itself by default, while each example owns its domain units, generated docs, and local lattice.yml configuration.
+- `LATTICE-DECISION-024` (decision, owner: lattice): Documents the Package examples as standalone projects decision and explains how it guides Lattice behavior or project maintenance. Example domains are packaged as standalone Lattice projects under examples instead of living in the distribution's own lattice/specs tree. The distribution docs should describe Lattice itself by default, while each example owns its domain units, generated docs, and local lattice.yml configuration.
   Links: LATTICE-DECISION-002, LATTICE-DECISION-022, LATTICE-DECISION-023
-- `LATTICE-DECISION-025` (decision, owner: lattice): New projects initialized with lattice init store project-local Lattice files under .lattice by default. Projects can override that location during initialization, and the generated lattice.yml records explicit paths so existing projects with a lattice directory continue to work.
+- `LATTICE-DECISION-025` (decision, owner: lattice): Documents the Initialize project files under .lattice decision and explains how it guides Lattice behavior or project maintenance. New projects initialized with lattice init store project-local Lattice files under .lattice by default. Projects can override that location during initialization, and the generated lattice.yml records explicit paths so existing projects with a lattice directory continue to work.
   Links: LATTICE-DECISION-001, LATTICE-DECISION-024
-- `LATTICE-DECISION-026` (decision, owner: lattice): The package version is bumped to 0.2.0 for the typed renderer and project layout changes. New lattice init runs do not update AGENTS.md by default; projects must opt in with --update-agents when they want the scaffold to add or refresh agent instructions.
+- `LATTICE-DECISION-026` (decision, owner: lattice): Documents the Make AGENTS updates opt-in decision and explains how it guides Lattice behavior or project maintenance. The package version is bumped to 0.2.0 for the typed renderer and project layout changes. New lattice init runs do not update AGENTS.md by default; projects must opt in with --update-agents when they want the scaffold to add or refresh agent instructions.
   Links: LATTICE-DECISION-023, LATTICE-DECISION-025
-- `LATTICE-DECISION-027` (decision, owner: lattice): The built-in type registry is limited to core Lattice infrastructure types: knowledge_unit, domain_object, enum, schema_gap, and verification. Richer modeling vocabularies such as business rules, decisions, workflows, business entities, data types, and lifecycle values must be declared by the project or by an add-on/example registry.
+- `LATTICE-DECISION-027` (decision, owner: lattice): Documents the Keep built-in types minimal decision and explains how it guides Lattice behavior or project maintenance. The built-in type registry is limited to core Lattice infrastructure types: knowledge_unit, domain_object, enum, schema_gap, and verification. Richer modeling vocabularies such as business rules, decisions, workflows, business entities, data types, and lifecycle values must be declared by the project or by an add-on/example registry.
   Links: LATTICE-DECISION-001, LATTICE-DECISION-024, LATTICE-DECISION-025, LATTICE-DECISION-034
-- `LATTICE-DECISION-028` (decision, owner: lattice): The default documentation stylesheet is packaged as a Python package asset and loaded through importlib.resources. Projects may still override styles through their configured styles_dir, but fresh scaffolds and renders no longer depend on the source checkout's lattice/styles directory being present.
+- `LATTICE-DECISION-028` (decision, owner: lattice): Documents the Bundle default stylesheet decision and explains how it guides Lattice behavior or project maintenance. The default documentation stylesheet is packaged as a Python package asset and loaded through importlib.resources. Projects may still override styles through their configured styles_dir, but fresh scaffolds and renders no longer depend on the source checkout's lattice/styles directory being present.
   Links: LATTICE-DECISION-022, LATTICE-DECISION-023
-- `LATTICE-DECISION-029` (decision, owner: lattice): The lattice-link component should accept an optional label attribute that overrides the visible link text while keeping the lattice-id as the canonical reference target. Existing slot text remains a fallback for backward compatibility.
+- `LATTICE-DECISION-029` (decision, owner: lattice): Documents the Add optional lattice-link label decision and explains how it guides Lattice behavior or project maintenance. The lattice-link component should accept an optional label attribute that overrides the visible link text while keeping the lattice-id as the canonical reference target. Existing slot text remains a fallback for backward compatibility.
   Links: LATTICE-DECISION-009, LATTICE-DECISION-022, PROJECT-DECISION-001
-- `LATTICE-DECISION-030` (decision, owner: lattice): Generated field tables should render each field row with a stable fragment anchor derived from the parent unit and field name. The lattice-link component may use an optional fragment attribute to deep-link to those anchors.
+- `LATTICE-DECISION-030` (decision, owner: lattice): Documents the Field rows expose stable anchors decision and explains how it guides Lattice behavior or project maintenance. Generated field tables should render each field row with a stable fragment anchor derived from the parent unit and field name. The lattice-link component may use an optional fragment attribute to deep-link to those anchors.
   Links: LATTICE-DECISION-029, LATTICE-DECISION-023
-- `LATTICE-DECISION-031` (decision, owner: lattice): Knowledge units may include an optional short_name field. Renderers should prefer short_name for link labels, backlinks, navigation, and search-visible titles while preserving the full name as the canonical unit name.
+- `LATTICE-DECISION-031` (decision, owner: lattice): Documents the Use optional short names for display decision and explains how it guides Lattice behavior or project maintenance. Knowledge units may include an optional short_name field. Renderers should prefer short_name for link labels, backlinks, navigation, and search-visible titles while preserving the full name as the canonical unit name.
   Links: LATTICE-DECISION-009, LATTICE-DECISION-022, LATTICE-DECISION-029, LATTICE-DECISION-030
-- `LATTICE-DECISION-032` (decision, owner: lattice): Generated HTML must escape JSON embedded in script tags so hostile spec text cannot terminate the script block. Render checks must report both stale or missing outputs and obsolete generated unit pages, and generated text artifacts should not carry hard-coded last_updated metadata.
+- `LATTICE-DECISION-032` (decision, owner: lattice): Documents the Harden generated outputs and render checks decision and explains how it guides Lattice behavior or project maintenance. Generated HTML must escape JSON embedded in script tags so hostile spec text cannot terminate the script block. Render checks must report stale or missing outputs plus obsolete generated unit, tag, and legacy entry pages, and generated text artifacts should not carry hard-coded last_updated metadata.
   Links: LATTICE-DECISION-022, LATTICE-DECISION-023, LATTICE-DECISION-030
-- `LATTICE-DECISION-033` (decision, owner: lattice): Field type resolution should only use exact canonical identifiers or exact display names and must not fall back to matching by kind. Generated unit output paths must reject slug collisions instead of silently overwriting one page with another.
+- `LATTICE-DECISION-033` (decision, owner: lattice): Documents the Require exact type matches and collision checks decision and explains how it guides Lattice behavior or project maintenance. Field type resolution should only use exact canonical identifiers or exact display names and must not fall back to matching by kind. Generated unit output paths must reject slug collisions instead of silently overwriting one page with another.
   Links: LATTICE-DECISION-020, LATTICE-DECISION-031
-- `LATTICE-DECISION-034` (decision, owner: lattice): Enum knowledge units model a closed list of string values. Enum pages should render those values explicitly so the allowed set is visible in generated docs and downstream readers do not need to inspect raw JSON to understand the boundary.
+- `LATTICE-DECISION-034` (decision, owner: lattice): Documents the Render enum values on enum pages decision and explains how it guides Lattice behavior or project maintenance. Enum knowledge units model a closed list of string values. Enum pages should render those values explicitly so the allowed set is visible in generated docs and downstream readers do not need to inspect raw JSON to understand the boundary.
   Links: LATTICE-DECISION-027
-- `LATTICE-DECISION-035` (decision, owner: lattice): Knowledge units and their field definitions may include an optional tags array of project-defined strings. Tags are rendered as clickable lattice-links to generated tag pages, and each tag page groups matching members by type so the project can define semantics without baking them into the core registry.
+- `LATTICE-DECISION-035` (decision, owner: lattice): Documents the Support project-defined tags with tag pages decision and explains how it guides Lattice behavior or project maintenance. Knowledge units and their field definitions may include an optional tags array of project-defined strings. Tags are rendered as clickable lattice-links to generated tag pages, and each tag page groups matching members by type so the project can define semantics without baking them into the core registry.
   Links: LATTICE-DECISION-027
-- `LATTICE-DECISION-036` (decision, owner: lattice): The core renderer exposes a reusable unit-core.html.j2 template for projects to extend. The shared unit core owns page chrome, field rendering, field anchors, collection-aware field types, and field references, while project templates override only project-specific sections such as examples or invariants.
-  Links: LATTICE-DECISION-030, LATTICE-DECISION-031, LATTICE-DECISION-034, LATTICE-DECISION-035
-- `PROJECT-DECISION-001` (decision, owner: project): Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
+- `LATTICE-DECISION-036` (decision, owner: lattice): Documents the Expose a reusable unit core template decision and explains how it guides Lattice behavior or project maintenance. The core renderer exposes reusable templates such as unit-core.html.j2 for projects to extend. Project-specific behavior should use extension points such as the type registry, JSON Schemas, project template overrides, styles, slice metadata, and verification specs instead of directly editing bundled Lattice templates, validation code, or rendering functions. The shared unit core owns page chrome, field rendering, field anchors, collection-aware field types, and field references, while project templates override only project-specific sections such as examples or invariants.
+  Links: LATTICE-DECISION-030, LATTICE-DECISION-031, LATTICE-DECISION-034, LATTICE-DECISION-035, LATTICE-EXTENSION-001
+- `LATTICE-DECISION-037` (decision, owner: lattice): Documents the Render explicit slice documentation pages decision and explains how it guides Lattice behavior or project maintenance. Slice knowledge units define explicit, scoped documentation views with their own metadata, generated index.html page, optional index template override, and optional stylesheet. Slice pages render only their declared members in navigation and search while preserving links into the full Lattice graph.
+  Links: LATTICE-DECISION-002, LATTICE-DECISION-036, PROJECT-CONCEPT-003
+- `LATTICE-DECISION-038` (decision, owner: lattice): Documents the 0.3.0 version bump so the release version has a canonical Lattice owner. The package version is bumped to 0.3.0 for slice documentation pages, required knowledge-unit descriptions, index.html entry output, extension-point guidance, and the associated schema and rendering updates.
+  Links: LATTICE-DECISION-001, LATTICE-DECISION-002, LATTICE-DECISION-032, LATTICE-DECISION-036, LATTICE-DECISION-037, LATTICE-EXTENSION-001
+- `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
-- `PROJECT-DOMAIN-001` (domain_object, owner: project): A durable unit of project knowledge with exactly one Lattice spec as its source of truth.
+- `PROJECT-DOMAIN-001` (domain_object, owner: project): Defines the Canonical project fact domain object and explains how other specs should refer to it. A durable unit of project knowledge with exactly one Lattice spec as its source of truth.
   Links: PROJECT-CONCEPT-001, PROJECT-RULE-001
-- `PROJECT-RULE-001-EX001` (example, owner: project): Generated docs reference canonical specs
+- `PROJECT-RULE-001-EX001` (example, owner: project): Provides a concrete example for PROJECT-RULE-001 so the rule can be understood and verified in context.
   Links: PROJECT-RULE-001
-- `LATTICE-COVERAGE-001` (guardrail, owner: lattice): Specs whose kind requires executable proof must declare a test directly or through a test_binding.
+- `LATTICE-COVERAGE-001` (guardrail, owner: lattice): Defines the Required canonical fact lacks declared test coverage guardrail so validation, audit, and maintenance work can recognize this class of drift. Specs whose kind requires executable proof must declare a test directly or through a test_binding.
   Links: PROJECT-RULE-001
-- `LATTICE-DRIFT-001` (guardrail, owner: lattice): Generated Lattice views must match the current canonical registry.
+- `LATTICE-DRIFT-001` (guardrail, owner: lattice): Defines the Generated view is stale guardrail so validation, audit, and maintenance work can recognize this class of drift. Generated Lattice views must match the current canonical registry.
   Links: PROJECT-RULE-001
-- `LATTICE-ID-001` (guardrail, owner: lattice): Every canonical spec ID must be globally unique within the registry.
+- `LATTICE-EXTENSION-001` (guardrail, owner: lattice): Defines the extension-point guardrail so project-specific behavior stays in registries, schemas, template overrides, styles, slice metadata, or verification specs instead of core Lattice internals. Project-specific behavior must not directly edit bundled Lattice templates, validation code, or rendering functions when an extension or override point can express the change.
+  Links: LATTICE-DECISION-001, LATTICE-DECISION-036, LATTICE-DECISION-037, PROJECT-RULE-001
+- `LATTICE-ID-001` (guardrail, owner: lattice): Defines the Duplicate canonical ID guardrail so validation, audit, and maintenance work can recognize this class of drift. Every canonical spec ID must be globally unique within the registry.
   Links: PROJECT-RULE-001
-- `LATTICE-JSON-001` (guardrail, owner: lattice): Canonical JSON specs must parse before they can participate in validation or audits.
+- `LATTICE-JSON-001` (guardrail, owner: lattice): Defines the Invalid JSON spec guardrail so validation, audit, and maintenance work can recognize this class of drift. Canonical JSON specs must parse before they can participate in validation or audits.
   Links: PROJECT-RULE-001
-- `LATTICE-KIND-001` (guardrail, owner: lattice): Every spec kind must be registered in the type registry before specs can use it.
+- `LATTICE-KIND-001` (guardrail, owner: lattice): Defines the Unknown spec kind guardrail so validation, audit, and maintenance work can recognize this class of drift. Every spec kind must be registered in the type registry before specs can use it.
   Links: PROJECT-RULE-001
-- `LATTICE-OWNERSHIP-001` (guardrail, owner: lattice): Specs with duplicate normalized statements are flagged because every durable fact should have one owner.
+- `LATTICE-OWNERSHIP-001` (guardrail, owner: lattice): Defines the Possible duplicate fact ownership guardrail so validation, audit, and maintenance work can recognize this class of drift. Specs with duplicate normalized statements are flagged because every durable fact should have one owner.
   Links: PROJECT-RULE-001
-- `LATTICE-REF-001` (guardrail, owner: lattice): A spec references another spec ID that does not exist in the registry.
+- `LATTICE-REF-001` (guardrail, owner: lattice): Defines the Unknown reference guardrail so validation, audit, and maintenance work can recognize this class of drift. A spec references another spec ID that does not exist in the registry.
   Links: PROJECT-RULE-001
-- `LATTICE-REF-002` (guardrail, owner: lattice): A structured spec field points to a canonical ID that does not exist in the registry.
+- `LATTICE-REF-002` (guardrail, owner: lattice): Defines the Unknown structured reference guardrail so validation, audit, and maintenance work can recognize this class of drift. A structured spec field points to a canonical ID that does not exist in the registry.
   Links: PROJECT-RULE-001
-- `LATTICE-REF-003` (guardrail, owner: lattice): A spec declares an example ID that does not exist in the registry.
+- `LATTICE-REF-003` (guardrail, owner: lattice): Defines the Unknown example reference guardrail so validation, audit, and maintenance work can recognize this class of drift. A spec declares an example ID that does not exist in the registry.
   Links: PROJECT-RULE-001
-- `LATTICE-REF-004` (guardrail, owner: lattice): A declared audit artifact references a Lattice-shaped ID that has no canonical owner.
+- `LATTICE-REF-004` (guardrail, owner: lattice): Defines the Unknown artifact reference guardrail so validation, audit, and maintenance work can recognize this class of drift. A declared audit artifact references a Lattice-shaped ID that has no canonical owner.
   Links: PROJECT-RULE-001
-- `LATTICE-SCHEMA-001` (guardrail, owner: lattice): A canonical spec must be represented as a JSON object.
+- `LATTICE-SCHEMA-001` (guardrail, owner: lattice): Defines the Spec root is not an object guardrail so validation, audit, and maintenance work can recognize this class of drift. A canonical spec must be represented as a JSON object.
   Links: PROJECT-RULE-001
-- `LATTICE-SCHEMA-002` (guardrail, owner: lattice): Every canonical spec must declare a string id and kind.
+- `LATTICE-SCHEMA-002` (guardrail, owner: lattice): Defines the Missing ID or kind guardrail so validation, audit, and maintenance work can recognize this class of drift. Every canonical spec must declare a string id and kind.
   Links: PROJECT-RULE-001
-- `LATTICE-SCHEMA-003` (guardrail, owner: lattice): Specs must include the required fields for their kind.
+- `LATTICE-SCHEMA-003` (guardrail, owner: lattice): Defines the Missing required fields guardrail so validation, audit, and maintenance work can recognize this class of drift. Specs must include the required fields for their kind.
   Links: PROJECT-RULE-001
-- `LATTICE-SCHEMA-004` (guardrail, owner: lattice): List-shaped reference fields must be encoded as JSON arrays.
+- `LATTICE-SCHEMA-004` (guardrail, owner: lattice): Defines the Reference field is not a list guardrail so validation, audit, and maintenance work can recognize this class of drift. List-shaped reference fields must be encoded as JSON arrays.
   Links: PROJECT-RULE-001
-- `LATTICE-SCHEMA-005` (guardrail, owner: lattice): Reference arrays must contain only canonical ID strings.
+- `LATTICE-SCHEMA-005` (guardrail, owner: lattice): Defines the Reference list contains non-string values guardrail so validation, audit, and maintenance work can recognize this class of drift. Reference arrays must contain only canonical ID strings.
   Links: PROJECT-RULE-001
-- `LATTICE-SCHEMA-006` (guardrail, owner: lattice): Each knowledge unit must satisfy the JSON Schemas declared by its type and parent types.
+- `LATTICE-SCHEMA-006` (guardrail, owner: lattice): Defines the Type-specific schema validation failed guardrail so validation, audit, and maintenance work can recognize this class of drift. Each knowledge unit must satisfy the JSON Schemas declared by its type and parent types.
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
-- `LATTICE-SPECS-001` (guardrail, owner: lattice): A configured Lattice registry must have a specs directory.
+- `LATTICE-SPECS-001` (guardrail, owner: lattice): Defines the Specs directory is missing guardrail so validation, audit, and maintenance work can recognize this class of drift. A configured Lattice registry must have a specs directory.
   Links: PROJECT-RULE-001
-- `LATTICE-STYLE-001` (guardrail, owner: lattice): Generated documentation must have a central style.css source of truth.
+- `LATTICE-STYLE-001` (guardrail, owner: lattice): Defines the Missing central stylesheet guardrail so validation, audit, and maintenance work can recognize this class of drift. Generated documentation must have a central style.css source of truth.
   Links: PROJECT-RULE-001
-- `LATTICE-STYLE-002` (guardrail, owner: lattice): The central stylesheet should expose reusable design tokens for colors and spacing.
+- `LATTICE-STYLE-002` (guardrail, owner: lattice): Defines the Missing design tokens guardrail so validation, audit, and maintenance work can recognize this class of drift. The central stylesheet should expose reusable design tokens for colors and spacing.
   Links: PROJECT-RULE-001
-- `LATTICE-STYLE-003` (guardrail, owner: lattice): Presentation values outside the central stylesheet should be replaced with reusable design tokens.
+- `LATTICE-STYLE-003` (guardrail, owner: lattice): Defines the Hard-coded presentation outside style source guardrail so validation, audit, and maintenance work can recognize this class of drift. Presentation values outside the central stylesheet should be replaced with reusable design tokens.
   Links: PROJECT-RULE-001
-- `LATTICE-TYPE-001` (guardrail, owner: lattice): The type registry must be valid JSON so spec kinds have an executable source of truth.
+- `LATTICE-TYPE-001` (guardrail, owner: lattice): Defines the Invalid type registry JSON guardrail so validation, audit, and maintenance work can recognize this class of drift. The type registry must be valid JSON so spec kinds have an executable source of truth.
   Links: PROJECT-GAP-001, PROJECT-RULE-001
-- `LATTICE-TYPE-002` (guardrail, owner: lattice): The type registry root must be an object keyed by spec kind.
+- `LATTICE-TYPE-002` (guardrail, owner: lattice): Defines the Invalid type registry root guardrail so validation, audit, and maintenance work can recognize this class of drift. The type registry root must be an object keyed by spec kind.
   Links: PROJECT-GAP-001, PROJECT-RULE-001
-- `LATTICE-TYPE-003` (guardrail, owner: lattice): Each type registry entry must define its kind shape with an object.
+- `LATTICE-TYPE-003` (guardrail, owner: lattice): Defines the Invalid type definition guardrail so validation, audit, and maintenance work can recognize this class of drift. Each type registry entry must define its kind shape with an object.
   Links: PROJECT-GAP-001, PROJECT-RULE-001
-- `LATTICE-TYPE-004` (guardrail, owner: lattice): A type definition that derives from another type must name a parent type that exists in the merged type registry.
+- `LATTICE-TYPE-004` (guardrail, owner: lattice): Defines the Unknown parent type guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition that derives from another type must name a parent type that exists in the merged type registry.
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
-- `LATTICE-TYPE-005` (guardrail, owner: lattice): A type definition schema_path must point to an existing JSON Schema file when schema_path is configured.
+- `LATTICE-TYPE-005` (guardrail, owner: lattice): Defines the Missing type schema path guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition schema_path must point to an existing JSON Schema file when schema_path is configured.
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
-- `LATTICE-TYPE-006` (guardrail, owner: lattice): A type definition schema_path must contain valid JSON.
+- `LATTICE-TYPE-006` (guardrail, owner: lattice): Defines the Invalid type schema JSON guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition schema_path must contain valid JSON.
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
-- `LATTICE-TYPE-007` (guardrail, owner: lattice): A type definition schema_path must contain a JSON object at the schema root.
+- `LATTICE-TYPE-007` (guardrail, owner: lattice): Defines the Invalid type schema root guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition schema_path must contain a JSON object at the schema root.
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
-- `LATTICE-TYPE-008` (guardrail, owner: lattice): A type definition schema must itself be a valid Draft 2020-12 JSON Schema.
+- `LATTICE-TYPE-008` (guardrail, owner: lattice): Defines the Invalid JSON Schema for type guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition schema must itself be a valid Draft 2020-12 JSON Schema.
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
-- `LATTICE-VERIFY-001` (guardrail, owner: lattice): Project-specific verification commands declared by knowledge-unit type definitions must pass when lattice verify runs.
+- `LATTICE-VERIFY-001` (guardrail, owner: lattice): Defines the Verification command failed guardrail so validation, audit, and maintenance work can recognize this class of drift. Project-specific verification commands declared by knowledge-unit type definitions must pass when lattice verify runs.
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
-- `PROJECT-GAP-001` (schema_gap, owner: project): When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.
+- `PROJECT-GAP-001` (schema_gap, owner: project): Records the Project-specific fact shapes belong in the type registry schema gap so future registry or renderer work has a canonical owner. When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.
   Links: PROJECT-RULE-001
-- `PROJECT-GAP-002` (schema_gap, owner: project): The current concept schema does not provide structured fields for slice members, parent slice, or display metadata, so semantic slices can only be described indirectly in prose and references.
+- `PROJECT-GAP-002` (schema_gap, owner: project): Records the Semantic slice structure schema gap so future registry or renderer work has a canonical owner. The current concept schema does not provide structured fields for slice members, parent slice, or display metadata, so semantic slices can only be described indirectly in prose and references.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-DECISION-001
-- `LATTICE-TEST-001` (test_binding, owner: lattice): Lattice link label attribute is rendered and honored
+- `LATTICE-TEST-001` (test_binding, owner: lattice): Binds LATTICE-DECISION-029 to an executable test so Lattice can verify the documented behavior.
   Links: LATTICE-DECISION-029
-- `LATTICE-TEST-002` (test_binding, owner: lattice): Field rows expose anchors and fragment links
+- `LATTICE-TEST-002` (test_binding, owner: lattice): Binds LATTICE-DECISION-030 to an executable test so Lattice can verify the documented behavior.
   Links: LATTICE-DECISION-030
-- `LATTICE-TEST-003` (test_binding, owner: lattice): Knowledge unit short names are used for rendered labels
+- `LATTICE-TEST-003` (test_binding, owner: lattice): Binds LATTICE-DECISION-031 to an executable test so Lattice can verify the documented behavior.
   Links: LATTICE-DECISION-031
-- `LATTICE-TEST-004` (test_binding, owner: lattice): Generated outputs are HTML-safe and render checks report obsolete pages
+- `LATTICE-TEST-004` (test_binding, owner: lattice): Binds LATTICE-DECISION-032 to an executable test so Lattice can verify the documented behavior.
   Links: LATTICE-DECISION-032
-- `LATTICE-TEST-005` (test_binding, owner: lattice): Field types resolve exactly and slug collisions fail fast
+- `LATTICE-TEST-005` (test_binding, owner: lattice): Binds LATTICE-DECISION-033 to an executable test so Lattice can verify the documented behavior.
   Links: LATTICE-DECISION-033
-- `LATTICE-TEST-006` (test_binding, owner: lattice): Enum pages render closed value lists
+- `LATTICE-TEST-006` (test_binding, owner: lattice): Binds LATTICE-DECISION-034 to an executable test so Lattice can verify the documented behavior.
   Links: LATTICE-DECISION-034
-- `LATTICE-TEST-007` (test_binding, owner: lattice): Tagged objects and fields render tag links and grouped tag pages
+- `LATTICE-TEST-007` (test_binding, owner: lattice): Binds LATTICE-DECISION-035 to an executable test so Lattice can verify the documented behavior.
   Links: LATTICE-DECISION-035
-- `LATTICE-TEST-008` (test_binding, owner: lattice): Project templates can extend unit-core and the core unit page renders collection-aware field links
+- `LATTICE-TEST-008` (test_binding, owner: lattice): Binds LATTICE-DECISION-036 to an executable test so Lattice can verify the documented behavior.
   Links: LATTICE-DECISION-036
-- `PROJECT-TEST-001` (test_binding, owner: project): Bootstrap validation covers single-owner rule
+- `LATTICE-TEST-009` (test_binding, owner: lattice): Binds LATTICE-DECISION-037 to an executable test so Lattice can verify the documented behavior.
+  Links: LATTICE-DECISION-037
+- `LATTICE-TEST-010` (test_binding, owner: lattice): Binds LATTICE-DECISION-001 to an executable test so Lattice can verify that every knowledge unit declares its purpose.
+  Links: LATTICE-DECISION-001, LATTICE-SCHEMA-003
+- `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
-- `PROJECT-TEST-002` (test_binding, owner: project): Semantic slice nesting is covered by Lattice validation
+- `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-003
-- `PROJECT-TEST-003` (test_binding, owner: project): Slice memberships render as lattice-links
+- `PROJECT-TEST-003` (test_binding, owner: project): Binds PROJECT-DECISION-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-DECISION-001
-- `PROJECT-VERIFY-001` (verification, owner: lattice): Bootstrap validation
+- `PROJECT-VERIFY-001` (verification, owner: lattice): Defines the verification command for PROJECT-DOMAIN-001 so project checks can be run consistently.
   Links: PROJECT-DOMAIN-001
-- `PROJECT-WORKFLOW-001` (workflow, owner: project): An LLM interviews the user with a structured question ladder to define a bounded modeling slice of an existing codebase, clarify the relevant comparison semantics and analysis rubric, and stop before implementation until the user confirms the scope is stable.
+- `PROJECT-WORKFLOW-001` (workflow, owner: project): Describes the Scope a bounded Lattice model workflow so agents and maintainers can follow the expected process. An LLM interviews the user with a structured question ladder to define a bounded modeling slice of an existing codebase, clarify the relevant comparison semantics and analysis rubric, and stop before implementation until the user confirms the scope is stable.
   Links: PROJECT-CONCEPT-002, PROJECT-RULE-002

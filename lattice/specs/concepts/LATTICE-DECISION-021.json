@@ -9,6 +9,7 @@
     "LATTICE-DECISION-017"
   ],
   "status": "active",
+  "description": "Documents the Keep status values on lifecycle page decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

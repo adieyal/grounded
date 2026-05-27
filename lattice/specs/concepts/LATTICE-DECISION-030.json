@@ -9,6 +9,7 @@
     "LATTICE-DECISION-023"
   ],
   "status": "active",
+  "description": "Documents the Field rows expose stable anchors decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "LATTICE-TEST-002"
   ]

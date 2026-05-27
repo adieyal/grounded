@@ -11,7 +11,7 @@ from jsonschema.exceptions import SchemaError
 from .models import Issue, LatticeConfig, Spec
 
 
-BASE_REQUIRED_FIELDS = ("id", "name", "owner", "status")
+BASE_REQUIRED_FIELDS = ("id", "name", "owner", "status", "description")
 BASE_LINK_FIELDS = ("references", "tests", "examples")
 
 
@@ -50,7 +50,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 "owner": {"type": "string", "minLength": 1},
                 "status": {"type": "string", "enum": ["active", "draft", "retired"]},
                 "summary": {"type": "string"},
-                "description": {"type": "string"},
+                "description": {"type": "string", "minLength": 1},
                 "tags": {
                     "type": "array",
                     "items": {"type": "string", "minLength": 1},
@@ -93,6 +93,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "additionalProperties": True,
         },
         "renderer": "unit.html.j2",
+        "required": [*BASE_REQUIRED_FIELDS],
         "search_fields": ["id", "name", "summary", "description"],
         "reference_fields": [*BASE_LINK_FIELDS],
     },
@@ -109,6 +110,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "additionalProperties": True,
         },
         "renderer": "domain_object.html.j2",
+        "required": [*BASE_REQUIRED_FIELDS],
         "search_fields": ["id", "name", "definition", "summary", "description"],
         "reference_fields": [*BASE_LINK_FIELDS],
     },
@@ -130,7 +132,15 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "additionalProperties": True,
         },
         "renderer": "enum.html.j2",
-        "search_fields": ["id", "name", "values", "definition", "summary"],
+        "required": [*BASE_REQUIRED_FIELDS],
+        "search_fields": [
+            "id",
+            "name",
+            "values",
+            "definition",
+            "summary",
+            "description",
+        ],
         "reference_fields": [*BASE_LINK_FIELDS],
     },
     "verification": {
@@ -148,7 +158,8 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "additionalProperties": True,
         },
         "renderer": "verification.html.j2",
-        "search_fields": ["id", "name", "target", "command", "summary"],
+        "required": [*BASE_REQUIRED_FIELDS, "target", "command"],
+        "search_fields": ["id", "name", "target", "command", "summary", "description"],
         "reference_fields": ["references"],
         "single_reference_fields": ["target"],
         "verification_fields": ["command"],
@@ -167,8 +178,42 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "additionalProperties": True,
         },
         "renderer": "schema_gap.html.j2",
-        "search_fields": ["id", "name", "gap", "suggested_improvement", "summary"],
+        "required": [*BASE_REQUIRED_FIELDS, "gap", "suggested_improvement"],
+        "search_fields": [
+            "id",
+            "name",
+            "gap",
+            "suggested_improvement",
+            "summary",
+            "description",
+        ],
         "reference_fields": [*BASE_LINK_FIELDS],
+    },
+    "slice": {
+        "extends": "knowledge_unit",
+        "schema": {
+            "type": "object",
+            "required": [*BASE_REQUIRED_FIELDS, "members"],
+            "properties": {
+                "type": {"const": "slice"},
+                "kind": {"const": "slice"},
+                "description": {"type": "string", "minLength": 1},
+                "slug": {"type": "string", "minLength": 1},
+                "members": {
+                    "type": "array",
+                    "items": {"type": "string", "minLength": 1},
+                    "uniqueItems": True,
+                },
+                "index_template": {"type": "string", "minLength": 1},
+                "style_path": {"type": "string", "minLength": 1},
+            },
+            "additionalProperties": True,
+        },
+        "renderer": "unit.html.j2",
+        "required": [*BASE_REQUIRED_FIELDS],
+        "search_fields": ["id", "name", "description", "summary"],
+        "reference_fields": [*BASE_LINK_FIELDS, "members"],
+        "list_fields": ["members"],
     },
 }
 
@@ -317,7 +362,7 @@ def load_type_registry(
             schema_path=schema_path,
             renderer=_string_value(value.get("renderer"), "unit.html.j2"),
             search_fields=_string_tuple(
-                value.get("search_fields", ("id", "name", "summary"))
+                value.get("search_fields", ("id", "name", "summary", "description"))
             ),
             verification_fields=_string_tuple(value.get("verification_fields", ())),
             reference_fields=_string_tuple(

@@ -9,6 +9,7 @@
     "LATTICE-DECISION-006"
   ],
   "status": "active",
+  "description": "Documents the Keep unit metadata unobtrusive decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

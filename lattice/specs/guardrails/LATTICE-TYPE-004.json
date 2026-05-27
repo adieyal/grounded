@@ -8,5 +8,6 @@
     "PROJECT-RULE-001"
   ],
   "status": "active",
+  "description": "Defines the Unknown parent type guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "A type definition that derives from another type must name a parent type that exists in the merged type registry."
 }

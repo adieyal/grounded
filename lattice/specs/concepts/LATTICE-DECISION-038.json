@@ -1,0 +1,17 @@
+{
+  "decision": "The package version is bumped to 0.3.0 for slice documentation pages, required knowledge-unit descriptions, index.html entry output, extension-point guidance, and the associated schema and rendering updates.",
+  "id": "LATTICE-DECISION-038",
+  "kind": "decision",
+  "name": "Release slice and description features as 0.3.0",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-001",
+    "LATTICE-DECISION-002",
+    "LATTICE-DECISION-032",
+    "LATTICE-DECISION-036",
+    "LATTICE-DECISION-037",
+    "LATTICE-EXTENSION-001"
+  ],
+  "status": "active",
+  "description": "Documents the 0.3.0 version bump so the release version has a canonical Lattice owner."
+}

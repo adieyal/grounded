@@ -21,7 +21,7 @@ def audit(config: LatticeConfig, registry: SpecRegistry) -> list[Issue]:
     issues.extend(audit_generated_views(config, registry))
     issues.extend(audit_style_source(config))
     issues.extend(audit_test_coverage(config, registry))
-    issues.extend(audit_unknown_code_references(config, registry))
+    issues.extend(audit_unknown_artifact_references(config, registry))
     issues.extend(audit_possible_duplicate_statements(registry))
     return issues
 
@@ -94,7 +94,7 @@ def audit_test_coverage(config: LatticeConfig, registry: SpecRegistry) -> list[I
     return issues
 
 
-def audit_unknown_code_references(
+def audit_unknown_artifact_references(
     config: LatticeConfig, registry: SpecRegistry
 ) -> list[Issue]:
     issues: list[Issue] = []

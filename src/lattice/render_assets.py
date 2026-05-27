@@ -99,7 +99,7 @@ class LatticeTopBar extends LitElement {
     @media (max-width: 760px) { :host { align-items: stretch; flex-direction: column; } }
   `;
   render() {
-    return html`<a href=${this.homeHref || 'project-memory.html'}>${this.label || 'Project Docs'}</a><slot><lattice-search></lattice-search></slot>`;
+    return html`<a href=${this.homeHref || 'index.html'}>${this.label || 'Project Docs'}</a><slot><lattice-search></lattice-search></slot>`;
   }
 }
 

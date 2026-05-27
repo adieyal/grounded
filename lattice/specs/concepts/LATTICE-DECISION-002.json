@@ -1,5 +1,5 @@
 {
-  "decision": "Generated project documentation presents project-owned domain units as the primary page. Lattice concepts, project memory guardrails, and generated-system metadata remain available on a separate background page through a non-prominent link.",
+  "decision": "Generated project documentation presents project-owned domain units as the primary index.html entry page. Lattice concepts, project memory guardrails, and generated-system metadata remain available on a separate background page through a non-prominent link.",
   "id": "LATTICE-DECISION-002",
   "kind": "decision",
   "name": "Separate project domain docs from Lattice background",
@@ -8,6 +8,7 @@
     "LATTICE-DECISION-001"
   ],
   "status": "active",
+  "description": "Documents the Separate project domain docs from Lattice background decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

@@ -8,5 +8,6 @@
     "PROJECT-RULE-001"
   ],
   "status": "active",
+  "description": "Defines the Invalid type schema root guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "A type definition schema_path must contain a JSON object at the schema root."
 }

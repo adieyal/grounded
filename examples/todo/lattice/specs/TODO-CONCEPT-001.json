@@ -4,6 +4,7 @@
   "name": "Todo system",
   "owner": "example",
   "status": "active",
+  "description": "Explains the Todo system concept and how it should be used as canonical Lattice knowledge.",
   "summary": "A minimal example knowledge graph for tracking todo items without implementation code.",
   "references": [
     "TODO-LIST-001",

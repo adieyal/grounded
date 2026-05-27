@@ -4,6 +4,7 @@
   "name": "Capture and complete a todo",
   "owner": "example",
   "status": "active",
+  "description": "Describes the Capture and complete a todo workflow so agents and maintainers can follow the expected process.",
   "summary": "A user adds a TodoItem to a TodoList, updates its TodoStatus as work changes, and marks it done when complete.",
   "references": [
     "TODO-LIST-001",

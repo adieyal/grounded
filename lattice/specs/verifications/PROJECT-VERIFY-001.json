@@ -8,5 +8,6 @@
     "PROJECT-DOMAIN-001"
   ],
   "status": "active",
+  "description": "Defines the verification command for PROJECT-DOMAIN-001 so project checks can be run consistently.",
   "target": "PROJECT-DOMAIN-001"
 }

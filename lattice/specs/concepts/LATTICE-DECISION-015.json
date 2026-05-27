@@ -10,6 +10,7 @@
     "LATTICE-DECISION-014"
   ],
   "status": "active",
+  "description": "Documents the Render entity invariants from backlinks decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

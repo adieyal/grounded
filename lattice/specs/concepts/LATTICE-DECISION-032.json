@@ -1,5 +1,5 @@
 {
-  "decision": "Generated HTML must escape JSON embedded in script tags so hostile spec text cannot terminate the script block. Render checks must report both stale or missing outputs and obsolete generated unit pages, and generated text artifacts should not carry hard-coded last_updated metadata.",
+  "decision": "Generated HTML must escape JSON embedded in script tags so hostile spec text cannot terminate the script block. Render checks must report stale or missing outputs plus obsolete generated unit, tag, and legacy entry pages, and generated text artifacts should not carry hard-coded last_updated metadata.",
   "id": "LATTICE-DECISION-032",
   "kind": "decision",
   "name": "Harden generated outputs and render checks",
@@ -10,6 +10,7 @@
     "LATTICE-DECISION-030"
   ],
   "status": "active",
+  "description": "Documents the Harden generated outputs and render checks decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "LATTICE-TEST-004"
   ]

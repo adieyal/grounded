@@ -9,5 +9,6 @@
     "PROJECT-RULE-002"
   ],
   "status": "active",
+  "description": "Explains the Bounded modeling slice concept and how it should be used as canonical Lattice knowledge.",
   "summary": "Model only the smallest coherent subset of a codebase that serves the current goal, with explicit in-scope and out-of-scope boundaries, so Lattice can stay partial without becoming misleading."
 }

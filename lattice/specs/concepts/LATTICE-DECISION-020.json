@@ -9,6 +9,7 @@
     "LATTICE-DECISION-009"
   ],
   "status": "active",
+  "description": "Documents the Link resolvable field types decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

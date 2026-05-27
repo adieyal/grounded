@@ -8,5 +8,6 @@
     "PROJECT-RULE-001"
   ],
   "status": "active",
+  "description": "Defines the Missing type schema path guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "A type definition schema_path must point to an existing JSON Schema file when schema_path is configured."
 }

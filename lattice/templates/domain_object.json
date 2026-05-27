@@ -35,5 +35,6 @@
   "preferred_term": "Preferred Domain Term",
   "references": [],
   "status": "draft",
+  "description": "Defines the preferred domain term and explains how other project artifacts should use it.",
   "tests": []
 }

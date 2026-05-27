@@ -9,6 +9,7 @@
     "PROJECT-CONCEPT-003"
   ],
   "status": "active",
+  "description": "Defines the Semantic slices may nest and overlap rule so agents and maintainers know when and how to apply it.",
   "statement": "Semantic slices may overlap, and a semantic slice may optionally declare a parent slice to form a nested hierarchy.",
   "tests": []
 }

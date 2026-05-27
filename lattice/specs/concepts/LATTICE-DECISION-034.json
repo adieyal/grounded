@@ -8,6 +8,7 @@
     "LATTICE-DECISION-027"
   ],
   "status": "active",
+  "description": "Documents the Render enum values on enum pages decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "LATTICE-TEST-006"
   ]

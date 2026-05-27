@@ -1,0 +1,17 @@
+{
+  "decision": "Slice knowledge units define explicit, scoped documentation views with their own metadata, generated index.html page, optional index template override, and optional stylesheet. Slice pages render only their declared members in navigation and search while preserving links into the full Lattice graph.",
+  "id": "LATTICE-DECISION-037",
+  "kind": "decision",
+  "name": "Render explicit slice documentation pages",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-002",
+    "LATTICE-DECISION-036",
+    "PROJECT-CONCEPT-003"
+  ],
+  "status": "active",
+  "description": "Documents the Render explicit slice documentation pages decision and explains how it guides Lattice behavior or project maintenance.",
+  "tests": [
+    "LATTICE-TEST-009"
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "decision": "Lattice core models project memory as strongly typed knowledge units derived from a generic knowledge_unit parent. Type-specific JSON Schemas, verification bindings, rendering templates, graph links, and search fields are configured by type definitions rather than hardcoded domain semantics.",
+  "decision": "Lattice core models project memory as strongly typed knowledge units derived from a generic knowledge_unit parent. Every knowledge unit must include a description that explains what the spec is and what it is used for. Type-specific JSON Schemas, verification bindings, rendering templates, graph links, and search fields are configured by type definitions rather than hardcoded domain semantics.",
   "id": "LATTICE-DECISION-001",
   "kind": "decision",
   "name": "Typed knowledge unit core",
@@ -9,7 +9,9 @@
     "PROJECT-CONCEPT-001"
   ],
   "status": "active",
+  "description": "Documents the typed knowledge unit core so maintainers know the base fields and extension points shared by every spec.",
   "tests": [
-    "PROJECT-TEST-001"
+    "PROJECT-TEST-001",
+    "LATTICE-TEST-010"
   ]
 }

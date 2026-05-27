@@ -18,9 +18,20 @@ def verify(config: LatticeConfig, registry: SpecRegistry) -> list[Issue]:
             if isinstance(value, str) and value:
                 commands.append((field, value))
         for field, command in commands:
-            result = subprocess.run(command, cwd=config.root, shell=True, text=True, capture_output=True, check=False)
+            result = subprocess.run(
+                command,
+                cwd=config.root,
+                shell=True,
+                text=True,
+                capture_output=True,
+                check=False,
+            )
             if result.returncode != 0:
-                detail = result.stderr.strip() or result.stdout.strip() or f"exit code {result.returncode}"
+                detail = (
+                    result.stderr.strip()
+                    or result.stdout.strip()
+                    or f"exit code {result.returncode}"
+                )
                 issues.append(
                     Issue(
                         "LATTICE-VERIFY-001",

@@ -11,6 +11,7 @@
     "LATTICE-DECISION-030"
   ],
   "status": "active",
+  "description": "Documents the Use optional short names for display decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "LATTICE-TEST-003"
   ]

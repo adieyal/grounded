@@ -7,6 +7,7 @@
     "LATTICE-DECISION-035"
   ],
   "status": "active",
+  "description": "Binds LATTICE-DECISION-035 to an executable test so Lattice can verify the documented behavior.",
   "target": "LATTICE-DECISION-035",
   "test": "uv run pytest tests/test_lattice.py -q"
 }

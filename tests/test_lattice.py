@@ -37,7 +37,14 @@ class LatticeTests(unittest.TestCase):
                 (root / ".lattice/registry/spec-types.json").read_text(encoding="utf-8")
             )
             self.assertEqual(
-                ["domain_object", "enum", "knowledge_unit", "schema_gap", "verification"],
+                [
+                    "domain_object",
+                    "enum",
+                    "knowledge_unit",
+                    "schema_gap",
+                    "slice",
+                    "verification",
+                ],
                 sorted(type_registry),
             )
             self.assertNotIn("business_entity", type_registry)
@@ -88,7 +95,7 @@ class LatticeTests(unittest.TestCase):
             self.assertNotEqual([], render_all(config, registry, check=True))
             render_all(config, registry)
             self.assertEqual([], render_all(config, registry, check=True))
-            html = (root / ".lattice/generated/docs/project-memory.html").read_text(
+            html = (root / ".lattice/generated/docs/index.html").read_text(
                 encoding="utf-8"
             )
             css = (root / ".lattice/generated/docs/style.css").read_text(
@@ -97,12 +104,12 @@ class LatticeTests(unittest.TestCase):
             search = (root / ".lattice/generated/docs/search-index.json").read_text(
                 encoding="utf-8"
             )
-            markdown = (
-                root / ".lattice/generated/docs/project-memory.md"
-            ).read_text(encoding="utf-8")
-            context_pack = (
-                root / ".lattice/generated/llm/context-pack.md"
-            ).read_text(encoding="utf-8")
+            markdown = (root / ".lattice/generated/docs/project-memory.md").read_text(
+                encoding="utf-8"
+            )
+            context_pack = (root / ".lattice/generated/llm/context-pack.md").read_text(
+                encoding="utf-8"
+            )
             self.assertIn("<lattice-main", html)
             self.assertIn("<lattice-unit-card", html)
             self.assertIn("<lattice-search", html)
@@ -138,14 +145,14 @@ class LatticeTests(unittest.TestCase):
             registry = load_registry(config)
             render_all(config, registry)
 
-            html = (
-                root / ".lattice/generated/docs/project-memory.html"
-            ).read_text(encoding="utf-8")
+            html = (root / ".lattice/generated/docs/index.html").read_text(
+                encoding="utf-8"
+            )
 
             self.assertIn("\\u003c/script\\u003e", html)
             self.assertNotIn('Danger </script><script>alert("x")</script>', html)
 
-    def test_render_check_reports_obsolete_generated_unit_pages(self) -> None:
+    def test_render_check_reports_obsolete_generated_pages(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
@@ -155,10 +162,18 @@ class LatticeTests(unittest.TestCase):
 
             obsolete = root / ".lattice/generated/docs/units/obsolete.html"
             obsolete.write_text("stale", encoding="utf-8")
+            legacy_index = root / ".lattice/generated/docs/project-memory.html"
+            legacy_index.write_text("legacy", encoding="utf-8")
 
             stale = render_all(config, registry, check=True)
 
             self.assertIn(".lattice/generated/docs/units/obsolete.html", stale)
+            self.assertIn(".lattice/generated/docs/project-memory.html", stale)
+
+            render_all(config, registry)
+
+            self.assertFalse(obsolete.exists())
+            self.assertFalse(legacy_index.exists())
 
     def test_field_type_target_requires_exact_display_match(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -225,11 +240,38 @@ class LatticeTests(unittest.TestCase):
         type_registry = json.loads(default_type_registry_json())
 
         self.assertEqual(
-            ["domain_object", "enum", "knowledge_unit", "schema_gap", "verification"],
+            [
+                "domain_object",
+                "enum",
+                "knowledge_unit",
+                "schema_gap",
+                "slice",
+                "verification",
+            ],
             sorted(type_registry),
         )
         self.assertNotIn("business_entity", type_registry)
         self.assertNotIn("lifecycle_type", type_registry)
+
+    def test_knowledge_units_require_description(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            path = root / ".lattice/specs/glossary/PROJECT-DOMAIN-001.json"
+            data = json.loads(path.read_text(encoding="utf-8"))
+            data.pop("description")
+            path.write_text(json.dumps(data), encoding="utf-8")
+
+            config = load_config(root)
+            registry = load_registry(config)
+
+            self.assertTrue(
+                any(
+                    issue.code == "LATTICE-SCHEMA-003"
+                    and "description" in issue.message
+                    for issue in registry.issues
+                )
+            )
 
     def test_default_css_is_bundled_with_package(self) -> None:
         css = default_css()
@@ -257,7 +299,7 @@ class LatticeTests(unittest.TestCase):
             registry = load_registry(config)
             render_all(config, registry)
 
-            html = (root / ".lattice/generated/docs/project-memory.html").read_text(
+            html = (root / ".lattice/generated/docs/index.html").read_text(
                 encoding="utf-8"
             )
             visible_html = html.split('<lattice-main slot="main"', 1)[1].split(
@@ -497,8 +539,10 @@ class LatticeTests(unittest.TestCase):
                 root / ".lattice/generated/docs/units/todo-priority-001.html"
             ).read_text(encoding="utf-8")
 
-            self.assertIn('<lattice-enum-page>', html)
-            self.assertIn("<lattice-section-heading>Values</lattice-section-heading>", html)
+            self.assertIn("<lattice-enum-page>", html)
+            self.assertIn(
+                "<lattice-section-heading>Values</lattice-section-heading>", html
+            )
             self.assertIn('<span class="tag t-type field-value">low</span>', html)
             self.assertIn('<span class="tag t-type field-value">medium</span>', html)
             self.assertIn('<span class="tag t-type field-value">high</span>', html)
@@ -568,18 +612,145 @@ class LatticeTests(unittest.TestCase):
                 '<lattice-link type="tag" lattice-id="planned" label="planned" variant="tag">planned</lattice-link>',
                 item_html,
             )
-            self.assertIn('<lattice-tag-page>', tag_html)
-            self.assertIn("<span slot=\"title\">deprecated</span>", tag_html)
-            self.assertIn("<lattice-section-heading divider>Domain</lattice-section-heading>", tag_html)
+            self.assertIn("<lattice-tag-page>", tag_html)
+            self.assertIn('<span slot="title">deprecated</span>', tag_html)
+            self.assertIn(
+                "<lattice-section-heading divider>Domain</lattice-section-heading>",
+                tag_html,
+            )
             self.assertIn("Task", tag_html)
             self.assertIn("Task.legacy_code", tag_html)
             self.assertIn(
                 'fragment="field-todo-item-001-legacy-code"',
                 tag_html,
             )
-            self.assertIn("<lattice-section-heading divider>Domain</lattice-section-heading>", planned_html)
-            self.assertIn("<lattice-section-heading divider>Enums</lattice-section-heading>", planned_html)
+            self.assertIn(
+                "<lattice-section-heading divider>Domain</lattice-section-heading>",
+                planned_html,
+            )
+            self.assertIn(
+                "<lattice-section-heading divider>Enums</lattice-section-heading>",
+                planned_html,
+            )
             self.assertIn("Priority", planned_html)
+
+    def test_slice_pages_render_scoped_members_with_metadata_and_overrides(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            templates_dir = root / ".lattice/renderers/templates"
+            templates_dir.mkdir(parents=True)
+            (templates_dir / "custom-slice.html.j2").write_text(
+                """{% extends "slice-index.html.j2" %}
+{% block content %}
+<lattice-index-page>
+<lattice-page-hero>
+  <span slot="eyebrow">Custom Slice</span>
+  <span slot="title">{{ slice.data.name }}</span>
+  <span slot="description">{{ slice_description }}</span>
+</lattice-page-hero>
+<p class="custom-marker">{{ slice_members | length }} scoped members</p>
+{{ super() }}
+</lattice-index-page>
+{% endblock %}
+""",
+                encoding="utf-8",
+            )
+            (root / "slice.css").write_text(
+                ".custom-marker { color: rebeccapurple; }\n", encoding="utf-8"
+            )
+            todo_id = "TODO" + "-ITEM-001"
+            status_id = "TODO" + "-STATUS-001"
+            unrelated_id = "UNRELATED" + "-ITEM-001"
+            slice_id = "TODO" + "-SLICE-001"
+            todo = {
+                "id": todo_id,
+                "kind": "domain_object",
+                "name": "TodoItem",
+                "short_name": "Task",
+                "owner": "todo",
+                "status": "active",
+                "description": "Defines the todo item used by the slice rendering test.",
+                "summary": "A tracked task.",
+            }
+            status = {
+                "id": status_id,
+                "kind": "enum",
+                "name": "TodoStatus",
+                "owner": "todo",
+                "status": "active",
+                "description": "Defines the todo status values used by the slice rendering test.",
+                "values": ["open", "done"],
+            }
+            unrelated = {
+                "id": unrelated_id,
+                "kind": "domain_object",
+                "name": "UnrelatedThing",
+                "owner": "other",
+                "status": "active",
+                "description": "Defines an unrelated item that should stay out of the slice.",
+                "summary": "Noise outside the slice.",
+            }
+            slice_spec = {
+                "id": slice_id,
+                "kind": "slice",
+                "name": "Todo core",
+                "owner": "todo",
+                "status": "active",
+                "description": "The minimal todo model.",
+                "slug": "todo-core",
+                "members": [todo_id, status_id],
+                "index_template": "custom-slice.html.j2",
+                "style_path": "slice.css",
+            }
+            specs_dir = root / ".lattice/specs/examples"
+            specs_dir.mkdir(parents=True)
+            for spec in (todo, status, unrelated, slice_spec):
+                (specs_dir / f"{spec['id']}.json").write_text(
+                    json.dumps(spec), encoding="utf-8"
+                )
+
+            config = load_config(root)
+            registry = load_registry(config)
+
+            self.assertEqual([], registry.issues)
+            render_all(config, registry)
+
+            slice_html = (
+                root / ".lattice/generated/docs/slices/todo-core/index.html"
+            ).read_text(encoding="utf-8")
+            slice_css = root / ".lattice/generated/docs/slices/todo-core/slice.css"
+            search = slice_html.split(
+                '<script type="application/json" id="lattice-search-index">',
+                1,
+            )[1].split("</script>", 1)[0]
+
+            self.assertTrue(slice_css.exists())
+            self.assertIn('href="../../style.css"', slice_html)
+            self.assertIn('href="slice.css"', slice_html)
+            self.assertIn("Custom Slice", slice_html)
+            self.assertIn("The minimal todo model.", slice_html)
+            self.assertIn("2 scoped members", slice_html)
+            self.assertIn("Task", slice_html)
+            self.assertIn("TodoStatus", slice_html)
+            self.assertNotIn("UnrelatedThing", slice_html)
+            self.assertIn(todo_id, search)
+            self.assertNotIn(unrelated_id, search)
+
+            obsolete = root / ".lattice/generated/docs/slices/old-slice/index.html"
+            obsolete.parent.mkdir(parents=True)
+            obsolete.write_text("stale", encoding="utf-8")
+
+            self.assertIn(
+                ".lattice/generated/docs/slices/old-slice/index.html",
+                render_all(config, registry, check=True),
+            )
+
+            render_all(config, registry)
+
+            self.assertFalse(obsolete.exists())
 
     def test_audit_requires_test_coverage_for_configured_kinds(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

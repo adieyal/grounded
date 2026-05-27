@@ -9,6 +9,7 @@
     "PROJECT-DECISION-001"
   ],
   "status": "active",
+  "description": "Records the Semantic slice structure schema gap so future registry or renderer work has a canonical owner.",
   "gap": "The current concept schema does not provide structured fields for slice members, parent slice, or display metadata, so semantic slices can only be described indirectly in prose and references.",
   "suggested_improvement": "Add a slice-specific spec type or extend the current modeling schema with explicit members, parent_slice, membership links, and metadata fields so the UI can render slices and their memberships from structured data.",
   "tests": []

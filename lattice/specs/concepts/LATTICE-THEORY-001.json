@@ -8,5 +8,6 @@
     "PROJECT-RULE-001"
   ],
   "status": "active",
+  "description": "Explains the Lattice theory concept and how it should be used as canonical Lattice knowledge.",
   "summary": "Lattice is executable project memory: a schema-validated coordination layer that gives durable project knowledge one canonical owner, models knowledge units as a reference graph, and uses deterministic validation wherever possible to prevent drift between specs, docs, tests, code, and LLM context."
 }

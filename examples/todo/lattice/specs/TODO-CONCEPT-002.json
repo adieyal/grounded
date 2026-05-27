@@ -8,6 +8,7 @@
     "TODO-LIST-001"
   ],
   "status": "active",
+  "description": "Explains the TodoItem belongs to one TodoList concept and how it should be used as canonical Lattice knowledge.",
   "summary": "A TodoItem belongs to exactly one TodoList.",
   "type": "concept"
 }

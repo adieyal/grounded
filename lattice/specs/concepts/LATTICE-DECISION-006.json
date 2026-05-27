@@ -9,6 +9,7 @@
     "LATTICE-DECISION-003"
   ],
   "status": "active",
+  "description": "Documents the Provide search on every generated HTML page decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

@@ -8,6 +8,7 @@
     "LATTICE-DECISION-013"
   ],
   "status": "active",
+  "description": "Documents the Model collections as business entities decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

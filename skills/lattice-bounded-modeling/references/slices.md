@@ -1,5 +1,5 @@
 ---
-last_updated: 2026-05-24
+last_updated: 2026-05-27
 ---
 
 # Slice Guidance
@@ -37,3 +37,12 @@ Avoid:
 - adding a slice just because a folder or module exists
 
 When a slice is clear, model it as a reusable semantic boundary and keep the first pass small. Expand only after the user confirms the boundary is right.
+
+For rendered slice pages, use a `slice` knowledge unit with:
+- required `description` for the rendered slice hero and the slice's purpose
+- `members` for the intentionally visible unit IDs
+- optional `slug` for the generated `slices/<slug>/index.html` path
+- optional `index_template` for a per-slice index override
+- optional `style_path` for a per-slice stylesheet copied beside that index
+
+Keep slice members explicit. Tags can help discovery, but a slice page should not infer membership from broad metadata when the goal is to reduce unrelated noise.

@@ -33,13 +33,19 @@ Before implementing or documenting a non-trivial change:
    instead of smuggling meaning into prose.
 7. Reference facts by stable ID from tests, code, docs, and plans.
 8. Use domain_object units for durable domain nouns instead of inventing synonyms.
-9. If the change introduces or changes a durable rule, workflow, decision,
+9. Give every knowledge unit a `description` that explains what it is and what
+   it is used for.
+10. If the change introduces or changes a durable rule, workflow, decision,
    domain object, example, invariant, or assumption, update Lattice in the same
    change.
-10. Regenerate generated views with `lattice render`.
-11. Do not manually edit generated Lattice documentation.
-12. Run `lattice validate`, `lattice verify`, and `lattice audit`.
-13. Report the Lattice IDs changed or explain why no canonical fact changed.
+11. Do not directly edit bundled Lattice templates, validation code, or
+   rendering functions for project-specific behavior. Extend through the type
+   registry, JSON Schemas, project template overrides, styles, slice metadata,
+   or verification specs instead.
+12. Regenerate generated views with `lattice render`.
+13. Do not manually edit generated Lattice documentation.
+14. Run `lattice validate`, `lattice verify`, and `lattice audit`.
+15. Report the Lattice IDs changed or explain why no canonical fact changed.
 
 Every idea, fact, rule, workflow, decision, and durable assumption should have
 one owner. If another artifact conflicts with a Lattice spec, treat that as
@@ -194,7 +200,7 @@ def _spec_schema() -> str:
             "$schema": "https://json-schema.org/draft/2020-12/schema",
             "title": "Lattice canonical knowledge unit",
             "type": "object",
-            "required": ["id", "name", "owner", "status"],
+            "required": ["id", "name", "owner", "status", "description"],
             "anyOf": [{"required": ["type"]}, {"required": ["kind"]}],
             "additionalProperties": True,
             "properties": {
@@ -207,6 +213,7 @@ def _spec_schema() -> str:
                 "name": {"type": "string"},
                 "owner": {"type": "string"},
                 "status": {"type": "string", "enum": ["active", "draft", "retired"]},
+                "description": {"type": "string", "minLength": 1},
                 "statement": {"type": "string"},
                 "definition": {"type": "string"},
                 "preferred_term": {"type": "string"},
@@ -256,6 +263,7 @@ def _domain_object_template() -> str:
             "name": "Preferred Domain Term",
             "owner": "project",
             "status": "draft",
+            "description": "Defines the preferred domain term and explains how other project artifacts should use it.",
             "definition": "One concise definition. This is the canonical owner of the domain meaning.",
             "references": [],
             "examples": [],
@@ -272,6 +280,7 @@ def _schema_gap_template() -> str:
             "name": "Schema gap title",
             "owner": "project",
             "status": "draft",
+            "description": "Records a schema limitation so future type registry or renderer work has one canonical owner.",
             "gap": "The durable fact cannot be expressed cleanly with the current type registry or templates.",
             "suggested_improvement": "Add or change a spec type, field, validation rule, or renderer affordance.",
             "affected_kind": "domain_object",
@@ -295,6 +304,7 @@ def _project_concept() -> str:
             "name": "Lattice project memory",
             "owner": "project",
             "status": "active",
+            "description": "Explains how this project uses Lattice specs as durable project memory.",
             "summary": "Durable project knowledge is owned by canonical Lattice specs and referenced by other artifacts.",
             "references": [],
         }
@@ -309,6 +319,7 @@ def _project_domain_object() -> str:
             "name": "Canonical project fact",
             "owner": "project",
             "status": "active",
+            "description": "Defines the canonical project fact domain object so durable knowledge has a shared reference point.",
             "definition": "A durable unit of project knowledge with exactly one Lattice spec as its source of truth.",
             "references": [],
         }
@@ -323,6 +334,7 @@ def _project_rule() -> str:
             "name": "Single owner for durable facts",
             "owner": "project",
             "status": "active",
+            "description": "Defines the rule that every durable project fact has one source of truth.",
             "statement": "Every durable project fact has exactly one canonical owner; other artifacts reference that owner instead of duplicating it.",
             "references": ["PROJECT-CONCEPT-001"],
             "examples": ["PROJECT-RULE-001-EX001"],
@@ -339,6 +351,7 @@ def _agent_maintenance_rule() -> str:
             "name": "Agents maintain Lattice during project work",
             "owner": "project",
             "status": "active",
+            "description": "Defines when agents must update Lattice during project work.",
             "statement": "Agents must use, create, and maintain Lattice specs whenever project work changes durable knowledge.",
             "references": [
                 "PROJECT-CONCEPT-001",
@@ -358,6 +371,7 @@ def _schema_gap() -> str:
             "name": "Project-specific fact shapes belong in the type registry",
             "owner": "project",
             "status": "active",
+            "description": "Records how project-specific fact shapes should move from schema gaps into the type registry.",
             "gap": "When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.",
             "suggested_improvement": "Record the mismatch as a schema_gap, then evolve the configured type registry and templates when the shape becomes stable.",
             "affected_kind": "spec_type",
@@ -375,6 +389,7 @@ def _project_example() -> str:
             "name": "Generated docs reference canonical specs",
             "owner": "project",
             "status": "active",
+            "description": "Provides an example showing generated docs can repeat canonical facts without owning them.",
             "rule": "PROJECT-RULE-001",
             "intent": "A generated context pack may repeat a rule for consumption, but the canonical statement remains owned by the rule spec.",
             "references": ["PROJECT-RULE-001"],
@@ -391,6 +406,7 @@ def _verification() -> str:
             "name": "Bootstrap validation",
             "owner": "project",
             "status": "active",
+            "description": "Defines the command used to verify that a newly initialized Lattice project is valid.",
             "target": "PROJECT-DOMAIN-001",
             "command": "lattice validate && lattice audit",
             "references": ["PROJECT-DOMAIN-001"],
@@ -401,7 +417,7 @@ def _verification() -> str:
 def _skill() -> str:
     return """\
 ---
-last_updated: 2026-05-23
+last_updated: 2026-05-27
 name: lattice-project-memory
 description: Use Lattice as the primary source of truth for specs, durable project knowledge, generated docs, and drift checks.
 ---
@@ -412,7 +428,7 @@ description: Use Lattice as the primary source of truth for specs, durable proje
 
 - Adding or changing durable project knowledge
 - Writing specs, rules, examples, workflows, decisions, or architecture notes
-- Defining or changing domain terminology and glossary entries
+- Defining or changing domain terminology, glossary entries, enum vocabularies, slices, or project-defined tags
 - Preparing LLM context from project facts
 - Updating tests that prove project rules or examples
 - Reviewing drift between docs, code, tests, and specs
@@ -427,11 +443,16 @@ description: Use Lattice as the primary source of truth for specs, durable proje
 6. Check the configured type registry before inventing a knowledge-unit type.
 7. Capture unmet schema needs as `schema_gap` specs.
 8. Check `domain_object` units before naming durable domain concepts in code or docs.
-9. Reference specs by stable ID from tests, code, and non-generated docs.
-10. Update Lattice in the same change when work introduces or changes durable knowledge.
-11. Regenerate views with `lattice render`.
-12. Run `lattice validate` and `lattice audit`.
-13. Report changed Lattice IDs, or state that no durable knowledge changed.
+9. Give every knowledge unit a `description` that explains what it is and what it is used for.
+10. Use `short_name` when a durable unit needs a concise display alias in generated views.
+11. Model closed value sets as `enum` where the current registry supports it.
+12. Model scoped documentation views as `slice` units with explicit `members`, slice metadata, and optional `index_template` or `style_path`.
+13. Use project-owned `verification` specs for checks against code, files, or generated artifacts; do not encode those checks as template overrides.
+14. Reference specs by stable ID from tests, code, and non-generated docs.
+15. Update Lattice in the same change when work introduces or changes durable knowledge.
+16. Regenerate views with `lattice render`.
+17. Run `lattice validate` and `lattice audit`.
+18. Report changed Lattice IDs, or state that no durable knowledge changed.
 
 ## Non-Negotiables
 
@@ -440,6 +461,8 @@ description: Use Lattice as the primary source of truth for specs, durable proje
 - Do not define domain terms outside glossary/domain-object specs when the meaning is durable.
 - Do not invent new spec kinds without updating the type registry and templates.
 - Do not hide a schema limitation in prose; create a `schema_gap` owner.
+- Do not directly edit bundled Lattice templates, validation code, or rendering functions for project-specific behavior; extend through the type registry, JSON Schemas, project template overrides, styles, slice metadata, or verification specs instead.
+- Do not encode code-existence checks in templates when a verification spec is the right owner.
 - Do not manually edit files under the configured generated docs directory.
 - Do not invent a competing term, rule, workflow, or decision if a canonical spec exists.
 - Treat broken references, stale generated views, and untested required specs as drift.

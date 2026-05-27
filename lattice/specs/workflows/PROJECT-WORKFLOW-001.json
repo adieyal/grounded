@@ -8,5 +8,6 @@
     "PROJECT-RULE-002"
   ],
   "status": "active",
+  "description": "Describes the Scope a bounded Lattice model workflow so agents and maintainers can follow the expected process.",
   "summary": "An LLM interviews the user with a structured question ladder to define a bounded modeling slice of an existing codebase, clarify the relevant comparison semantics and analysis rubric, and stop before implementation until the user confirms the scope is stable."
 }

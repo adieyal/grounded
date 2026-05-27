@@ -4,6 +4,9 @@
   "name": "Unknown example reference",
   "owner": "lattice",
   "status": "active",
+  "description": "Defines the Unknown example reference guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "A spec declares an example ID that does not exist in the registry.",
-  "references": ["PROJECT-RULE-001"]
+  "references": [
+    "PROJECT-RULE-001"
+  ]
 }

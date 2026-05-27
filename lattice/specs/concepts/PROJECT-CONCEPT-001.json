@@ -5,5 +5,6 @@
   "owner": "project",
   "references": [],
   "status": "active",
+  "description": "Explains the Lattice project memory concept and how it should be used as canonical Lattice knowledge.",
   "summary": "Durable project knowledge is owned by canonical Lattice specs and referenced by other artifacts."
 }

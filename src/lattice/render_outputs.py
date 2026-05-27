@@ -31,6 +31,12 @@ class RenderedSite:
         for path in self.obsolete_tag_outputs():
             stale.append(self.path_label(path))
 
+        for path in self.obsolete_slice_outputs():
+            stale.append(self.path_label(path))
+
+        for path in self.obsolete_legacy_outputs():
+            stale.append(self.path_label(path))
+
         return stale
 
     def write(self) -> None:
@@ -42,6 +48,12 @@ class RenderedSite:
             path.unlink()
 
         for path in self.obsolete_tag_outputs():
+            path.unlink()
+
+        for path in self.obsolete_slice_outputs():
+            path.unlink()
+
+        for path in self.obsolete_legacy_outputs():
             path.unlink()
 
     def obsolete_unit_outputs(self) -> list[Path]:
@@ -59,6 +71,25 @@ class RenderedSite:
 
         expected = set(self.outputs)
         return sorted(path for path in tags_dir.glob("*.html") if path not in expected)
+
+    def obsolete_legacy_outputs(self) -> list[Path]:
+        legacy_paths = [self.config.generated_docs_dir / "project-memory.html"]
+        expected = set(self.outputs)
+        return sorted(
+            path for path in legacy_paths if path.exists() and path not in expected
+        )
+
+    def obsolete_slice_outputs(self) -> list[Path]:
+        slices_dir = self.config.generated_docs_dir / "slices"
+        if not slices_dir.exists():
+            return []
+
+        expected = set(self.outputs)
+        return sorted(
+            path
+            for path in slices_dir.rglob("*")
+            if path.is_file() and path not in expected
+        )
 
     def path_label(self, path: Path) -> str:
         try:

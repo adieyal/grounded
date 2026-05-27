@@ -8,5 +8,6 @@
     "PROJECT-RULE-001"
   ],
   "status": "active",
+  "description": "Defines the Verification command failed guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "Project-specific verification commands declared by knowledge-unit type definitions must pass when lattice verify runs."
 }

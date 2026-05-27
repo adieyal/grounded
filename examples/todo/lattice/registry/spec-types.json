@@ -19,6 +19,7 @@
       "name",
       "owner",
       "status",
+      "description",
       "definition"
     ],
     "search_fields": [
@@ -26,7 +27,8 @@
       "name",
       "definition",
       "fields",
-      "summary"
+      "summary",
+      "description"
     ]
   },
   "concept": {
@@ -40,6 +42,14 @@
       "references",
       "tests",
       "examples"
+    ],
+    "required": [
+      "id",
+      "kind",
+      "name",
+      "owner",
+      "status",
+      "description"
     ]
   },
   "data_type": {
@@ -60,13 +70,15 @@
       "name",
       "owner",
       "status",
+      "description",
       "definition"
     ],
     "search_fields": [
       "id",
       "name",
       "definition",
-      "summary"
+      "summary",
+      "description"
     ]
   },
   "lifecycle_type": {
@@ -87,13 +99,15 @@
       "name",
       "owner",
       "status",
+      "description",
       "definition"
     ],
     "search_fields": [
       "id",
       "name",
       "definition",
-      "summary"
+      "summary",
+      "description"
     ]
   },
   "lifecycle_value": {
@@ -114,6 +128,7 @@
       "name",
       "owner",
       "status",
+      "description",
       "summary"
     ]
   },
@@ -135,6 +150,7 @@
       "name",
       "owner",
       "status",
+      "description",
       "definition"
     ]
   },
@@ -156,6 +172,7 @@
       "name",
       "owner",
       "status",
+      "description",
       "summary"
     ]
   }

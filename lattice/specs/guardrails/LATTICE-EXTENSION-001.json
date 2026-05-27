@@ -1,0 +1,15 @@
+{
+  "id": "LATTICE-EXTENSION-001",
+  "kind": "guardrail",
+  "name": "Project behavior must use extension points",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the extension-point guardrail so project-specific behavior stays in registries, schemas, template overrides, styles, slice metadata, or verification specs instead of core Lattice internals.",
+  "summary": "Project-specific behavior must not directly edit bundled Lattice templates, validation code, or rendering functions when an extension or override point can express the change.",
+  "references": [
+    "LATTICE-DECISION-001",
+    "LATTICE-DECISION-036",
+    "LATTICE-DECISION-037",
+    "PROJECT-RULE-001"
+  ]
+}

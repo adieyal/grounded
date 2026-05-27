@@ -14,39 +14,41 @@ def lattice_key(spec: Spec) -> str:
 
 
 def graph_reference_ids_for(spec: Spec) -> tuple[str, ...]:
-    refs = list(spec.references)
-    child_features = spec.data.get("child_features", [])
-    if isinstance(child_features, list):
-        refs.extend(
-            child_id for child_id in child_features if isinstance(child_id, str)
-        )
-    return tuple(dict.fromkeys(refs))
+    return tuple(dict.fromkeys(spec.references))
 
 
 def lattice_registry_for(
-    config: LatticeConfig, registry: SpecRegistry, from_path: Path
+    config: LatticeConfig,
+    registry: SpecRegistry,
+    from_path: Path,
+    *,
+    specs: list[Spec] | None = None,
 ) -> dict[str, dict[str, Any]]:
     outgoing: dict[str, list[str]] = {}
     backlinks: dict[str, list[str]] = {}
+    graph_specs = specs if specs is not None else registry.active_specs
+    graph_ids = {spec.id for spec in graph_specs}
 
-    for spec in registry.active_specs:
+    for spec in graph_specs:
         source = lattice_key(spec)
         targets = [
-            target for target in graph_reference_ids_for(spec) if target in registry.by_id
+            target
+            for target in graph_reference_ids_for(spec)
+            if target in registry.by_id and target in graph_ids
         ]
         outgoing[source] = [lattice_key(registry.by_id[target]) for target in targets]
         for target in targets:
             backlinks.setdefault(lattice_key(registry.by_id[target]), []).append(source)
 
     graph: dict[str, dict[str, Any]] = {}
-    for spec in registry.active_specs:
+    for spec in graph_specs:
         key = lattice_key(spec)
         graph[key] = {
             "type": spec.kind,
             "id": spec.id,
             "label": display_name(spec),
             "href": href_for(from_path, unit_output_path(config, spec)),
-            "summary": spec.statement,
+            "summary": spec.description,
             "concept_role": spec.data.get("concept_role"),
             "outgoing": outgoing.get(key, []),
             "backlinks": [
@@ -54,7 +56,7 @@ def lattice_registry_for(
                     "type": registry.by_id[source_id].kind,
                     "id": registry.by_id[source_id].id,
                     "label": display_name(registry.by_id[source_id]),
-                    "summary": registry.by_id[source_id].statement,
+                    "summary": registry.by_id[source_id].description,
                     "concept_role": registry.by_id[source_id].data.get("concept_role"),
                     "href": href_for(
                         from_path, unit_output_path(config, registry.by_id[source_id])
@@ -108,13 +110,15 @@ def build_search_index(
         for field in fields:
             text_parts.extend(flatten_search_value(spec.data.get(field)))
         node = graph[lattice_key(spec)]
-        text_parts.extend(str(backlink["label"]) for backlink in node.get("backlinks", []))
+        text_parts.extend(
+            str(backlink["label"]) for backlink in node.get("backlinks", [])
+        )
         index.append(
             {
                 "id": spec.id,
                 "type": spec.kind,
                 "name": display_name(spec),
-                "summary": spec.statement,
+                "summary": spec.description,
                 "href": node["href"],
                 "text": " ".join(part for part in text_parts if part).lower(),
                 "backlinks": len(node.get("backlinks", [])),

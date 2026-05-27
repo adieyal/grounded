@@ -37,5 +37,6 @@
     "PROJECT-CONCEPT-001",
     "PROJECT-RULE-001"
   ],
-  "status": "active"
+  "status": "active",
+  "description": "Defines the Canonical project fact domain object and explains how other specs should refer to it."
 }

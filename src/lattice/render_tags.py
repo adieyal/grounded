@@ -25,10 +25,15 @@ def tag_output_path(config: LatticeConfig, tag: str) -> Path:
 
 
 def tag_index_for(
-    config: LatticeConfig, registry: SpecRegistry, from_path: Path
+    config: LatticeConfig,
+    registry: SpecRegistry,
+    from_path: Path,
+    *,
+    specs: list[Spec] | None = None,
 ) -> dict[str, dict[str, Any]]:
     index: dict[str, dict[str, Any]] = {}
-    for tag, entries in tags_by_name(registry.active_specs, config, from_path).items():
+    tag_specs = specs if specs is not None else registry.active_specs
+    for tag, entries in tags_by_name(tag_specs, config, from_path).items():
         index[tag] = {
             "href": href_for(from_path, tag_output_path(config, tag)),
             "label": tag,
@@ -59,7 +64,9 @@ def tags_by_name(
                         "type": spec.kind,
                         "id": spec.id,
                         "label": f"{display_name(spec)}.{field['name']}",
-                        "summary": display_value(field.get("description") or field["name"]),
+                        "summary": display_value(
+                            field.get("description") or field["name"]
+                        ),
                         "href": href_for(from_path, unit_output_path(config, spec)),
                         "fragment": field_anchor(spec.id, field["name"]),
                         "field_name": field["name"],

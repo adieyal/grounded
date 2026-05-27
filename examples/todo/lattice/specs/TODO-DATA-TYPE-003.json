@@ -7,5 +7,6 @@
     "TODO-ITEM-001"
   ],
   "status": "active",
+  "description": "Defines the date data type and explains how it is used in the modeled domain.",
   "type": "data_type"
 }

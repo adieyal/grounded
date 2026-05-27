@@ -4,6 +4,9 @@
   "name": "Reference list contains non-string values",
   "owner": "lattice",
   "status": "active",
+  "description": "Defines the Reference list contains non-string values guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "Reference arrays must contain only canonical ID strings.",
-  "references": ["PROJECT-RULE-001"]
+  "references": [
+    "PROJECT-RULE-001"
+  ]
 }

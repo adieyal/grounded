@@ -4,6 +4,9 @@
   "name": "Duplicate canonical ID",
   "owner": "lattice",
   "status": "active",
+  "description": "Defines the Duplicate canonical ID guardrail so validation, audit, and maintenance work can recognize this class of drift.",
   "summary": "Every canonical spec ID must be globally unique within the registry.",
-  "references": ["PROJECT-RULE-001"]
+  "references": [
+    "PROJECT-RULE-001"
+  ]
 }

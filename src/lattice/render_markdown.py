@@ -32,8 +32,11 @@ def render_llm_pack(registry: SpecRegistry) -> str:
         "",
     ]
     for spec in sorted(registry.active_specs, key=lambda item: (item.kind, item.id)):
+        summary = spec.description
+        if spec.statement and spec.statement != spec.description:
+            summary = f"{spec.description} {spec.statement}"
         lines.append(
-            f"- `{spec.id}` ({spec.kind}, owner: {spec.owner or 'unknown'}): {spec.statement}"
+            f"- `{spec.id}` ({spec.kind}, owner: {spec.owner or 'unknown'}): {summary}"
         )
         refs = ", ".join(spec.references)
         if refs:
@@ -50,7 +53,9 @@ def _render_spec_summary(spec: Spec) -> list[str]:
     ]
     if spec.owner:
         lines.append(f"- Owner: `{spec.owner}`")
-    if spec.statement:
+    if spec.description:
+        lines.extend(["", spec.description])
+    if spec.statement and spec.statement != spec.description:
         lines.extend(["", spec.statement])
     refs = ", ".join(f"`{ref}`" for ref in spec.references)
     if refs:

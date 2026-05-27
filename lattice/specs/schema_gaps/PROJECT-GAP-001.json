@@ -9,6 +9,7 @@
     "PROJECT-RULE-001"
   ],
   "status": "active",
+  "description": "Records the Project-specific fact shapes belong in the type registry schema gap so future registry or renderer work has a canonical owner.",
   "suggested_improvement": "Record the mismatch as a schema_gap, then evolve lattice/registry/spec-types.json and templates when the shape becomes stable.",
   "tests": [
     "PROJECT-TEST-001"

@@ -8,6 +8,7 @@
     "LATTICE-DECISION-027"
   ],
   "status": "active",
+  "description": "Documents the Support project-defined tags with tag pages decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "LATTICE-TEST-007"
   ]

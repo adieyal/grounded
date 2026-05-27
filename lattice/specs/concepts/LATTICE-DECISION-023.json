@@ -11,6 +11,7 @@
     "LATTICE-DECISION-022"
   ],
   "status": "active",
+  "description": "Documents the Componentize generated docs with Lit decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]

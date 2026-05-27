@@ -1,5 +1,5 @@
 ---
-last_updated: 2026-05-24
+last_updated: 2026-05-27
 ---
 
 # Agent Instructions
@@ -26,13 +26,19 @@ Before implementing or documenting a non-trivial change:
    instead of smuggling meaning into prose.
 7. Reference facts by stable ID from tests, code, docs, and plans.
 8. Use domain_object units for durable domain nouns instead of inventing synonyms.
-9. If the change introduces or changes a durable rule, workflow, decision,
+9. Give every knowledge unit a `description` that explains what it is and what
+   it is used for.
+10. If the change introduces or changes a durable rule, workflow, decision,
    domain object, example, invariant, or assumption, update Lattice in the same
    change.
-10. Regenerate generated views with `lattice render`.
-11. Do not manually edit generated Lattice documentation.
-12. Run `lattice validate`, `lattice verify`, and `lattice audit`.
-13. Report the Lattice IDs changed or explain why no canonical fact changed.
+11. Do not directly edit bundled Lattice templates, validation code, or
+   rendering functions for project-specific behavior. Extend through the type
+   registry, JSON Schemas, project template overrides, styles, slice metadata,
+   or verification specs instead.
+12. Regenerate generated views with `lattice render`.
+13. Do not manually edit generated Lattice documentation.
+14. Run `lattice validate`, `lattice verify`, and `lattice audit`.
+15. Report the Lattice IDs changed or explain why no canonical fact changed.
 
 Every idea, fact, rule, workflow, decision, and durable assumption should have
 one owner. If another artifact conflicts with a Lattice spec, treat that as

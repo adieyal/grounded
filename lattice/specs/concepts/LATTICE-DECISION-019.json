@@ -9,6 +9,7 @@
     "LATTICE-DECISION-015"
   ],
   "status": "active",
+  "description": "Documents the Hide decisions from domain link panels decision and explains how it guides Lattice behavior or project maintenance.",
   "tests": [
     "PROJECT-TEST-001"
   ]
