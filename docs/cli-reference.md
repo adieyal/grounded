@@ -102,14 +102,21 @@ Generate a Graphviz DOT relationship graph around one project fact.
 uv run lattice graph SPEC-ID
 ```
 
+The default `docs` profile is meant for readable generated documentation: it uses structured labels, highlights the focus node, softens the layout, and collapses noisy value sets where practical.
+
 Useful options:
 
 ```bash
 uv run lattice graph SPEC-ID --depth 2
+uv run lattice graph SPEC-ID --profile docs
+uv run lattice graph SPEC-ID --profile compact
+uv run lattice graph SPEC-ID --profile debug
 uv run lattice graph SPEC-ID --include-type domain_object
 uv run lattice graph SPEC-ID --exclude-type schema_gap
 uv run lattice graph SPEC-ID --output graph.dot
 ```
+
+Use `--profile debug` when you want the raw relationship graph for inspection. Use `--profile docs` for documentation diagrams and `--profile compact` for smaller explanatory diagrams.
 
 Use this when you want to see what refers to a fact and what the fact depends on.
 

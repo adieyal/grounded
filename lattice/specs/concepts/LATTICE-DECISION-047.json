@@ -1,5 +1,5 @@
 {
-  "decision": "The CLI includes a graph command that emits Graphviz DOT for relationships around a starting knowledge-unit ID. The command traverses both outgoing references and backlinks up to a configurable depth, can include or exclude specific spec types, writes to stdout by default, and can write to a requested output path.",
+  "decision": "The CLI includes a graph command that emits Graphviz DOT for relationships around a starting knowledge-unit ID. The command traverses both outgoing references and backlinks up to a configurable depth, can include or exclude specific spec types, writes to stdout by default, and can write to a requested output path. Graph output supports profiles: docs is the default readable documentation profile with structured labels, focus highlighting, softer layout styling, and collapsed noisy values; compact is a smaller presentation-oriented variant; debug preserves the raw relationship graph for inspection.",
   "id": "LATTICE-DECISION-047",
   "kind": "decision",
   "name": "Generate Graphviz relationship graphs",

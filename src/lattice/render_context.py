@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 from collections import Counter
+from hashlib import sha256
 from pathlib import Path
 from typing import Any
 
@@ -21,6 +22,7 @@ from .render_constants import (
     INDEX_FILENAME,
     LINK_COMPONENT_FILENAME,
 )
+from .render_assets import render_link_component
 from .render_display import (
     concept_sections,
     detail_sections,
@@ -132,8 +134,9 @@ def base_context(
         "docs_home_href": href_for(
             output_path, config.generated_docs_dir / INDEX_FILENAME
         ),
-        "link_component_href": href_for(
-            output_path, config.generated_docs_dir / LINK_COMPONENT_FILENAME
+        "link_component_href": _versioned_href(
+            href_for(output_path, config.generated_docs_dir / LINK_COMPONENT_FILENAME),
+            render_link_component(),
         ),
         "unit_href": lambda spec: href_for(output_path, unit_output_path(config, spec)),
         "lattice_link": lattice_link,
@@ -149,3 +152,8 @@ def specs_by_type(specs: list[Spec]) -> dict[str, list[Spec]]:
         key: sorted(value, key=lambda spec: spec.id)
         for key, value in sorted(by_type.items())
     }
+
+
+def _versioned_href(href: str, content: str) -> str:
+    digest = sha256(content.encode("utf-8")).hexdigest()[:12]
+    return f"{href}?v={digest}"

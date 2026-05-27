@@ -215,11 +215,36 @@ class LatticeSidebar extends LitElement {
 }
 
 class LatticeNavGroup extends LitElement {
+  static properties = { open: { type: Boolean, reflect: true } };
+  constructor() {
+    super();
+    this.open = false;
+  }
   static styles = css`
     :host { display: block; margin-bottom: var(--space-lg); }
-    h2 { color: var(--color-text-tertiary); font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); letter-spacing: 0.15em; margin: 0; padding: 0 var(--space-md) var(--space-xs); text-transform: uppercase; }
+    h2 { margin: 0; }
+    button { align-items: center; background: transparent; border: 0; color: var(--color-text-tertiary); cursor: pointer; display: flex; font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); gap: var(--space-xs); justify-content: space-between; letter-spacing: 0.15em; padding: 0 var(--space-md) var(--space-xs); text-align: left; text-transform: uppercase; width: 100%; }
+    button:hover, button:focus-visible { color: var(--color-text-primary); }
+    button:focus-visible { outline: 2px solid var(--color-link); outline-offset: -2px; }
+    .chevron { color: currentColor; flex: 0 0 auto; transition: transform 120ms ease; }
+    :host([open]) .chevron { transform: rotate(90deg); }
+    .items { display: none; }
+    :host([open]) .items { display: block; }
   `;
-  render() { return html`<h2><slot name="label"></slot></h2><slot></slot>`; }
+  toggle() {
+    this.open = !this.open;
+  }
+  render() {
+    return html`
+      <h2>
+        <button type="button" aria-expanded=${this.open ? 'true' : 'false'} @click=${this.toggle}>
+          <span><slot name="label"></slot></span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </button>
+      </h2>
+      <div class="items"><slot></slot></div>
+    `;
+  }
 }
 
 class LatticeNavItem extends LitElement {

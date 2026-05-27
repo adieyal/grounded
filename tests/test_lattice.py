@@ -117,6 +117,7 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("lattice-registry", html)
             self.assertIn("lattice-theme", html)
             self.assertIn("lattice-link.js", html)
+            self.assertRegex(html, r'lattice-link\.js\?v=[0-9a-f]{12}')
             self.assertIn("Canonical project fact", html)
             self.assertIn("Schema Gap", html)
             self.assertNotIn("Todo system", html)
@@ -595,6 +596,9 @@ class LatticeTests(unittest.TestCase):
             html = (
                 root / ".lattice/generated/docs/units/todo-item-001.html"
             ).read_text(encoding="utf-8")
+            index_html = (root / ".lattice/generated/docs/index.html").read_text(
+                encoding="utf-8"
+            )
             lifecycle_html = (
                 root / ".lattice/generated/docs/units/todo-lifecycle-001.html"
             ).read_text(encoding="utf-8")
@@ -663,6 +667,8 @@ class LatticeTests(unittest.TestCase):
             self.assertIn('<details class="raw-unit">', html)
             self.assertIn("<summary>Raw JSON</summary>", html)
             self.assertIn("<lattice-search", html)
+            self.assertIn("<lattice-nav-group open>", html)
+            self.assertNotIn("<lattice-nav-group open>", index_html)
             self.assertIn("lattice-search-index", html)
             self.assertIn('href="../style.css"', html)
             self.assertIn('<lattice-doc-header slot="hero">', html)
@@ -684,6 +690,9 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("class LatticePillLinkList extends LitElement", component_js)
             self.assertIn("class LatticeDetailRow extends LitElement", component_js)
             self.assertIn("class LatticeThemeToggle extends LitElement", component_js)
+            self.assertIn("aria-expanded", component_js)
+            self.assertIn("this.open = !this.open", component_js)
+            self.assertIn(":host([open]) .items { display: block; }", component_js)
             self.assertIn("define('lattice-theme-toggle'", component_js)
             self.assertIn("lattice-theme", component_js)
             self.assertIn("var(--color-text-primary)", component_js)

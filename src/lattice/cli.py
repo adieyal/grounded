@@ -85,6 +85,12 @@ def main(argv: list[str] | None = None) -> int:
         default=[],
         help="Exclude these spec types. May be repeated or comma-separated.",
     )
+    graph_parser.add_argument(
+        "--profile",
+        choices=("docs", "compact", "debug"),
+        default="docs",
+        help="Graph output profile. Defaults to docs.",
+    )
 
     args = parser.parse_args(argv)
     root = (args.root or Path.cwd()).resolve()
@@ -146,6 +152,7 @@ def main(argv: list[str] | None = None) -> int:
                 depth=args.depth,
                 include_types=_type_filter_set(args.include_type),
                 exclude_types=_type_filter_set(args.exclude_type),
+                profile=args.profile,
             )
         except KeyError:
             print(f"unknown starting knowledge-unit ID: {args.start}", file=sys.stderr)

@@ -6,6 +6,21 @@ last_updated: 2026-05-27
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
+## 0.9.0 - 2026-05-27
+
+- Added graph output profiles for `lattice graph`: `docs`, `compact`, and
+  `debug`, with `docs` now the default.
+- Improved documentation graph output with structured Graphviz HTML labels,
+  focus-node highlighting, softer layout styling, kind grouping, edge labels,
+  collapsed lifecycle values, and field summary nodes.
+- Updated generated docs sidebar navigation so section items are collapsed under
+  accordion headings by default, with the active unit section opened on unit
+  pages.
+- Added content-hash query strings to the generated `lattice-link.js` module URL
+  so browsers do not keep stale bundled component behavior after rendering.
+- Added generated Todo graph DOT/PNG artifacts for docs, compact, and debug
+  graph profiles.
+
 ## 0.8.0 - 2026-05-27
 
 - Added a bundled `lattice-theme-toggle` Lit component to generated docs.

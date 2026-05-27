@@ -109,7 +109,7 @@ Start with one fact. Give it a stable ID. Link other docs, tests, plans, and pro
 | `lattice render --check` | Fails if generated outputs are stale. |
 | `lattice verify` | Runs project-specific verification commands declared in specs. |
 | `lattice audit` | Checks for drift and missing coverage. |
-| `lattice graph SPEC-ID` | Shows relationships around one project fact as Graphviz DOT. |
+| `lattice graph SPEC-ID` | Shows a documentation-oriented Graphviz relationship diagram around one project fact. |
 
 During local development, prefer `uv run lattice ...` so the command uses the checkout.
 

@@ -32,7 +32,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
     </lattice-top-bar>
     <lattice-sidebar slot="nav" aria-label="Knowledge units">
       {% for type_name, units in by_type.items() %}
-      <lattice-nav-group>
+      <lattice-nav-group{% if current_spec and current_spec.kind == type_name %} open{% endif %}>
         <span slot="label">{{ type_nav_label(type_name) }}</span>
         {% for nav_spec in units %}
         <lattice-nav-item tone="{{ type_tone(nav_spec.kind) }}"{% if current_spec and current_spec.id == nav_spec.id %} active{% endif %}>

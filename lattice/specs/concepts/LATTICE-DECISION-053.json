@@ -1,0 +1,13 @@
+{
+  "decision": "The package version is bumped to 0.9.0 for documentation-oriented Graphviz profiles, generated docs sidebar accordion navigation, component script cache busting, and Todo graph artifacts.",
+  "id": "LATTICE-DECISION-053",
+  "kind": "decision",
+  "name": "Release graph presentation and sidebar accordions as 0.9.0",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-022",
+    "LATTICE-DECISION-047"
+  ],
+  "status": "active",
+  "description": "Documents the 0.9.0 version bump so the graph presentation and generated documentation navigation release has a canonical Lattice owner."
+}

@@ -1,0 +1,96 @@
+digraph lattice {
+  graph [
+    rankdir="LR",
+    bgcolor="#fffefb",
+    pad="0.4",
+    nodesep="0.45",
+    ranksep="0.8",
+    splines=true,
+    overlap=false,
+    concentrate=true,
+    outputorder=edgesfirst
+  ];
+  node [shape=plain, fontname="Inter", fontsize=12, margin=0];
+  edge [color="#7a7168", arrowsize=0.7, penwidth=1.1, fontname="Inter", fontsize=10, fontcolor="#605d52"];
+  subgraph cluster_business_entity {
+    label="Business Entity";
+    color="#ede9e4";
+    style="rounded";
+    fontname="Inter";
+    fontsize=11;
+    fontcolor="#605d52";
+    "TODO-ITEM-001" [label=<<TABLE BORDER="2" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#ff6a00" BGCOLOR="#fffefb"><TR><TD><FONT POINT-SIZE="16"><B>TodoItem</B></FONT></TD></TR><TR><TD><FONT FACE="monospace" POINT-SIZE="10">TODO-ITEM-001</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#605d52">business entity</FONT></TD></TR></TABLE>>];
+    "TODO-LIST-001" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#d8cfc5" BGCOLOR="#fffefb"><TR><TD><FONT POINT-SIZE="16"><B>TodoList</B></FONT></TD></TR><TR><TD><FONT FACE="monospace" POINT-SIZE="10">TODO-LIST-001</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#605d52">business entity</FONT></TD></TR></TABLE>>];
+  }
+  subgraph cluster_concept {
+    label="Concept";
+    color="#ede9e4";
+    style="rounded";
+    fontname="Inter";
+    fontsize=11;
+    fontcolor="#605d52";
+    "TODO-CONCEPT-001" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#d8cfc5" BGCOLOR="#fbf7f0"><TR><TD><FONT POINT-SIZE="16"><B>Todo system</B></FONT></TD></TR><TR><TD><FONT FACE="monospace" POINT-SIZE="10">TODO-CONCEPT-001</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#605d52">concept</FONT></TD></TR></TABLE>>];
+    "TODO-CONCEPT-002" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#d8cfc5" BGCOLOR="#fbf7f0"><TR><TD><FONT POINT-SIZE="16"><B>TodoItem belongs to one TodoList</B></FONT></TD></TR><TR><TD><FONT FACE="monospace" POINT-SIZE="10">TODO-CONCEPT-002</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#605d52">concept</FONT></TD></TR></TABLE>>];
+    "TODO-CONCEPT-003" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#d8cfc5" BGCOLOR="#fbf7f0"><TR><TD><FONT POINT-SIZE="16"><B>TodoItem has one current status</B></FONT></TD></TR><TR><TD><FONT FACE="monospace" POINT-SIZE="10">TODO-CONCEPT-003</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#605d52">concept</FONT></TD></TR></TABLE>>];
+    "TODO-CONCEPT-004" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#d8cfc5" BGCOLOR="#fbf7f0"><TR><TD><FONT POINT-SIZE="16"><B>Completed TodoItem remains traceable</B></FONT></TD></TR><TR><TD><FONT FACE="monospace" POINT-SIZE="10">TODO-CONCEPT-004</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#605d52">concept</FONT></TD></TR></TABLE>>];
+  }
+  subgraph cluster_fields {
+    label="Fields";
+    color="#ede9e4";
+    style="rounded";
+    fontname="Inter";
+    fontsize=11;
+    fontcolor="#605d52";
+    "TODO-ITEM-001::fields" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#d8cfc5" BGCOLOR="#f8f4f0"><TR><TD><FONT POINT-SIZE="16"><B>TodoItem fields</B></FONT></TD></TR><TR><TD><FONT FACE="monospace" POINT-SIZE="10">collapsed</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#605d52">fields</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#37352f">id: TodoItemId | title: string | description: string | status: TodoStatus | due_date: date</FONT></TD></TR></TABLE>>];
+  }
+  subgraph cluster_lifecycle_type {
+    label="Lifecycle Type";
+    color="#ede9e4";
+    style="rounded";
+    fontname="Inter";
+    fontsize=11;
+    fontcolor="#605d52";
+    "TODO-LIFECYCLE-001" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#c8beb3" BGCOLOR="#fffefb"><TR><TD><FONT POINT-SIZE="16"><B>TodoStatus</B></FONT></TD></TR><TR><TD><FONT FACE="monospace" POINT-SIZE="10">TODO-LIFECYCLE-001</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#605d52">lifecycle type</FONT></TD></TR></TABLE>>];
+  }
+  subgraph cluster_status_values {
+    label="Status Values";
+    color="#ede9e4";
+    style="rounded";
+    fontname="Inter";
+    fontsize=11;
+    fontcolor="#605d52";
+    "TODO-LIFECYCLE-001::values" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#d8cfc5" BGCOLOR="#f8f4f0"><TR><TD><FONT POINT-SIZE="16"><B>TodoStatus values</B></FONT></TD></TR><TR><TD><FONT FACE="monospace" POINT-SIZE="10">collapsed</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#605d52">status values</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#37352f">Open | In progress | Blocked | Done | Removed</FONT></TD></TR></TABLE>>];
+  }
+  subgraph cluster_workflow {
+    label="Workflow";
+    color="#ede9e4";
+    style="rounded";
+    fontname="Inter";
+    fontsize=11;
+    fontcolor="#605d52";
+    "TODO-WORKFLOW-001" [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="8" COLOR="#d8cfc5" BGCOLOR="#fbf7f0"><TR><TD><FONT POINT-SIZE="16"><B>Capture and complete a todo</B></FONT></TD></TR><TR><TD><FONT FACE="monospace" POINT-SIZE="10">TODO-WORKFLOW-001</FONT></TD></TR><TR><TD><FONT POINT-SIZE="10" COLOR="#605d52">workflow</FONT></TD></TR></TABLE>>];
+  }
+  "TODO-CONCEPT-001" -> "TODO-CONCEPT-002" [label="references"];
+  "TODO-CONCEPT-001" -> "TODO-CONCEPT-003" [label="references"];
+  "TODO-CONCEPT-001" -> "TODO-CONCEPT-004" [label="references"];
+  "TODO-CONCEPT-001" -> "TODO-ITEM-001" [label="mentions"];
+  "TODO-CONCEPT-001" -> "TODO-LIFECYCLE-001" [label="has status"];
+  "TODO-CONCEPT-001" -> "TODO-LIST-001" [label="references"];
+  "TODO-CONCEPT-001" -> "TODO-WORKFLOW-001" [label="references"];
+  "TODO-CONCEPT-002" -> "TODO-ITEM-001" [label="mentions"];
+  "TODO-CONCEPT-002" -> "TODO-LIST-001" [label="references"];
+  "TODO-CONCEPT-003" -> "TODO-ITEM-001" [label="mentions"];
+  "TODO-CONCEPT-004" -> "TODO-ITEM-001" [label="mentions"];
+  "TODO-ITEM-001" -> "TODO-CONCEPT-002" [label="references"];
+  "TODO-ITEM-001" -> "TODO-CONCEPT-003" [label="references"];
+  "TODO-ITEM-001" -> "TODO-CONCEPT-004" [label="references"];
+  "TODO-ITEM-001" -> "TODO-ITEM-001::fields" [label="has fields"];
+  "TODO-ITEM-001" -> "TODO-LIFECYCLE-001" [label="has status"];
+  "TODO-ITEM-001" -> "TODO-LIST-001" [label="depends on"];
+  "TODO-LIFECYCLE-001" -> "TODO-ITEM-001" [label="mentions"];
+  "TODO-LIFECYCLE-001" -> "TODO-LIFECYCLE-001::values" [label="has values"];
+  "TODO-LIST-001" -> "TODO-ITEM-001" [label="mentions"];
+  "TODO-WORKFLOW-001" -> "TODO-ITEM-001" [label="mentions"];
+  "TODO-WORKFLOW-001" -> "TODO-LIFECYCLE-001" [label="has status"];
+  "TODO-WORKFLOW-001" -> "TODO-LIST-001" [label="uses"];
+}
