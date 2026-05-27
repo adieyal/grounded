@@ -120,6 +120,7 @@ class LatticeTests(unittest.TestCase):
             self.assertNotIn("Todo system", html)
             self.assertIn('href="style.css"', html)
             self.assertIn(":root", css)
+            self.assertIn("--font-size-md: 1rem;", css)
             self.assertIn("Canonical project fact", search)
             self.assertNotIn("last_updated:", markdown)
             self.assertNotIn("last_updated:", context_pack)
@@ -596,6 +597,7 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("<lattice-search", html)
             self.assertIn("lattice-search-index", html)
             self.assertIn('href="../style.css"', html)
+            self.assertIn('<lattice-doc-header slot="hero">', html)
             self.assertIn(
                 '<lattice-copy-id slot="actions" value="TODO-ITEM-001">', html
             )
@@ -605,6 +607,16 @@ class LatticeTests(unittest.TestCase):
                 html.index("field-table"),
                 html.index('<details class="raw-unit">'),
             )
+
+            component_js = (root / ".lattice/generated/docs/lattice-link.js").read_text(
+                encoding="utf-8"
+            )
+            self.assertIn("class LatticeDocHeader extends LitElement", component_js)
+            self.assertIn("class LatticeSection extends LitElement", component_js)
+            self.assertIn("class LatticePillLinkList extends LitElement", component_js)
+            self.assertIn("class LatticeDetailRow extends LitElement", component_js)
+            self.assertIn("var(--color-text-primary)", component_js)
+            self.assertIn("var(--space-md)", component_js)
 
     def test_enum_page_renders_closed_values(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

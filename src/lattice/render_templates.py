@@ -96,12 +96,12 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 {% block content %}
 {% set page_tag = page_component(spec.kind) %}
 <{{ page_tag }}>
-<lattice-page-hero slot="hero">
+<lattice-doc-header slot="hero">
   <span slot="eyebrow">{{ spec.kind | field_label }}</span>
   <span slot="title">{{ data.name }}</span>
-  <span slot="description">{{ rich_text(spec.description, registry) | safe }}</span>
+  <span slot="lead">{{ rich_text(spec.description, registry) | safe }}</span>
   <lattice-copy-id slot="actions" value="{{ spec.id }}"></lattice-copy-id>
-</lattice-page-hero>
+</lattice-doc-header>
 {% set tags = tag_values(spec) %}
 {% if tags %}
 <div class="tag-panel">

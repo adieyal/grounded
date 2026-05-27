@@ -59,6 +59,9 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes starting with `0.3.0`.
 - Generated docs include compact list components for dense linked
   name-and-description rows: `lattice-compact-list` and
   `lattice-compact-item`.
+- Generated docs expose reusable Lit components that consume bundled design
+  tokens, including `lattice-doc-header`, `lattice-section`,
+  `lattice-pill-link-list`, `lattice-detail-list`, and `lattice-detail-row`.
 - Project templates can extend reusable bundled templates such as
   `unit-core.html.j2` and `slice-index.html.j2`.
 - Project styles can override the packaged stylesheet through the configured

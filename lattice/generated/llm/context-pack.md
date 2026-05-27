@@ -101,6 +101,12 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-022, LATTICE-DECISION-023, LATTICE-DECISION-029, LATTICE-DECISION-039
 - `LATTICE-DECISION-042` (decision, owner: lattice): Documents the 0.5.0 version bump so the compact list release has a canonical Lattice owner. The package version is bumped to 0.5.0 for compact linked item list components and their tag page rendering usage.
   Links: LATTICE-DECISION-040, LATTICE-DECISION-041
+- `LATTICE-DECISION-043` (decision, owner: lattice): Documents the default documentation font-size token increase so the bundled stylesheet remains readable without project overrides. The bundled documentation stylesheet uses a more readable font token scale, with body-sized text at 1rem and compact labels scaled up proportionally. Generated documentation should prefer readable default prose over an overly dense small-text interface.
+  Links: LATTICE-DECISION-028, LATTICE-STYLE-002
+- `LATTICE-DECISION-045` (decision, owner: lattice): Documents the reusable Lit component extraction from a project-specific analytics documentation mock. Reusable documentation patterns identified from project-specific mocks are implemented as neutral bundled Lit components that consume Lattice design tokens. The reusable set includes lattice-doc-header, lattice-section, lattice-pill-link-list, lattice-detail-list, and lattice-detail-row; project-specific analytics concepts remain data or template content rather than core components.
+  Links: LATTICE-DECISION-022, LATTICE-DECISION-023, LATTICE-DECISION-028, LATTICE-DECISION-041
+- `LATTICE-DECISION-046` (decision, owner: lattice): Documents the 0.6.0 version bump so the reusable documentation component release has a canonical Lattice owner. The package version is bumped to 0.6.0 for reusable bundled Lit documentation components, unit-page adoption of lattice-doc-header, and the readable bundled font token scale.
+  Links: LATTICE-DECISION-042, LATTICE-DECISION-043, LATTICE-DECISION-045
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
 - `PROJECT-DOMAIN-001` (domain_object, owner: project): Defines the Canonical project fact domain object and explains how other specs should refer to it. A durable unit of project knowledge with exactly one Lattice spec as its source of truth.
@@ -195,6 +201,10 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-039
 - `LATTICE-TEST-012` (test_binding, owner: lattice): Binds LATTICE-DECISION-041 to an executable test so Lattice can verify compact list components render linked names and descriptions.
   Links: LATTICE-DECISION-041
+- `LATTICE-TEST-013` (test_binding, owner: lattice): Binds LATTICE-DECISION-043 to an executable render test so Lattice can verify the generated bundled stylesheet includes the readable body font token.
+  Links: LATTICE-DECISION-043
+- `LATTICE-TEST-015` (test_binding, owner: lattice): Binds LATTICE-DECISION-045 to an executable render test so Lattice can verify reusable Lit documentation components are emitted and consume design tokens.
+  Links: LATTICE-DECISION-045
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.

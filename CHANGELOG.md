@@ -6,6 +6,16 @@ last_updated: 2026-05-27
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
+## 0.6.0 - 2026-05-27
+
+- Added reusable bundled Lit components for documentation pages:
+  `lattice-doc-header`, `lattice-section`, `lattice-pill-link-list`,
+  `lattice-detail-list`, and `lattice-detail-row`.
+- Updated unit pages to use `lattice-doc-header` for type badge, title,
+  rich lead text, and copy-ID actions.
+- Increased the bundled documentation font token scale so generated docs use
+  readable `1rem` body text by default.
+
 ## 0.5.0 - 2026-05-27
 
 - Added `lattice-compact-list` and `lattice-compact-item` Lit components for

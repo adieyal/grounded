@@ -184,6 +184,26 @@ class LatticePageHero extends LitElement {
   }
 }
 
+class LatticeDocHeader extends LitElement {
+  static styles = css`
+    :host { border-bottom: var(--border-width) solid var(--color-border-tertiary); display: block; padding: 1.5rem var(--space-2xl) 1.25rem; }
+    .eyebrow { align-items: center; display: flex; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+    .type-badge { background: var(--color-chip-bg); border: var(--border-width) solid var(--color-chip-border); border-radius: 999px; color: var(--color-text-secondary); display: inline-flex; font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); letter-spacing: 0.12em; padding: var(--space-2xs) var(--space-sm); text-transform: uppercase; }
+    h1 { color: var(--color-text-primary); font: var(--font-weight-medium) var(--font-size-title)/1.18 var(--font-serif); margin: 0 0 var(--space-md); }
+    .lead { color: var(--color-text-secondary); font-size: var(--font-size-md); line-height: 1.65; margin: 0; max-width: 46rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-md); }
+    @media (max-width: 760px) { :host { padding-inline: var(--space-lg); } }
+  `;
+  render() {
+    return html`
+      <div class="eyebrow"><span class="type-badge"><slot name="eyebrow"><slot name="type"></slot></slot></span></div>
+      <h1><slot name="title"></slot></h1>
+      <p class="lead"><slot name="lead"><slot name="description"></slot></slot></p>
+      <div class="actions"><slot name="actions"></slot></div>
+    `;
+  }
+}
+
 class LatticeCopyId extends LitElement {
   static properties = { value: { type: String }, copied: { type: Boolean } };
   constructor() {
@@ -246,6 +266,24 @@ class LatticeLifecycleTypePage extends LitElement { render() { return html`<latt
 class LatticeFieldTable extends LitElement { static styles = css`:host { display: block; }`; render() { return html`<slot></slot>`; } }
 class LatticeConceptSection extends LitElement { static styles = css`:host { display: grid; gap: 0.4375rem; margin-bottom: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
 class LatticeConceptCard extends LitElement { static styles = css`:host { border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: block; padding: 0.625rem 0.875rem; }`; render() { return html`<slot></slot>`; } }
+class LatticeSection extends LitElement {
+  static properties = { label: { type: String } };
+  static styles = css`
+    :host { border-top: var(--border-width) solid var(--color-border-tertiary); display: block; margin-top: var(--space-xl); padding-top: var(--space-xl); }
+    .label { color: var(--color-text-tertiary); font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); letter-spacing: 0.14em; margin-bottom: var(--space-sm); text-transform: uppercase; }
+    .body { color: var(--color-text-secondary); font-size: var(--font-size-md); line-height: 1.65; }
+  `;
+  render() { return html`<section><div class="label"><slot name="label">${this.label || ''}</slot></div><div class="body"><slot></slot></div></section>`; }
+}
+class LatticePillLinkList extends LitElement {
+  static properties = { label: { type: String } };
+  static styles = css`
+    :host { background: var(--color-bg-secondary); border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: block; padding: var(--space-md); }
+    .label { color: var(--color-text-tertiary); font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); letter-spacing: 0.12em; margin-bottom: var(--space-sm); text-transform: uppercase; }
+    .links { display: flex; flex-wrap: wrap; gap: var(--space-xs); }
+  `;
+  render() { return html`<div class="label"><slot name="label">${this.label || ''}</slot></div><div class="links"><slot></slot></div>`; }
+}
 class LatticeCompactList extends LitElement { static styles = css`:host { display: grid; gap: 0; }`; render() { return html`<slot></slot>`; } }
 class LatticeCompactItem extends LitElement {
   static styles = css`
@@ -257,6 +295,42 @@ class LatticeCompactItem extends LitElement {
     ::slotted([slot="description"]) { margin: 0; }
   `;
   render() { return html`<div class="name"><slot name="name"></slot></div><div class="description"><slot name="description"></slot></div>`; }
+}
+class LatticeDetailList extends LitElement {
+  static styles = css`
+    :host { border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: block; overflow: hidden; }
+  `;
+  render() { return html`<slot></slot>`; }
+}
+class LatticeDetailRow extends LitElement {
+  static styles = css`
+    :host { background: var(--color-bg-primary); border-bottom: var(--border-width) solid var(--color-border-tertiary); display: grid; grid-template-columns: minmax(12rem, 16rem) minmax(0, 1fr) minmax(10rem, 14rem); }
+    :host(:last-child) { border-bottom: 0; }
+    :host(:hover) { background: var(--color-bg-secondary); }
+    .main, .examples, .related { padding: var(--space-md); }
+    .main, .examples { border-right: var(--border-width) solid var(--color-border-tertiary); }
+    .title-row { align-items: center; display: flex; gap: var(--space-sm); margin-bottom: var(--space-sm); }
+    .icon { align-items: center; background: var(--color-entity-bg); border-radius: var(--radius-md); color: var(--color-entity-dark); display: inline-flex; flex: 0 0 auto; height: 1.625rem; justify-content: center; width: 1.625rem; }
+    .title { color: var(--color-text-primary); font: var(--font-weight-medium) var(--font-size-sm)/1.35 var(--font-sans); }
+    .description { color: var(--color-text-secondary); font-size: var(--font-size-sm); line-height: 1.55; }
+    .column-label { color: var(--color-text-tertiary); font: var(--font-weight-medium) var(--font-size-2xs)/1.2 var(--font-mono); letter-spacing: 0.1em; margin-bottom: var(--space-xs); text-transform: uppercase; }
+    .examples, .related { color: var(--color-text-secondary); font-size: var(--font-size-xs); line-height: 1.55; }
+    ::slotted([slot="description"]), ::slotted([slot="examples"]), ::slotted([slot="related"]) { margin: 0; }
+    @media (max-width: 860px) {
+      :host { grid-template-columns: 1fr; }
+      .main, .examples { border-bottom: var(--border-width) solid var(--color-border-tertiary); border-right: 0; }
+    }
+  `;
+  render() {
+    return html`
+      <div class="main">
+        <div class="title-row"><span class="icon"><slot name="icon">-</slot></span><div class="title"><slot name="title"></slot></div></div>
+        <div class="description"><slot name="description"></slot></div>
+      </div>
+      <div class="examples"><div class="column-label">Examples</div><slot name="examples"></slot></div>
+      <div class="related"><div class="column-label">Related</div><slot name="related"></slot></div>
+    `;
+  }
 }
 class LatticeLinksPanel extends LitElement { static styles = css`:host { display: block; margin-bottom: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
 class LatticeRawJson extends LitElement { static styles = css`:host { display: block; }`; render() { return html`<slot></slot>`; } }
@@ -275,6 +349,7 @@ define('lattice-nav-group', LatticeNavGroup);
 define('lattice-nav-item', LatticeNavItem);
 define('lattice-main', LatticeMain);
 define('lattice-page-hero', LatticePageHero);
+define('lattice-doc-header', LatticeDocHeader);
 define('lattice-copy-id', LatticeCopyId);
 define('lattice-section-heading', LatticeSectionHeading);
 define('lattice-index-page', LatticeIndexPage);
@@ -288,8 +363,12 @@ define('lattice-lifecycle-type-page', LatticeLifecycleTypePage);
 define('lattice-field-table', LatticeFieldTable);
 define('lattice-concept-section', LatticeConceptSection);
 define('lattice-concept-card', LatticeConceptCard);
+define('lattice-section', LatticeSection);
+define('lattice-pill-link-list', LatticePillLinkList);
 define('lattice-compact-list', LatticeCompactList);
 define('lattice-compact-item', LatticeCompactItem);
+define('lattice-detail-list', LatticeDetailList);
+define('lattice-detail-row', LatticeDetailRow);
 define('lattice-links-panel', LatticeLinksPanel);
 define('lattice-raw-json', LatticeRawJson);
 define('lattice-unit-section', LatticeUnitSection);

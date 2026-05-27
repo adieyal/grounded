@@ -1,0 +1,16 @@
+{
+  "decision": "The bundled documentation stylesheet uses a more readable font token scale, with body-sized text at 1rem and compact labels scaled up proportionally. Generated documentation should prefer readable default prose over an overly dense small-text interface.",
+  "id": "LATTICE-DECISION-043",
+  "kind": "decision",
+  "name": "Increase bundled stylesheet font scale",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-028",
+    "LATTICE-STYLE-002"
+  ],
+  "status": "active",
+  "description": "Documents the default documentation font-size token increase so the bundled stylesheet remains readable without project overrides.",
+  "tests": [
+    "LATTICE-TEST-013"
+  ]
+}
