@@ -4,6 +4,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+from .rich_text import rich_text_reference_ids
+
 
 JsonObject = dict[str, Any]
 
@@ -122,7 +124,8 @@ class Spec:
                     refs.append(link["target_id"])
         if not isinstance(refs, list):
             return ()
-        return tuple(ref for ref in refs if isinstance(ref, str))
+        refs.extend(rich_text_reference_ids(self.data))
+        return tuple(dict.fromkeys(ref for ref in refs if isinstance(ref, str)))
 
     @property
     def tests(self) -> tuple[str, ...]:

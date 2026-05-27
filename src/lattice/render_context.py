@@ -40,6 +40,7 @@ from .render_graph import build_search_index
 from .render_paths import href_for, unit_output_path
 from .render_templates import DEFAULT_TEMPLATES
 from .render_tags import tag_index_for, tag_values
+from .rich_text import render_rich_text
 
 
 def json_for_html_script(value: object) -> str:
@@ -75,6 +76,7 @@ def template_environment(config: LatticeConfig) -> Environment:
     env.globals["type_tone"] = type_tone
     env.globals["type_nav_label"] = type_nav_label
     env.globals["visible_link_nodes"] = visible_link_nodes
+    env.globals["rich_text"] = render_rich_text
     return env
 
 

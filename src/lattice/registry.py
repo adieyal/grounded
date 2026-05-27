@@ -9,6 +9,7 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 from .models import Issue, LatticeConfig, Spec
+from .rich_text import rich_text_reference_ids
 
 
 BASE_REQUIRED_FIELDS = ("id", "name", "owner", "status", "description")
@@ -594,4 +595,13 @@ def _validate_references(registry: SpecRegistry) -> list[Issue]:
                             spec.path,
                         )
                     )
+        for target in rich_text_reference_ids(spec.data):
+            if target not in registry.by_id:
+                issues.append(
+                    Issue(
+                        "LATTICE-REF-001",
+                        f"{spec.id} inline rich-text link references unknown spec {target}",
+                        spec.path,
+                    )
+                )
     return issues

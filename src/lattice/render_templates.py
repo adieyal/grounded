@@ -54,7 +54,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   {% for spec in units %}
     <lattice-unit-card>
       <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
-      <p class="pd-card-desc">{{ spec.description }}</p>
+      <p class="pd-card-desc">{{ rich_text(spec.description, registry) | safe }}</p>
       <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
     </lattice-unit-card>
   {% endfor %}
@@ -81,7 +81,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   {% for spec in units %}
     <lattice-unit-card>
       <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
-      <p class="pd-card-desc">{{ spec.description }}</p>
+      <p class="pd-card-desc">{{ rich_text(spec.description, registry) | safe }}</p>
       <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
     </lattice-unit-card>
   {% endfor %}
@@ -99,7 +99,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 <lattice-page-hero slot="hero">
   <span slot="eyebrow">{{ spec.kind | field_label }}</span>
   <span slot="title">{{ data.name }}</span>
-  <span slot="description">{{ spec.description }}</span>
+  <span slot="description">{{ rich_text(spec.description, registry) | safe }}</span>
   <lattice-copy-id slot="actions" value="{{ spec.id }}"></lattice-copy-id>
 </lattice-page-hero>
 {% set tags = tag_values(spec) %}
@@ -139,7 +139,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
         <td class="ft-req"></td>
         {% endif %}
         <td class="ft-desc">
-          <p class="field-description">{{ field["description"] }}</p>
+          <p class="field-description">{{ rich_text(field["description"], registry) | safe }}</p>
           {% if field["allowed_values"] %}
           <div class="allowed-values">
             <span>Allowed values:</span>
@@ -180,7 +180,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
       <section class="detail-panel">
         <h3>{{ section["title"] }}</h3>
         <ul>
-          {% for item in section["items"] %}<li>{{ item }}</li>{% endfor %}
+          {% for item in section["items"] %}<li>{{ rich_text(item, registry) | safe }}</li>{% endfor %}
         </ul>
       </section>
       {% endfor %}
@@ -195,7 +195,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
       {% for node in section["items"] %}
       <lattice-concept-card>
         <h3 class="pd-inv-name">{{ lattice_link(node.type, node.id, node.label, "plain") | safe }}</h3>
-        <p class="pd-inv-desc">{{ node.summary }}</p>
+        <p class="pd-inv-desc">{{ rich_text(node.summary, registry) | safe }}</p>
       </lattice-concept-card>
       {% endfor %}
     </lattice-concept-section>
@@ -236,7 +236,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 <lattice-page-hero>
   <span slot="eyebrow">Slice</span>
   <span slot="title">{{ slice.data.name }}</span>
-  <span slot="description">{{ slice_description }}</span>
+  <span slot="description">{{ rich_text(slice_description, registry) | safe }}</span>
   <p slot="actions" class="background-link"><a href="{{ docs_home_href }}">All project memory</a></p>
 </lattice-page-hero>
 {% for type_name, units in by_type.items() %}
@@ -246,7 +246,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   {% for spec in units %}
     <lattice-unit-card>
       <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
-      <p class="pd-card-desc">{{ spec.description }}</p>
+      <p class="pd-card-desc">{{ rich_text(spec.description, registry) | safe }}</p>
       <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
     </lattice-unit-card>
   {% endfor %}
@@ -273,7 +273,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   {% for item in section["items"] %}
     <lattice-unit-card>
       <h3 class="pd-card-name nm-{{ type_tone(item['type']) }}">{{ lattice_link(item["type"], item["id"], item["label"], "card-title", item.get("fragment")) | safe }}</h3>
-      <p class="pd-card-desc">{{ item["summary"] }}</p>
+      <p class="pd-card-desc">{{ rich_text(item["summary"], registry) | safe }}</p>
       <div class="pd-card-foot"><span class="tag t-{{ type_tone(item['type']) }}">{{ item["type"] }}</span></div>
     </lattice-unit-card>
   {% endfor %}

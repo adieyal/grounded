@@ -1,10 +1,22 @@
 ---
-last_updated: 2026-05-24
+last_updated: 2026-05-27
 ---
 
 # Link Rendering Guidance
 
 Use `lattice-link` whenever a response or generated page refers to a canonical Lattice unit by ID.
+
+Inside Lattice prose fields such as `description`, `summary`, `decision`,
+`definition`, `gap`, `suggested_improvement`, and field descriptions, prefer
+constrained inline rich text:
+- `[[SPEC-ID]]` links to the target using its display name
+- `[[SPEC-ID|label]]` links to the target using a custom label
+- `[[SPEC-ID#fragment|label]]` links to a target fragment
+- `[[tag:name|label]]` links to a project-defined tag
+
+Inline spec links participate in validation, graph references, and backlinks.
+Use explicit `references` for durable structural relationships and inline links
+for prose-local context.
 
 When the target is a field, member, or sub-section, use the `fragment` attribute so the link points to the exact anchor.
 When the display label should differ from the canonical unit name, use the optional `label` attribute.

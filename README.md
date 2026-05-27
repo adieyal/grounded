@@ -21,6 +21,8 @@ lattice render --check
 lattice audit
 ```
 
+See [CHANGELOG.md](CHANGELOG.md) for release notes starting with `0.3.0`.
+
 ## Core Ideology
 
 - A fact is authored once.
@@ -50,11 +52,34 @@ lattice audit
 - Slice units render scoped documentation pages at
   `slices/<slug>/index.html`; each slice can declare its own `description`,
   explicit `members`, optional `index_template`, and optional `style_path`.
+- Prose fields support constrained inline rich text: `[[SPEC-ID]]`,
+  `[[SPEC-ID|label]]`, `[[SPEC-ID#fragment|label]]`, and
+  `[[tag:name|label]]` render as safe internal links, while linked spec IDs
+  participate in validation and backlinks.
 - Project templates can extend reusable bundled templates such as
   `unit-core.html.j2` and `slice-index.html.j2`.
 - Project styles can override the packaged stylesheet through the configured
   `styles_dir`.
 - Verification units can run project-specific commands during `lattice verify`.
+
+## Rich Text
+
+Use constrained inline rich text inside prose fields such as `description`,
+`summary`, `decision`, `definition`, `gap`, `suggested_improvement`, and field
+descriptions:
+
+```text
+[[SPEC-ID]]
+[[SPEC-ID|custom label]]
+[[SPEC-ID#fragment|field label]]
+[[tag:planned|planned work]]
+`inline code`
+**strong text**
+_emphasis_
+```
+
+Spec links are validated and become graph references. Tag links render as tag
+links but do not create spec references. Raw HTML is escaped.
 
 ## Extension Policy
 

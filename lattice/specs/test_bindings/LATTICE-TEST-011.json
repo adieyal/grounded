@@ -1,0 +1,13 @@
+{
+  "id": "LATTICE-TEST-011",
+  "kind": "test_binding",
+  "name": "Rich text links render and validate as references",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-039"
+  ],
+  "status": "active",
+  "description": "Binds LATTICE-DECISION-039 to an executable test so Lattice can verify inline rich-text links render safely and participate in reference validation.",
+  "target": "LATTICE-DECISION-039",
+  "test": "uv run pytest tests/test_lattice.py::LatticeTests::test_rich_text_links_render_and_validate_as_references -q"
+}

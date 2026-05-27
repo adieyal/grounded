@@ -273,6 +273,100 @@ class LatticeTests(unittest.TestCase):
                 )
             )
 
+    def test_rich_text_links_render_and_validate_as_references(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            item = {
+                "id": "TODO-ITEM-001",
+                "kind": "domain_object",
+                "name": "TodoItem",
+                "short_name": "Task",
+                "owner": "todo",
+                "status": "active",
+                "description": "Defines the task target.",
+                "fields": [
+                    {
+                        "name": "title",
+                        "type": "string",
+                        "required": True,
+                        "description": "The title field.",
+                    }
+                ],
+            }
+            overview = {
+                "id": "TODO-CONCEPT-001",
+                "kind": "domain_object",
+                "name": "Todo overview",
+                "owner": "todo",
+                "status": "active",
+                "description": (
+                    "Links to [[TODO-ITEM-001|Task]], "
+                    "[[TODO-ITEM-001#field-todo-item-001-title|title field]], "
+                    "[[tag:planned|planned work]], **strong text**, _emphasis_, "
+                    "`code`, and <script>escaped</script>."
+                ),
+            }
+            specs_dir = root / ".lattice/specs/examples"
+            specs_dir.mkdir(parents=True)
+            for spec in (item, overview):
+                (specs_dir / f"{spec['id']}.json").write_text(
+                    json.dumps(spec), encoding="utf-8"
+                )
+
+            config = load_config(root)
+            registry = load_registry(config)
+
+            self.assertEqual([], registry.issues)
+            self.assertIn(
+                "TODO-ITEM-001", registry.by_id["TODO-CONCEPT-001"].references
+            )
+
+            render_all(config, registry)
+
+            overview_html = (
+                root / ".lattice/generated/docs/units/todo-concept-001.html"
+            ).read_text(encoding="utf-8")
+            item_html = (
+                root / ".lattice/generated/docs/units/todo-item-001.html"
+            ).read_text(encoding="utf-8")
+            markdown = (root / ".lattice/generated/docs/project-memory.md").read_text(
+                encoding="utf-8"
+            )
+
+            self.assertIn(
+                '<lattice-link type="domain_object" lattice-id="TODO-ITEM-001" label="Task" variant="plain">Task</lattice-link>',
+                overview_html,
+            )
+            self.assertIn(
+                '<lattice-link type="domain_object" lattice-id="TODO-ITEM-001" label="title field" fragment="field-todo-item-001-title" variant="plain">title field</lattice-link>',
+                overview_html,
+            )
+            self.assertIn(
+                '<lattice-link type="tag" lattice-id="planned" label="planned work" variant="tag">planned work</lattice-link>',
+                overview_html,
+            )
+            self.assertIn("<strong>strong text</strong>", overview_html)
+            self.assertIn("<em>emphasis</em>", overview_html)
+            self.assertIn("<code>code</code>", overview_html)
+            self.assertIn("&lt;script&gt;escaped&lt;/script&gt;", overview_html)
+            self.assertIn("Todo overview", item_html)
+            self.assertIn("Links to Task, title field, planned work", markdown)
+
+            missing_id = "MISSING" + "-SPEC-001"
+            overview["description"] = f"Broken [[{missing_id}]] link."
+            (specs_dir / f"{overview['id']}.json").write_text(
+                json.dumps(overview), encoding="utf-8"
+            )
+            broken = load_registry(config)
+
+            self.assertTrue(
+                any(
+                    issue.code == "LATTICE-REF-001" and missing_id in issue.message
+                    for issue in broken.issues
+                )
+            )
+
     def test_default_css_is_bundled_with_package(self) -> None:
         css = default_css()
 
