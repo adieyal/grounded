@@ -6,6 +6,8 @@ last_updated: 2026-05-27
 
 Lattice works best when adoption starts small.
 
+<img src="images/adoption.png" alt="A four-level adoption ladder for Lattice, from canonical glossary through verification and drift checks." width="900">
+
 The mistake is trying to model the whole project. That creates documentation theatre. The useful move is to capture the few facts that already cause drift.
 
 ## Level 1: Canonical glossary

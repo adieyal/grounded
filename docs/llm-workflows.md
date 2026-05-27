@@ -35,6 +35,8 @@ Lattice gives the agent:
 
 Before a non-trivial change, the agent should:
 
+<img src="images/workflow.png" alt="An LLM workflow where an agent checks lattice.yml, finds the existing Lattice owner, updates or creates specs, implements changes, runs validation and audits, and reports changed IDs." width="900">
+
 1. Read `lattice.yml`.
 2. Find relevant existing specs.
 3. Update the existing owner if the fact already exists.

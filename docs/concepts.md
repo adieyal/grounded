@@ -34,6 +34,8 @@ This is the core Lattice rule: **a durable fact is authored once.**
 
 A knowledge unit is the JSON object that owns a project fact.
 
+<img src="images/knowledge_unit.png" alt="A generated knowledge unit page showing a stable ID, description, typed metadata, links, and backlinks." width="900">
+
 Every unit has a few common fields:
 
 - `id`: the stable identifier other artifacts can reference
@@ -68,6 +70,8 @@ Those references become links in generated docs and backlinks on the target page
 ## Generated docs
 
 Generated docs are human-readable views built from the specs.
+
+<img src="images/outputs.png" alt="Lattice specs flow into generated human docs, generated LLM context, validation, verification commands, drift audits, and relationship diagrams." width="900">
 
 They are not the source of truth. The specs are.
 

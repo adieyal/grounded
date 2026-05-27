@@ -1,3 +1,7 @@
+---
+last_updated: 2026-05-27
+---
+
 # Todo Lattice Example
 
 This example shows how Lattice keeps a small app's project knowledge in sync.
@@ -25,6 +29,8 @@ uv run lattice --root examples/todo audit
 The generated documentation is written to `examples/todo/site`.
 
 ## What to look for
+
+<img src="../../docs/images/generate_docs.png" alt="Generated Todo documentation showing stable IDs, linked knowledge units, backlinks, and searchable project memory." width="900">
 
 After rendering, open the generated site and look for:
 

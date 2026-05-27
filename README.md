@@ -12,6 +12,8 @@ Use it when your project has important knowledge scattered across README files, 
 
 ## The problem
 
+<img src="docs/images/before_and_after.png" alt="Before Lattice, project knowledge drifts across README files, tests, agent instructions, comments, and design docs. After Lattice, one stable fact owns the rule and downstream artifacts link back to it." width="900">
+
 Most projects repeat the same idea in many places:
 
 - A business rule in a design doc.
@@ -25,6 +27,8 @@ At first this is fine. Later, one copy changes and the others do not.
 Lattice treats that as drift.
 
 ## What Lattice gives you
+
+<img src="docs/images/outputs.png" alt="Lattice specs produce generated human docs, generated LLM context, validation, verification commands, drift audits, and relationship diagrams." width="900">
 
 - One canonical owner for each durable project fact.
 - Stable IDs that docs, tests, code, prompts, and plans can reference.
@@ -111,6 +115,8 @@ During local development, prefer `uv run lattice ...` so the command uses the ch
 
 ## Adopt incrementally
 
+<img src="docs/images/adoption.png" alt="A lightweight four-level adoption ladder: canonical glossary, rules and decisions, generated docs and LLM context, then verification and drift checks." width="900">
+
 You do not need to model your whole system on day one.
 
 ### Level 1: Canonical glossary
@@ -161,6 +167,8 @@ Lattice is probably too much if:
 ## Examples
 
 - [Todo example](examples/todo/README.md): a small domain showing terms, lifecycle states, rules, links, and generated docs.
+
+<img src="docs/images/generate_docs.png" alt="Generated Todo documentation showing stable IDs, knowledge units, links, backlinks, and searchable project memory." width="900">
 
 ## Deeper docs
 

@@ -96,6 +96,8 @@ Verification is how Lattice moves from structured documentation to executable pr
 
 Generate a Graphviz DOT relationship graph around one project fact.
 
+<img src="images/relationships_around_fact.png" alt="A small relationship graph centered on one Lattice fact, showing outgoing references and backlinks." width="900">
+
 ```bash
 uv run lattice graph SPEC-ID
 ```

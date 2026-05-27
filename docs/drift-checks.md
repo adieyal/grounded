@@ -96,6 +96,8 @@ A verification command can be broad when the fact is broad, but most facts shoul
 
 ## CI adoption
 
+<img src="images/ci_drift.png" alt="A pull request check flow running lattice validate, lattice render --check, lattice audit, and lattice verify before merge." width="900">
+
 A minimal CI path is:
 
 ```bash

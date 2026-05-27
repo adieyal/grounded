@@ -67,6 +67,8 @@ Validation checks that specs have the expected shape and that links point to rea
 uv run lattice render
 ```
 
+<img src="images/generate_docs.png" alt="Generated documentation produced by Lattice after rendering specs." width="900">
+
 This generates human-readable docs and LLM-readable context from the same specs.
 
 Do not edit generated files by hand. Edit the source specs, then render again.
