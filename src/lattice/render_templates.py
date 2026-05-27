@@ -269,15 +269,14 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 {% for section in tag_sections %}
 <lattice-unit-section>
   <lattice-section-heading divider>{{ section["title"] }}</lattice-section-heading>
-  <div class="pd-cards">
+  <lattice-compact-list>
   {% for item in section["items"] %}
-    <lattice-unit-card>
-      <h3 class="pd-card-name nm-{{ type_tone(item['type']) }}">{{ lattice_link(item["type"], item["id"], item["label"], "card-title", item.get("fragment")) | safe }}</h3>
-      <p class="pd-card-desc">{{ rich_text(item["summary"], registry) | safe }}</p>
-      <div class="pd-card-foot"><span class="tag t-{{ type_tone(item['type']) }}">{{ item["type"] }}</span></div>
-    </lattice-unit-card>
+    <lattice-compact-item>
+      <span slot="name">{{ lattice_link(item["type"], item["id"], item["label"], "plain", item.get("fragment")) | safe }}</span>
+      <span slot="description">{{ rich_text(item["summary"], registry) | safe }}</span>
+    </lattice-compact-item>
   {% endfor %}
-  </div>
+  </lattice-compact-list>
 </lattice-unit-section>
 {% endfor %}
 </lattice-tag-page>

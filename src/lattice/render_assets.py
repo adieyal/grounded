@@ -246,6 +246,18 @@ class LatticeLifecycleTypePage extends LitElement { render() { return html`<latt
 class LatticeFieldTable extends LitElement { static styles = css`:host { display: block; }`; render() { return html`<slot></slot>`; } }
 class LatticeConceptSection extends LitElement { static styles = css`:host { display: grid; gap: 0.4375rem; margin-bottom: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
 class LatticeConceptCard extends LitElement { static styles = css`:host { border: var(--border-width) solid var(--color-border-tertiary); border-radius: var(--radius-md); display: block; padding: 0.625rem 0.875rem; }`; render() { return html`<slot></slot>`; } }
+class LatticeCompactList extends LitElement { static styles = css`:host { display: grid; gap: 0; }`; render() { return html`<slot></slot>`; } }
+class LatticeCompactItem extends LitElement {
+  static styles = css`
+    :host { border-bottom: var(--border-width) solid var(--color-border-tertiary); display: block; padding: 0.5625rem 0; }
+    :host(:first-child) { padding-top: 0; }
+    :host(:last-child) { border-bottom: 0; padding-bottom: 0; }
+    .name { color: var(--color-text-primary); font: var(--font-weight-medium) var(--font-size-sm)/1.35 var(--font-sans); margin: 0 0 var(--space-3xs); }
+    .description { color: var(--color-text-secondary); font-size: var(--font-size-xs); line-height: 1.5; margin: 0; }
+    ::slotted([slot="description"]) { margin: 0; }
+  `;
+  render() { return html`<div class="name"><slot name="name"></slot></div><div class="description"><slot name="description"></slot></div>`; }
+}
 class LatticeLinksPanel extends LitElement { static styles = css`:host { display: block; margin-bottom: var(--space-xl); }`; render() { return html`<slot></slot>`; } }
 class LatticeRawJson extends LitElement { static styles = css`:host { display: block; }`; render() { return html`<slot></slot>`; } }
 class LatticeUnitSection extends LitElement { static styles = css`:host { border-bottom: var(--border-width) solid var(--color-border-tertiary); display: block; padding: var(--space-lg) var(--space-xl); }`; render() { return html`<slot></slot>`; } }
@@ -276,6 +288,8 @@ define('lattice-lifecycle-type-page', LatticeLifecycleTypePage);
 define('lattice-field-table', LatticeFieldTable);
 define('lattice-concept-section', LatticeConceptSection);
 define('lattice-concept-card', LatticeConceptCard);
+define('lattice-compact-list', LatticeCompactList);
+define('lattice-compact-item', LatticeCompactItem);
 define('lattice-links-panel', LatticeLinksPanel);
 define('lattice-raw-json', LatticeRawJson);
 define('lattice-unit-section', LatticeUnitSection);

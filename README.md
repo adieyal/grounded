@@ -56,6 +56,9 @@ See [CHANGELOG.md](CHANGELOG.md) for release notes starting with `0.3.0`.
   `[[SPEC-ID|label]]`, `[[SPEC-ID#fragment|label]]`, and
   `[[tag:name|label]]` render as safe internal links, while linked spec IDs
   participate in validation and backlinks.
+- Generated docs include compact list components for dense linked
+  name-and-description rows: `lattice-compact-list` and
+  `lattice-compact-item`.
 - Project templates can extend reusable bundled templates such as
   `unit-core.html.j2` and `slice-index.html.j2`.
 - Project styles can override the packaged stylesheet through the configured

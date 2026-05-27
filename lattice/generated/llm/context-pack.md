@@ -97,6 +97,10 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-001, LATTICE-DECISION-029, LATTICE-DECISION-030, LATTICE-DECISION-032, LATTICE-DECISION-035
 - `LATTICE-DECISION-040` (decision, owner: lattice): Documents the 0.4.0 version bump so the inline rich-text release has a canonical Lattice owner. The package version is bumped to 0.4.0 for constrained inline rich text, inline Lattice links in prose fields, tag links in prose, and validation/backlink support for inline spec references.
   Links: LATTICE-DECISION-038, LATTICE-DECISION-039
+- `LATTICE-DECISION-041` (decision, owner: lattice): Documents the compact list components so generated docs can show dense linked name-and-description rows without full unit cards. Generated documentation includes lattice-compact-list and lattice-compact-item Lit components for compact repeated items that need a name, description, and optional link. Compact lists are intended for dense contexts that would otherwise use lattice-unit-card but do not need a full card frame.
+  Links: LATTICE-DECISION-022, LATTICE-DECISION-023, LATTICE-DECISION-029, LATTICE-DECISION-039
+- `LATTICE-DECISION-042` (decision, owner: lattice): Documents the 0.5.0 version bump so the compact list release has a canonical Lattice owner. The package version is bumped to 0.5.0 for compact linked item list components and their tag page rendering usage.
+  Links: LATTICE-DECISION-040, LATTICE-DECISION-041
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
 - `PROJECT-DOMAIN-001` (domain_object, owner: project): Defines the Canonical project fact domain object and explains how other specs should refer to it. A durable unit of project knowledge with exactly one Lattice spec as its source of truth.
@@ -189,6 +193,8 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-001, LATTICE-SCHEMA-003
 - `LATTICE-TEST-011` (test_binding, owner: lattice): Binds LATTICE-DECISION-039 to an executable test so Lattice can verify inline rich-text links render safely and participate in reference validation.
   Links: LATTICE-DECISION-039
+- `LATTICE-TEST-012` (test_binding, owner: lattice): Binds LATTICE-DECISION-041 to an executable test so Lattice can verify compact list components render linked names and descriptions.
+  Links: LATTICE-DECISION-041
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.

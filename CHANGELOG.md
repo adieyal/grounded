@@ -6,6 +6,13 @@ last_updated: 2026-05-27
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
+## 0.5.0 - 2026-05-27
+
+- Added `lattice-compact-list` and `lattice-compact-item` Lit components for
+  dense name-and-description rows with optional internal links.
+- Render tag member pages with compact item lists instead of full unit cards.
+- Documented the compact list components in the generated project feature list.
+
 ## 0.4.0 - 2026-05-27
 
 - Added constrained inline rich text for prose fields.

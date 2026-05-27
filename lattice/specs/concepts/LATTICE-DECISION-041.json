@@ -1,0 +1,18 @@
+{
+  "decision": "Generated documentation includes lattice-compact-list and lattice-compact-item Lit components for compact repeated items that need a name, description, and optional link. Compact lists are intended for dense contexts that would otherwise use lattice-unit-card but do not need a full card frame.",
+  "id": "LATTICE-DECISION-041",
+  "kind": "decision",
+  "name": "Render compact linked item lists",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-022",
+    "LATTICE-DECISION-023",
+    "LATTICE-DECISION-029",
+    "LATTICE-DECISION-039"
+  ],
+  "status": "active",
+  "description": "Documents the compact list components so generated docs can show dense linked name-and-description rows without full unit cards.",
+  "tests": [
+    "LATTICE-TEST-012"
+  ]
+}

@@ -698,6 +698,8 @@ class LatticeTests(unittest.TestCase):
             ).read_text(encoding="utf-8")
 
             self.assertIn("lattice-tag-index", item_html)
+            self.assertIn("lattice-compact-list", tag_html)
+            self.assertIn("lattice-compact-item", tag_html)
             self.assertIn(
                 '<lattice-link type="tag" lattice-id="deprecated" label="deprecated" variant="tag">deprecated</lattice-link>',
                 item_html,
@@ -715,7 +717,7 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("Task", tag_html)
             self.assertIn("Task.legacy_code", tag_html)
             self.assertIn(
-                'fragment="field-todo-item-001-legacy-code"',
+                '<lattice-link type="domain_object" lattice-id="TODO-ITEM-001" label="Task.legacy_code" fragment="field-todo-item-001-legacy-code" variant="plain">Task.legacy_code</lattice-link>',
                 tag_html,
             )
             self.assertIn(
