@@ -5,6 +5,7 @@
   "owner": "project",
   "references": [
     "PROJECT-CONCEPT-001",
+    "PROJECT-CONCEPT-003",
     "PROJECT-RULE-002"
   ],
   "status": "active",
