@@ -125,12 +125,16 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
 - `LATTICE-DECISION-055` (decision, owner: lattice): Documents the 0.10.0 version bump so the CLI project-memory search release has a canonical Lattice owner. The package version is bumped to 0.10.0 for CLI project-memory search commands, including search, entities, specs, spec, and check-new workflows with deterministic ranking and JSON output.
   Links: LATTICE-DECISION-054
+- `LATTICE-DECISION-056` (decision, owner: lattice): Documents the project-memory module boundary so graph semantics remain independently testable and JSON, filesystem, and JSON Schema mechanics can be replaced by adapters. Project-memory loading is adapter-backed: the project_memory module owns Lattice graph semantics such as unit indexing, lifecycle views, reference extraction, backlink derivation, duplicate IDs, and unknown-reference issues, while filesystem JSON loading, type-registry JSON loading, and JSON Schema execution live in project_memory_json infrastructure adapters. The legacy registry API remains a compatibility wrapper for this migration slice.
+  Links: LATTICE-DECISION-001, LATTICE-DECISION-047, LATTICE-DECISION-054
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
 - `PROJECT-DOMAIN-001` (domain_object, owner: project): Defines the Canonical project fact domain object and explains how other specs should refer to it. A durable unit of project knowledge with exactly one Lattice spec as its source of truth.
   Links: PROJECT-CONCEPT-001, PROJECT-RULE-001
 - `PROJECT-RULE-001-EX001` (example, owner: project): Provides a concrete example for PROJECT-RULE-001 so the rule can be understood and verified in context.
   Links: PROJECT-RULE-001
+- `LATTICE-COMPAT-001` (guardrail, owner: lattice): Defines the Pathless SpecRegistry compatibility unit guardrail so compatibility adapters report source models that cannot be represented by the filesystem-shaped legacy SpecRegistry API. The SpecRegistry compatibility adapter must not invent filesystem paths for project-memory units loaded from non-filesystem sources.
+  Links: LATTICE-DECISION-056, PROJECT-RULE-001
 - `LATTICE-COVERAGE-001` (guardrail, owner: lattice): Defines the Required canonical fact lacks declared test coverage guardrail so validation, audit, and maintenance work can recognize this class of drift. Specs whose kind requires executable proof must declare a test directly or through a test_binding.
   Links: PROJECT-RULE-001
 - `LATTICE-DRIFT-001` (guardrail, owner: lattice): Defines the Generated view is stale guardrail so validation, audit, and maintenance work can recognize this class of drift. Generated Lattice views must match the current canonical registry.
@@ -201,6 +205,8 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-035, PROJECT-RULE-001
 - `LATTICE-TYPE-010` (guardrail, owner: lattice): Defines the Tag constraint on non-reference field guardrail so validation and maintenance work can recognize invalid reference_tag_constraints configuration. A reference_tag_constraints entry must target a field declared as a reference, single reference, or nested reference field.
   Links: LATTICE-DECISION-035, PROJECT-RULE-001
+- `LATTICE-TYPE-011` (guardrail, owner: lattice): Defines the Type hierarchy cycle guardrail so validation and maintenance work can recognize circular type inheritance in the merged type registry. A type definition inheritance chain must not cycle back to a type that already appears in the chain.
+  Links: LATTICE-DECISION-001, LATTICE-DECISION-056, PROJECT-RULE-001
 - `LATTICE-VERIFY-001` (guardrail, owner: lattice): Defines the Verification command failed guardrail so validation, audit, and maintenance work can recognize this class of drift. Project-specific verification commands declared by knowledge-unit type definitions must pass when lattice verify runs.
   Links: LATTICE-DECISION-001, PROJECT-RULE-001
 - `PROJECT-GAP-001` (schema_gap, owner: project): Records the Project-specific fact shapes belong in the type registry schema gap so future registry or renderer work has a canonical owner. When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.
@@ -247,6 +253,8 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-035
 - `LATTICE-TEST-021` (test_binding, owner: lattice): Binds generated link hover tooltip behavior to the renderer round-trip test so generated docs expose target summaries without navigation.
   Links: LATTICE-DECISION-022
+- `LATTICE-TEST-022` (test_binding, owner: lattice): Binds the adapter-backed project-memory loading decision to focused business-module and JSON adapter tests.
+  Links: LATTICE-DECISION-056
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.

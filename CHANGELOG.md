@@ -1,10 +1,20 @@
 ---
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 ---
 
 # Changelog
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
+
+## Unreleased - 2026-05-28
+
+- Extracted project-memory loading from `registry.py` into a
+  `project_memory` business module with JSON/filesystem infrastructure
+  adapters and a `SpecRegistry` compatibility layer.
+- Made duplicate IDs, type hierarchy validation, shape validation, reference
+  validation, backlinks, and active/retired views independently testable.
+- Added guardrails for type hierarchy cycles and pathless units that cannot be
+  represented by the filesystem-shaped compatibility registry.
 
 ## 0.12.1 - 2026-05-27
 

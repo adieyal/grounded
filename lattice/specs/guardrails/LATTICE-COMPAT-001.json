@@ -1,0 +1,13 @@
+{
+  "id": "LATTICE-COMPAT-001",
+  "kind": "guardrail",
+  "name": "Pathless SpecRegistry compatibility unit",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-056",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "description": "Defines the Pathless SpecRegistry compatibility unit guardrail so compatibility adapters report source models that cannot be represented by the filesystem-shaped legacy SpecRegistry API.",
+  "summary": "The SpecRegistry compatibility adapter must not invent filesystem paths for project-memory units loaded from non-filesystem sources."
+}
