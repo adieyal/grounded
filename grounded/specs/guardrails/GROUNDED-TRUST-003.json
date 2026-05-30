@@ -5,6 +5,7 @@
   "owner": "grounded",
   "status": "active",
   "trust_status": "checkable",
+  "trust_basis": "This guardrail is covered by trust validation tests but is not itself the direct target of a verification spec.",
   "description": "Defines the invalid verification reference guardrail so validation can report verified claims linked to inactive or non-verification specs.",
   "summary": "verification_refs for verified claims must point to active verification specs, not inactive units or other spec kinds.",
   "references": [

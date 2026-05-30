@@ -68,6 +68,7 @@ class ProjectMemoryType:
     reference_tag_constraints: tuple[ReferenceTagConstraint, ...]
     required: tuple[str, ...]
     list_fields: tuple[str, ...]
+    semantic_category: str | None = None
 
     @property
     def kind(self) -> str:

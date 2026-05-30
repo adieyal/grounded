@@ -10,7 +10,7 @@
   "order": 50,
   "renderer": "source_summary",
   "content_mode": "mixed",
-  "intro": "README.md is now a full-file generated_document output. The same path can be used for docs pages as their durable claims move into source specs and their document_section graphs become complete.",
+  "intro": "README.md is now a full-file generated artifact. The same path can be used for docs pages as their durable claims move into source specs and their projection graphs become complete.",
   "source_refs": [
     "GROUNDED-DECISION-037",
     "GROUNDED-DECISION-060",

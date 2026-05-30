@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-DECISION-SHAPE-001",
+  "kind": "guardrail",
+  "name": "Decisions stay narrow",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the decision-shape guardrail so decision specs do not become arbitrary workflow, generated-doc, or implementation-note containers.",
+  "summary": "Decision specs should stay focused on context or problem, the decision, consequences, references, lifecycle, and trust metadata.",
+  "references": [
+    "GROUNDED-DECISION-065"
+  ],
+  "tests": [
+    "GROUNDED-TEST-033"
+  ]
+}

@@ -5,6 +5,7 @@
   "owner": "grounded",
   "status": "active",
   "trust_status": "checkable",
+  "trust_basis": "The canonical trust-status vocabulary is synchronized by tests and schema checks, but this enum is not itself a runtime verification target.",
   "description": "Defines the trust-status vocabulary used to describe claim credibility separately from lifecycle status.",
   "definition": "Trust status records credibility while status records lifecycle.",
   "values": [
@@ -14,6 +15,13 @@
     "aspirational",
     "unknown"
   ],
+  "value_definitions": {
+    "verified": "The claim has targeted executable verification and must pass grounded verify.",
+    "checkable": "The claim is structurally checkable through verification, or records why it is not wired yet.",
+    "observed": "The claim is based on cited observation, source references, or an explicit observed basis.",
+    "aspirational": "The claim is proposed or future intent, not current truth.",
+    "unknown": "No stronger credibility claim is made."
+  },
   "references": [
     "GROUNDED-TRUST-GUARDRAIL-001"
   ],

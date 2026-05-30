@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-TRUST-005",
+  "kind": "guardrail",
+  "name": "Generated artifacts cannot own truth",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the generated-artifact truth boundary so projected documentation artifacts cannot satisfy claim credibility.",
+  "summary": "Generated artifacts may render, cite, or derive from authored specs, but they cannot use verified, checkable, or observed trust_status as canonical truth owners.",
+  "references": [
+    "GROUNDED-SEMANTIC-002"
+  ],
+  "tests": [
+    "GROUNDED-TEST-033"
+  ]
+}

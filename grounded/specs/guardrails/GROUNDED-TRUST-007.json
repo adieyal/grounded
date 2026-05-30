@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-TRUST-007",
+  "kind": "guardrail",
+  "name": "Observed claims need a non-generated basis",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the observed trust-status guardrail so observed claims cite a non-generated source, evidence text, or an explicit observed basis.",
+  "summary": "An active claim-bearing spec with trust_status observed cannot rely only on generated artifacts as its evidence basis.",
+  "references": [
+    "GROUNDED-TRUST-STATUS-001",
+    "GROUNDED-TRUST-005"
+  ],
+  "tests": [
+    "GROUNDED-TEST-033"
+  ]
+}

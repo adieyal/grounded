@@ -13,6 +13,7 @@ from ..domain.model import (
 from ..domain.references import reference_ids_for, validate_references
 from .ports import ShapeValidator, TypeSource, UnitSource
 from ....trust import validate_trust_credibility
+from ....trust_policy import is_allowed_semantic_category
 
 
 def load_project_memory(
@@ -105,6 +106,21 @@ def validate_type_definitions(types: ProjectMemoryTypes) -> list[ProjectMemoryIs
                 )
             )
         issues.extend(_validate_reference_tag_constraint_definitions(definition, types))
+        if (
+            definition.semantic_category is not None
+            and not is_allowed_semantic_category(definition.semantic_category)
+        ):
+            issues.append(
+                ProjectMemoryIssue(
+                    "GROUNDED-TYPE-012",
+                    (
+                        f"type {type_name} semantic_category must be one of "
+                        "authored_knowledge, generated_artifact, "
+                        "registry_infrastructure"
+                    ),
+                    types.source_location,
+                )
+            )
     return issues
 
 

@@ -5,6 +5,7 @@
   "owner": "grounded",
   "status": "active",
   "trust_status": "checkable",
+  "trust_basis": "This guardrail is covered by trust validation tests but is not itself the direct target of a verification spec.",
   "description": "Defines the verified-claim proof guardrail so validation can report verified claims with no active targeted verification.",
   "summary": "An active verified claim must have at least one active verification_ref whose verification target equals the claim ID.",
   "references": [

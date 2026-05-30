@@ -1,0 +1,21 @@
+{
+  "id": "GROUNDED-TEST-033",
+  "kind": "test_binding",
+  "name": "Semantic compression boundary tests",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Binds the P2 semantic compression guardrails to tests covering semantic categories, generated-artifact truth boundaries, trust-status structure, concept drift, and document-section projection semantics.",
+  "target": "GROUNDED-SEMANTIC-001",
+  "test": "uv run pytest tests/test_semantic_compression.py -q",
+  "references": [
+    "GROUNDED-SEMANTIC-001",
+    "GROUNDED-SEMANTIC-002",
+    "GROUNDED-TYPE-012",
+    "GROUNDED-TRUST-005",
+    "GROUNDED-TRUST-006",
+    "GROUNDED-TRUST-007",
+    "GROUNDED-CONCEPT-001",
+    "GROUNDED-DECISION-SHAPE-001",
+    "GROUNDED-DOC-GRAPH-005"
+  ]
+}

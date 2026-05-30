@@ -15,6 +15,7 @@ from grounded.infrastructure.project_memory_json.json_type_source import (
 from grounded.registry import load_registry
 from grounded.render import render_all
 from grounded.trust_policy import TRUST_STATUSES
+from grounded.trust_policy import TRUST_STATUS_DESCRIPTIONS
 from grounded.verify import verify
 
 
@@ -58,6 +59,7 @@ class TrustCredibilityTests(unittest.TestCase):
 
         self.assertEqual(list(TRUST_STATUSES), schema_values)
         self.assertEqual(list(TRUST_STATUSES), enum_spec["values"])
+        self.assertEqual(TRUST_STATUS_DESCRIPTIONS, enum_spec["value_definitions"])
 
     def test_lifecycle_status_remains_separate_from_trust_status(self) -> None:
         with initialized_project() as root:

@@ -28,7 +28,8 @@
       "statement",
       "summary",
       "description"
-    ]
+    ],
+    "semantic_category": "authored_knowledge"
   },
   "concept": {
     "extends": "knowledge_unit",
@@ -51,7 +52,8 @@
       "owner",
       "status",
       "description"
-    ]
+    ],
+    "semantic_category": "authored_knowledge"
   },
   "decision": {
     "extends": "knowledge_unit",
@@ -83,7 +85,8 @@
       "decision",
       "summary",
       "description"
-    ]
+    ],
+    "semantic_category": "authored_knowledge"
   },
   "example": {
     "extends": "knowledge_unit",
@@ -110,7 +113,8 @@
     ],
     "single_reference_fields": [
       "rule"
-    ]
+    ],
+    "semantic_category": "authored_knowledge"
   },
   "guardrail": {
     "extends": "knowledge_unit",
@@ -135,7 +139,8 @@
       "status",
       "description",
       "summary"
-    ]
+    ],
+    "semantic_category": "registry_infrastructure"
   },
   "test_binding": {
     "extends": "knowledge_unit",
@@ -161,7 +166,8 @@
     ],
     "verification_fields": [
       "test"
-    ]
+    ],
+    "semantic_category": "registry_infrastructure"
   },
   "workflow": {
     "extends": "knowledge_unit",
@@ -185,6 +191,7 @@
       "status",
       "description",
       "summary"
-    ]
+    ],
+    "semantic_category": "authored_knowledge"
   }
 }

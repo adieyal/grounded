@@ -1,5 +1,5 @@
 {
-  "decision": "Grounded documentation is generated from a documentation graph. Durable knowledge lives in source specs; generated_document specs define output artifacts; document_section specs define ordered projections over source specs; documentation_set specs group generated documents; asset specs govern static and generated media. README.md and docs pages should move toward generated views rather than independent sources of truth.",
+  "decision": "Grounded documentation is generated from a documentation graph. Durable knowledge lives in source specs; generated artifact specs define output files, projection sections, documentation sets, and governed assets. README.md and docs pages should move toward generated artifacts rather than independent sources of truth.",
   "id": "GROUNDED-DECISION-060",
   "kind": "decision",
   "name": "Generate documentation from a documentation graph",

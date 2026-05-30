@@ -15,16 +15,17 @@
     "One canonical owner for each durable project fact.",
     "Stable IDs that docs, tests, code, prompts, and plans can reference.",
     "Structured JSON specs so important knowledge has a predictable shape.",
-    "A small metamodel for registry types, value types, and generated views.",
-    "A crisp split between registry_type definitions, registry_unit structure, knowledge_unit specs, and authored spec instances.",
+    "A small public vocabulary: Spec, Registry Type, Generated Artifact, and Verification.",
+    "A crisp split between authored specs, registry type definitions, generated artifacts, and executable verification.",
     "Generated docs for humans and generated context for LLM agents.",
-    "Validation for broken references, verification commands for project checks, and audits for stale generated views."
+    "Validation for broken references, verification commands for project checks, and audits for stale generated artifacts."
   ],
   "source_refs": [
     "GROUNDED-THEORY-001",
     "PROJECT-CONCEPT-001",
     "PROJECT-RULE-001",
-    "PROJECT-RULE-002"
+    "PROJECT-RULE-002",
+    "GROUNDED-DECISION-065"
   ],
   "asset_refs": [
     "GROUNDED-ASSET-001"

@@ -53,6 +53,9 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 "status": {"type": "string", "enum": ["active", "draft", "retired"]},
                 "summary": {"type": "string"},
                 "trust_status": TRUST_STATUS_SCHEMA,
+                "trust_basis": {"type": "string", "minLength": 1},
+                "observed_basis": {"type": "string", "minLength": 1},
+                "evidence": {"type": "string", "minLength": 1},
                 "verification_refs": {
                     "type": "array",
                     "items": {"type": "string", "minLength": 1},
@@ -65,6 +68,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "required": [*REGISTRY_UNIT_REQUIRED_FIELDS],
         "search_fields": ["id", "name", "summary"],
         "reference_fields": [],
+        "semantic_category": "registry_infrastructure",
     },
     "knowledge_unit": {
         "extends": "registry_unit",
@@ -86,6 +90,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "required": [*DOCUMENTED_REQUIRED_FIELDS],
         "search_fields": ["id", "name", "summary", "description"],
         "reference_fields": [],
+        "semantic_category": "registry_infrastructure",
     },
     "domain_object": {
         "extends": "knowledge_unit",
@@ -104,6 +109,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "search_fields": ["id", "name", "definition", "summary", "description"],
         "reference_fields": [*BASE_LINK_FIELDS, "verification_refs"],
         "list_fields": ["verification_refs"],
+        "semantic_category": "authored_knowledge",
     },
     "enum": {
         "extends": "knowledge_unit",
@@ -134,6 +140,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         ],
         "reference_fields": [*BASE_LINK_FIELDS, "verification_refs"],
         "list_fields": ["verification_refs"],
+        "semantic_category": "authored_knowledge",
     },
     "verification": {
         "extends": "knowledge_unit",
@@ -155,6 +162,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "reference_fields": ["references"],
         "single_reference_fields": ["target"],
         "verification_fields": ["command"],
+        "semantic_category": "registry_infrastructure",
     },
     "schema_gap": {
         "extends": "knowledge_unit",
@@ -185,6 +193,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         ],
         "reference_fields": [*BASE_LINK_FIELDS, "verification_refs"],
         "list_fields": ["verification_refs"],
+        "semantic_category": "registry_infrastructure",
     },
     "slice": {
         "extends": "knowledge_unit",
@@ -211,6 +220,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "search_fields": ["id", "name", "description", "summary"],
         "reference_fields": [*BASE_LINK_FIELDS, "members"],
         "list_fields": ["members"],
+        "semantic_category": "registry_infrastructure",
     },
     "generated_document": {
         "extends": "knowledge_unit",
@@ -269,6 +279,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         ],
         "reference_fields": [*BASE_LINK_FIELDS, "section_refs", "source_refs"],
         "list_fields": ["section_refs", "source_refs"],
+        "semantic_category": "generated_artifact",
     },
     "document_section": {
         "extends": "knowledge_unit",
@@ -341,6 +352,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         ],
         "reference_fields": [*BASE_LINK_FIELDS, "source_refs", "asset_refs"],
         "list_fields": ["source_refs", "asset_refs"],
+        "semantic_category": "generated_artifact",
     },
     "documentation_set": {
         "extends": "knowledge_unit",
@@ -368,6 +380,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "search_fields": ["id", "name", "summary", "description"],
         "reference_fields": [*BASE_LINK_FIELDS, "document_refs"],
         "list_fields": ["document_refs"],
+        "semantic_category": "generated_artifact",
     },
     "asset": {
         "extends": "knowledge_unit",
@@ -415,6 +428,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "search_fields": ["id", "name", "path", "alt", "summary", "description"],
         "reference_fields": [*BASE_LINK_FIELDS, "used_by"],
         "list_fields": ["used_by"],
+        "semantic_category": "generated_artifact",
     },
 }
 
@@ -499,6 +513,7 @@ class JsonTypeSource:
                 ),
                 required=_string_tuple(value.get("required", ())),
                 list_fields=_string_tuple(value.get("list_fields", ())),
+                semantic_category=_semantic_category(value.get("semantic_category")),
             )
 
         return TypeSourceResult(
@@ -580,6 +595,13 @@ def _load_schema(
 
 def _optional_string(value: object) -> str | None:
     return value if isinstance(value, str) and value else None
+
+
+def _semantic_category(value: object) -> str | None:
+    category = _optional_string(value)
+    if category is not None:
+        return category
+    return None
 
 
 def _string_value(value: object, default: str) -> str:

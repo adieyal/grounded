@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-CONCEPT-001",
+  "kind": "guardrail",
+  "name": "Concepts avoid catch-all drift",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the concept specificity guardrail so concept specs remain sharply defined instead of absorbing arbitrary project prose.",
+  "summary": "A concept should have a clear definition or substantial summary; vague concepts are audit warnings until they can be migrated safely.",
+  "references": [
+    "GROUNDED-DECISION-065"
+  ],
+  "tests": [
+    "GROUNDED-TEST-033"
+  ]
+}

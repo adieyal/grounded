@@ -31,6 +31,7 @@ from .render_display import (
     document_artifacts,
     documentation_sets,
     enum_values,
+    enum_value_descriptions,
     field_anchor,
     field_label,
     field_type_display,
@@ -45,8 +46,10 @@ from .render_display import (
     specs_for_refs,
     specs_of_kind,
     specs_referencing,
+    type_label,
     type_nav_label,
     type_tone,
+    trust_status_detail,
     visible_link_nodes,
 )
 from .render_graph import build_search_index
@@ -87,6 +90,7 @@ def template_environment(config: GroundedConfig) -> Environment:
     env.globals["field_type_display"] = field_type_display
     env.globals["field_value"] = field_value
     env.globals["enum_values"] = enum_values
+    env.globals["enum_value_descriptions"] = enum_value_descriptions
     env.globals["generated_documents"] = generated_documents
     env.globals["grouped_related_nodes"] = grouped_related_nodes
     env.globals["list_values"] = list_values
@@ -99,7 +103,9 @@ def template_environment(config: GroundedConfig) -> Environment:
     env.globals["specs_referencing"] = specs_referencing
     env.globals["type_tone"] = type_tone
     env.globals["type_nav_label"] = type_nav_label
+    env.globals["type_label"] = type_label
     env.globals["visible_link_nodes"] = visible_link_nodes
+    env.globals["trust_status_detail"] = trust_status_detail
     env.globals["rich_text"] = render_rich_text
     return env
 

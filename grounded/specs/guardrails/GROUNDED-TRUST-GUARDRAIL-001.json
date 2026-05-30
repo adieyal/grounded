@@ -5,6 +5,7 @@
   "owner": "grounded",
   "status": "active",
   "trust_status": "checkable",
+  "trust_basis": "This guardrail is covered by trust validation tests but is not itself the direct target of a verification spec.",
   "description": "Defines the trust-status guardrail so claim credibility is modeled independently from active, draft, and retired lifecycle state.",
   "summary": "Claim-bearing specs may declare trust_status as verified, checkable, observed, aspirational, or unknown; lifecycle status remains active, draft, or retired.",
   "references": [
