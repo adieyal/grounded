@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-003",
+  "kind": "guardrail",
+  "name": "Invalid explicit binding shape",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for malformed explicit binding declarations.",
+  "summary": "Explicit bindings must be a list of objects with valid id, role, and target fields.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

@@ -30,6 +30,7 @@ Sources: `GROUNDED-DRIFT-001`, `GROUNDED-COVERAGE-001`, `GROUNDED-REF-001`, `GRO
 | `grounded render --check` | Fails if generated outputs are stale. |
 | `grounded search QUERY` | Searches project memory by ID, name, aliases, text, and relationships. |
 | `grounded context START` | Builds focused LLM context around a spec ID or search query. |
+| `grounded context START --include-bindings` | Adds normalized external binding metadata declared by bindable registry types. |
 | `grounded entities` | Lists entity-like specs for discovery before creating new facts. |
 | `grounded specs --uses QUERY` | Shows specs related to a matching entity or spec. |
 | `grounded check-new NAME` | Checks whether a proposed entity or concept probably already exists. |
@@ -41,4 +42,4 @@ Sources: `GROUNDED-DRIFT-001`, `GROUNDED-COVERAGE-001`, `GROUNDED-REF-001`, `GRO
 
 During local development, prefer `uv run grounded ...` so the command uses the checkout.
 
-Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-070`, `GROUNDED-DECISION-058`
+Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-070`, `GROUNDED-DECISION-072`, `GROUNDED-DECISION-058`

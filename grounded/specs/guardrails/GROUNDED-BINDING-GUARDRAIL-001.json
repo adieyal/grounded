@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-BINDING-GUARDRAIL-001",
+  "kind": "guardrail",
+  "name": "Knowledge units do not own concrete binding fields",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the binding-schema guardrail so implementation files, tests, commands, and other external artifacts remain opt-in bindings rather than universal knowledge_unit fields.",
+  "summary": "Concrete binding fields must not be added to the knowledge_unit base schema; bindability is declared by type-registry capability and binding_field_mappings.",
+  "references": [
+    "GROUNDED-DECISION-027",
+    "GROUNDED-DECISION-072"
+  ],
+  "tests": [
+    "GROUNDED-TEST-039"
+  ]
+}

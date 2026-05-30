@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Literal
 
+from .bindings import Binding, BindingOmissionReason, bindings_for_spec
 from .models import Spec
 from .registry import SpecRegistry
 from .rich_text import rich_text_plain
@@ -97,7 +98,11 @@ def build_context_pack(
 
 
 def render_context_pack_markdown(
-    pack: ContextPack, registry: SpecRegistry, *, root: Path | None = None
+    pack: ContextPack,
+    registry: SpecRegistry,
+    *,
+    root: Path | None = None,
+    include_bindings: bool = False,
 ) -> str:
     included_ids = {item.spec.id for item in pack.items}
     lines = [
@@ -153,18 +158,37 @@ def render_context_pack_markdown(
         edge_lines = _typed_edge_lines(spec, registry, included_ids)
         if edge_lines:
             lines.extend(f"- {line}" for line in edge_lines)
+        if include_bindings:
+            binding_lines = _binding_lines(
+                spec,
+                registry,
+                root=root,
+            )
+            if binding_lines:
+                lines.append("- Bindings:")
+                lines.extend(f"  - {line}" for line in binding_lines)
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
 
 
 def context_pack_json(
-    pack: ContextPack, registry: SpecRegistry, *, root: Path | None = None
+    pack: ContextPack,
+    registry: SpecRegistry,
+    *,
+    root: Path | None = None,
+    include_bindings: bool = False,
 ) -> str:
     included_ids = {item.spec.id for item in pack.items}
     return json.dumps(
         {
             "start": pack.start,
-            "seed": _spec_payload(pack.seed, registry, included_ids, root),
+            "seed": _spec_payload(
+                pack.seed,
+                registry,
+                included_ids,
+                root,
+                include_bindings=include_bindings,
+            ),
             "seed_reason": pack.seed_reason,
             "seed_resolution": pack.seed_resolution,
             "alternatives": [
@@ -182,7 +206,13 @@ def context_pack_json(
                 {
                     "distance": item.distance,
                     "reasons": list(item.reasons),
-                    **_spec_payload(item.spec, registry, included_ids, root),
+                    **_spec_payload(
+                        item.spec,
+                        registry,
+                        included_ids,
+                        root,
+                        include_bindings=include_bindings,
+                    ),
                 }
                 for item in pack.items
             ],
@@ -252,10 +282,37 @@ def _typed_edge_lines(
     return lines
 
 
+def _binding_lines(
+    spec: Spec,
+    registry: SpecRegistry,
+    *,
+    root: Path | None,
+) -> list[str]:
+    bindings = _bindings_for_context(spec, registry, root=root)
+    lines: list[str] = []
+    for binding in bindings:
+        omission = _binding_omission(binding, include_bindings=True)
+        target = binding.target.path or ""
+        if root is not None and target:
+            target = _display_path_for_path(Path(target), root)
+        if omission is None:
+            note = " _(content not included)_"
+        else:
+            severity = "warning" if binding.validation_status == "warning" else "error"
+            note = f" _({severity}: {omission}; content not included)_"
+        lines.append(f"{binding.role}: `{target}`{note}")
+    return lines
+
+
 def _spec_payload(
-    spec: Spec, registry: SpecRegistry, included_ids: set[str], root: Path | None
+    spec: Spec,
+    registry: SpecRegistry,
+    included_ids: set[str],
+    root: Path | None,
+    *,
+    include_bindings: bool,
 ) -> dict[str, Any]:
-    return {
+    payload = {
         "id": spec.id,
         "kind": spec.kind,
         "name": spec.display_name,
@@ -283,6 +340,83 @@ def _spec_payload(
             if edge.source_id in included_ids
         ],
     }
+    if not include_bindings:
+        return payload
+
+    binding_payloads = [
+        _binding_payload(binding, include_bindings=include_bindings)
+        for binding in _bindings_for_context(spec, registry, root=root)
+    ]
+    payload["bindings"] = binding_payloads
+    payload["binding_diagnostics"] = [
+        {
+            "id": binding_payload["id"],
+            "reason": binding_payload["omitted_reason"],
+            "severity": binding_payload["validation"]["status"],
+        }
+        for binding_payload in binding_payloads
+        if binding_payload["omitted_reason"] is not None
+    ]
+    return payload
+
+
+def _bindings_for_context(
+    spec: Spec, registry: SpecRegistry, *, root: Path | None
+) -> tuple[Binding, ...]:
+    result = bindings_for_spec(
+        spec, registry.type_definition_for(spec), project_root=root
+    )
+    return result.bindings
+
+
+def _binding_payload(
+    binding: Binding,
+    *,
+    include_bindings: bool,
+) -> dict[str, Any]:
+    omission = _binding_omission(binding, include_bindings=include_bindings)
+    return {
+        "id": binding.id,
+        "source_spec_id": binding.source_spec_id,
+        "source_field": binding.source_field,
+        "role": binding.role,
+        "target": {
+            "kind": binding.target.kind,
+            "path": binding.target.path,
+            "media_type": binding.target.media_type,
+        },
+        "binding_included": omission is None,
+        "omitted_reason": omission,
+        "artifact_included": False,
+        "artifact_omitted_reason": "artifact_content_not_requested",
+        "validation": {
+            "status": binding.validation_status,
+            "issues": [
+                {
+                    "code": issue.code,
+                    "message": issue.message,
+                    "severity": issue.severity,
+                }
+                for issue in binding.validation_issues
+            ],
+        },
+    }
+
+
+def _binding_omission(
+    binding: Binding,
+    *,
+    include_bindings: bool,
+) -> BindingOmissionReason | None:
+    if any(issue.code == "GROUNDED-BINDING-006" for issue in binding.validation_issues):
+        return "unsupported_target_kind"
+    if any(issue.code == "GROUNDED-BINDING-009" for issue in binding.validation_issues):
+        return "missing_path"
+    if binding.validation_status == "error":
+        return "invalid_binding"
+    if not include_bindings:
+        return "include_bindings_not_requested"
+    return None
 
 
 def _display_path(spec: Spec, root: Path | None) -> str:

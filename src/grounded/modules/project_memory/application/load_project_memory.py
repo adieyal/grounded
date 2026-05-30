@@ -15,6 +15,7 @@ from .ports import ShapeValidator, TypeSource, UnitSource
 from ....trust import validate_trust_credibility
 from ....trust_policy import is_allowed_semantic_category
 from ....edges import normalized_edges_for_units, validate_edges
+from ....bindings import bindings_for_unit, validate_binding_type_definition
 
 
 def load_project_memory(
@@ -73,6 +74,31 @@ def load_project_memory(
         seen[unit_id] = raw_unit
 
     unit_tuple = tuple(units)
+    for unit in unit_tuple:
+        binding_result = bindings_for_unit(
+            unit,
+            type_result.types.get(unit.kind),
+            project_root=project_root,
+        )
+        issues.extend(
+            ProjectMemoryIssue(
+                issue.code,
+                issue.message,
+                unit.source_location,
+                issue.severity,
+            )
+            for issue in binding_result.issues
+        )
+        for binding in binding_result.bindings:
+            issues.extend(
+                ProjectMemoryIssue(
+                    issue.code,
+                    issue.message,
+                    unit.source_location,
+                    issue.severity,
+                )
+                for issue in binding.validation_issues
+            )
     issues.extend(validate_references(unit_tuple, type_result.types))
     issues.extend(validate_edges(unit_tuple, type_result.types))
     issues.extend(
@@ -109,6 +135,15 @@ def validate_type_definitions(types: ProjectMemoryTypes) -> list[ProjectMemoryIs
                 )
             )
         issues.extend(_validate_reference_tag_constraint_definitions(definition, types))
+        issues.extend(
+            ProjectMemoryIssue(
+                issue.code,
+                issue.message,
+                types.source_location,
+                issue.severity,
+            )
+            for issue in validate_binding_type_definition(definition)
+        )
         if (
             definition.semantic_category is not None
             and not is_allowed_semantic_category(definition.semantic_category)

@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-005",
+  "kind": "guardrail",
+  "name": "Invalid binding field mapping",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for malformed type-registry binding_field_mappings metadata.",
+  "summary": "Binding field mappings must declare a field, supported role, supported target kind, and valid cardinality.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

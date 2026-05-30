@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-008",
+  "kind": "guardrail",
+  "name": "Unsafe file binding path",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for file binding paths that are empty, POSIX-absolute, Windows drive-prefixed, UNC-absolute, home-relative, parent-traversing, or escape the project root.",
+  "summary": "File binding paths must be non-empty repository-relative paths that do not encode local absolute, drive-prefixed, or home-relative paths and do not escape the project root.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

@@ -7,6 +7,7 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 from ...models import GroundedConfig
+from ...bindings import validate_binding_field_mapping_entries
 from ...edge_policy import EDGE_TYPES, SEMANTIC_LAYERS
 from ...tags import TAG_SCHEMA
 from ...trust_policy import TRUST_STATUSES
@@ -517,6 +518,17 @@ class JsonTypeSource:
                 type_name, value, self._config
             )
             issues.extend(schema_issues)
+            issues.extend(
+                ProjectMemoryIssue(
+                    issue.code,
+                    issue.message,
+                    registry_location,
+                    issue.severity,
+                )
+                for issue in validate_binding_field_mapping_entries(
+                    type_name, value.get("binding_field_mappings")
+                )
+            )
             definitions[type_name] = ProjectMemoryType(
                 type=type_name,
                 extends=_optional_string(value.get("extends")),
@@ -539,6 +551,10 @@ class JsonTypeSource:
                 ),
                 required=_string_tuple(value.get("required", ())),
                 list_fields=_string_tuple(value.get("list_fields", ())),
+                capabilities=_string_tuple(value.get("capabilities", ())),
+                binding_field_mappings=_object_tuple(
+                    value.get("binding_field_mappings", ())
+                ),
                 semantic_category=_semantic_category(value.get("semantic_category")),
             )
 
@@ -638,6 +654,12 @@ def _string_tuple(value: object) -> tuple[str, ...]:
     if not isinstance(value, list | tuple):
         return ()
     return tuple(item for item in value if isinstance(item, str) and item)
+
+
+def _object_tuple(value: object) -> tuple[dict[str, Any], ...]:
+    if not isinstance(value, list):
+        return ()
+    return tuple(item for item in value if isinstance(item, dict))
 
 
 def _nested_reference_paths(value: object) -> tuple[tuple[str, ...], ...]:

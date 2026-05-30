@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-TEST-039",
+  "kind": "test_binding",
+  "name": "Binding normalization and context output",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-070",
+    "GROUNDED-DECISION-072",
+    "GROUNDED-BINDING-GUARDRAIL-001"
+  ],
+  "status": "active",
+  "description": "Binds the opt-in binding model to executable tests proving knowledge_unit stays thin, bindable types can declare explicit bindings, non-bindable specs cannot declare bindings, registry-declared file and test fields normalize to binding metadata, unsafe paths and invalid cardinality fail clearly, Windows-style absolute, drive-prefixed, and home-relative paths are rejected, unsupported target kinds preserve their declared kind, context JSON separates relations from bindings, Markdown renders repo-relative binding paths without artifact content, JSON omits binding metadata unless requested, human commands surface registry warnings, JSON commands stay machine-clean, and optional missing test bindings become structured diagnostics.",
+  "target": "GROUNDED-DECISION-072",
+  "test": "uv run pytest tests/test_grounded.py -q -k binding"
+}

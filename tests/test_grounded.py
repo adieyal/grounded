@@ -15,6 +15,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 import grounded.audit as audit_module
 from grounded.audit import audit
+from grounded.bindings import bindings_for_spec
 from grounded import __version__
 from grounded.bootstrap import AGENTS_MARKER_START, init_project
 from grounded.cli import main
@@ -1218,6 +1219,218 @@ class GroundedTests(unittest.TestCase):
         )
         return item_id, rule_id, status_id
 
+    def _install_bindable_fixture_types(self, root: Path) -> None:
+        registry_path = root / ".grounded/registry/spec-types.json"
+        type_registry = json.loads(registry_path.read_text(encoding="utf-8"))
+        type_registry["page_view"] = {
+            "extends": "knowledge_unit",
+            "capabilities": ["bindable"],
+            "binding_field_mappings": [
+                {
+                    "field": "file",
+                    "role": "implementation",
+                    "target": {
+                        "kind": "file",
+                        "media_type": "text/x-typescript",
+                    },
+                    "cardinality": "one",
+                    "validation": {
+                        "path_exists": True,
+                        "missing": "error",
+                    },
+                    "context": {
+                        "include_by_default": True,
+                        "priority": 80,
+                    },
+                },
+                {
+                    "field": "tests",
+                    "role": "test",
+                    "target": {"kind": "file"},
+                    "cardinality": "many",
+                    "validation": {
+                        "path_exists": True,
+                        "missing": "warning",
+                    },
+                    "context": {
+                        "include_by_default": False,
+                        "priority": 60,
+                    },
+                },
+            ],
+            "schema": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "owner",
+                    "status",
+                    "description",
+                    "file",
+                ],
+                "properties": {
+                    "type": {"const": "page_view"},
+                    "kind": {"const": "page_view"},
+                    "file": {"type": "string", "minLength": 1},
+                    "tests": {
+                        "type": "array",
+                        "items": {"type": "string", "minLength": 1},
+                    },
+                    "bindings": {"type": "array"},
+                },
+                "additionalProperties": True,
+            },
+            "required": [
+                "id",
+                "name",
+                "owner",
+                "status",
+                "description",
+                "file",
+            ],
+            "search_fields": ["id", "name", "description", "file", "tests"],
+            "reference_fields": [],
+            "list_fields": ["tests"],
+        }
+        type_registry["page_query"] = {
+            "extends": "knowledge_unit",
+            "capabilities": ["bindable"],
+            "binding_field_mappings": [
+                {
+                    "field": "repository_file",
+                    "role": "implementation",
+                    "target": {
+                        "kind": "file",
+                        "media_type": "text/x-typescript",
+                    },
+                    "cardinality": "one",
+                    "validation": {
+                        "path_exists": True,
+                        "missing": "error",
+                    },
+                    "context": {
+                        "include_by_default": True,
+                        "priority": 70,
+                    },
+                }
+            ],
+            "schema": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "owner",
+                    "status",
+                    "description",
+                    "repository_file",
+                ],
+                "properties": {
+                    "type": {"const": "page_query"},
+                    "kind": {"const": "page_query"},
+                    "repository_file": {"type": "string", "minLength": 1},
+                },
+                "additionalProperties": True,
+            },
+            "required": [
+                "id",
+                "name",
+                "owner",
+                "status",
+                "description",
+                "repository_file",
+            ],
+            "search_fields": [
+                "id",
+                "name",
+                "description",
+                "repository_file",
+            ],
+            "reference_fields": [],
+        }
+        type_registry["plain_note"] = {
+            "extends": "knowledge_unit",
+            "schema": {
+                "type": "object",
+                "required": [
+                    "id",
+                    "name",
+                    "owner",
+                    "status",
+                    "description",
+                ],
+                "properties": {
+                    "type": {"const": "plain_note"},
+                    "kind": {"const": "plain_note"},
+                    "bindings": {"type": "array"},
+                    "file": {"type": "string"},
+                    "tests": {"type": "array"},
+                },
+                "additionalProperties": True,
+            },
+            "required": [
+                "id",
+                "name",
+                "owner",
+                "status",
+                "description",
+            ],
+            "search_fields": ["id", "name", "description", "file", "tests"],
+            "reference_fields": [],
+        }
+        registry_path.write_text(json.dumps(type_registry, indent=2), encoding="utf-8")
+
+    def _write_binding_fixture(self, root: Path) -> tuple[str, str]:
+        self._install_bindable_fixture_types(root)
+        (root / "frontend/src/pages/home").mkdir(parents=True)
+        (root / "frontend/tests/component").mkdir(parents=True)
+        (root / "frontend/src/pages/home/home-page.ts").write_text(
+            "export class HomePageElement {}\n",
+            encoding="utf-8",
+        )
+        (root / "frontend/tests/component/home-page.test.ts").write_text(
+            "test('home page', () => {});\n",
+            encoding="utf-8",
+        )
+        specs_dir = root / ".grounded/specs/examples"
+        specs_dir.mkdir(parents=True)
+        view_id = "PAGE-VIEW-TMP"
+        query_id = "PAGE-QUERY-TMP"
+        (specs_dir / f"{view_id}.json").write_text(
+            json.dumps(
+                {
+                    "id": view_id,
+                    "kind": "page_view",
+                    "name": "Home Page View",
+                    "owner": "web",
+                    "status": "active",
+                    "description": "Renders the home page.",
+                    "file": "frontend/src/pages/home/home-page.ts",
+                    "tests": ["frontend/tests/component/home-page.test.ts"],
+                    "references": [query_id],
+                }
+            ),
+            encoding="utf-8",
+        )
+        (root / "frontend/src/pages/home/home-query.ts").write_text(
+            "export const homeQuery = {};\n",
+            encoding="utf-8",
+        )
+        (specs_dir / f"{query_id}.json").write_text(
+            json.dumps(
+                {
+                    "id": query_id,
+                    "kind": "page_query",
+                    "name": "Home Page Query",
+                    "owner": "web",
+                    "status": "active",
+                    "description": "Loads home page data.",
+                    "repository_file": "frontend/src/pages/home/home-query.ts",
+                }
+            ),
+            encoding="utf-8",
+        )
+        return view_id, query_id
+
     def test_context_cli_builds_focused_llm_context(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -1431,6 +1644,676 @@ class GroundedTests(unittest.TestCase):
 
             self.assertEqual(1, result)
             self.assertIn("GROUNDED-REF", errors.getvalue())
+
+    def test_context_cli_outputs_registry_declared_bindings(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            view_id, query_id = self._write_binding_fixture(root)
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        view_id,
+                        "--depth",
+                        "0",
+                        "--include-bindings",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual(view_id, payload["seed"]["id"])
+            bindings = payload["items"][0]["bindings"]
+            self.assertEqual(
+                [f"{view_id}:file", f"{view_id}:tests:0"],
+                [binding["id"] for binding in bindings],
+            )
+            self.assertEqual(
+                "frontend/src/pages/home/home-page.ts",
+                bindings[0]["target"]["path"],
+            )
+            self.assertTrue(bindings[0]["binding_included"])
+            self.assertEqual("implementation", bindings[0]["role"])
+            self.assertTrue(bindings[1]["binding_included"])
+            self.assertEqual("test", bindings[1]["role"])
+            self.assertFalse(bindings[1]["artifact_included"])
+            self.assertEqual(
+                "artifact_content_not_requested",
+                bindings[1]["artifact_omitted_reason"],
+            )
+            self.assertEqual([], payload["items"][0]["binding_diagnostics"])
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        view_id,
+                        "--depth",
+                        "0",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertNotIn("bindings", payload["items"][0])
+            self.assertNotIn("binding_diagnostics", payload["items"][0])
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        query_id,
+                        "--depth",
+                        "0",
+                        "--include-bindings",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual(
+                f"{query_id}:repository_file",
+                payload["items"][0]["bindings"][0]["id"],
+            )
+
+    def test_binding_paths_normalize_backslashes(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            view_id, _ = self._write_binding_fixture(root)
+            spec_path = root / f".grounded/specs/examples/{view_id}.json"
+            spec_data = json.loads(spec_path.read_text(encoding="utf-8"))
+            spec_data["file"] = "frontend\\src\\pages\\home\\home-page.ts"
+            spec_path.write_text(json.dumps(spec_data), encoding="utf-8")
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        view_id,
+                        "--depth",
+                        "0",
+                        "--include-bindings",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual(
+                "frontend/src/pages/home/home-page.ts",
+                payload["items"][0]["bindings"][0]["target"]["path"],
+            )
+
+    def test_context_cli_markdown_shows_binding_paths_without_artifact_content(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            view_id, _ = self._write_binding_fixture(root)
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        view_id,
+                        "--depth",
+                        "0",
+                        "--include-bindings",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            text = output.getvalue()
+            self.assertNotIn("## Bindings", text)
+            self.assertIn("- Bindings:", text)
+            self.assertIn(
+                "implementation: `frontend/src/pages/home/home-page.ts` "
+                "_(content not included)_",
+                text,
+            )
+            self.assertIn(
+                "test: `frontend/tests/component/home-page.test.ts` "
+                "_(content not included)_",
+                text,
+            )
+            self.assertNotIn(str(root), text)
+
+    def test_binding_validation_is_opt_in_by_type(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            self._install_bindable_fixture_types(root)
+            type_registry = json.loads(
+                (root / ".grounded/registry/spec-types.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            knowledge_unit_schema = type_registry["knowledge_unit"]["schema"]
+            self.assertNotIn("bindings", knowledge_unit_schema.get("properties", {}))
+            self.assertNotIn("binding_field_mappings", type_registry["knowledge_unit"])
+            specs_dir = root / ".grounded/specs/examples"
+            specs_dir.mkdir(parents=True)
+            (specs_dir / "NOTE-001.json").write_text(
+                json.dumps(
+                    {
+                        "id": "NOTE-001",
+                        "kind": "plain_note",
+                        "name": "Plain Note",
+                        "owner": "docs",
+                        "status": "active",
+                        "description": "A plain note with fields named like bindings.",
+                        "file": "does/not/become/a/binding.ts",
+                        "tests": ["NOTE-TEST-TMP"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (specs_dir / "NOTE-TEST-TMP.json").write_text(
+                json.dumps(
+                    {
+                        "id": "NOTE-TEST-TMP",
+                        "kind": "plain_note",
+                        "name": "Plain Note Test",
+                        "owner": "docs",
+                        "status": "active",
+                        "description": "A spec-shaped test reference.",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        "NOTE-001",
+                        "--include-bindings",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual([], payload["items"][0]["bindings"])
+
+            (specs_dir / "NOTE-002.json").write_text(
+                json.dumps(
+                    {
+                        "id": "NOTE-002",
+                        "kind": "plain_note",
+                        "name": "Plain Note With Binding",
+                        "owner": "docs",
+                        "status": "active",
+                        "description": "A non-bindable spec with explicit bindings.",
+                        "bindings": [
+                            {
+                                "role": "implementation",
+                                "target": {
+                                    "kind": "file",
+                                    "path": "README.md",
+                                },
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            errors = StringIO()
+            with redirect_stderr(errors):
+                result = main(["--root", str(root), "validate"])
+
+            self.assertEqual(1, result)
+            self.assertIn("GROUNDED-BINDING-001", errors.getvalue())
+
+    def test_bindable_type_can_declare_explicit_bindings(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            self._install_bindable_fixture_types(root)
+            (root / "frontend/src/pages/home").mkdir(parents=True)
+            (root / "frontend/src/pages/home/explicit-home.ts").write_text(
+                "export class ExplicitHomePageElement {}\n",
+                encoding="utf-8",
+            )
+            specs_dir = root / ".grounded/specs/examples"
+            specs_dir.mkdir(parents=True)
+            (specs_dir / "PAGE-VIEW-EXPLICIT.json").write_text(
+                json.dumps(
+                    {
+                        "id": "PAGE-VIEW-EXPLICIT",
+                        "kind": "page_view",
+                        "name": "Explicit Home Page View",
+                        "owner": "web",
+                        "status": "active",
+                        "description": "Declares explicit binding metadata.",
+                        "file": "frontend/src/pages/home/explicit-home.ts",
+                        "bindings": [
+                            {
+                                "id": "PAGE-VIEW-EXPLICIT:explicit-file",
+                                "role": "implementation",
+                                "target": {
+                                    "kind": "file",
+                                    "path": "frontend/src/pages/home/explicit-home.ts",
+                                    "media_type": "text/x-typescript",
+                                },
+                                "include": {
+                                    "default": True,
+                                    "priority": 90,
+                                },
+                                "validation": {
+                                    "path_exists": True,
+                                    "missing": "error",
+                                },
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        "PAGE-VIEW-EXPLICIT",
+                        "--depth",
+                        "0",
+                        "--include-bindings",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            binding_ids = [binding["id"] for binding in payload["items"][0]["bindings"]]
+            self.assertIn("PAGE-VIEW-EXPLICIT:explicit-file", binding_ids)
+            self.assertIn("PAGE-VIEW-EXPLICIT:file", binding_ids)
+
+    def test_binding_validation_rejects_unsafe_paths_and_cardinality(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            self._install_bindable_fixture_types(root)
+            specs_dir = root / ".grounded/specs/examples"
+            specs_dir.mkdir(parents=True)
+
+            cases = [
+                ("ABSOLUTE-PATH", "/tmp/home-page.ts", "repo-relative"),
+                ("WINDOWS-DRIVE-PATH", "C:\\tmp\\home-page.ts", "repo-relative"),
+                ("WINDOWS-DRIVE-RELATIVE-PATH", "C:tmp\\home-page.ts", "repo-relative"),
+                (
+                    "WINDOWS-UNC-PATH",
+                    "\\\\server\\share\\home-page.ts",
+                    "repo-relative",
+                ),
+                ("TILDE-PATH", "~/home-page.ts", "repo-relative"),
+                ("ESCAPING-PATH", "../home-page.ts", "must not contain '..'"),
+            ]
+            for spec_id, file_path, expected in cases:
+                with self.subTest(spec_id=spec_id):
+                    for existing in specs_dir.glob("*.json"):
+                        existing.unlink()
+                    (specs_dir / f"{spec_id}.json").write_text(
+                        json.dumps(
+                            {
+                                "id": spec_id,
+                                "kind": "page_view",
+                                "name": spec_id,
+                                "owner": "web",
+                                "status": "active",
+                                "description": "An invalid page view binding.",
+                                "file": file_path,
+                            }
+                        ),
+                        encoding="utf-8",
+                    )
+
+                    errors = StringIO()
+                    with redirect_stderr(errors):
+                        result = main(["--root", str(root), "validate"])
+
+                    self.assertEqual(1, result)
+                    self.assertIn("GROUNDED-BINDING-008", errors.getvalue())
+                    self.assertIn(expected, errors.getvalue())
+
+            for existing in specs_dir.glob("*.json"):
+                existing.unlink()
+            (specs_dir / "BAD-CARDINALITY-TMP.json").write_text(
+                json.dumps(
+                    {
+                        "id": "BAD-CARDINALITY-TMP",
+                        "kind": "page_view",
+                        "name": "Bad Cardinality",
+                        "owner": "web",
+                        "status": "active",
+                        "description": "A page view with the wrong binding shape.",
+                        "file": ["frontend/src/pages/home/home-page.ts"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            errors = StringIO()
+            with redirect_stderr(errors):
+                result = main(["--root", str(root), "validate"])
+
+            self.assertEqual(1, result)
+            self.assertIn("must be a scalar binding path", errors.getvalue())
+
+            for existing in specs_dir.glob("*.json"):
+                existing.unlink()
+            (specs_dir / "BAD-MANY-CARDINALITY-TMP.json").write_text(
+                json.dumps(
+                    {
+                        "id": "BAD-MANY-CARDINALITY-TMP",
+                        "kind": "page_view",
+                        "name": "Bad Many Cardinality",
+                        "owner": "web",
+                        "status": "active",
+                        "description": "A page view with scalar tests binding.",
+                        "file": "frontend/src/pages/home/home-page.ts",
+                        "tests": "frontend/tests/component/home-page.test.ts",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            errors = StringIO()
+            with redirect_stderr(errors):
+                result = main(["--root", str(root), "validate"])
+
+            self.assertEqual(1, result)
+            self.assertIn("must be a list of binding paths", errors.getvalue())
+
+            for existing in specs_dir.glob("*.json"):
+                existing.unlink()
+            (specs_dir / "MISSING-REQUIRED-BINDING-TMP.json").write_text(
+                json.dumps(
+                    {
+                        "id": "MISSING-REQUIRED-BINDING-TMP",
+                        "kind": "page_query",
+                        "name": "Missing Required Binding",
+                        "owner": "web",
+                        "status": "active",
+                        "description": "A query whose required implementation file is missing.",
+                        "repository_file": "frontend/src/pages/home/missing-query.ts",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            errors = StringIO()
+            with redirect_stderr(errors):
+                result = main(["--root", str(root), "validate"])
+
+            self.assertEqual(1, result)
+            self.assertIn("GROUNDED-BINDING-009", errors.getvalue())
+
+            for existing in specs_dir.glob("*.json"):
+                existing.unlink()
+            (specs_dir / "UNSUPPORTED-BINDING-TARGET-TMP.json").write_text(
+                json.dumps(
+                    {
+                        "id": "UNSUPPORTED-BINDING-TARGET-TMP",
+                        "kind": "page_view",
+                        "name": "Unsupported Binding Target",
+                        "owner": "web",
+                        "status": "active",
+                        "description": "A page view with an unsupported binding target.",
+                        "file": "frontend/src/pages/home/home-page.ts",
+                        "bindings": [
+                            {
+                                "role": "implementation",
+                                "target": {
+                                    "kind": "url",
+                                    "url": "https://example.invalid/home",
+                                },
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            errors = StringIO()
+            with redirect_stderr(errors):
+                result = main(["--root", str(root), "validate"])
+
+            self.assertEqual(1, result)
+            self.assertIn("GROUNDED-BINDING-006", errors.getvalue())
+
+    def test_binding_validation_rejects_malformed_mapping_entries(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            registry_path = root / ".grounded/registry/spec-types.json"
+            type_registry = json.loads(registry_path.read_text(encoding="utf-8"))
+            type_registry["broken_bindable"] = {
+                "extends": "knowledge_unit",
+                "capabilities": ["bindable"],
+                "binding_field_mappings": ["file"],
+                "schema": {
+                    "type": "object",
+                    "required": [
+                        "id",
+                        "name",
+                        "owner",
+                        "status",
+                        "description",
+                    ],
+                    "properties": {
+                        "type": {"const": "broken_bindable"},
+                        "kind": {"const": "broken_bindable"},
+                    },
+                    "additionalProperties": True,
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "owner",
+                    "status",
+                    "description",
+                ],
+                "search_fields": ["id", "name", "description"],
+                "reference_fields": [],
+            }
+            registry_path.write_text(
+                json.dumps(type_registry, indent=2), encoding="utf-8"
+            )
+
+            errors = StringIO()
+            with redirect_stderr(errors):
+                result = main(["--root", str(root), "validate"])
+
+            self.assertEqual(1, result)
+            self.assertIn("GROUNDED-BINDING-005", errors.getvalue())
+            self.assertIn(
+                "binding_field_mappings[0] must be an object", errors.getvalue()
+            )
+
+    def test_context_omission_policy_distinguishes_unsupported_target_kind(
+        self,
+    ) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            self._install_bindable_fixture_types(root)
+            specs_dir = root / ".grounded/specs/examples"
+            specs_dir.mkdir(parents=True)
+            spec_path = specs_dir / "UNSUPPORTED-BINDING-TARGET-TMP.json"
+            spec_path.write_text(
+                json.dumps(
+                    {
+                        "id": "UNSUPPORTED-BINDING-TARGET-TMP",
+                        "kind": "page_view",
+                        "name": "Unsupported Binding Target",
+                        "owner": "web",
+                        "status": "active",
+                        "description": "A page view with an unsupported binding target.",
+                        "file": "frontend/src/pages/home/home-page.ts",
+                        "bindings": [
+                            {
+                                "role": "implementation",
+                                "target": {
+                                    "kind": "url",
+                                    "url": "https://example.invalid/home",
+                                },
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            registry = load_registry(load_config(root))
+            spec = registry.get("UNSUPPORTED-BINDING-TARGET-TMP")
+            self.assertIsNotNone(spec)
+            result = bindings_for_spec(
+                spec, registry.type_definition_for(spec), project_root=root
+            )
+
+            self.assertEqual("url", result.bindings[0].target.kind)
+            self.assertIsNone(result.bindings[0].target.path)
+            self.assertEqual(
+                ["GROUNDED-BINDING-006"],
+                [issue.code for issue in result.bindings[0].validation_issues],
+            )
+
+    def test_optional_missing_binding_is_reported_as_context_omission(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            self._install_bindable_fixture_types(root)
+            (root / "frontend/src/pages/home").mkdir(parents=True)
+            (root / "frontend/src/pages/home/home-page.ts").write_text(
+                "export class HomePageElement {}\n",
+                encoding="utf-8",
+            )
+            specs_dir = root / ".grounded/specs/examples"
+            specs_dir.mkdir(parents=True)
+            (specs_dir / "PAGE-VIEW-MISSING-TEST.json").write_text(
+                json.dumps(
+                    {
+                        "id": "PAGE-VIEW-MISSING-TEST",
+                        "kind": "page_view",
+                        "name": "Home Page View",
+                        "owner": "web",
+                        "status": "active",
+                        "description": "Renders the home page.",
+                        "file": "frontend/src/pages/home/home-page.ts",
+                        "tests": ["frontend/tests/component/missing.test.ts"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            output = StringIO()
+            errors = StringIO()
+            with redirect_stdout(output), redirect_stderr(errors):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        "PAGE-VIEW-MISSING-TEST",
+                        "--depth",
+                        "0",
+                        "--include-bindings",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            self.assertEqual("", errors.getvalue())
+            payload = json.loads(output.getvalue())
+            missing_binding = payload["items"][0]["bindings"][1]
+            self.assertFalse(missing_binding["binding_included"])
+            self.assertEqual("missing_path", missing_binding["omitted_reason"])
+            self.assertEqual("warning", missing_binding["validation"]["status"])
+
+            output = StringIO()
+            errors = StringIO()
+            with redirect_stdout(output), redirect_stderr(errors):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        "PAGE-VIEW-MISSING-TEST",
+                        "--depth",
+                        "0",
+                        "--include-bindings",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            self.assertIn("GROUNDED-BINDING-009", errors.getvalue())
+            self.assertIn(
+                "test: `frontend/tests/component/missing.test.ts` "
+                "_(warning: missing_path; content not included)_",
+                output.getvalue(),
+            )
+
+            output = StringIO()
+            errors = StringIO()
+            with redirect_stdout(output), redirect_stderr(errors):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "search",
+                        "Home Page View",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            self.assertIn("GROUNDED-BINDING-009", errors.getvalue())
+
+            output = StringIO()
+            errors = StringIO()
+            with redirect_stdout(output), redirect_stderr(errors):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "search",
+                        "Home Page View",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            json.loads(output.getvalue())
+            self.assertEqual("", errors.getvalue())
 
     def test_registry_cli_lists_registry_types_and_specs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

@@ -139,6 +139,11 @@ def main(argv: list[str] | None = None) -> int:
         default=12,
         help="Maximum number of specs to include. Defaults to 12.",
     )
+    context_parser.add_argument(
+        "--include-bindings",
+        action="store_true",
+        help="Include normalized external binding metadata in context output.",
+    )
     context_parser.add_argument("--json", action="store_true")
 
     entities_parser = subcommands.add_parser("entities", help="List entity-like specs.")
@@ -198,7 +203,7 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     if args.command == "render":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         stale = render_all(config, registry, check=args.check)
         if stale:
@@ -217,7 +222,7 @@ def main(argv: list[str] | None = None) -> int:
         return _print_issues(config.root, issues, success="Grounded audit passed.")
 
     if args.command == "verify":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         return _print_issues(
             config.root,
@@ -226,7 +231,7 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     if args.command == "graph":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         try:
             dot = graphviz_dot_for(
@@ -251,17 +256,18 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "search":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         records = build_search_records(registry)
         results = search_records(records, args.query, kind=args.kind, limit=args.limit)
         if args.json:
             print(results_json(results))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         return print_search_results(results)
 
     if args.command == "context":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         if args.depth < 0:
             print("--depth must be >= 0", file=sys.stderr)
@@ -276,22 +282,39 @@ def main(argv: list[str] | None = None) -> int:
             print(f"No context seed found for: {args.start}", file=sys.stderr)
             return 1
         if args.json:
-            print(context_pack_json(pack, registry, root=config.root))
+            print(
+                context_pack_json(
+                    pack,
+                    registry,
+                    root=config.root,
+                    include_bindings=args.include_bindings,
+                )
+            )
             return 0
-        print(render_context_pack_markdown(pack, registry, root=config.root), end="")
+        _print_warning_issues(config.root, registry.issues)
+        print(
+            render_context_pack_markdown(
+                pack,
+                registry,
+                root=config.root,
+                include_bindings=args.include_bindings,
+            ),
+            end="",
+        )
         return 0
 
     if args.command == "entities":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         records = filter_records(build_search_records(registry), "entities")
         if args.json:
             print(records_json(records))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         return print_records(records, verbose=args.verbose)
 
     if args.command == "specs":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         records = filter_records(build_search_records(registry), args.kind)
         if args.uses:
@@ -313,18 +336,20 @@ def main(argv: list[str] | None = None) -> int:
         if args.json:
             print(records_json(records))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         return print_records(records, verbose=args.verbose)
 
     if args.command == "registry":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         if args.json:
             print(json.dumps(_registry_payload(config.root, registry), indent=2))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         return _print_registry(config.root, registry)
 
     if args.command == "spec":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         records = build_search_records(registry)
         results = [
@@ -337,10 +362,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.json:
             print(results_json(results))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         return print_search_results(results)
 
     if args.command == "check-new":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         payload = check_new_payload(
             build_search_records(registry), args.name, limit=args.limit
@@ -348,6 +374,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.json:
             print(json.dumps(payload, indent=2))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         print(f"Query: {payload['query']}")
         print(f"Recommendation: {payload['recommendation']}")
         print()
@@ -395,6 +422,16 @@ def _print_issues(
     if success:
         print(success)
     return 0
+
+
+def _print_warning_issues(root: Path, issues: list[object]) -> None:
+    for issue in issues:
+        if getattr(issue, "severity", "error") != "error":
+            print(issue.format(root), file=sys.stderr)
+
+
+def _has_error_issues(issues: list[object]) -> bool:
+    return any(getattr(issue, "severity", "error") == "error" for issue in issues)
 
 
 def _registry_payload(root: Path, registry: object) -> dict[str, object]:
