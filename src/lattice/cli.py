@@ -131,6 +131,11 @@ def main(argv: list[str] | None = None) -> int:
     specs_parser.add_argument("--json", action="store_true")
     specs_parser.add_argument("--verbose", action="store_true")
 
+    registry_parser = subcommands.add_parser(
+        "registry", help="List registry types and authored specs."
+    )
+    registry_parser.add_argument("--json", action="store_true")
+
     spec_parser = subcommands.add_parser("spec", help="Search spec records.")
     spec_parser.add_argument("query", help="Spec search query.")
     spec_parser.add_argument("--limit", type=int, default=5)
@@ -263,6 +268,14 @@ def main(argv: list[str] | None = None) -> int:
             return 0
         return print_records(records, verbose=args.verbose)
 
+    if args.command == "registry":
+        if registry.issues:
+            return _print_issues(config.root, registry.issues)
+        if args.json:
+            print(json.dumps(_registry_payload(config.root, registry), indent=2))
+            return 0
+        return _print_registry(config.root, registry)
+
     if args.command == "spec":
         if registry.issues:
             return _print_issues(config.root, registry.issues)
@@ -331,6 +344,113 @@ def _print_issues(
     if success:
         print(success)
     return 0
+
+
+def _registry_payload(root: Path, registry: object) -> dict[str, object]:
+    return {
+        "registry_types": [
+            _registry_type_payload(type_name, type_def)
+            for type_name, type_def in sorted(registry.type_defs.items())
+        ],
+        "specs": [
+            _spec_payload(root, spec)
+            for spec in sorted(registry.specs, key=lambda item: (item.kind, item.id))
+        ],
+    }
+
+
+def _registry_type_payload(type_name: str, type_def: object) -> dict[str, object]:
+    return {
+        "type": type_name,
+        "extends": getattr(type_def, "extends", None),
+        "renderer": getattr(type_def, "renderer", None),
+        "required": list(getattr(type_def, "required", ())),
+        "reference_fields": list(getattr(type_def, "reference_fields", ())),
+        "single_reference_fields": list(
+            getattr(type_def, "single_reference_fields", ())
+        ),
+        "nested_reference_fields": [
+            ".".join(path)
+            for path in getattr(type_def, "nested_reference_fields", ())
+        ],
+        "verification_fields": list(getattr(type_def, "verification_fields", ())),
+        "search_fields": list(getattr(type_def, "search_fields", ())),
+    }
+
+
+def _spec_payload(root: Path, spec: object) -> dict[str, object]:
+    path = getattr(spec, "path", None)
+    return {
+        "id": spec.id,
+        "type": spec.kind,
+        "name": spec.display_name,
+        "owner": spec.owner,
+        "status": spec.status,
+        "path": path.relative_to(root).as_posix()
+        if isinstance(path, Path) and path.is_relative_to(root)
+        else str(path),
+    }
+
+
+def _print_registry(root: Path, registry: object) -> int:
+    payload = _registry_payload(root, registry)
+    registry_types = payload["registry_types"]
+    specs = payload["specs"]
+    specs_by_type: dict[str, list[dict[str, object]]] = {}
+    for spec in specs:
+        specs_by_type.setdefault(str(spec["type"]), []).append(spec)
+
+    print("Lattice registry")
+    print(
+        f"{len(registry_types)} registry types, "
+        f"{len(specs)} authored specs"
+    )
+    print()
+    print("Registry types")
+    for item in registry_types:
+        spec_count = len(specs_by_type.get(str(item["type"]), []))
+        extends = item["extends"] or "root"
+        print(f"- {item['type']}")
+        print(f"  specs: {spec_count}")
+        print(f"  extends: {extends}")
+        required = item["required"]
+        if required:
+            print(f"  required: {_format_list(required)}")
+        references = [
+            *item["reference_fields"],
+            *item["single_reference_fields"],
+            *item["nested_reference_fields"],
+        ]
+        if references:
+            print(f"  references: {_format_list(references)}")
+        verification_fields = item["verification_fields"]
+        if verification_fields:
+            print(f"  verification: {_format_list(verification_fields)}")
+
+    print()
+    print("Authored specs")
+    for type_name in sorted(specs_by_type):
+        group = specs_by_type[type_name]
+        print(f"- {type_name} ({len(group)})")
+        for spec in group:
+            print(f"  {spec['id']} - {spec['name']}")
+            details = [
+                f"type: {spec['type']}",
+                f"owner: {spec['owner'] or 'unknown'}",
+                f"status: {spec['status']}",
+            ]
+            print(f"    {', '.join(details)}")
+            print(f"    path: {spec['path']}")
+    return 0
+
+
+def _format_list(values: object, *, limit: int = 8) -> str:
+    if not isinstance(values, list):
+        return ""
+    shown = [str(value) for value in values[:limit]]
+    if len(values) > limit:
+        shown.append(f"+{len(values) - limit} more")
+    return ", ".join(shown)
 
 
 if __name__ == "__main__":

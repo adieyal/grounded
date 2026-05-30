@@ -392,6 +392,58 @@ class LatticeTests(unittest.TestCase):
             )
             self.assertEqual(item_id, payload["entity_matches"][0]["id"])
 
+    def test_registry_cli_lists_registry_types_and_specs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            item_id = "".join(["TODO", "-ITEM-001"])
+            specs_dir = root / ".lattice/specs/examples"
+            specs_dir.mkdir(parents=True)
+            (specs_dir / f"{item_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": item_id,
+                        "kind": "domain_object",
+                        "name": "Todo Item",
+                        "owner": "todo",
+                        "status": "active",
+                        "description": "A user-visible task in the todo list.",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(["--root", str(root), "registry", "--json"])
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            registry_unit = next(
+                item
+                for item in payload["registry_types"]
+                if item["type"] == "registry_unit"
+            )
+            self.assertIsNone(registry_unit["extends"])
+            self.assertEqual(["id", "name", "status"], registry_unit["required"])
+            self.assertEqual([], registry_unit["reference_fields"])
+            spec_ids = {spec["id"] for spec in payload["specs"]}
+            self.assertIn(item_id, spec_ids)
+            self.assertIn("PROJECT-GAP-001", spec_ids)
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(["--root", str(root), "registry"])
+
+            self.assertEqual(0, result)
+            text = output.getvalue()
+            self.assertIn("Lattice registry", text)
+            self.assertIn("Registry types", text)
+            self.assertIn("Authored specs", text)
+            self.assertIn("- registry_unit", text)
+            self.assertIn(f"  {item_id} - Todo Item", text)
+            self.assertIn("    type: domain_object, owner: todo, status: active", text)
+
     def test_documented_units_require_description(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

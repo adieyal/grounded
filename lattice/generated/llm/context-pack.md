@@ -129,6 +129,10 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: LATTICE-DECISION-001, LATTICE-DECISION-047, LATTICE-DECISION-054
 - `LATTICE-DECISION-057` (decision, owner: lattice): Documents the registry_type nomenclature for Lattice metamodel types and how generated views should label them. The project-facing name for a governed definition of a top-level spec kind is registry_type. Generated views should render these units with the friendlier Lattice Types label, and docs should reserve generated-view wording for outputs rather than the governing type definitions themselves. The compatibility key spec_type may remain in older registries and examples, but the preferred Lattice-facing term is registry_type.
   Links: LATTICE-DECISION-001, LATTICE-DECISION-027
+- `LATTICE-DECISION-058` (decision, owner: lattice): Documents the registry inspection CLI command so maintainers and agents can see both registry types and authored specs from one entry point. The CLI includes a registry command that prints the merged registry_type definitions and authored specs loaded for the active Lattice project. The command supports JSON output for tools and human-readable text for maintainers who need to inspect the active metamodel and registry contents.
+  Links: LATTICE-DECISION-001, LATTICE-DECISION-057
+- `LATTICE-DECISION-059` (decision, owner: lattice): Documents the 0.13.0 version bump so registry inspection and metamodel terminology changes have a canonical Lattice release owner. The package version is bumped to 0.13.0 for the registry inspection CLI command and the metamodel nomenclature cleanup that distinguishes registry types, registry units, knowledge units, authored specs, and generated views.
+  Links: LATTICE-DECISION-001, LATTICE-DECISION-057, LATTICE-DECISION-058
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
 - `PROJECT-RULE-001-EX001` (example, owner: project): Provides a concrete example for PROJECT-RULE-001 so the rule can be understood and verified in context.
@@ -259,6 +263,8 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: LATTICE-DECISION-057
 - `LATTICE-TEST-024` (test_binding, owner: lattice): Binds LATTICE-DECISION-001 to an executable test proving registry_unit does not require documentation or evidence fields at the root.
   Links: LATTICE-DECISION-001
+- `LATTICE-TEST-025` (test_binding, owner: lattice): Binds LATTICE-DECISION-058 to an executable CLI test proving registry output includes registry types and authored specs.
+  Links: LATTICE-DECISION-058
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.

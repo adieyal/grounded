@@ -119,6 +119,7 @@ Start with one fact. Give it a stable ID. Link other docs, tests, plans, and pro
 | `lattice entities` | Lists entity-like specs for discovery before creating new facts. |
 | `lattice specs --uses QUERY` | Shows specs related to a matching entity or spec. |
 | `lattice check-new NAME` | Checks whether a proposed entity or concept probably already exists. |
+| `lattice registry` | Lists merged registry types and authored specs. |
 | `lattice verify` | Runs project-specific verification commands declared in specs. |
 | `lattice audit` | Checks for drift and missing coverage. |
 | `lattice graph SPEC-ID` | Shows a documentation-oriented Graphviz relationship diagram around one durable fact. |

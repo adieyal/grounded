@@ -184,6 +184,19 @@ uv run lattice check-new "supplier alias" --json
 
 The command reports closest entity matches, relevant specs, and a recommendation. It is designed for maintainers and LLM agents before they create a new spec.
 
+## `lattice registry`
+
+List the merged registry types and authored specs loaded for the current
+project.
+
+```bash
+uv run lattice registry
+uv run lattice registry --json
+```
+
+Use this when you need to inspect the active metamodel and the specs that were
+loaded from the configured registry.
+
 ## `lattice graph`
 
 Generate a Graphviz DOT relationship graph around one project fact.

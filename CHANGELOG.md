@@ -8,6 +8,10 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
 
 ## Unreleased
 
+## 0.13.0 - 2026-05-30
+
+- Added `lattice registry` to list merged registry types and authored specs,
+  with human-friendly grouped output and JSON output for tooling.
 - Clarified the metamodel nomenclature so governed top-level kinds are
   described as `registry_type` units and generated views render them as
   `Lattice Types`.
