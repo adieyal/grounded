@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-EDGE-008",
+  "kind": "guardrail",
+  "name": "Strong semantic edges do not target generated artifacts",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines generated-artifact exclusion rules for strong semantic edges.",
+  "summary": "implements and depends_on edges must not target generated artifacts.",
+  "references": [
+    "GROUNDED-TRUST-005"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

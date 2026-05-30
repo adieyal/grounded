@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-EDGE-010",
+  "kind": "guardrail",
+  "name": "Dependency layers flow from concrete to stable",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines optional semantic_layer dependency direction for depends_on edges.",
+  "summary": "When both source and target declare semantic_layer, higher or equally concrete layers may depend on lower or equal layers, but lower/stabler layers must not depend on higher/more concrete layers.",
+  "references": [
+    "GROUNDED-EDGE-009"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

@@ -14,6 +14,7 @@ from ..domain.references import reference_ids_for, validate_references
 from .ports import ShapeValidator, TypeSource, UnitSource
 from ....trust import validate_trust_credibility
 from ....trust_policy import is_allowed_semantic_category
+from ....edges import normalized_edges_for_units, validate_edges
 
 
 def load_project_memory(
@@ -73,6 +74,7 @@ def load_project_memory(
 
     unit_tuple = tuple(units)
     issues.extend(validate_references(unit_tuple, type_result.types))
+    issues.extend(validate_edges(unit_tuple, type_result.types))
     issues.extend(
         validate_trust_credibility(unit_tuple, type_result.types, cwd=project_root)
     )
@@ -84,6 +86,7 @@ def load_project_memory(
         type_result.types,
         tuple(issues),
         references_by_id,
+        normalized_edges_for_units(unit_tuple, type_result.types),
     )
 
 

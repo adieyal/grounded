@@ -6,416 +6,851 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
 
 - `GROUNDED-ASSET-001` (asset, owner: grounded): Governs the README and documentation diagram that shows Grounded specs producing generated docs, LLM context, validation, verification, and drift reports.
   Links: GROUNDED-DECISION-060
+  Edges: mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOC-SECTION-003
 - `GROUNDED-ASSET-002` (asset, owner: grounded): Governs the README diagram that compares scattered project knowledge with Grounded-owned canonical facts.
   Links: GROUNDED-DECISION-060
+  Edges: mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOC-SECTION-001
 - `GROUNDED-ASSET-003` (asset, owner: grounded): Governs the README diagram that shows Grounded's incremental adoption ladder.
   Links: GROUNDED-DECISION-060
+  Edges: mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOC-SECTION-011
 - `GROUNDED-ASSET-004` (asset, owner: grounded): Governs the README image that previews generated Todo example documentation.
   Links: GROUNDED-DECISION-060
+  Edges: mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOC-SECTION-014
 - `PROJECT-RULE-001` (business_rule, owner: project): Defines the Single owner for durable facts rule so agents and maintainers know when and how to apply it. Every durable project fact has exactly one canonical owner; other artifacts reference that owner instead of duplicating it.
   Links: PROJECT-CONCEPT-001
+  Edges: mentions -> PROJECT-CONCEPT-001, mentions -> PROJECT-RULE-001-EX001, tests -> PROJECT-TEST-001, verified_by -> PROJECT-VERIFY-001
+  Incoming edges: derives_from <- GROUNDED-DOC-005, derives_from <- GROUNDED-DOC-SECTION-001, derives_from <- GROUNDED-DOC-SECTION-003, derives_from <- GROUNDED-DOC-SECTION-006, derives_from <- GROUNDED-DOC-SECTION-008, derives_from <- GROUNDED-DOC-SECTION-013, derives_from <- GROUNDED-DOC-SECTION-018, mentions <- GROUNDED-COMPAT-001, mentions <- GROUNDED-COVERAGE-001, mentions <- GROUNDED-DECISION-054, mentions <- GROUNDED-DRIFT-001, mentions <- GROUNDED-EXTENSION-001, mentions <- GROUNDED-ID-001, mentions <- GROUNDED-JSON-001, mentions <- GROUNDED-KIND-001, mentions <- GROUNDED-OWNERSHIP-001, mentions <- GROUNDED-REF-001, mentions <- GROUNDED-REF-002, mentions <- GROUNDED-REF-003, mentions <- GROUNDED-REF-004, mentions <- GROUNDED-REF-005, mentions <- GROUNDED-SCHEMA-001, mentions <- GROUNDED-SCHEMA-002, mentions <- GROUNDED-SCHEMA-003, mentions <- GROUNDED-SCHEMA-004, mentions <- GROUNDED-SCHEMA-005, mentions <- GROUNDED-SCHEMA-006, mentions <- GROUNDED-SPECS-001, mentions <- GROUNDED-STYLE-001, mentions <- GROUNDED-STYLE-002, mentions <- GROUNDED-STYLE-003, mentions <- GROUNDED-TAG-001, mentions <- GROUNDED-TAG-002, mentions <- GROUNDED-TAG-003, mentions <- GROUNDED-THEORY-001, mentions <- GROUNDED-TYPE-001, mentions <- GROUNDED-TYPE-002, mentions <- GROUNDED-TYPE-003, mentions <- GROUNDED-TYPE-004, mentions <- GROUNDED-TYPE-005, mentions <- GROUNDED-TYPE-006, mentions <- GROUNDED-TYPE-007, mentions <- GROUNDED-TYPE-008, mentions <- GROUNDED-TYPE-009, mentions <- GROUNDED-TYPE-010, mentions <- GROUNDED-TYPE-011, mentions <- GROUNDED-VERIFY-001, mentions <- PROJECT-GAP-001, mentions <- PROJECT-RULE-001-EX001, mentions <- PROJECT-RULE-002, mentions <- PROJECT-TEST-001, mentions <- PROJECT-VERIFY-001
 - `PROJECT-RULE-002` (business_rule, owner: project): Defines the Agents maintain Grounded during project work rule so agents and maintainers know when and how to apply it. Agents must use, create, and maintain Grounded specs whenever project work changes durable knowledge.
   Links: PROJECT-CONCEPT-001, PROJECT-RULE-001
+  Edges: mentions -> PROJECT-CONCEPT-001, mentions -> PROJECT-RULE-001, tests -> PROJECT-TEST-001
+  Incoming edges: derives_from <- GROUNDED-DOC-002, derives_from <- GROUNDED-DOC-005, derives_from <- GROUNDED-DOC-006, derives_from <- GROUNDED-DOC-SECTION-003, derives_from <- GROUNDED-DOC-SECTION-007, derives_from <- GROUNDED-DOC-SECTION-011, derives_from <- GROUNDED-DOC-SECTION-012, derives_from <- GROUNDED-DOC-SECTION-013, derives_from <- GROUNDED-DOC-SECTION-018, mentions <- PROJECT-CONCEPT-002, mentions <- PROJECT-CONCEPT-003, mentions <- PROJECT-WORKFLOW-001
 - `PROJECT-RULE-003` (business_rule, owner: project): Defines the Semantic slices may nest and overlap rule so agents and maintainers know when and how to apply it. Semantic slices may overlap, and a semantic slice may optionally declare a parent slice to form a nested hierarchy.
   Links: PROJECT-CONCEPT-001, PROJECT-CONCEPT-002, PROJECT-CONCEPT-003
+  Edges: mentions -> PROJECT-CONCEPT-001, mentions -> PROJECT-CONCEPT-002, mentions -> PROJECT-CONCEPT-003
+  Incoming edges: mentions <- PROJECT-CONCEPT-003, mentions <- PROJECT-DECISION-001, mentions <- PROJECT-GAP-002, mentions <- PROJECT-TEST-002
 - `GROUNDED-THEORY-001` (concept, owner: grounded): Explains the Grounded theory concept and how it should be used as canonical Grounded knowledge. Grounded is executable project memory: a schema-validated coordination layer that gives durable project knowledge one canonical owner, models specs as a reference graph, and uses deterministic validation wherever possible to prevent drift between specs, docs, tests, code, and LLM context.
   Links: PROJECT-CONCEPT-001, PROJECT-RULE-001
+  Edges: mentions -> PROJECT-CONCEPT-001, mentions -> PROJECT-RULE-001
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-001, derives_from <- GROUNDED-DOC-SECTION-003, derives_from <- GROUNDED-DOC-SECTION-013, mentions <- GROUNDED-DECISION-001
 - `PROJECT-CONCEPT-001` (concept, owner: project): Explains the Grounded project memory concept and how it should be used as canonical Grounded knowledge. Durable project knowledge is owned by canonical Grounded specs and referenced by other artifacts.
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-003, mentions <- GROUNDED-DECISION-001, mentions <- GROUNDED-THEORY-001, mentions <- PROJECT-CONCEPT-002, mentions <- PROJECT-CONCEPT-003, mentions <- PROJECT-RULE-001, mentions <- PROJECT-RULE-002, mentions <- PROJECT-RULE-003
 - `PROJECT-CONCEPT-002` (concept, owner: project): Explains the Bounded modeling slice concept and how it should be used as canonical Grounded knowledge. Model only the smallest coherent subset of a codebase that serves the current goal, with explicit in-scope and out-of-scope boundaries, so Grounded can stay partial without becoming misleading.
   Links: PROJECT-CONCEPT-001, PROJECT-CONCEPT-003, PROJECT-RULE-002
+  Edges: mentions -> PROJECT-CONCEPT-001, mentions -> PROJECT-CONCEPT-003, mentions -> PROJECT-RULE-002
+  Incoming edges: mentions <- PROJECT-CONCEPT-003, mentions <- PROJECT-RULE-003, mentions <- PROJECT-WORKFLOW-001
 - `PROJECT-CONCEPT-003` (concept, owner: project): Explains the Semantic slice concept and how it should be used as canonical Grounded knowledge. A semantically meaningful grouping of modeled units that captures an implicit or explicit boundary in the system being modeled; semantic slices may overlap, may optionally have a parent slice, and are useful for focusing Grounded on a coherent subset without requiring a partition.
   Links: PROJECT-CONCEPT-001, PROJECT-CONCEPT-002, PROJECT-RULE-003, PROJECT-RULE-002
+  Edges: mentions -> PROJECT-CONCEPT-001, mentions -> PROJECT-CONCEPT-002, mentions -> PROJECT-RULE-002, mentions -> PROJECT-RULE-003
+  Incoming edges: mentions <- GROUNDED-DECISION-037, mentions <- PROJECT-CONCEPT-002, mentions <- PROJECT-DECISION-001, mentions <- PROJECT-GAP-002, mentions <- PROJECT-RULE-003
 - `GROUNDED-DECISION-001` (decision, owner: grounded): Documents the spec, registry_type, registry_unit, and knowledge_unit relationship so maintainers know the minimal base contract and documented extension shape for authored Grounded units. Grounded core models project memory as authored specs that use registry_type definitions. A spec is an authored instance of one registry_type; a registry_type describes what that class of specs is allowed or expected to contain; registry_unit is the minimal base contract for every authored Grounded unit; and knowledge_unit is a richer documented registry_unit for human-facing concepts, rules, types, and decisions. The registry_unit base requires stable identity, type or kind, name, and lifecycle status, with optional owner and summary metadata. Documentation fields such as description and tags belong on documented types. Evidence and relationship fields such as references, examples, tests, and generic links must be opted into by specific registry types rather than inherited from the root base or knowledge_unit. Type-specific JSON Schemas, verification bindings, rendering templates, graph links, and search fields are configured by registry_type definitions rather than hardcoded domain semantics.
   Links: GROUNDED-THEORY-001, GROUNDED-DECISION-057, PROJECT-CONCEPT-001
+  Edges: mentions -> GROUNDED-DECISION-057, mentions -> GROUNDED-THEORY-001, mentions -> PROJECT-CONCEPT-001, tests -> GROUNDED-TEST-010, tests -> GROUNDED-TEST-024, tests -> PROJECT-TEST-001
+  Incoming edges: derives_from <- GROUNDED-DOC-003, derives_from <- GROUNDED-DOC-SECTION-010, mentions <- GROUNDED-DECISION-002, mentions <- GROUNDED-DECISION-003, mentions <- GROUNDED-DECISION-004, mentions <- GROUNDED-DECISION-013, mentions <- GROUNDED-DECISION-025, mentions <- GROUNDED-DECISION-027, mentions <- GROUNDED-DECISION-038, mentions <- GROUNDED-DECISION-039, mentions <- GROUNDED-DECISION-054, mentions <- GROUNDED-DECISION-056, mentions <- GROUNDED-DECISION-057, mentions <- GROUNDED-DECISION-058, mentions <- GROUNDED-DECISION-059, mentions <- GROUNDED-DECISION-060, mentions <- GROUNDED-DECISION-065, mentions <- GROUNDED-EXTENSION-001, mentions <- GROUNDED-SCHEMA-006, mentions <- GROUNDED-TEST-010, mentions <- GROUNDED-TEST-024, mentions <- GROUNDED-TYPE-004, mentions <- GROUNDED-TYPE-005, mentions <- GROUNDED-TYPE-006, mentions <- GROUNDED-TYPE-007, mentions <- GROUNDED-TYPE-008, mentions <- GROUNDED-TYPE-011, mentions <- GROUNDED-VERIFY-001
 - `GROUNDED-DECISION-002` (decision, owner: grounded): Documents the Separate project domain docs from Grounded background decision and explains how it guides Grounded behavior or project maintenance. Generated project documentation presents project-owned domain units as the primary index.html entry page. Grounded concepts, project memory guardrails, and generated-system metadata remain available on a separate background page through a non-prominent link.
   Links: GROUNDED-DECISION-001
+  Edges: mentions -> GROUNDED-DECISION-001, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-006, mentions <- GROUNDED-DECISION-024, mentions <- GROUNDED-DECISION-037, mentions <- GROUNDED-DECISION-038
 - `GROUNDED-DECISION-003` (decision, owner: grounded): Documents the Render structured fields before raw JSON decision and explains how it guides Grounded behavior or project maintenance. Generated unit pages render structured fields and typed details before implementation data. Raw JSON remains available for debugging and traceability, but it is hidden by default behind a disclosure control.
   Links: GROUNDED-DECISION-001
+  Edges: mentions -> GROUNDED-DECISION-001, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-006, mentions <- GROUNDED-DECISION-007, mentions <- GROUNDED-DECISION-020, mentions <- GROUNDED-DECISION-022, mentions <- GROUNDED-DECISION-023
 - `GROUNDED-DECISION-004` (decision, owner: grounded): Documents the Model invariants as explicit concepts decision and explains how it guides Grounded behavior or project maintenance. Invariants should be represented as explicit Grounded concepts with stable IDs and links to the units they constrain, rather than embedded as anonymous strings inside another unit.
   Links: GROUNDED-DECISION-001
+  Edges: mentions -> GROUNDED-DECISION-001, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-005, mentions <- GROUNDED-DECISION-008, mentions <- GROUNDED-DECISION-011
 - `GROUNDED-DECISION-005` (decision, owner: grounded): Documents the Model statuses as lifecycle values decision and explains how it guides Grounded behavior or project maintenance. Status values should be represented as explicit lifecycle_value units with stable IDs, definitions, and links to the lifecycle types or typed units that use them, rather than embedded as lifecycle-state strings.
   Links: GROUNDED-DECISION-004
+  Edges: mentions -> GROUNDED-DECISION-004, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-008, mentions <- GROUNDED-DECISION-011, mentions <- GROUNDED-DECISION-012, mentions <- GROUNDED-DECISION-016, mentions <- GROUNDED-DECISION-017, mentions <- GROUNDED-DECISION-021
 - `GROUNDED-DECISION-006` (decision, owner: grounded): Documents the Provide search on every generated HTML page decision and explains how it guides Grounded behavior or project maintenance. Generated HTML documentation includes the search interface and embedded search index in the shared shell template so every page can search the primary project-domain documentation without requiring a web server.
   Links: GROUNDED-DECISION-002, GROUNDED-DECISION-003
+  Edges: mentions -> GROUNDED-DECISION-002, mentions -> GROUNDED-DECISION-003, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-007, mentions <- GROUNDED-DECISION-009, mentions <- GROUNDED-DECISION-022
 - `GROUNDED-DECISION-007` (decision, owner: grounded): Documents the Keep unit metadata unobtrusive decision and explains how it guides Grounded behavior or project maintenance. Generated unit pages avoid prominent implementation metadata such as unit type and owner in the hero. The stable item ID remains available through an unobtrusive copy control.
   Links: GROUNDED-DECISION-003, GROUNDED-DECISION-006
+  Edges: mentions -> GROUNDED-DECISION-003, mentions -> GROUNDED-DECISION-006, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-008, mentions <- GROUNDED-DECISION-010
 - `GROUNDED-DECISION-008` (decision, owner: grounded): Documents the Render related concepts inline on unit pages decision and explains how it guides Grounded behavior or project maintenance. Generated unit pages render outgoing typed context inline with summaries, so invariants, lifecycle values, and other domain context provide meaning in the main page instead of appearing only as graph links or backlinks.
   Links: GROUNDED-DECISION-004, GROUNDED-DECISION-005, GROUNDED-DECISION-007
+  Edges: mentions -> GROUNDED-DECISION-004, mentions -> GROUNDED-DECISION-005, mentions -> GROUNDED-DECISION-007, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-009, mentions <- GROUNDED-DECISION-011
 - `GROUNDED-DECISION-009` (decision, owner: grounded): Documents the Color-code links by unit type decision and explains how it guides Grounded behavior or project maintenance. Grounded links are color-coded by referenced unit type. Dense navigation areas such as outgoing links and backlinks use the text-only grounded-link variant to preserve scanability while keeping type color.
   Links: GROUNDED-DECISION-006, GROUNDED-DECISION-008
+  Edges: mentions -> GROUNDED-DECISION-006, mentions -> GROUNDED-DECISION-008, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-019, mentions <- GROUNDED-DECISION-020, mentions <- GROUNDED-DECISION-022, mentions <- GROUNDED-DECISION-023, mentions <- GROUNDED-DECISION-029, mentions <- GROUNDED-DECISION-031
 - `GROUNDED-DECISION-010` (decision, owner: grounded): Documents the Show object type as quiet context decision and explains how it guides Grounded behavior or project maintenance. Generated unit pages show the unit's object type as quiet page context while keeping owner metadata hidden and the stable ID available through an unobtrusive copy control.
   Links: GROUNDED-DECISION-007
+  Edges: mentions -> GROUNDED-DECISION-007, tests -> PROJECT-TEST-001
 - `GROUNDED-DECISION-011` (decision, owner: grounded): Documents the Render typed context as dedicated sections decision and explains how it guides Grounded behavior or project maintenance. Generated unit pages group linked typed context into dedicated sections such as Invariants and Status Values. Invariants are concept units with explicit concept roles; status values are lifecycle_value units. Uncategorized concept links retain a Related Concepts fallback outside business entity pages.
   Links: GROUNDED-DECISION-004, GROUNDED-DECISION-005, GROUNDED-DECISION-008
+  Edges: mentions -> GROUNDED-DECISION-004, mentions -> GROUNDED-DECISION-005, mentions -> GROUNDED-DECISION-008, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-012, mentions <- GROUNDED-DECISION-015, mentions <- GROUNDED-DECISION-016, mentions <- GROUNDED-DECISION-018
 - `GROUNDED-DECISION-012` (decision, owner: grounded): Documents the Model lifecycle vocabularies as lifecycle types decision and explains how it guides Grounded behavior or project maintenance. Lifecycle vocabularies should be modeled as lifecycle_type units rather than domain_object units, so domain objects remain reserved for durable nouns and lifecycle/state vocabularies render with their own type identity.
   Links: GROUNDED-DECISION-005, GROUNDED-DECISION-011
+  Edges: mentions -> GROUNDED-DECISION-005, mentions -> GROUNDED-DECISION-011, tests -> PROJECT-TEST-001
 - `GROUNDED-DECISION-013` (decision, owner: grounded): Documents the Model concrete nouns as business entities decision and explains how it guides Grounded behavior or project maintenance. Concrete domain nouns with identity, fields, and lifecycle should be modeled as business_entity specs rather than one-off domain-specific Grounded types, so the entity name does not get conflated with the registry type name.
   Links: GROUNDED-DECISION-001
+  Edges: mentions -> GROUNDED-DECISION-001, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-014, mentions <- GROUNDED-DECISION-015
 - `GROUNDED-DECISION-014` (decision, owner: grounded): Documents the Model collections as business entities decision and explains how it guides Grounded behavior or project maintenance. Named collections with identity and relationships should be modeled as business_entity units rather than domain_object units when they are concrete business entities, not only glossary-style domain nouns.
   Links: GROUNDED-DECISION-013
+  Edges: mentions -> GROUNDED-DECISION-013, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-015
 - `GROUNDED-DECISION-015` (decision, owner: grounded): Documents the Render entity invariants from backlinks decision and explains how it guides Grounded behavior or project maintenance. Generated business entity pages should render constraining invariant concepts in an explicit Invariants section by combining outgoing concept links with typed concept backlinks, and should not render a generic Related Concepts fallback for untyped concept context.
   Links: GROUNDED-DECISION-011, GROUNDED-DECISION-013, GROUNDED-DECISION-014
+  Edges: mentions -> GROUNDED-DECISION-011, mentions -> GROUNDED-DECISION-013, mentions -> GROUNDED-DECISION-014, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-018, mentions <- GROUNDED-DECISION-019
 - `GROUNDED-DECISION-016` (decision, owner: grounded): Documents the Use friendly status value labels decision and explains how it guides Grounded behavior or project maintenance. Status value labels should be friendly value names such as Open, In progress, Blocked, Done, and Removed because lifecycle pages and Status Values sections already provide the status context.
   Links: GROUNDED-DECISION-005, GROUNDED-DECISION-011
+  Edges: mentions -> GROUNDED-DECISION-005, mentions -> GROUNDED-DECISION-011, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-017
 - `GROUNDED-DECISION-017` (decision, owner: grounded): Documents the Model status values as lifecycle values decision and explains how it guides Grounded behavior or project maintenance. Status values should be modeled as lifecycle_value units rather than concept units because they are members of a lifecycle vocabulary.
   Links: GROUNDED-DECISION-005, GROUNDED-DECISION-016
+  Edges: mentions -> GROUNDED-DECISION-005, mentions -> GROUNDED-DECISION-016, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-021
 - `GROUNDED-DECISION-018` (decision, owner: grounded): Documents the Attach invariants to constrained units decision and explains how it guides Grounded behavior or project maintenance. Invariants should link to the business entity they constrain, not to unrelated lifecycle types. Lifecycle type pages should focus on lifecycle values and only receive invariant context when an invariant actually constrains the lifecycle vocabulary itself.
   Links: GROUNDED-DECISION-011, GROUNDED-DECISION-015
+  Edges: mentions -> GROUNDED-DECISION-011, mentions -> GROUNDED-DECISION-015, tests -> PROJECT-TEST-001
 - `GROUNDED-DECISION-019` (decision, owner: grounded): Documents the Hide decisions from domain link panels decision and explains how it guides Grounded behavior or project maintenance. Generated unit pages hide decision units from visible outgoing-link and backlink panels except on decision pages. Decisions remain in the underlying graph and search data, but domain documentation should foreground domain concepts, invariants, lifecycle values, and entities instead of build-history decisions.
   Links: GROUNDED-DECISION-009, GROUNDED-DECISION-015
+  Edges: mentions -> GROUNDED-DECISION-009, mentions -> GROUNDED-DECISION-015, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-022
 - `GROUNDED-DECISION-020` (decision, owner: grounded): Documents the Link resolvable field types decision and explains how it guides Grounded behavior or project maintenance. Generated field tables render field type names as Grounded links. Field types should be modeled as canonical data_type or lifecycle_type units when the project wants every displayed type to have a link target.
   Links: GROUNDED-DECISION-003, GROUNDED-DECISION-009
+  Edges: mentions -> GROUNDED-DECISION-003, mentions -> GROUNDED-DECISION-009, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-023, mentions <- GROUNDED-DECISION-033
 - `GROUNDED-DECISION-021` (decision, owner: grounded): Documents the Keep status values on lifecycle page decision and explains how it guides Grounded behavior or project maintenance. Business entities should link to lifecycle types rather than directly linking to every lifecycle value. The lifecycle type owns and renders the values, keeping entity pages focused on fields and invariants while preserving the full status vocabulary on the lifecycle page.
   Links: GROUNDED-DECISION-005, GROUNDED-DECISION-017
+  Edges: mentions -> GROUNDED-DECISION-005, mentions -> GROUNDED-DECISION-017, tests -> PROJECT-TEST-001
 - `GROUNDED-DECISION-022` (decision, owner: grounded): Documents the Adopt compact docs shell decision and explains how it guides Grounded behavior or project maintenance. Generated HTML documentation adopts the compact project-docs shell from the downloaded design while preserving the Grounded rendering infrastructure. The shared shell owns top search and sidebar navigation; unit, index, and background templates reuse the same shell, design tokens, and grounded-link variants instead of reimplementing page chrome. Sidebar navigation groups render as accordions: unit lists are collapsed under their section titles by default, clicking a title toggles that section, and the section containing the current unit opens on unit pages. Grounded links use registry and tag-index metadata to expose hover/focus tooltips with the target name, stable ID, type, and short description so readers can understand a referenced unit without navigating away. Generated HTML references the bundled component script with a content hash query string so browser module caches do not keep stale navigation behavior after render.
   Links: GROUNDED-DECISION-003, GROUNDED-DECISION-006, GROUNDED-DECISION-009, GROUNDED-DECISION-019
+  Edges: mentions -> GROUNDED-DECISION-003, mentions -> GROUNDED-DECISION-006, mentions -> GROUNDED-DECISION-009, mentions -> GROUNDED-DECISION-019, tests -> GROUNDED-TEST-021, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-023, mentions <- GROUNDED-DECISION-024, mentions <- GROUNDED-DECISION-028, mentions <- GROUNDED-DECISION-029, mentions <- GROUNDED-DECISION-031, mentions <- GROUNDED-DECISION-032, mentions <- GROUNDED-DECISION-041, mentions <- GROUNDED-DECISION-045, mentions <- GROUNDED-DECISION-050, mentions <- GROUNDED-DECISION-053, mentions <- GROUNDED-TEST-021
 - `GROUNDED-DECISION-023` (decision, owner: grounded): Documents the Componentize generated docs with Lit decision and explains how it guides Grounded behavior or project maintenance. Generated HTML documentation is assembled from LitElement custom elements for the app shell, top bar, search, navigation, generic unit page, type-specific page wrappers, field tables, concept sections, link panels, copy controls, and raw JSON disclosure. Type-specific pages wrap the generic grounded-unit-page through named slots so custom pages can add or reorder content without duplicating the core page structure.
   Links: GROUNDED-DECISION-003, GROUNDED-DECISION-009, GROUNDED-DECISION-020, GROUNDED-DECISION-022
+  Edges: mentions -> GROUNDED-DECISION-003, mentions -> GROUNDED-DECISION-009, mentions -> GROUNDED-DECISION-020, mentions -> GROUNDED-DECISION-022, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-024, mentions <- GROUNDED-DECISION-026, mentions <- GROUNDED-DECISION-028, mentions <- GROUNDED-DECISION-030, mentions <- GROUNDED-DECISION-032, mentions <- GROUNDED-DECISION-041, mentions <- GROUNDED-DECISION-045
 - `GROUNDED-DECISION-024` (decision, owner: grounded): Documents the Package examples as standalone projects decision and explains how it guides Grounded behavior or project maintenance. Example domains are packaged as standalone Grounded projects under examples instead of living in the distribution's own grounded/specs tree. The distribution docs should describe Grounded itself by default, while each example owns its domain units, generated docs, and local grounded.yml configuration.
   Links: GROUNDED-DECISION-002, GROUNDED-DECISION-022, GROUNDED-DECISION-023
+  Edges: mentions -> GROUNDED-DECISION-002, mentions -> GROUNDED-DECISION-022, mentions -> GROUNDED-DECISION-023, tests -> PROJECT-TEST-001
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-014, mentions <- GROUNDED-DECISION-025, mentions <- GROUNDED-DECISION-027
 - `GROUNDED-DECISION-025` (decision, owner: grounded): Documents the Initialize project files under .grounded decision and explains how it guides Grounded behavior or project maintenance. New projects initialized with grounded init store project-local Grounded files under .grounded by default. Projects can override that location during initialization, and the generated grounded.yml records explicit paths so existing projects with a grounded directory continue to work.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-024
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-024, tests -> PROJECT-TEST-001
+  Incoming edges: derives_from <- GROUNDED-DOC-002, derives_from <- GROUNDED-DOC-SECTION-007, derives_from <- GROUNDED-DOC-SECTION-015, mentions <- GROUNDED-DECISION-026, mentions <- GROUNDED-DECISION-027
 - `GROUNDED-DECISION-026` (decision, owner: grounded): Documents the Make AGENTS updates opt-in decision and explains how it guides Grounded behavior or project maintenance. The package version is bumped to 0.2.0 for the typed renderer and project layout changes. New grounded init runs do not update AGENTS.md by default; projects must opt in with --update-agents when they want the scaffold to add or refresh agent instructions.
   Links: GROUNDED-DECISION-023, GROUNDED-DECISION-025
+  Edges: mentions -> GROUNDED-DECISION-023, mentions -> GROUNDED-DECISION-025, tests -> PROJECT-TEST-001
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-015
 - `GROUNDED-DECISION-027` (decision, owner: grounded): Documents the Keep built-in types minimal decision and explains how it guides Grounded behavior or project maintenance. The built-in type registry is limited to core Grounded infrastructure types: registry_unit, knowledge_unit, domain_object, enum, schema_gap, slice, and verification. Evidence fields are not part of the registry_unit root; richer modeling vocabularies such as business rules, decisions, workflows, business entities, data types, lifecycle values, and evidence-specific shapes must be declared by the project or by an add-on/example registry.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-024, GROUNDED-DECISION-025, GROUNDED-DECISION-034
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-024, mentions -> GROUNDED-DECISION-025, mentions -> GROUNDED-DECISION-034, tests -> GROUNDED-TEST-006
+  Incoming edges: mentions <- GROUNDED-DECISION-034, mentions <- GROUNDED-DECISION-035, mentions <- GROUNDED-DECISION-057
 - `GROUNDED-DECISION-028` (decision, owner: grounded): Documents the Bundle default stylesheet decision and explains how it guides Grounded behavior or project maintenance. The default documentation stylesheet is packaged as a Python package asset and loaded through importlib.resources. Projects may still override styles through their configured styles_dir, but fresh scaffolds and renders no longer depend on the source checkout's grounded/styles directory being present.
   Links: GROUNDED-DECISION-022, GROUNDED-DECISION-023
+  Edges: mentions -> GROUNDED-DECISION-022, mentions -> GROUNDED-DECISION-023, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-043, mentions <- GROUNDED-DECISION-045, mentions <- GROUNDED-DECISION-050, mentions <- GROUNDED-DECISION-051
 - `GROUNDED-DECISION-029` (decision, owner: grounded): Documents the Add optional grounded-link label decision and explains how it guides Grounded behavior or project maintenance. The grounded-link component should accept an optional label attribute that overrides the visible link text while keeping the grounded-id as the canonical reference target. Existing slot text remains a fallback for backward compatibility.
   Links: GROUNDED-DECISION-009, GROUNDED-DECISION-022, PROJECT-DECISION-001
+  Edges: mentions -> GROUNDED-DECISION-009, mentions -> GROUNDED-DECISION-022, mentions -> PROJECT-DECISION-001, tests -> GROUNDED-TEST-001
+  Incoming edges: mentions <- GROUNDED-DECISION-030, mentions <- GROUNDED-DECISION-031, mentions <- GROUNDED-DECISION-039, mentions <- GROUNDED-DECISION-041, mentions <- GROUNDED-TEST-001
 - `GROUNDED-DECISION-030` (decision, owner: grounded): Documents the Field rows expose stable anchors decision and explains how it guides Grounded behavior or project maintenance. Generated field tables should render each field row with a stable fragment anchor derived from the parent unit and field name. The grounded-link component may use an optional fragment attribute to deep-link to those anchors.
   Links: GROUNDED-DECISION-029, GROUNDED-DECISION-023
+  Edges: mentions -> GROUNDED-DECISION-023, mentions -> GROUNDED-DECISION-029, tests -> GROUNDED-TEST-002
+  Incoming edges: mentions <- GROUNDED-DECISION-031, mentions <- GROUNDED-DECISION-032, mentions <- GROUNDED-DECISION-036, mentions <- GROUNDED-DECISION-039, mentions <- GROUNDED-TEST-002
 - `GROUNDED-DECISION-031` (decision, owner: grounded): Documents the Use optional short names for display decision and explains how it guides Grounded behavior or project maintenance. Knowledge units may include an optional short_name field. Renderers should prefer short_name for link labels, backlinks, navigation, and search-visible titles while preserving the full name as the canonical unit name.
   Links: GROUNDED-DECISION-009, GROUNDED-DECISION-022, GROUNDED-DECISION-029, GROUNDED-DECISION-030
+  Edges: mentions -> GROUNDED-DECISION-009, mentions -> GROUNDED-DECISION-022, mentions -> GROUNDED-DECISION-029, mentions -> GROUNDED-DECISION-030, tests -> GROUNDED-TEST-003
+  Incoming edges: mentions <- GROUNDED-DECISION-033, mentions <- GROUNDED-DECISION-036, mentions <- GROUNDED-TEST-003
 - `GROUNDED-DECISION-032` (decision, owner: grounded): Documents the Harden generated outputs and render checks decision and explains how it guides Grounded behavior or project maintenance. Generated HTML must escape JSON embedded in script tags so hostile spec text cannot terminate the script block. Render checks must report stale or missing outputs plus obsolete generated unit, tag, and legacy entry pages, and generated text artifacts should not carry hard-coded last_updated metadata.
   Links: GROUNDED-DECISION-022, GROUNDED-DECISION-023, GROUNDED-DECISION-030
+  Edges: mentions -> GROUNDED-DECISION-022, mentions -> GROUNDED-DECISION-023, mentions -> GROUNDED-DECISION-030, tests -> GROUNDED-TEST-004
+  Incoming edges: mentions <- GROUNDED-DECISION-038, mentions <- GROUNDED-DECISION-039, mentions <- GROUNDED-DECISION-049, mentions <- GROUNDED-TEST-004
 - `GROUNDED-DECISION-033` (decision, owner: grounded): Documents the Require exact type matches and collision checks decision and explains how it guides Grounded behavior or project maintenance. Field type resolution should only use exact canonical identifiers or exact display names and must not fall back to matching by kind. Generated unit output paths must reject slug collisions instead of silently overwriting one page with another.
   Links: GROUNDED-DECISION-020, GROUNDED-DECISION-031
+  Edges: mentions -> GROUNDED-DECISION-020, mentions -> GROUNDED-DECISION-031, tests -> GROUNDED-TEST-005
+  Incoming edges: mentions <- GROUNDED-TEST-005
 - `GROUNDED-DECISION-034` (decision, owner: grounded): Documents the Render enum values on enum pages decision and explains how it guides Grounded behavior or project maintenance. Enum specs model a closed list of string values. Enum pages should render those values explicitly so the allowed set is visible in generated docs and downstream readers do not need to inspect raw JSON to understand the boundary.
   Links: GROUNDED-DECISION-027
+  Edges: mentions -> GROUNDED-DECISION-027, tests -> GROUNDED-TEST-006
+  Incoming edges: mentions <- GROUNDED-DECISION-027, mentions <- GROUNDED-DECISION-036, mentions <- GROUNDED-TEST-006
 - `GROUNDED-DECISION-035` (decision, owner: grounded): Documents the Support project-defined tags with tag pages decision and explains how it guides Grounded behavior or project maintenance. Knowledge units and their field definitions may include an optional tags array containing legacy string tags or typed tag objects with type and value fields. Tags are rendered as clickable grounded-links to generated tag pages, and each tag page groups matching members by type. Projects may declare tag_types in the type registry and may use reference_tag_constraints on reference fields so a source spec can require referenced targets to carry a specific typed tag, such as EntityType:BusinessEntity.
   Links: GROUNDED-DECISION-027
+  Edges: mentions -> GROUNDED-DECISION-027, tests -> GROUNDED-TEST-007, tests -> GROUNDED-TEST-020
+  Incoming edges: mentions <- GROUNDED-DECISION-036, mentions <- GROUNDED-DECISION-039, mentions <- GROUNDED-REF-005, mentions <- GROUNDED-TAG-001, mentions <- GROUNDED-TAG-002, mentions <- GROUNDED-TAG-003, mentions <- GROUNDED-TEST-007, mentions <- GROUNDED-TEST-020, mentions <- GROUNDED-TYPE-009, mentions <- GROUNDED-TYPE-010
 - `GROUNDED-DECISION-036` (decision, owner: grounded): Documents the Expose a reusable unit core template decision and explains how it guides Grounded behavior or project maintenance. The core renderer exposes reusable templates such as unit-core.html.j2 for projects to extend. Project-specific behavior should use extension points such as the type registry, JSON Schemas, project template overrides, styles, slice metadata, and verification specs instead of directly editing bundled Grounded templates, validation code, or rendering functions. The shared unit core owns page chrome, field rendering, field anchors, collection-aware field types, and field references, while project templates override only project-specific sections such as examples or invariants.
   Links: GROUNDED-DECISION-030, GROUNDED-DECISION-031, GROUNDED-DECISION-034, GROUNDED-DECISION-035, GROUNDED-EXTENSION-001
+  Edges: mentions -> GROUNDED-DECISION-030, mentions -> GROUNDED-DECISION-031, mentions -> GROUNDED-DECISION-034, mentions -> GROUNDED-DECISION-035, mentions -> GROUNDED-EXTENSION-001, tests -> GROUNDED-TEST-008
+  Incoming edges: mentions <- GROUNDED-DECISION-037, mentions <- GROUNDED-DECISION-038, mentions <- GROUNDED-EXTENSION-001, mentions <- GROUNDED-TEST-008
 - `GROUNDED-DECISION-037` (decision, owner: grounded): Documents the Render explicit slice documentation pages decision and explains how it guides Grounded behavior or project maintenance. Slice specs define explicit, scoped documentation views with their own metadata, generated index.html page, optional index template override, and optional stylesheet. Slice pages render only their declared members in navigation and search while preserving links into the full Grounded graph.
   Links: GROUNDED-DECISION-002, GROUNDED-DECISION-036, PROJECT-CONCEPT-003
+  Edges: mentions -> GROUNDED-DECISION-002, mentions -> GROUNDED-DECISION-036, mentions -> PROJECT-CONCEPT-003, tests -> GROUNDED-TEST-009
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-005, mentions <- GROUNDED-DECISION-038, mentions <- GROUNDED-EXTENSION-001, mentions <- GROUNDED-TEST-009
 - `GROUNDED-DECISION-038` (decision, owner: grounded): Documents the 0.3.0 version bump so the release version has a canonical Grounded owner. The package version is bumped to 0.3.0 for slice documentation pages, required documented-unit descriptions, index.html entry output, extension-point guidance, and the associated schema and rendering updates.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-002, GROUNDED-DECISION-032, GROUNDED-DECISION-036, GROUNDED-DECISION-037, GROUNDED-EXTENSION-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-002, mentions -> GROUNDED-DECISION-032, mentions -> GROUNDED-DECISION-036, mentions -> GROUNDED-DECISION-037, mentions -> GROUNDED-EXTENSION-001
+  Incoming edges: mentions <- GROUNDED-DECISION-040
 - `GROUNDED-DECISION-039` (decision, owner: grounded): Documents the constrained inline rich-text syntax so prose fields can link to canonical Grounded units without allowing arbitrary HTML. Grounded prose fields support constrained inline rich text. The syntax renders [[SPEC-ID]], [[SPEC-ID|label]], [[SPEC-ID#fragment|label]], and [[tag:name|label]] as safe Grounded links, supports small inline formatting such as code, strong text, and emphasis, and treats spec links as graph references for validation and backlinks.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-029, GROUNDED-DECISION-030, GROUNDED-DECISION-032, GROUNDED-DECISION-035
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-029, mentions -> GROUNDED-DECISION-030, mentions -> GROUNDED-DECISION-032, mentions -> GROUNDED-DECISION-035, tests -> GROUNDED-TEST-011
+  Incoming edges: mentions <- GROUNDED-DECISION-040, mentions <- GROUNDED-DECISION-041, mentions <- GROUNDED-DECISION-047, mentions <- GROUNDED-TEST-011
 - `GROUNDED-DECISION-040` (decision, owner: grounded): Documents the 0.4.0 version bump so the inline rich-text release has a canonical Grounded owner. The package version is bumped to 0.4.0 for constrained inline rich text, inline Grounded links in prose fields, tag links in prose, and validation/backlink support for inline spec references.
   Links: GROUNDED-DECISION-038, GROUNDED-DECISION-039
+  Edges: mentions -> GROUNDED-DECISION-038, mentions -> GROUNDED-DECISION-039
+  Incoming edges: mentions <- GROUNDED-DECISION-042
 - `GROUNDED-DECISION-041` (decision, owner: grounded): Documents the compact list components so generated docs can show dense linked name-and-description rows without full unit cards. Generated documentation includes grounded-compact-list and grounded-compact-item Lit components for compact repeated items that need a name, description, and optional link. Compact lists are intended for dense contexts that would otherwise use grounded-unit-card but do not need a full card frame.
   Links: GROUNDED-DECISION-022, GROUNDED-DECISION-023, GROUNDED-DECISION-029, GROUNDED-DECISION-039
+  Edges: mentions -> GROUNDED-DECISION-022, mentions -> GROUNDED-DECISION-023, mentions -> GROUNDED-DECISION-029, mentions -> GROUNDED-DECISION-039, tests -> GROUNDED-TEST-012
+  Incoming edges: mentions <- GROUNDED-DECISION-042, mentions <- GROUNDED-DECISION-045, mentions <- GROUNDED-TEST-012
 - `GROUNDED-DECISION-042` (decision, owner: grounded): Documents the 0.5.0 version bump so the compact list release has a canonical Grounded owner. The package version is bumped to 0.5.0 for compact linked item list components and their tag page rendering usage.
   Links: GROUNDED-DECISION-040, GROUNDED-DECISION-041
+  Edges: mentions -> GROUNDED-DECISION-040, mentions -> GROUNDED-DECISION-041
+  Incoming edges: mentions <- GROUNDED-DECISION-046
 - `GROUNDED-DECISION-043` (decision, owner: grounded): Documents the default documentation font-size token scale so the bundled stylesheet remains readable and aligned with the design brief without project overrides. The bundled documentation stylesheet uses a readable font token scale derived from DESIGN.md, with body-sized text at the Notion design brief's body-md size of 1rem and compact labels scaled to remain legible. Generated documentation should prefer readable default prose over an overly dense small-text interface.
   Links: GROUNDED-DECISION-028, GROUNDED-STYLE-002
+  Edges: mentions -> GROUNDED-DECISION-028, mentions -> GROUNDED-STYLE-002, tests -> GROUNDED-TEST-013
+  Incoming edges: mentions <- GROUNDED-DECISION-046, mentions <- GROUNDED-DECISION-051, mentions <- GROUNDED-TEST-013
 - `GROUNDED-DECISION-045` (decision, owner: grounded): Documents the reusable Lit component extraction from a project-specific analytics documentation mock. Reusable documentation patterns identified from project-specific mocks are implemented as neutral bundled Lit components that consume Grounded design tokens. The reusable set includes grounded-doc-header, grounded-section, grounded-pill-link-list, grounded-detail-list, and grounded-detail-row; project-specific analytics concepts remain data or template content rather than core components.
   Links: GROUNDED-DECISION-022, GROUNDED-DECISION-023, GROUNDED-DECISION-028, GROUNDED-DECISION-041
+  Edges: mentions -> GROUNDED-DECISION-022, mentions -> GROUNDED-DECISION-023, mentions -> GROUNDED-DECISION-028, mentions -> GROUNDED-DECISION-041, tests -> GROUNDED-TEST-015
+  Incoming edges: mentions <- GROUNDED-DECISION-046, mentions <- GROUNDED-DECISION-047, mentions <- GROUNDED-DECISION-050, mentions <- GROUNDED-DECISION-051, mentions <- GROUNDED-TEST-015
 - `GROUNDED-DECISION-046` (decision, owner: grounded): Documents the 0.6.0 version bump so the reusable documentation component release has a canonical Grounded owner. The package version is bumped to 0.6.0 for reusable bundled Lit documentation components, unit-page adoption of grounded-doc-header, and the readable bundled font token scale.
   Links: GROUNDED-DECISION-042, GROUNDED-DECISION-043, GROUNDED-DECISION-045
+  Edges: mentions -> GROUNDED-DECISION-042, mentions -> GROUNDED-DECISION-043, mentions -> GROUNDED-DECISION-045
+  Incoming edges: mentions <- GROUNDED-DECISION-048, mentions <- GROUNDED-DECISION-049
 - `GROUNDED-DECISION-047` (decision, owner: grounded): Documents the Graphviz DOT CLI export so Grounded relationship graphs can be generated from the same canonical registry references used by rendered docs. The CLI includes a graph command that emits Graphviz DOT for relationships around a starting spec ID. The command traverses both outgoing references and backlinks up to a configurable depth, can include or exclude specific spec types, writes to stdout by default, and can write to a requested output path. Graph output supports profiles: docs is the default readable documentation profile with structured labels, focus highlighting, softer layout styling, and collapsed noisy values; compact is a smaller presentation-oriented variant; debug preserves the raw relationship graph for inspection.
   Links: GROUNDED-DECISION-039, GROUNDED-DECISION-045
+  Edges: mentions -> GROUNDED-DECISION-039, mentions -> GROUNDED-DECISION-045, tests -> GROUNDED-TEST-016
+  Incoming edges: derives_from <- GROUNDED-DOC-004, derives_from <- GROUNDED-DOC-SECTION-004, derives_from <- GROUNDED-DOC-SECTION-009, mentions <- GROUNDED-DECISION-048, mentions <- GROUNDED-DECISION-053, mentions <- GROUNDED-DECISION-056, mentions <- GROUNDED-TEST-016
 - `GROUNDED-DECISION-048` (decision, owner: grounded): Documents the 0.7.0 version bump so the Graphviz relationship graph CLI release has a canonical Grounded owner. The package version is bumped to 0.7.0 for the Graphviz relationship graph CLI, including bounded traversal from a starting spec ID, outgoing and backlink relationships, optional type include/exclude filters, stdout output, and file output.
   Links: GROUNDED-DECISION-046, GROUNDED-DECISION-047
+  Edges: mentions -> GROUNDED-DECISION-046, mentions -> GROUNDED-DECISION-047
 - `GROUNDED-DECISION-049` (decision, owner: grounded): Documents the GitHub Pages preparation for generated Grounded documentation and the Todo demo so publishing uses generated artifacts without committing rendered site files. The GitHub Pages deployment workflow builds the root Grounded registry docs and the standalone Todo example docs during deployment, validates and audits the root registry, validates the Todo registry, verifies rendered outputs are current, assembles the generated root docs at the Pages site root and the generated Todo site under pages-site/todo, uploads that assembled site as a Pages artifact, and deploys it with the official GitHub Pages deployment action. Rendered site output remains out of version control.
   Links: GROUNDED-DECISION-032, GROUNDED-DECISION-046
+  Edges: mentions -> GROUNDED-DECISION-032, mentions -> GROUNDED-DECISION-046
+  Incoming edges: derives_from <- GROUNDED-DOC-008, derives_from <- GROUNDED-DOC-SECTION-014, derives_from <- GROUNDED-DOC-SECTION-016, derives_from <- GROUNDED-DOC-SECTION-019, mentions <- GROUNDED-DECISION-052
 - `GROUNDED-DECISION-050` (decision, owner: grounded): Documents the light and dark theme toggle for generated Grounded documentation so theme behavior has a canonical owner. Generated documentation includes a bundled grounded-theme-toggle Lit component in the shared top bar. The toggle switches between explicit light and dark themes, persists the preference in localStorage under grounded-theme, and applies the selected mode by setting data-theme on the document root. When no explicit preference is stored, generated docs follow the user's system color scheme.
   Links: GROUNDED-DECISION-022, GROUNDED-DECISION-028, GROUNDED-DECISION-045
+  Edges: mentions -> GROUNDED-DECISION-022, mentions -> GROUNDED-DECISION-028, mentions -> GROUNDED-DECISION-045, tests -> GROUNDED-TEST-017
+  Incoming edges: mentions <- GROUNDED-DECISION-051, mentions <- GROUNDED-DECISION-052, mentions <- GROUNDED-TEST-017
 - `GROUNDED-DECISION-051` (decision, owner: grounded): Documents DESIGN.md as the default rendered HTML styling source so bundled docs styling has a canonical owner. The bundled generated-documentation stylesheet adopts DESIGN.md as its default visual token source. The default rendered HTML uses the Notion design brief's neutral canvas and surface colors, purple primary accent, blue link accent, Notion Sans typography with Inter/system fallbacks, 8px controls, 12px cards, pastel metadata badges, and 4px-based spacing scale. Project styles may still override these tokens through the configured styles_dir.
   Links: GROUNDED-DECISION-028, GROUNDED-DECISION-043, GROUNDED-DECISION-045, GROUNDED-DECISION-050
+  Edges: mentions -> GROUNDED-DECISION-028, mentions -> GROUNDED-DECISION-043, mentions -> GROUNDED-DECISION-045, mentions -> GROUNDED-DECISION-050, tests -> GROUNDED-TEST-018
+  Incoming edges: mentions <- GROUNDED-DECISION-052, mentions <- GROUNDED-TEST-018
 - `GROUNDED-DECISION-052` (decision, owner: grounded): Documents the 0.8.0 version bump so the publishing, theme toggle, and DESIGN.md styling release has a canonical Grounded owner. The package version is bumped to 0.8.0 for GitHub publishing preparation, Todo demo GitHub Pages deployment, the generated documentation light/dark theme toggle, and DESIGN.md-based default documentation styling.
   Links: GROUNDED-DECISION-049, GROUNDED-DECISION-050, GROUNDED-DECISION-051
+  Edges: mentions -> GROUNDED-DECISION-049, mentions -> GROUNDED-DECISION-050, mentions -> GROUNDED-DECISION-051
+  Incoming edges: derives_from <- GROUNDED-DOC-008, derives_from <- GROUNDED-DOC-SECTION-019, mentions <- GROUNDED-DECISION-063
 - `GROUNDED-DECISION-053` (decision, owner: grounded): Documents the 0.9.0 version bump so the graph presentation and generated documentation navigation release has a canonical Grounded owner. The package version is bumped to 0.9.0 for documentation-oriented Graphviz profiles, generated docs sidebar accordion navigation, component script cache busting, and Todo graph artifacts.
   Links: GROUNDED-DECISION-022, GROUNDED-DECISION-047
+  Edges: mentions -> GROUNDED-DECISION-022, mentions -> GROUNDED-DECISION-047
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-019
 - `GROUNDED-DECISION-054` (decision, owner: grounded): Documents the CLI search workflow so LLM agents can discover existing entities, concepts, and specs before creating new specs. The CLI includes search-oriented commands for LLM and maintainer workflows: search ranks matching specs, entities lists entity-like specs, specs lists available specs and can filter by references, spec searches non-entity specs, and check-new recommends whether a proposed entity or concept likely already exists. Results are deterministic, registry-backed, and available as human-readable text or JSON.
   Links: GROUNDED-DECISION-001, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> PROJECT-RULE-001, tests -> GROUNDED-TEST-019
+  Incoming edges: derives_from <- GROUNDED-DOC-004, derives_from <- GROUNDED-DOC-006, derives_from <- GROUNDED-DOC-SECTION-004, derives_from <- GROUNDED-DOC-SECTION-009, derives_from <- GROUNDED-DOC-SECTION-018, mentions <- GROUNDED-DECISION-055, mentions <- GROUNDED-DECISION-056, mentions <- GROUNDED-TEST-019
 - `GROUNDED-DECISION-055` (decision, owner: grounded): Documents the 0.10.0 version bump so the CLI project-memory search release has a canonical Grounded owner. The package version is bumped to 0.10.0 for CLI project-memory search commands, including search, entities, specs, spec, and check-new workflows with deterministic ranking and JSON output.
   Links: GROUNDED-DECISION-054
+  Edges: mentions -> GROUNDED-DECISION-054
 - `GROUNDED-DECISION-056` (decision, owner: grounded): Documents the project-memory module boundary so graph semantics remain independently testable and JSON, filesystem, and JSON Schema mechanics can be replaced by adapters. Project-memory loading is adapter-backed: the project_memory module owns Grounded graph semantics such as unit indexing, lifecycle views, reference extraction, backlink derivation, duplicate IDs, and unknown-reference issues, while filesystem JSON loading, type-registry JSON loading, and JSON Schema execution live in project_memory_json infrastructure adapters. The legacy registry API remains a compatibility wrapper for this migration slice.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-047, GROUNDED-DECISION-054
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-047, mentions -> GROUNDED-DECISION-054, tests -> GROUNDED-TEST-022
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-018, mentions <- GROUNDED-COMPAT-001, mentions <- GROUNDED-TEST-022, mentions <- GROUNDED-TYPE-011
 - `GROUNDED-DECISION-057` (decision, owner: grounded): Documents the registry_type nomenclature for Grounded metamodel types and how generated views should label them. The project-facing name for a governed definition of a top-level spec kind is registry_type. Generated views should render these units with the friendlier Grounded Types label, and docs should reserve generated-view wording for outputs rather than the governing type definitions themselves. The compatibility key spec_type may remain in older registries and examples, but the preferred Grounded-facing term is registry_type.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-027
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-027, tests -> GROUNDED-TEST-023
+  Incoming edges: derives_from <- GROUNDED-DOC-003, derives_from <- GROUNDED-DOC-SECTION-010, mentions <- GROUNDED-DECISION-001, mentions <- GROUNDED-DECISION-058, mentions <- GROUNDED-DECISION-059, mentions <- GROUNDED-DECISION-060, mentions <- GROUNDED-DECISION-065, mentions <- GROUNDED-TEST-023
 - `GROUNDED-DECISION-058` (decision, owner: grounded): Documents the registry inspection CLI command so maintainers and agents can see both registry types and authored specs from one entry point. The CLI includes a registry command that prints the merged registry_type definitions and authored specs loaded for the active Grounded project. The command supports JSON output for tools and human-readable text for maintainers who need to inspect the active metamodel and registry contents.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-057
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-057, tests -> GROUNDED-TEST-025
+  Incoming edges: derives_from <- GROUNDED-DOC-004, derives_from <- GROUNDED-DOC-SECTION-002, derives_from <- GROUNDED-DOC-SECTION-004, derives_from <- GROUNDED-DOC-SECTION-009, mentions <- GROUNDED-DECISION-059, mentions <- GROUNDED-TEST-025
 - `GROUNDED-DECISION-059` (decision, owner: grounded): Documents the 0.13.0 version bump so registry inspection and metamodel terminology changes have a canonical Grounded release owner. The package version is bumped to 0.13.0 for the registry inspection CLI command and the metamodel nomenclature cleanup that distinguishes registry types, registry units, knowledge units, authored specs, and generated views.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-057, GROUNDED-DECISION-058
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-057, mentions -> GROUNDED-DECISION-058
+  Incoming edges: mentions <- GROUNDED-DECISION-063
 - `GROUNDED-DECISION-060` (decision, owner: grounded): Documents the documentation-graph model so generated docs are projections over source specs instead of hand-maintained durable knowledge. Grounded documentation is generated from a documentation graph. Durable knowledge lives in source specs; generated artifact specs define output files, projection sections, documentation sets, and governed assets. README.md and docs pages should move toward generated artifacts rather than independent sources of truth.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-057, GROUNDED-DOC-001, GROUNDED-TEST-026
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-057, mentions -> GROUNDED-DOC-001, mentions -> GROUNDED-TEST-026
+  Incoming edges: derives_from <- GROUNDED-DOC-001, derives_from <- GROUNDED-DOC-003, derives_from <- GROUNDED-DOC-SECTION-005, mentions <- GROUNDED-ASSET-001, mentions <- GROUNDED-ASSET-002, mentions <- GROUNDED-ASSET-003, mentions <- GROUNDED-ASSET-004, mentions <- GROUNDED-DECISION-061, mentions <- GROUNDED-DECISION-062, mentions <- GROUNDED-DECISION-064, mentions <- GROUNDED-DECISION-065, mentions <- GROUNDED-DOC-001, mentions <- GROUNDED-DOC-002, mentions <- GROUNDED-DOC-003, mentions <- GROUNDED-DOC-004, mentions <- GROUNDED-DOC-005, mentions <- GROUNDED-DOC-006, mentions <- GROUNDED-DOC-007, mentions <- GROUNDED-DOC-008, mentions <- GROUNDED-DOCS-001, mentions <- GROUNDED-TEST-026
 - `GROUNDED-DECISION-061` (decision, owner: grounded): Documents generated document write modes so Grounded can migrate safely from protected generated blocks to fully generated documentation files. Generated artifact specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated artifact own the entire output path once the source specs and projection graph are mature enough. README.md is now generated in full_file mode from GROUNDED-DOC-001.
   Links: GROUNDED-DECISION-060, GROUNDED-DOC-001, GROUNDED-TEST-026
+  Edges: mentions -> GROUNDED-DECISION-060, mentions -> GROUNDED-DOC-001, mentions -> GROUNDED-TEST-026
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-005
 - `GROUNDED-DECISION-062` (decision, owner: grounded): Documents the generated documentation redesign so Grounded pages communicate the underlying graph and source meaning before showing implementation metadata. Generated HTML documentation should use semantic templates for important Grounded types instead of leading with generic metadata tables. Generated documents, document sections, documentation sets, assets, decisions, guardrails, test bindings, schema gaps, verification specs, enums, and domain objects should render their source meaning, artifact ownership, relationships, and proof obligations before exposing raw field metadata.
   Links: GROUNDED-DECISION-060, GROUNDED-TEST-028
+  Edges: mentions -> GROUNDED-DECISION-060, mentions -> GROUNDED-TEST-028
+  Incoming edges: mentions <- GROUNDED-DECISION-064, mentions <- GROUNDED-TEST-028
 - `GROUNDED-DECISION-063` (decision, owner: grounded): Documents the PyPI publication preparation so package metadata, release workflow behavior, and trusted-publishing setup have a canonical Grounded owner. Grounded is prepared for PyPI publication by declaring package discovery, PyPI-facing metadata, Apache-2.0 license metadata and license file inclusion, project URLs, Python version classifiers, a PEP 561 py.typed marker, sdist contents, and a GitHub Actions workflow that builds with uv and publishes through PyPI trusted publishing on release publication or manual dispatch. The workflow requires PyPI trusted publisher configuration for the adieyal/grounded repository, the .github/workflows/pypi.yml workflow, and the pypi environment before an actual release can upload artifacts.
   Links: GROUNDED-DECISION-052, GROUNDED-DECISION-059
+  Edges: mentions -> GROUNDED-DECISION-052, mentions -> GROUNDED-DECISION-059, tests -> GROUNDED-TEST-029
+  Incoming edges: derives_from <- GROUNDED-DOC-008, derives_from <- GROUNDED-DOC-SECTION-007, derives_from <- GROUNDED-DOC-SECTION-019, mentions <- GROUNDED-DECISION-064, mentions <- GROUNDED-TEST-029
 - `GROUNDED-DECISION-064` (decision, owner: grounded): Documents the 1.0.0 major version bump so the PyPI-ready release has a canonical Grounded owner. The package version is bumped to 1.0.0 for the first major Grounded release, including generated-document graph ownership, full-file generated README and docs, PyPI publication preparation, Apache-2.0 licensing, PEP 561 typed package metadata, and trusted-publishing workflow support.
   Links: GROUNDED-DECISION-060, GROUNDED-DECISION-062, GROUNDED-DECISION-063
+  Edges: mentions -> GROUNDED-DECISION-060, mentions -> GROUNDED-DECISION-062, mentions -> GROUNDED-DECISION-063, tests -> GROUNDED-TEST-030
+  Incoming edges: derives_from <- GROUNDED-DOC-008, derives_from <- GROUNDED-DOC-SECTION-019, mentions <- GROUNDED-NAMING-001, mentions <- GROUNDED-TEST-030
 - `GROUNDED-DECISION-065` (decision, owner: grounded): Documents the P2 semantic compression boundary so Grounded exposes fewer public modeling concepts while preserving internal registry precision. Grounded public docs should describe authored knowledge as specs, type/schema definitions as registry types, projected outputs as generated artifacts, and executable proof as verification. Registry types may carry one of three internal semantic categories: authored_knowledge, generated_artifact, or registry_infrastructure. Verification specs are registry infrastructure because they provide proof machinery rather than ordinary authored knowledge. Generated artifacts are projection and assembly nodes, not canonical truth owners; checkable and observed trust statuses require structural support; trust_basis, observed_basis, and evidence are cross-cutting trust metadata fields rather than domain-specific claim fields; concepts are audited for catch-all drift; decisions remain narrow; and document section specs organize generated artifacts without owning durable claims.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-057, GROUNDED-DECISION-060, GROUNDED-TRUST-STATUS-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-057, mentions -> GROUNDED-DECISION-060, mentions -> GROUNDED-TRUST-STATUS-001, tests -> GROUNDED-TEST-033
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-003, mentions <- GROUNDED-CONCEPT-001, mentions <- GROUNDED-DECISION-066, mentions <- GROUNDED-DECISION-SHAPE-001, mentions <- GROUNDED-SEMANTIC-001, mentions <- GROUNDED-SEMANTIC-002
+- `GROUNDED-DECISION-066` (decision, owner: grounded): Documents the P3 edge-model decision so Grounded can normalize important relationships without replacing every field with graph machinery. Grounded will keep legacy relationship fields valid while normalizing them into a small typed-edge model. Authored specs may optionally use an edges array with canonical edge types. The normalized model preserves source, target, edge type, source field, and whether the edge was authored. Backlinks are computed from normalized edges. Strong edge types such as verified_by, derives_from, illustrated_by, implements, and depends_on carry validation semantics; mentions remains weak and must not satisfy proof or trust requirements. Legacy source_refs are category-aware: generated artifacts derive_from source specs, while authored and registry-infrastructure specs only mention source_refs so evidentiary source links do not become projection edges.
+  Links: GROUNDED-DECISION-065
+  Edges: mentions -> GROUNDED-DECISION-065, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-EDGE-001, mentions <- GROUNDED-EDGE-003, mentions <- GROUNDED-EDGE-009, mentions <- GROUNDED-EDGE-012
+- `GROUNDED-DECISION-067` (decision, owner: grounded): Documents the runtime efficiency contract for verification and audit execution so repeated proof commands and generated-site rendering stay bounded. A single grounded verify run executes each distinct verification command once per timeout configuration and reuses that command result for every spec field that declared it. Verification timeouts terminate the spawned command tree when the platform supports process groups. A single grounded audit run builds the rendered site once and shares that rendered snapshot across generated-view drift and generated-document coverage checks.
+  Links: GROUNDED-TRUST-GUARDRAIL-004, GROUNDED-VERIFY-004, GROUNDED-DRIFT-001, GROUNDED-DOC-GRAPH-004
+  Edges: mentions -> GROUNDED-DOC-GRAPH-004, mentions -> GROUNDED-DRIFT-001, mentions -> GROUNDED-TRUST-GUARDRAIL-004, mentions -> GROUNDED-VERIFY-004, tests -> GROUNDED-TEST-035
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as grounded-links decision and explains how it guides Grounded behavior or project maintenance. Member pages should render the semantic slices they belong to as grounded-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
+  Edges: mentions -> PROJECT-CONCEPT-003, mentions -> PROJECT-GAP-002, mentions -> PROJECT-RULE-003, tests -> PROJECT-TEST-003
+  Incoming edges: mentions <- GROUNDED-DECISION-029, mentions <- PROJECT-GAP-002, mentions <- PROJECT-TEST-003
 - `GROUNDED-DOC-SECTION-001` (document_section, owner: grounded): Defines the README problem section from governed source specs and the before-and-after diagram asset.
   Links: GROUNDED-DOC-001
+  Edges: contains -> GROUNDED-ASSET-002, derives_from -> GROUNDED-THEORY-001, derives_from -> PROJECT-RULE-001, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001
 - `GROUNDED-DOC-SECTION-002` (document_section, owner: grounded): Defines the README section that points readers to the registry inspection command as a way to understand the active documentation graph.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> GROUNDED-DECISION-058, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-004
 - `GROUNDED-DOC-SECTION-003` (document_section, owner: grounded): Defines the README section that summarizes Grounded's source-of-truth value from canonical source specs.
   Links: GROUNDED-DOC-001
+  Edges: contains -> GROUNDED-ASSET-001, derives_from -> GROUNDED-DECISION-065, derives_from -> GROUNDED-THEORY-001, derives_from -> PROJECT-CONCEPT-001, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-003
 - `GROUNDED-DOC-SECTION-004` (document_section, owner: grounded): Defines the README section that summarizes the CLI workflow capabilities from command-owning decisions.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> GROUNDED-DECISION-047, derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-058, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-004, contains <- GROUNDED-DOC-006
 - `GROUNDED-DOC-SECTION-005` (document_section, owner: grounded): Defines the README section that explains the safe migration path toward generated public documentation.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> GROUNDED-DECISION-037, derives_from -> GROUNDED-DECISION-060, derives_from -> GROUNDED-DECISION-061, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-003
 - `GROUNDED-DOC-SECTION-006` (document_section, owner: grounded): Defines the README section that shows a small source spec example.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-001-EX001, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001
 - `GROUNDED-DOC-SECTION-007` (document_section, owner: grounded): Defines the README quick start section as ordered setup and render steps.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> GROUNDED-DECISION-025, derives_from -> GROUNDED-DECISION-063, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-002
 - `GROUNDED-DOC-SECTION-008` (document_section, owner: grounded): Defines the README section that suggests good first Grounded specs.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> PROJECT-RULE-001, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-002, contains <- GROUNDED-DOC-005
 - `GROUNDED-DOC-SECTION-009` (document_section, owner: grounded): Defines the README command table for common Grounded CLI workflows.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> GROUNDED-DECISION-047, derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-058, derives_from -> PROJECT-VERIFY-001, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-002, contains <- GROUNDED-DOC-004, contains <- GROUNDED-DOC-006, contains <- GROUNDED-DOC-007
 - `GROUNDED-DOC-SECTION-010` (document_section, owner: grounded): Defines the README section that introduces typed tags and constrained references.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> GROUNDED-DECISION-001, derives_from -> GROUNDED-DECISION-057, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-003
 - `GROUNDED-DOC-SECTION-011` (document_section, owner: grounded): Defines the README adoption diagram section with governed alt text.
   Links: GROUNDED-DOC-001
+  Edges: contains -> GROUNDED-ASSET-003, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001
 - `GROUNDED-DOC-SECTION-012` (document_section, owner: grounded): Defines the README adoption ladder as structured generated documentation.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> PROJECT-RULE-002, derives_from -> PROJECT-VERIFY-001, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-005
 - `GROUNDED-DOC-SECTION-013` (document_section, owner: grounded): Defines the README section that describes when Grounded is and is not a good fit.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> GROUNDED-THEORY-001, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-005
 - `GROUNDED-DOC-SECTION-014` (document_section, owner: grounded): Defines the README link list for examples and deeper documentation.
   Links: GROUNDED-DOC-001
+  Edges: contains -> GROUNDED-ASSET-004, derives_from -> GROUNDED-DECISION-024, derives_from -> GROUNDED-DECISION-049, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001
 - `GROUNDED-DOC-SECTION-015` (document_section, owner: grounded): Defines the README section that shows the default Grounded project layout.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> GROUNDED-DECISION-025, derives_from -> GROUNDED-DECISION-026, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-002
 - `GROUNDED-DOC-SECTION-016` (document_section, owner: grounded): Defines the README section that summarizes generated documentation publishing.
   Links: GROUNDED-DOC-001
+  Edges: derives_from -> GROUNDED-DECISION-049, mentions -> GROUNDED-DOC-001
+  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-008
 - `GROUNDED-DOC-SECTION-017` (document_section, owner: grounded): Defines the drift checks guide section that lists the main validation, audit, and verification guardrails.
   Links: GROUNDED-DOC-007
+  Edges: derives_from -> GROUNDED-COVERAGE-001, derives_from -> GROUNDED-DRIFT-001, derives_from -> GROUNDED-REF-001, derives_from -> GROUNDED-REF-004, derives_from -> GROUNDED-SCHEMA-003, derives_from -> GROUNDED-VERIFY-001, mentions -> GROUNDED-DOC-007
+  Incoming edges: contains <- GROUNDED-DOC-007
 - `GROUNDED-DOC-SECTION-018` (document_section, owner: grounded): Defines the LLM workflows guide section that explains agent responsibilities from canonical rules and decisions.
   Links: GROUNDED-DOC-006
+  Edges: derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-056, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DOC-006
+  Incoming edges: contains <- GROUNDED-DOC-006
 - `GROUNDED-DOC-SECTION-019` (document_section, owner: grounded): Defines the publishing guide section that summarizes publishing and generated documentation release decisions.
   Links: GROUNDED-DOC-008
+  Edges: derives_from -> GROUNDED-DECISION-049, derives_from -> GROUNDED-DECISION-052, derives_from -> GROUNDED-DECISION-053, derives_from -> GROUNDED-DECISION-063, derives_from -> GROUNDED-DECISION-064, mentions -> GROUNDED-DOC-008
+  Incoming edges: contains <- GROUNDED-DOC-008
 - `GROUNDED-DOCS-001` (documentation_set, owner: grounded): Groups the generated public documentation artifacts that Grounded should render and check together.
   Links: GROUNDED-DECISION-060
+  Edges: contains -> GROUNDED-DOC-001, contains -> GROUNDED-DOC-002, contains -> GROUNDED-DOC-003, contains -> GROUNDED-DOC-004, contains -> GROUNDED-DOC-005, contains -> GROUNDED-DOC-006, contains -> GROUNDED-DOC-007, contains -> GROUNDED-DOC-008, mentions -> GROUNDED-DECISION-060
 - `GROUNDED-TRUST-STATUS-001` (enum, owner: grounded): Defines the trust-status vocabulary used to describe claim credibility separately from lifecycle status. Trust status records credibility while status records lifecycle.
   Links: GROUNDED-TRUST-GUARDRAIL-001
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-001, tests -> GROUNDED-TEST-032
+  Incoming edges: mentions <- GROUNDED-DECISION-065, mentions <- GROUNDED-TEST-032, mentions <- GROUNDED-TRUST-001, mentions <- GROUNDED-TRUST-006, mentions <- GROUNDED-TRUST-007, mentions <- GROUNDED-TRUST-GUARDRAIL-001
 - `PROJECT-RULE-001-EX001` (example, owner: project): Provides a concrete example for PROJECT-RULE-001 so the rule can be understood and verified in context.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001, tests -> PROJECT-TEST-001
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-006, mentions <- PROJECT-RULE-001, mentions <- PROJECT-TEST-001
 - `GROUNDED-DOC-001` (generated_document, owner: grounded): Defines the generated README view so the repository entrypoint can be assembled from Grounded source specs.
   Links: GROUNDED-DECISION-060
+  Edges: contains -> GROUNDED-DOC-SECTION-001, contains -> GROUNDED-DOC-SECTION-002, contains -> GROUNDED-DOC-SECTION-003, contains -> GROUNDED-DOC-SECTION-004, contains -> GROUNDED-DOC-SECTION-005, contains -> GROUNDED-DOC-SECTION-006, contains -> GROUNDED-DOC-SECTION-007, contains -> GROUNDED-DOC-SECTION-008, contains -> GROUNDED-DOC-SECTION-009, contains -> GROUNDED-DOC-SECTION-010, contains -> GROUNDED-DOC-SECTION-011, contains -> GROUNDED-DOC-SECTION-012, contains -> GROUNDED-DOC-SECTION-013, contains -> GROUNDED-DOC-SECTION-014, contains -> GROUNDED-DOC-SECTION-015, contains -> GROUNDED-DOC-SECTION-016, derives_from -> GROUNDED-DECISION-060, mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOCS-001, mentions <- GROUNDED-DECISION-060, mentions <- GROUNDED-DECISION-061, mentions <- GROUNDED-DOC-SECTION-001, mentions <- GROUNDED-DOC-SECTION-002, mentions <- GROUNDED-DOC-SECTION-003, mentions <- GROUNDED-DOC-SECTION-004, mentions <- GROUNDED-DOC-SECTION-005, mentions <- GROUNDED-DOC-SECTION-006, mentions <- GROUNDED-DOC-SECTION-007, mentions <- GROUNDED-DOC-SECTION-008, mentions <- GROUNDED-DOC-SECTION-009, mentions <- GROUNDED-DOC-SECTION-010, mentions <- GROUNDED-DOC-SECTION-011, mentions <- GROUNDED-DOC-SECTION-012, mentions <- GROUNDED-DOC-SECTION-013, mentions <- GROUNDED-DOC-SECTION-014, mentions <- GROUNDED-DOC-SECTION-015, mentions <- GROUNDED-DOC-SECTION-016
 - `GROUNDED-DOC-002` (generated_document, owner: grounded): Defines the generated getting-started guide as a projection over setup, first-spec, command, and layout sections.
   Links: GROUNDED-DECISION-060
+  Edges: contains -> GROUNDED-DOC-SECTION-007, contains -> GROUNDED-DOC-SECTION-008, contains -> GROUNDED-DOC-SECTION-009, contains -> GROUNDED-DOC-SECTION-015, derives_from -> GROUNDED-DECISION-025, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOCS-001
 - `GROUNDED-DOC-003` (generated_document, owner: grounded): Defines the generated concepts guide as a projection over Grounded metamodel and documentation graph specs.
   Links: GROUNDED-DECISION-060
+  Edges: contains -> GROUNDED-DOC-SECTION-003, contains -> GROUNDED-DOC-SECTION-005, contains -> GROUNDED-DOC-SECTION-010, derives_from -> GROUNDED-DECISION-001, derives_from -> GROUNDED-DECISION-057, derives_from -> GROUNDED-DECISION-060, mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOCS-001
 - `GROUNDED-DOC-004` (generated_document, owner: grounded): Defines the generated CLI reference as a projection over command and CLI workflow sections.
   Links: GROUNDED-DECISION-060
+  Edges: contains -> GROUNDED-DOC-SECTION-002, contains -> GROUNDED-DOC-SECTION-004, contains -> GROUNDED-DOC-SECTION-009, derives_from -> GROUNDED-DECISION-047, derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-058, mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOCS-001
 - `GROUNDED-DOC-005` (generated_document, owner: grounded): Defines the generated incremental adoption guide as a projection over adoption and first-spec sections.
   Links: GROUNDED-DECISION-060
+  Edges: contains -> GROUNDED-DOC-SECTION-008, contains -> GROUNDED-DOC-SECTION-012, contains -> GROUNDED-DOC-SECTION-013, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOCS-001
 - `GROUNDED-DOC-006` (generated_document, owner: grounded): Defines the generated LLM workflows guide from agent maintenance and search workflow source specs.
   Links: GROUNDED-DECISION-060
+  Edges: contains -> GROUNDED-DOC-SECTION-004, contains -> GROUNDED-DOC-SECTION-009, contains -> GROUNDED-DOC-SECTION-018, derives_from -> GROUNDED-DECISION-054, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOCS-001, mentions <- GROUNDED-DOC-SECTION-018
 - `GROUNDED-DOC-007` (generated_document, owner: grounded): Defines the generated drift checks guide from validation, audit, verification, and generated-view guardrails.
   Links: GROUNDED-DECISION-060
+  Edges: contains -> GROUNDED-DOC-SECTION-009, contains -> GROUNDED-DOC-SECTION-017, derives_from -> GROUNDED-COVERAGE-001, derives_from -> GROUNDED-DRIFT-001, derives_from -> GROUNDED-VERIFY-001, mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOCS-001, mentions <- GROUNDED-DOC-SECTION-017
 - `GROUNDED-DOC-008` (generated_document, owner: grounded): Defines the generated publishing guide from GitHub Pages and release-oriented documentation decisions.
   Links: GROUNDED-DECISION-060
+  Edges: contains -> GROUNDED-DOC-SECTION-016, contains -> GROUNDED-DOC-SECTION-019, derives_from -> GROUNDED-DECISION-049, derives_from -> GROUNDED-DECISION-052, derives_from -> GROUNDED-DECISION-063, derives_from -> GROUNDED-DECISION-064, mentions -> GROUNDED-DECISION-060
+  Incoming edges: contains <- GROUNDED-DOCS-001, mentions <- GROUNDED-DOC-SECTION-019
 - `GROUNDED-COMPAT-001` (guardrail, owner: grounded): Defines the Pathless SpecRegistry compatibility unit guardrail so compatibility adapters report source models that cannot be represented by the filesystem-shaped legacy SpecRegistry API. The SpecRegistry compatibility adapter must not invent filesystem paths for project-memory units loaded from non-filesystem sources.
   Links: GROUNDED-DECISION-056, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-056, mentions -> PROJECT-RULE-001
 - `GROUNDED-CONCEPT-001` (guardrail, owner: grounded): Defines the concept specificity guardrail so concept specs remain sharply defined instead of absorbing arbitrary project prose. A concept should have a clear definition or substantial summary; vague concepts are audit warnings until they can be migrated safely.
   Links: GROUNDED-DECISION-065
+  Edges: mentions -> GROUNDED-DECISION-065, tests -> GROUNDED-TEST-033
+  Incoming edges: mentions <- GROUNDED-TEST-033
 - `GROUNDED-COVERAGE-001` (guardrail, owner: grounded): Defines the Required canonical fact lacks declared test coverage guardrail so validation, audit, and maintenance work can recognize this class of drift. Specs whose kind requires executable proof must declare a test directly or through a test_binding.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
+  Incoming edges: derives_from <- GROUNDED-DOC-007, derives_from <- GROUNDED-DOC-SECTION-017
 - `GROUNDED-DECISION-SHAPE-001` (guardrail, owner: grounded): Defines the decision-shape guardrail so decision specs do not become arbitrary workflow, generated-doc, or implementation-note containers. Decision specs should stay focused on context or problem, the decision, consequences, references, lifecycle, and trust metadata.
   Links: GROUNDED-DECISION-065
+  Edges: mentions -> GROUNDED-DECISION-065, tests -> GROUNDED-TEST-033
+  Incoming edges: mentions <- GROUNDED-TEST-033
 - `GROUNDED-DOC-GRAPH-001` (guardrail, owner: grounded): Defines the documentation graph typed-reference guardrail so generated document views remain explainable and sections, documents, sets, and assets reference the expected kinds. Documentation graph reference fields must point at the expected registry type.
+  Incoming edges: mentions <- GROUNDED-DOC-GRAPH-005, mentions <- GROUNDED-TEST-027
 - `GROUNDED-DOC-GRAPH-002` (guardrail, owner: grounded): Defines the sourced document-section guardrail so generated documentation sections do not become ungrounded prose buckets. A document_section with content_mode sourced or mixed must declare source_refs.
+  Incoming edges: mentions <- GROUNDED-TEST-027
 - `GROUNDED-DOC-GRAPH-003` (guardrail, owner: grounded): Defines the generated document write-mode guardrail so each generated output declares whether Grounded owns a protected block or the entire file. A generated_document must declare write_mode as protected_block or full_file.
+  Incoming edges: mentions <- GROUNDED-TEST-027
 - `GROUNDED-DOC-GRAPH-004` (guardrail, owner: grounded): Defines the generated documentation coverage guardrail so README.md and Markdown files under docs are owned by generated_document specs instead of drifting as independent sources of truth. README.md and docs/*.md must be managed by generated_document specs.
+  Incoming edges: mentions <- GROUNDED-DECISION-067, mentions <- GROUNDED-TEST-027, mentions <- GROUNDED-TEST-035
 - `GROUNDED-DOC-GRAPH-005` (guardrail, owner: grounded): Defines the document-section truth boundary so generated document sections organize projections without becoming canonical claim owners. A document_section may provide descriptive glue, but durable claims rendered through it should cite source_refs owned by authored specs.
   Links: GROUNDED-DOC-GRAPH-001, GROUNDED-TRUST-005
+  Edges: mentions -> GROUNDED-DOC-GRAPH-001, mentions -> GROUNDED-TRUST-005, tests -> GROUNDED-TEST-033
+  Incoming edges: mentions <- GROUNDED-EDGE-006, mentions <- GROUNDED-TEST-033
 - `GROUNDED-DRIFT-001` (guardrail, owner: grounded): Defines the Generated view is stale guardrail so validation, audit, and maintenance work can recognize this class of drift. Generated Grounded views must match the current canonical registry.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
+  Incoming edges: derives_from <- GROUNDED-DOC-007, derives_from <- GROUNDED-DOC-SECTION-017, mentions <- GROUNDED-DECISION-067, mentions <- GROUNDED-TEST-035
+- `GROUNDED-EDGE-001` (guardrail, owner: grounded): Defines the authored edges container shape so typed relationships enter the registry through a predictable list field. If present, edges must be a list.
+  Links: GROUNDED-DECISION-066
+  Edges: mentions -> GROUNDED-DECISION-066, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-EDGE-002, mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-002` (guardrail, owner: grounded): Defines the authored edge entry contract so each edge has enough structure to normalize and diagnose. Each authored edge must be an object with type and a non-empty string target.
+  Links: GROUNDED-EDGE-001
+  Edges: mentions -> GROUNDED-EDGE-001, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-EDGE-004, mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-003` (guardrail, owner: grounded): Defines the canonical typed-edge vocabulary so authored edges, JSON Schema, tests, rendering, and search use the same relationship names. Grounded edge types are mentions, depends_on, implements, verified_by, tests, documents, derives_from, illustrated_by, and contains.
+  Links: GROUNDED-DECISION-066
+  Edges: mentions -> GROUNDED-DECISION-066, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-EDGE-007, mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-004` (guardrail, owner: grounded): Defines the target-resolution rule for authored and normalized edges. Every typed edge target must resolve to a known active or inactive spec before stronger edge semantics can be evaluated.
+  Links: GROUNDED-EDGE-002
+  Edges: mentions -> GROUNDED-EDGE-002, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-005` (guardrail, owner: grounded): Defines the verified_by edge semantics so proof-bearing relationships cannot point at arbitrary specs. A verified_by edge must target an active verification or test_binding, and target fields on those proof specs must match the source claim when present.
+  Links: GROUNDED-TRUST-002, GROUNDED-TRUST-003, GROUNDED-TRUST-004
+  Edges: mentions -> GROUNDED-TRUST-002, mentions -> GROUNDED-TRUST-003, mentions -> GROUNDED-TRUST-004, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-006` (guardrail, owner: grounded): Defines generated-artifact edge semantics so documentation and projection nodes derive from or document source specs without becoming canonical truth. documents and derives_from edges start from generated artifacts and point to non-generated source specs.
+  Links: GROUNDED-TRUST-005, GROUNDED-DOC-GRAPH-005
+  Edges: mentions -> GROUNDED-DOC-GRAPH-005, mentions -> GROUNDED-TRUST-005, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-007` (guardrail, owner: grounded): Defines the illustrated_by target-kind rule so visual support is governed by asset specs. illustrated_by targets must be asset specs.
+  Links: GROUNDED-EDGE-003
+  Edges: mentions -> GROUNDED-EDGE-003, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-008` (guardrail, owner: grounded): Defines generated-artifact exclusion rules for strong semantic edges. implements and depends_on edges must not target generated artifacts.
+  Links: GROUNDED-TRUST-005
+  Edges: mentions -> GROUNDED-TRUST-005, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-009` (guardrail, owner: grounded): Defines the optional dependency-layer vocabulary used for depends_on direction checks. Allowed semantic_layer values are primitive, domain, application, interface, infrastructure, and generated.
+  Links: GROUNDED-DECISION-066
+  Edges: mentions -> GROUNDED-DECISION-066, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-EDGE-010, mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-010` (guardrail, owner: grounded): Defines optional semantic_layer dependency direction for depends_on edges. When both source and target declare semantic_layer, higher or equally concrete layers may depend on lower or equal layers, but lower/stabler layers must not depend on higher/more concrete layers.
+  Links: GROUNDED-EDGE-009
+  Edges: mentions -> GROUNDED-EDGE-009, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-011` (guardrail, owner: grounded): Defines the backlink ownership rule so inverse relationships are computed from normalized edges instead of maintained by hand. Fields such as used_by and backlinks are legacy/manual backlink candidates and should emit audit warnings rather than becoming preferred relationship sources.
+  Links: GROUNDED-EDGE-012
+  Edges: mentions -> GROUNDED-EDGE-012, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-TEST-034
+- `GROUNDED-EDGE-012` (guardrail, owner: grounded): Defines compatibility between existing relationship fields and the normalized typed-edge model. Legacy fields remain valid but normalize to typed edges: references/examples to mentions, tests to tests, verification_refs to verified_by, generated-artifact source_refs to derives_from, non-generated source_refs to mentions, section/document/members to contains, generated-artifact asset_refs to contains, and non-generated asset_refs to illustrated_by.
+  Links: GROUNDED-DECISION-066
+  Edges: mentions -> GROUNDED-DECISION-066, tests -> GROUNDED-TEST-034
+  Incoming edges: mentions <- GROUNDED-EDGE-011, mentions <- GROUNDED-TEST-034
 - `GROUNDED-EXTENSION-001` (guardrail, owner: grounded): Defines the extension-point guardrail so project-specific behavior stays in registries, schemas, template overrides, styles, slice metadata, or verification specs instead of core Grounded internals. Project-specific behavior must not directly edit bundled Grounded templates, validation code, or rendering functions when an extension or override point can express the change.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-036, GROUNDED-DECISION-037, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-036, mentions -> GROUNDED-DECISION-037, mentions -> PROJECT-RULE-001
+  Incoming edges: mentions <- GROUNDED-DECISION-036, mentions <- GROUNDED-DECISION-038
 - `GROUNDED-ID-001` (guardrail, owner: grounded): Defines the Duplicate canonical ID guardrail so validation, audit, and maintenance work can recognize this class of drift. Every canonical spec ID must be globally unique within the registry.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-JSON-001` (guardrail, owner: grounded): Defines the Invalid JSON spec guardrail so validation, audit, and maintenance work can recognize this class of drift. Canonical JSON specs must parse before they can participate in validation or audits.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-KIND-001` (guardrail, owner: grounded): Defines the Unknown spec kind guardrail so validation, audit, and maintenance work can recognize this class of drift. Every spec kind must be registered in the type registry before specs can use it.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-NAMING-001` (guardrail, owner: grounded): Defines the public naming guardrail so Grounded's release, package, documentation, generated views, examples, skills, templates, workflow text, tests, and source package public text use one canonical vocabulary. Grounded is the canonical public product name. CLI, package, and import vocabulary use grounded. Previous project-name vocabulary is forbidden on public surfaces and allowed only in explicitly approved historical or archive material.
   Links: GROUNDED-DECISION-064, GROUNDED-VERIFY-002
+  Edges: mentions -> GROUNDED-DECISION-064, mentions -> GROUNDED-VERIFY-002, tests -> GROUNDED-TEST-031, verified_by -> GROUNDED-VERIFY-002
+  Incoming edges: mentions <- GROUNDED-TEST-031, mentions <- GROUNDED-VERIFY-002
 - `GROUNDED-OWNERSHIP-001` (guardrail, owner: grounded): Defines the Possible duplicate fact ownership guardrail so validation, audit, and maintenance work can recognize this class of drift. Specs with duplicate normalized statements are flagged because every durable fact should have one owner.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-REF-001` (guardrail, owner: grounded): Defines the Unknown reference guardrail so validation, audit, and maintenance work can recognize this class of drift. A spec references another spec ID that does not exist in the registry.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-017
 - `GROUNDED-REF-002` (guardrail, owner: grounded): Defines the Unknown structured reference guardrail so validation, audit, and maintenance work can recognize this class of drift. A structured spec field points to a canonical ID that does not exist in the registry.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-REF-003` (guardrail, owner: grounded): Defines the Unknown example reference guardrail so validation, audit, and maintenance work can recognize this class of drift. A spec declares an example ID that does not exist in the registry.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-REF-004` (guardrail, owner: grounded): Defines the Unknown artifact reference guardrail so validation, audit, and maintenance work can recognize this class of drift. A declared audit artifact references a Grounded-shaped ID that has no canonical owner.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-017
 - `GROUNDED-REF-005` (guardrail, owner: grounded): Defines the Reference target missing required typed tag guardrail so validation and maintenance work can recognize constrained-reference drift. A reference field with a reference_tag_constraints rule points to a target spec that does not carry the required typed tag.
   Links: GROUNDED-DECISION-035, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-035, mentions -> PROJECT-RULE-001
 - `GROUNDED-SCHEMA-001` (guardrail, owner: grounded): Defines the Spec root is not an object guardrail so validation, audit, and maintenance work can recognize this class of drift. A canonical spec must be represented as a JSON object.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-SCHEMA-002` (guardrail, owner: grounded): Defines the Missing ID or kind guardrail so validation, audit, and maintenance work can recognize this class of drift. Every canonical spec must declare a string id and kind.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-SCHEMA-003` (guardrail, owner: grounded): Defines the Missing required fields guardrail so validation, audit, and maintenance work can recognize this class of drift. Specs must include the required fields for their kind.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-017, mentions <- GROUNDED-TEST-010
 - `GROUNDED-SCHEMA-004` (guardrail, owner: grounded): Defines the Reference field is not a list guardrail so validation, audit, and maintenance work can recognize this class of drift. List-shaped reference fields must be encoded as JSON arrays.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-SCHEMA-005` (guardrail, owner: grounded): Defines the Reference list contains non-string values guardrail so validation, audit, and maintenance work can recognize this class of drift. Reference arrays must contain only canonical ID strings.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-SCHEMA-006` (guardrail, owner: grounded): Defines the Type-specific schema validation failed guardrail so validation, audit, and maintenance work can recognize this class of drift. Each knowledge unit must satisfy the JSON Schemas declared by its type and parent types.
   Links: GROUNDED-DECISION-001, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> PROJECT-RULE-001
 - `GROUNDED-SEMANTIC-001` (guardrail, owner: grounded): Defines the public vocabulary boundary so generated documentation presents Grounded through a small set of user-facing concepts. Public docs should prefer Spec, Registry Type, Generated Artifact, and Verification while reserving registry_unit and knowledge_unit for registry-internal reference material.
   Links: GROUNDED-DECISION-065
+  Edges: mentions -> GROUNDED-DECISION-065, tests -> GROUNDED-TEST-033
+  Incoming edges: mentions <- GROUNDED-TEST-033
 - `GROUNDED-SEMANTIC-002` (guardrail, owner: grounded): Defines the semantic category guardrail so registry types can be grouped without introducing a large public inheritance hierarchy. Registry types may use only authored_knowledge, generated_artifact, or registry_infrastructure as semantic_category values.
   Links: GROUNDED-DECISION-065
+  Edges: mentions -> GROUNDED-DECISION-065, tests -> GROUNDED-TEST-033
+  Incoming edges: mentions <- GROUNDED-TEST-033, mentions <- GROUNDED-TRUST-005, mentions <- GROUNDED-TYPE-012
 - `GROUNDED-SPECS-001` (guardrail, owner: grounded): Defines the Specs directory is missing guardrail so validation, audit, and maintenance work can recognize this class of drift. A configured Grounded registry must have a specs directory.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-STYLE-001` (guardrail, owner: grounded): Defines the Missing central stylesheet guardrail so validation, audit, and maintenance work can recognize this class of drift. Generated documentation must have a central style.css source of truth.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-STYLE-002` (guardrail, owner: grounded): Defines the Missing design tokens guardrail so validation, audit, and maintenance work can recognize this class of drift. The central stylesheet should expose reusable design tokens for colors and spacing.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
+  Incoming edges: mentions <- GROUNDED-DECISION-043
 - `GROUNDED-STYLE-003` (guardrail, owner: grounded): Defines the Hard-coded presentation outside style source guardrail so validation, audit, and maintenance work can recognize this class of drift. Presentation values outside the central stylesheet should be replaced with reusable design tokens.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
 - `GROUNDED-TAG-001` (guardrail, owner: grounded): Defines the Unknown typed tag type guardrail so validation and maintenance work can recognize typed tag registry drift. A typed tag or reference tag constraint uses a tag type that is not declared in tag_types.
   Links: GROUNDED-DECISION-035, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-035, mentions -> PROJECT-RULE-001
 - `GROUNDED-TAG-002` (guardrail, owner: grounded): Defines the Unknown typed tag value guardrail so validation and maintenance work can recognize typed tag vocabulary drift. A typed tag or reference tag constraint uses a value that is not allowed by the declared tag type.
   Links: GROUNDED-DECISION-035, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-035, mentions -> PROJECT-RULE-001
 - `GROUNDED-TAG-003` (guardrail, owner: grounded): Defines the Malformed tag list guardrail so validation and maintenance work can recognize invalid tag shapes. A tags field must be a list whose entries are either non-empty strings or typed tag objects with non-empty type and value fields.
   Links: GROUNDED-DECISION-035, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-035, mentions -> PROJECT-RULE-001
 - `GROUNDED-TRUST-001` (guardrail, owner: grounded): Defines the invalid trust-status guardrail so validation can report claim credibility values outside the governed vocabulary. Specs that declare trust_status must use the governed trust-status vocabulary.
   Links: GROUNDED-TRUST-STATUS-001, GROUNDED-TRUST-GUARDRAIL-001
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-001, mentions -> GROUNDED-TRUST-STATUS-001, tests -> GROUNDED-TEST-032
 - `GROUNDED-TRUST-002` (guardrail, owner: grounded): Defines the verified-claim proof guardrail so validation can report verified claims with no active targeted verification. An active verified claim must have at least one active verification_ref whose verification target equals the claim ID.
   Links: GROUNDED-TRUST-GUARDRAIL-002
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-002, tests -> GROUNDED-TEST-032
+  Incoming edges: mentions <- GROUNDED-EDGE-005
 - `GROUNDED-TRUST-003` (guardrail, owner: grounded): Defines the invalid verification reference guardrail so validation can report verified claims linked to inactive or non-verification specs. verification_refs for verified claims must point to active verification specs, not inactive units or other spec kinds.
   Links: GROUNDED-TRUST-GUARDRAIL-002
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-002, tests -> GROUNDED-TEST-032
+  Incoming edges: mentions <- GROUNDED-EDGE-005
 - `GROUNDED-TRUST-004` (guardrail, owner: grounded): Defines the verification target-mismatch guardrail so validation can report verified claims linked to proof for a different target. A verification spec only proves the spec named by its target field.
   Links: GROUNDED-TRUST-GUARDRAIL-002
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-002, tests -> GROUNDED-TEST-032
+  Incoming edges: mentions <- GROUNDED-EDGE-005
 - `GROUNDED-TRUST-005` (guardrail, owner: grounded): Defines the generated-artifact truth boundary so projected documentation artifacts cannot satisfy claim credibility. Generated artifacts may render, cite, or derive from authored specs, but they cannot use verified, checkable, or observed trust_status as canonical truth owners.
   Links: GROUNDED-SEMANTIC-002
+  Edges: mentions -> GROUNDED-SEMANTIC-002, tests -> GROUNDED-TEST-033
+  Incoming edges: mentions <- GROUNDED-DOC-GRAPH-005, mentions <- GROUNDED-EDGE-006, mentions <- GROUNDED-EDGE-008, mentions <- GROUNDED-TEST-033, mentions <- GROUNDED-TRUST-007
 - `GROUNDED-TRUST-006` (guardrail, owner: grounded): Defines the checkable trust-status guardrail so checkable claims either link to a targeted verification or explain why the verification is not wired yet. An active claim-bearing spec with trust_status checkable must declare an active targeted verification_ref or a trust_basis.
   Links: GROUNDED-TRUST-STATUS-001
+  Edges: mentions -> GROUNDED-TRUST-STATUS-001, tests -> GROUNDED-TEST-033
+  Incoming edges: mentions <- GROUNDED-TEST-033
 - `GROUNDED-TRUST-007` (guardrail, owner: grounded): Defines the observed trust-status guardrail so observed claims cite a non-generated source, evidence text, or an explicit observed basis. An active claim-bearing spec with trust_status observed cannot rely only on generated artifacts as its evidence basis.
   Links: GROUNDED-TRUST-STATUS-001, GROUNDED-TRUST-005
+  Edges: mentions -> GROUNDED-TRUST-005, mentions -> GROUNDED-TRUST-STATUS-001, tests -> GROUNDED-TEST-033
+  Incoming edges: mentions <- GROUNDED-TEST-033
 - `GROUNDED-TRUST-GUARDRAIL-001` (guardrail, owner: grounded): Defines the trust-status guardrail so claim credibility is modeled independently from active, draft, and retired lifecycle state. Claim-bearing specs may declare trust_status as verified, checkable, observed, aspirational, or unknown; lifecycle status remains active, draft, or retired.
   Links: GROUNDED-TRUST-STATUS-001, GROUNDED-VERIFY-003
+  Edges: mentions -> GROUNDED-TRUST-STATUS-001, mentions -> GROUNDED-VERIFY-003, tests -> GROUNDED-TEST-032
+  Incoming edges: mentions <- GROUNDED-TEST-032, mentions <- GROUNDED-TRUST-001, mentions <- GROUNDED-TRUST-GUARDRAIL-002, mentions <- GROUNDED-TRUST-STATUS-001, mentions <- GROUNDED-VERIFY-003
 - `GROUNDED-TRUST-GUARDRAIL-002` (guardrail, owner: grounded): Defines the verified-claim proof guardrail so active verified claims must link to active verification specs that target the claim. An active claim-bearing spec with trust_status verified must declare verification_refs that point to active verification specs whose target equals the claim ID.
   Links: GROUNDED-TRUST-GUARDRAIL-001, GROUNDED-VERIFY-003
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-001, mentions -> GROUNDED-VERIFY-003, tests -> GROUNDED-TEST-032, verified_by -> GROUNDED-VERIFY-003
+  Incoming edges: mentions <- GROUNDED-TEST-032, mentions <- GROUNDED-TRUST-002, mentions <- GROUNDED-TRUST-003, mentions <- GROUNDED-TRUST-004, mentions <- GROUNDED-TRUST-GUARDRAIL-004, mentions <- GROUNDED-VERIFY-003, mentions <- GROUNDED-VERIFY-005
 - `GROUNDED-TRUST-GUARDRAIL-003` (guardrail, owner: grounded): Defines the command-existence guardrail so active verification specs must declare a non-empty command whose first executable can be resolved during validation. Validation checks command presence and executable resolution without executing the command; runtime success remains the responsibility of grounded verify.
   Links: GROUNDED-VERIFY-001, GROUNDED-VERIFY-003
+  Edges: mentions -> GROUNDED-VERIFY-001, mentions -> GROUNDED-VERIFY-003, tests -> GROUNDED-TEST-032
+  Incoming edges: mentions <- GROUNDED-TEST-032, mentions <- GROUNDED-VERIFY-003
 - `GROUNDED-TRUST-GUARDRAIL-004` (guardrail, owner: grounded): Defines the runtime verification-result guardrail so grounded verify records in-memory results and fails when a verified claim's linked verification does not pass. Verification runs produce in-memory result objects with verification ID, target ID, command, exit code, pass/fail state, duration, and optional issue code; verified claims fail verification when their linked proof fails.
   Links: GROUNDED-TRUST-GUARDRAIL-002, GROUNDED-VERIFY-003
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-002, mentions -> GROUNDED-VERIFY-003, tests -> GROUNDED-TEST-032
+  Incoming edges: mentions <- GROUNDED-DECISION-067, mentions <- GROUNDED-TEST-032, mentions <- GROUNDED-TEST-035, mentions <- GROUNDED-VERIFY-003, mentions <- GROUNDED-VERIFY-004, mentions <- GROUNDED-VERIFY-005, mentions <- GROUNDED-VERIFY-006
 - `GROUNDED-TYPE-001` (guardrail, owner: grounded): Defines the Invalid type registry JSON guardrail so validation, audit, and maintenance work can recognize this class of drift. The type registry must be valid JSON so spec kinds have an executable source of truth.
   Links: PROJECT-GAP-001, PROJECT-RULE-001
+  Edges: mentions -> PROJECT-GAP-001, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-002` (guardrail, owner: grounded): Defines the Invalid type registry root guardrail so validation, audit, and maintenance work can recognize this class of drift. The type registry root must be an object keyed by spec kind.
   Links: PROJECT-GAP-001, PROJECT-RULE-001
+  Edges: mentions -> PROJECT-GAP-001, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-003` (guardrail, owner: grounded): Defines the Invalid type definition guardrail so validation, audit, and maintenance work can recognize this class of drift. Each type registry entry must define its kind shape with an object.
   Links: PROJECT-GAP-001, PROJECT-RULE-001
+  Edges: mentions -> PROJECT-GAP-001, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-004` (guardrail, owner: grounded): Defines the Unknown parent type guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition that derives from another type must name a parent type that exists in the merged type registry.
   Links: GROUNDED-DECISION-001, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-005` (guardrail, owner: grounded): Defines the Missing type schema path guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition schema_path must point to an existing JSON Schema file when schema_path is configured.
   Links: GROUNDED-DECISION-001, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-006` (guardrail, owner: grounded): Defines the Invalid type schema JSON guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition schema_path must contain valid JSON.
   Links: GROUNDED-DECISION-001, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-007` (guardrail, owner: grounded): Defines the Invalid type schema root guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition schema_path must contain a JSON object at the schema root.
   Links: GROUNDED-DECISION-001, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-008` (guardrail, owner: grounded): Defines the Invalid JSON Schema for type guardrail so validation, audit, and maintenance work can recognize this class of drift. A type definition schema must itself be a valid Draft 2020-12 JSON Schema.
   Links: GROUNDED-DECISION-001, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-009` (guardrail, owner: grounded): Defines the Invalid tag type registry guardrail so validation and maintenance work can recognize malformed tag type declarations. The tag_types section of the type registry must be an object whose definitions are objects.
   Links: GROUNDED-DECISION-035, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-035, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-010` (guardrail, owner: grounded): Defines the Tag constraint on non-reference field guardrail so validation and maintenance work can recognize invalid reference_tag_constraints configuration. A reference_tag_constraints entry must target a field declared as a reference, single reference, or nested reference field.
   Links: GROUNDED-DECISION-035, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-035, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-011` (guardrail, owner: grounded): Defines the Type hierarchy cycle guardrail so validation and maintenance work can recognize circular type inheritance in the merged type registry. A type definition inheritance chain must not cycle back to a type that already appears in the chain.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-056, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-056, mentions -> PROJECT-RULE-001
 - `GROUNDED-TYPE-012` (guardrail, owner: grounded): Defines the semantic category validation guardrail so registry type definitions cannot introduce unapproved type families. Type definitions that declare semantic_category must use authored_knowledge, generated_artifact, or registry_infrastructure.
   Links: GROUNDED-SEMANTIC-002
+  Edges: mentions -> GROUNDED-SEMANTIC-002, tests -> GROUNDED-TEST-033
+  Incoming edges: mentions <- GROUNDED-TEST-033
 - `GROUNDED-VERIFY-001` (guardrail, owner: grounded): Defines the Verification command failed guardrail so validation, audit, and maintenance work can recognize this class of drift. Project-specific verification commands declared by registry type definitions must pass when grounded verify runs.
   Links: GROUNDED-DECISION-001, PROJECT-RULE-001
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> PROJECT-RULE-001
+  Incoming edges: derives_from <- GROUNDED-DOC-007, derives_from <- GROUNDED-DOC-SECTION-017, mentions <- GROUNDED-TRUST-GUARDRAIL-003, mentions <- GROUNDED-VERIFY-004
 - `GROUNDED-VERIFY-004` (guardrail, owner: grounded): Defines the verification timeout guardrail so runtime verification cannot hang indefinitely. grounded verify must apply a timeout to verification command execution and report timed-out commands.
   Links: GROUNDED-TRUST-GUARDRAIL-004, GROUNDED-VERIFY-001
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-004, mentions -> GROUNDED-VERIFY-001, tests -> GROUNDED-TEST-032
+  Incoming edges: mentions <- GROUNDED-DECISION-067, mentions <- GROUNDED-TEST-035
 - `GROUNDED-VERIFY-005` (guardrail, owner: grounded): Defines the runtime verification target-mismatch guardrail so grounded verify can report proof linked to the wrong target. grounded verify must not treat a verification result as proof for a spec unless the verification target equals that spec ID.
   Links: GROUNDED-TRUST-GUARDRAIL-002, GROUNDED-TRUST-GUARDRAIL-004
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-002, mentions -> GROUNDED-TRUST-GUARDRAIL-004, tests -> GROUNDED-TEST-032
 - `GROUNDED-VERIFY-006` (guardrail, owner: grounded): Defines the verified-claim runtime proof guardrail so grounded verify fails when linked verification results do not pass. A spec with trust_status verified is not runtime-proven unless its linked targeted verification result passes in the same grounded verify run.
   Links: GROUNDED-TRUST-GUARDRAIL-004
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-004, tests -> GROUNDED-TEST-032
 - `PROJECT-GAP-001` (schema_gap, owner: project): Records the registry_type schema gap for project-specific fact shapes so future registry or renderer work has a canonical owner. When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001, tests -> PROJECT-TEST-001
+  Incoming edges: mentions <- GROUNDED-TYPE-001, mentions <- GROUNDED-TYPE-002, mentions <- GROUNDED-TYPE-003
 - `PROJECT-GAP-002` (schema_gap, owner: project): Records the Semantic slice structure schema gap so future registry or renderer work has a canonical owner. The current concept schema does not provide structured fields for slice members, parent slice, or display metadata, so semantic slices can only be described indirectly in prose and references.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-DECISION-001
+  Edges: mentions -> PROJECT-CONCEPT-003, mentions -> PROJECT-DECISION-001, mentions -> PROJECT-RULE-003
+  Incoming edges: mentions <- PROJECT-DECISION-001
 - `GROUNDED-TEST-001` (test_binding, owner: grounded): Binds GROUNDED-DECISION-029 to an executable test so Grounded can verify the documented behavior.
   Links: GROUNDED-DECISION-029
+  Edges: mentions -> GROUNDED-DECISION-029
+  Incoming edges: tests <- GROUNDED-DECISION-029
 - `GROUNDED-TEST-002` (test_binding, owner: grounded): Binds GROUNDED-DECISION-030 to an executable test so Grounded can verify the documented behavior.
   Links: GROUNDED-DECISION-030
+  Edges: mentions -> GROUNDED-DECISION-030
+  Incoming edges: tests <- GROUNDED-DECISION-030
 - `GROUNDED-TEST-003` (test_binding, owner: grounded): Binds GROUNDED-DECISION-031 to an executable test so Grounded can verify the documented behavior.
   Links: GROUNDED-DECISION-031
+  Edges: mentions -> GROUNDED-DECISION-031
+  Incoming edges: tests <- GROUNDED-DECISION-031
 - `GROUNDED-TEST-004` (test_binding, owner: grounded): Binds GROUNDED-DECISION-032 to an executable test so Grounded can verify the documented behavior.
   Links: GROUNDED-DECISION-032
+  Edges: mentions -> GROUNDED-DECISION-032
+  Incoming edges: tests <- GROUNDED-DECISION-032
 - `GROUNDED-TEST-005` (test_binding, owner: grounded): Binds GROUNDED-DECISION-033 to an executable test so Grounded can verify the documented behavior.
   Links: GROUNDED-DECISION-033
+  Edges: mentions -> GROUNDED-DECISION-033
+  Incoming edges: tests <- GROUNDED-DECISION-033
 - `GROUNDED-TEST-006` (test_binding, owner: grounded): Binds GROUNDED-DECISION-034 to an executable test so Grounded can verify the documented behavior.
   Links: GROUNDED-DECISION-034
+  Edges: mentions -> GROUNDED-DECISION-034
+  Incoming edges: tests <- GROUNDED-DECISION-027, tests <- GROUNDED-DECISION-034
 - `GROUNDED-TEST-007` (test_binding, owner: grounded): Binds GROUNDED-DECISION-035 to an executable test so Grounded can verify the documented behavior.
   Links: GROUNDED-DECISION-035
+  Edges: mentions -> GROUNDED-DECISION-035
+  Incoming edges: tests <- GROUNDED-DECISION-035
 - `GROUNDED-TEST-008` (test_binding, owner: grounded): Binds GROUNDED-DECISION-036 to an executable test so Grounded can verify the documented behavior.
   Links: GROUNDED-DECISION-036
+  Edges: mentions -> GROUNDED-DECISION-036
+  Incoming edges: tests <- GROUNDED-DECISION-036
 - `GROUNDED-TEST-009` (test_binding, owner: grounded): Binds GROUNDED-DECISION-037 to an executable test so Grounded can verify the documented behavior.
   Links: GROUNDED-DECISION-037
+  Edges: mentions -> GROUNDED-DECISION-037
+  Incoming edges: tests <- GROUNDED-DECISION-037
 - `GROUNDED-TEST-010` (test_binding, owner: grounded): Binds GROUNDED-DECISION-001 to an executable test so Grounded can verify documented units declare their purpose while the registry_unit base stays minimal.
   Links: GROUNDED-DECISION-001, GROUNDED-SCHEMA-003
+  Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-SCHEMA-003
+  Incoming edges: tests <- GROUNDED-DECISION-001
 - `GROUNDED-TEST-011` (test_binding, owner: grounded): Binds GROUNDED-DECISION-039 to an executable test so Grounded can verify inline rich-text links render safely and participate in reference validation.
   Links: GROUNDED-DECISION-039
+  Edges: mentions -> GROUNDED-DECISION-039
+  Incoming edges: tests <- GROUNDED-DECISION-039
 - `GROUNDED-TEST-012` (test_binding, owner: grounded): Binds GROUNDED-DECISION-041 to an executable test so Grounded can verify compact list components render linked names and descriptions.
   Links: GROUNDED-DECISION-041
+  Edges: mentions -> GROUNDED-DECISION-041
+  Incoming edges: tests <- GROUNDED-DECISION-041
 - `GROUNDED-TEST-013` (test_binding, owner: grounded): Binds GROUNDED-DECISION-043 to an executable render test so Grounded can verify the generated bundled stylesheet includes the readable design-brief body font token.
   Links: GROUNDED-DECISION-043
+  Edges: mentions -> GROUNDED-DECISION-043
+  Incoming edges: tests <- GROUNDED-DECISION-043
 - `GROUNDED-TEST-015` (test_binding, owner: grounded): Binds GROUNDED-DECISION-045 to an executable render test so Grounded can verify reusable Lit documentation components are emitted and consume design tokens.
   Links: GROUNDED-DECISION-045
+  Edges: mentions -> GROUNDED-DECISION-045
+  Incoming edges: tests <- GROUNDED-DECISION-045
 - `GROUNDED-TEST-016` (test_binding, owner: grounded): Binds GROUNDED-DECISION-047 to an executable CLI test so Grounded can verify Graphviz DOT export includes outgoing and incoming relationships with bounded depth and type filters.
   Links: GROUNDED-DECISION-047
+  Edges: mentions -> GROUNDED-DECISION-047
+  Incoming edges: tests <- GROUNDED-DECISION-047
 - `GROUNDED-TEST-017` (test_binding, owner: grounded): Binds GROUNDED-DECISION-050 to executable render tests so Grounded can verify the theme toggle is emitted with stylesheet token support.
   Links: GROUNDED-DECISION-050
+  Edges: mentions -> GROUNDED-DECISION-050
+  Incoming edges: tests <- GROUNDED-DECISION-050
 - `GROUNDED-TEST-018` (test_binding, owner: grounded): Binds GROUNDED-DECISION-051 to executable render tests so Grounded can verify the bundled stylesheet includes DESIGN.md color, type, and radius tokens.
   Links: GROUNDED-DECISION-051
+  Edges: mentions -> GROUNDED-DECISION-051
+  Incoming edges: tests <- GROUNDED-DECISION-051
 - `GROUNDED-TEST-019` (test_binding, owner: grounded): Binds GROUNDED-DECISION-054 to executable CLI tests so Grounded can verify search, specs --uses, and check-new behavior.
   Links: GROUNDED-DECISION-054
+  Edges: mentions -> GROUNDED-DECISION-054
+  Incoming edges: tests <- GROUNDED-DECISION-054
 - `GROUNDED-TEST-020` (test_binding, owner: grounded): Binds typed tag rendering, tag type registry validation, and reference tag constraints to focused unit tests.
   Links: GROUNDED-DECISION-035
+  Edges: mentions -> GROUNDED-DECISION-035
+  Incoming edges: tests <- GROUNDED-DECISION-035
 - `GROUNDED-TEST-021` (test_binding, owner: grounded): Binds generated link hover tooltip behavior to the renderer round-trip test so generated docs expose target summaries without navigation.
   Links: GROUNDED-DECISION-022
+  Edges: mentions -> GROUNDED-DECISION-022
+  Incoming edges: tests <- GROUNDED-DECISION-022
 - `GROUNDED-TEST-022` (test_binding, owner: grounded): Binds the adapter-backed project-memory loading decision to focused business-module and JSON adapter tests.
   Links: GROUNDED-DECISION-056
+  Edges: mentions -> GROUNDED-DECISION-056
+  Incoming edges: tests <- GROUNDED-DECISION-056
 - `GROUNDED-TEST-023` (test_binding, owner: grounded): Binds GROUNDED-DECISION-057 to an executable test so Grounded can verify the documented naming behavior.
   Links: GROUNDED-DECISION-057
+  Edges: mentions -> GROUNDED-DECISION-057
+  Incoming edges: tests <- GROUNDED-DECISION-057
 - `GROUNDED-TEST-024` (test_binding, owner: grounded): Binds GROUNDED-DECISION-001 to an executable test proving registry_unit does not require documentation or evidence fields at the root.
   Links: GROUNDED-DECISION-001
+  Edges: mentions -> GROUNDED-DECISION-001
+  Incoming edges: tests <- GROUNDED-DECISION-001
 - `GROUNDED-TEST-025` (test_binding, owner: grounded): Binds GROUNDED-DECISION-058 to an executable CLI test proving registry output includes registry types and authored specs.
   Links: GROUNDED-DECISION-058
+  Edges: mentions -> GROUNDED-DECISION-058
+  Incoming edges: tests <- GROUNDED-DECISION-058
 - `GROUNDED-TEST-026` (test_binding, owner: grounded): Binds GROUNDED-DECISION-060 to an executable renderer test proving generated_document specs write protected README blocks and manifest entries.
   Links: GROUNDED-DECISION-060
+  Edges: mentions -> GROUNDED-DECISION-060
+  Incoming edges: mentions <- GROUNDED-DECISION-060, mentions <- GROUNDED-DECISION-061
 - `GROUNDED-TEST-027` (test_binding, owner: grounded): Binds documentation graph guardrails to executable audit tests proving wrong typed edges, missing write modes, unmanaged Markdown docs, and ungrounded sourced sections are reported.
   Links: GROUNDED-DOC-GRAPH-001, GROUNDED-DOC-GRAPH-002, GROUNDED-DOC-GRAPH-003, GROUNDED-DOC-GRAPH-004
+  Edges: mentions -> GROUNDED-DOC-GRAPH-001, mentions -> GROUNDED-DOC-GRAPH-002, mentions -> GROUNDED-DOC-GRAPH-003, mentions -> GROUNDED-DOC-GRAPH-004
 - `GROUNDED-TEST-028` (test_binding, owner: grounded): Binds the semantic generated-docs redesign to an executable renderer test proving generated documents, decisions, the document graph, and the artifact index render content-first views.
   Links: GROUNDED-DECISION-062
+  Edges: mentions -> GROUNDED-DECISION-062
+  Incoming edges: mentions <- GROUNDED-DECISION-062
 - `GROUNDED-TEST-029` (test_binding, owner: grounded): Binds PyPI publishing preparation to an executable test proving package metadata, Apache-2.0 license declaration, project URLs, typed-package marker, console entry point, and trusted-publishing workflow configuration are declared.
   Links: GROUNDED-DECISION-063
+  Edges: mentions -> GROUNDED-DECISION-063
+  Incoming edges: tests <- GROUNDED-DECISION-063
 - `GROUNDED-TEST-030` (test_binding, owner: grounded): Binds the 1.0.0 major release decision to an executable test proving pyproject metadata and the package __version__ value stay synchronized.
   Links: GROUNDED-DECISION-064
+  Edges: mentions -> GROUNDED-DECISION-064
+  Incoming edges: tests <- GROUNDED-DECISION-064
 - `GROUNDED-TEST-031` (test_binding, owner: grounded): Binds the public naming guardrail to an executable tracked-file scan so public surfaces cannot reintroduce previous project-name vocabulary.
   Links: GROUNDED-NAMING-001, GROUNDED-VERIFY-002
+  Edges: mentions -> GROUNDED-NAMING-001, mentions -> GROUNDED-VERIFY-002
+  Incoming edges: tests <- GROUNDED-NAMING-001
 - `GROUNDED-TEST-032` (test_binding, owner: grounded): Binds the trust-status vocabulary, verified-claim proof requirement, verification command checks, and runtime verification-result semantics to focused executable tests.
   Links: GROUNDED-TRUST-STATUS-001, GROUNDED-TRUST-GUARDRAIL-001, GROUNDED-TRUST-GUARDRAIL-002, GROUNDED-TRUST-GUARDRAIL-003, GROUNDED-TRUST-GUARDRAIL-004, GROUNDED-VERIFY-003
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-001, mentions -> GROUNDED-TRUST-GUARDRAIL-002, mentions -> GROUNDED-TRUST-GUARDRAIL-003, mentions -> GROUNDED-TRUST-GUARDRAIL-004, mentions -> GROUNDED-TRUST-STATUS-001, mentions -> GROUNDED-VERIFY-003
+  Incoming edges: tests <- GROUNDED-TRUST-001, tests <- GROUNDED-TRUST-002, tests <- GROUNDED-TRUST-003, tests <- GROUNDED-TRUST-004, tests <- GROUNDED-TRUST-GUARDRAIL-001, tests <- GROUNDED-TRUST-GUARDRAIL-002, tests <- GROUNDED-TRUST-GUARDRAIL-003, tests <- GROUNDED-TRUST-GUARDRAIL-004, tests <- GROUNDED-TRUST-STATUS-001, tests <- GROUNDED-VERIFY-004, tests <- GROUNDED-VERIFY-005, tests <- GROUNDED-VERIFY-006
 - `GROUNDED-TEST-033` (test_binding, owner: grounded): Binds the P2 semantic compression guardrails to tests covering semantic categories, generated-artifact truth boundaries, trust-status structure, concept drift, and document-section projection semantics.
   Links: GROUNDED-SEMANTIC-001, GROUNDED-SEMANTIC-002, GROUNDED-TYPE-012, GROUNDED-TRUST-005, GROUNDED-TRUST-006, GROUNDED-TRUST-007, GROUNDED-CONCEPT-001, GROUNDED-DECISION-SHAPE-001, GROUNDED-DOC-GRAPH-005
+  Edges: mentions -> GROUNDED-CONCEPT-001, mentions -> GROUNDED-DECISION-SHAPE-001, mentions -> GROUNDED-DOC-GRAPH-005, mentions -> GROUNDED-SEMANTIC-001, mentions -> GROUNDED-SEMANTIC-002, mentions -> GROUNDED-TRUST-005, mentions -> GROUNDED-TRUST-006, mentions -> GROUNDED-TRUST-007, mentions -> GROUNDED-TYPE-012
+  Incoming edges: tests <- GROUNDED-CONCEPT-001, tests <- GROUNDED-DECISION-065, tests <- GROUNDED-DECISION-SHAPE-001, tests <- GROUNDED-DOC-GRAPH-005, tests <- GROUNDED-SEMANTIC-001, tests <- GROUNDED-SEMANTIC-002, tests <- GROUNDED-TRUST-005, tests <- GROUNDED-TRUST-006, tests <- GROUNDED-TRUST-007, tests <- GROUNDED-TYPE-012
+- `GROUNDED-TEST-034` (test_binding, owner: grounded): Binds the P3 typed-edge guardrails to tests covering vocabulary, authored edge shape, legacy normalization, target-kind validation, semantic layers, manual backlink warnings, rendering, and search.
+  Links: GROUNDED-EDGE-001, GROUNDED-EDGE-002, GROUNDED-EDGE-003, GROUNDED-EDGE-004, GROUNDED-EDGE-005, GROUNDED-EDGE-006, GROUNDED-EDGE-007, GROUNDED-EDGE-008, GROUNDED-EDGE-009, GROUNDED-EDGE-010, GROUNDED-EDGE-011, GROUNDED-EDGE-012
+  Edges: mentions -> GROUNDED-EDGE-001, mentions -> GROUNDED-EDGE-002, mentions -> GROUNDED-EDGE-003, mentions -> GROUNDED-EDGE-004, mentions -> GROUNDED-EDGE-005, mentions -> GROUNDED-EDGE-006, mentions -> GROUNDED-EDGE-007, mentions -> GROUNDED-EDGE-008, mentions -> GROUNDED-EDGE-009, mentions -> GROUNDED-EDGE-010, mentions -> GROUNDED-EDGE-011, mentions -> GROUNDED-EDGE-012
+  Incoming edges: tests <- GROUNDED-DECISION-066, tests <- GROUNDED-EDGE-001, tests <- GROUNDED-EDGE-002, tests <- GROUNDED-EDGE-003, tests <- GROUNDED-EDGE-004, tests <- GROUNDED-EDGE-005, tests <- GROUNDED-EDGE-006, tests <- GROUNDED-EDGE-007, tests <- GROUNDED-EDGE-008, tests <- GROUNDED-EDGE-009, tests <- GROUNDED-EDGE-010, tests <- GROUNDED-EDGE-011, tests <- GROUNDED-EDGE-012
+- `GROUNDED-TEST-035` (test_binding, owner: grounded): Binds the verification command deduplication and audit rendered-site reuse decision to focused executable tests.
+  Links: GROUNDED-TRUST-GUARDRAIL-004, GROUNDED-VERIFY-004, GROUNDED-DRIFT-001, GROUNDED-DOC-GRAPH-004
+  Edges: mentions -> GROUNDED-DOC-GRAPH-004, mentions -> GROUNDED-DRIFT-001, mentions -> GROUNDED-TRUST-GUARDRAIL-004, mentions -> GROUNDED-VERIFY-004
+  Incoming edges: tests <- GROUNDED-DECISION-067
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Grounded can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
+  Edges: mentions -> PROJECT-RULE-001, mentions -> PROJECT-RULE-001-EX001
+  Incoming edges: tests <- GROUNDED-DECISION-001, tests <- GROUNDED-DECISION-002, tests <- GROUNDED-DECISION-003, tests <- GROUNDED-DECISION-004, tests <- GROUNDED-DECISION-005, tests <- GROUNDED-DECISION-006, tests <- GROUNDED-DECISION-007, tests <- GROUNDED-DECISION-008, tests <- GROUNDED-DECISION-009, tests <- GROUNDED-DECISION-010, tests <- GROUNDED-DECISION-011, tests <- GROUNDED-DECISION-012, tests <- GROUNDED-DECISION-013, tests <- GROUNDED-DECISION-014, tests <- GROUNDED-DECISION-015, tests <- GROUNDED-DECISION-016, tests <- GROUNDED-DECISION-017, tests <- GROUNDED-DECISION-018, tests <- GROUNDED-DECISION-019, tests <- GROUNDED-DECISION-020, tests <- GROUNDED-DECISION-021, tests <- GROUNDED-DECISION-022, tests <- GROUNDED-DECISION-023, tests <- GROUNDED-DECISION-024, tests <- GROUNDED-DECISION-025, tests <- GROUNDED-DECISION-026, tests <- GROUNDED-DECISION-028, tests <- PROJECT-GAP-001, tests <- PROJECT-RULE-001, tests <- PROJECT-RULE-001-EX001, tests <- PROJECT-RULE-002
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Grounded can verify the documented behavior.
   Links: PROJECT-RULE-003
+  Edges: mentions -> PROJECT-RULE-003
 - `PROJECT-TEST-003` (test_binding, owner: project): Binds PROJECT-DECISION-001 to an executable test so Grounded can verify the documented behavior.
   Links: PROJECT-DECISION-001
+  Edges: mentions -> PROJECT-DECISION-001
+  Incoming edges: tests <- PROJECT-DECISION-001
 - `GROUNDED-VERIFY-002` (verification, owner: grounded): Defines the verification command that scans tracked public surfaces for previous project-name vocabulary before release.
   Links: GROUNDED-NAMING-001
+  Edges: mentions -> GROUNDED-NAMING-001
+  Incoming edges: mentions <- GROUNDED-NAMING-001, mentions <- GROUNDED-TEST-031, verified_by <- GROUNDED-NAMING-001
 - `GROUNDED-VERIFY-003` (verification, owner: grounded): Defines the verification command for the trust-status and verified-claim credibility loop.
   Links: GROUNDED-TRUST-GUARDRAIL-001, GROUNDED-TRUST-GUARDRAIL-002, GROUNDED-TRUST-GUARDRAIL-003, GROUNDED-TRUST-GUARDRAIL-004
+  Edges: mentions -> GROUNDED-TRUST-GUARDRAIL-001, mentions -> GROUNDED-TRUST-GUARDRAIL-002, mentions -> GROUNDED-TRUST-GUARDRAIL-003, mentions -> GROUNDED-TRUST-GUARDRAIL-004
+  Incoming edges: mentions <- GROUNDED-TEST-032, mentions <- GROUNDED-TRUST-GUARDRAIL-001, mentions <- GROUNDED-TRUST-GUARDRAIL-002, mentions <- GROUNDED-TRUST-GUARDRAIL-003, mentions <- GROUNDED-TRUST-GUARDRAIL-004, verified_by <- GROUNDED-TRUST-GUARDRAIL-002
 - `PROJECT-VERIFY-001` (verification, owner: grounded): Defines the verification command for PROJECT-RULE-001 so project checks can be run consistently.
   Links: PROJECT-RULE-001
+  Edges: mentions -> PROJECT-RULE-001
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-009, derives_from <- GROUNDED-DOC-SECTION-012, verified_by <- PROJECT-RULE-001
 - `PROJECT-WORKFLOW-001` (workflow, owner: project): Describes the Scope a bounded Grounded model workflow so agents and maintainers can follow the expected process. An LLM interviews the user with a structured question ladder to define a bounded modeling slice of an existing codebase, clarify the relevant comparison semantics and analysis rubric, and stop before implementation until the user confirms the scope is stable.
   Links: PROJECT-CONCEPT-002, PROJECT-RULE-002
+  Edges: mentions -> PROJECT-CONCEPT-002, mentions -> PROJECT-RULE-002

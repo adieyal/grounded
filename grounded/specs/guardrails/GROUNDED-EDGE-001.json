@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-EDGE-001",
+  "kind": "guardrail",
+  "name": "Authored edges field is a list",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the authored edges container shape so typed relationships enter the registry through a predictable list field.",
+  "summary": "If present, edges must be a list.",
+  "references": [
+    "GROUNDED-DECISION-066"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

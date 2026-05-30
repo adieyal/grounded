@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-EDGE-003",
+  "kind": "guardrail",
+  "name": "Edge type vocabulary stays canonical",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the canonical typed-edge vocabulary so authored edges, JSON Schema, tests, rendering, and search use the same relationship names.",
+  "summary": "Grounded edge types are mentions, depends_on, implements, verified_by, tests, documents, derives_from, illustrated_by, and contains.",
+  "references": [
+    "GROUNDED-DECISION-066"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

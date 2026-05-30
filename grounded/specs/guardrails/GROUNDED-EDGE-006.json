@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-EDGE-006",
+  "kind": "guardrail",
+  "name": "Projection edges do not create truth owners",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines generated-artifact edge semantics so documentation and projection nodes derive from or document source specs without becoming canonical truth.",
+  "summary": "documents and derives_from edges start from generated artifacts and point to non-generated source specs.",
+  "references": [
+    "GROUNDED-TRUST-005",
+    "GROUNDED-DOC-GRAPH-005"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

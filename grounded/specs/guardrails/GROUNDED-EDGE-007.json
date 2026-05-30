@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-EDGE-007",
+  "kind": "guardrail",
+  "name": "Illustration edges target assets",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the illustrated_by target-kind rule so visual support is governed by asset specs.",
+  "summary": "illustrated_by targets must be asset specs.",
+  "references": [
+    "GROUNDED-EDGE-003"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

@@ -42,6 +42,8 @@ def render_llm_pack(registry: SpecRegistry) -> str:
         refs = ", ".join(spec.references)
         if refs:
             lines.append(f"  Links: {refs}")
+        for line in _typed_edge_lines(spec, registry):
+            lines.append(f"  {line}")
     return "\n".join(lines).rstrip() + "\n"
 
 
@@ -61,5 +63,35 @@ def _render_spec_summary(spec: Spec, registry: SpecRegistry) -> list[str]:
     refs = ", ".join(f"`{ref}`" for ref in spec.references)
     if refs:
         lines.extend(["", f"Links: {refs}"])
+    edge_lines = _typed_edge_lines(spec, registry, code=True)
+    if edge_lines:
+        lines.extend(["", *edge_lines])
     lines.append("")
     return lines
+
+
+def _typed_edge_lines(
+    spec: Spec, registry: SpecRegistry, *, code: bool = False
+) -> list[str]:
+    outgoing = [
+        _edge_display(edge.edge_type, "->", edge.target_id, code=code)
+        for edge in registry.outgoing_edges_for(spec.id)
+        if edge.target_id in registry.by_id
+    ]
+    incoming = [
+        _edge_display(edge.edge_type, "<-", edge.source_id, code=code)
+        for edge in registry.incoming_edges_for(spec.id)
+        if edge.source_id in registry.by_id
+    ]
+    lines: list[str] = []
+    if outgoing:
+        lines.append(f"Edges: {', '.join(outgoing)}")
+    if incoming:
+        lines.append(f"Incoming edges: {', '.join(incoming)}")
+    return lines
+
+
+def _edge_display(edge_type: str, direction: str, target_id: str, *, code: bool) -> str:
+    if code:
+        return f"`{edge_type}` {direction} `{target_id}`"
+    return f"{edge_type} {direction} {target_id}"

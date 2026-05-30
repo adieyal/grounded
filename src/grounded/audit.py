@@ -3,9 +3,11 @@ from __future__ import annotations
 import re
 from collections import defaultdict
 
+from .edge_policy import LEGACY_BACKLINK_FIELDS
 from .models import Issue, GroundedConfig, Spec
 from .registry import SpecRegistry
-from .render import build_rendered_site, render_all
+from .render import build_rendered_site
+from .render_outputs import RenderedSite
 
 
 REFERENCE_PATTERN = re.compile(
@@ -17,22 +19,26 @@ HARD_CODED_STYLE_PATTERN = re.compile(
 
 
 def audit(config: GroundedConfig, registry: SpecRegistry) -> list[Issue]:
+    site = build_rendered_site(config, registry)
     issues: list[Issue] = []
-    issues.extend(audit_generated_views(config, registry))
-    issues.extend(audit_generated_document_coverage(config, registry))
+    issues.extend(audit_generated_views(config, registry, site=site))
+    issues.extend(audit_generated_document_coverage(config, registry, site=site))
     issues.extend(audit_documentation_graph(registry))
     issues.extend(audit_style_source(config))
     issues.extend(audit_test_coverage(config, registry))
     issues.extend(audit_unknown_artifact_references(config, registry))
     issues.extend(audit_possible_duplicate_statements(registry))
     issues.extend(audit_semantic_compression_boundaries(registry))
+    issues.extend(audit_manual_backlinks(registry))
     return issues
 
 
 def audit_generated_views(
-    config: GroundedConfig, registry: SpecRegistry
+    config: GroundedConfig, registry: SpecRegistry, *, site: RenderedSite | None = None
 ) -> list[Issue]:
-    stale = render_all(config, registry, check=True)
+    if site is None:
+        site = build_rendered_site(config, registry)
+    stale = site.stale_paths()
     return [
         Issue(
             "GROUNDED-DRIFT-001", f"generated view is stale: {path}", config.root / path
@@ -42,9 +48,10 @@ def audit_generated_views(
 
 
 def audit_generated_document_coverage(
-    config: GroundedConfig, registry: SpecRegistry
+    config: GroundedConfig, registry: SpecRegistry, *, site: RenderedSite | None = None
 ) -> list[Issue]:
-    site = build_rendered_site(config, registry)
+    if site is None:
+        site = build_rendered_site(config, registry)
     managed = set(site.outputs) | {block.path for block in site.blocks}
     expected = {config.root / "README.md"}
     docs_dir = config.root / "docs"
@@ -338,6 +345,30 @@ def audit_semantic_compression_boundaries(registry: SpecRegistry) -> list[Issue]
     return issues
 
 
+def audit_manual_backlinks(registry: SpecRegistry) -> list[Issue]:
+    issues: list[Issue] = []
+    for spec in registry.active_specs:
+        for field in LEGACY_BACKLINK_FIELDS:
+            value = spec.data.get(field)
+            has_value = isinstance(value, list) and any(
+                isinstance(item, str) and item for item in value
+            )
+            if not has_value:
+                continue
+            issues.append(
+                Issue(
+                    "GROUNDED-EDGE-011",
+                    (
+                        f"{spec.id}.{field} is a legacy/manual backlink field; "
+                        "prefer computed backlinks from normalized edges"
+                    ),
+                    spec.path,
+                    severity="warning",
+                )
+            )
+    return issues
+
+
 def _audit_concept_specificity(spec: Spec) -> list[Issue]:
     definition = spec.data.get("definition")
     summary = spec.data.get("summary")
@@ -375,6 +406,8 @@ DECISION_ALLOWED_FIELDS = frozenset(
         "references",
         "tests",
         "examples",
+        "edges",
+        "semantic_layer",
         "links",
         "tags",
         "trust_status",

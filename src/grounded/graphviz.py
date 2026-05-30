@@ -7,7 +7,6 @@ from typing import Literal
 from .models import Spec
 from .registry import SpecRegistry
 from .render_display import display_name
-from .render_graph import graph_reference_ids_for
 
 GraphProfile = Literal["debug", "docs", "compact"]
 
@@ -64,10 +63,13 @@ def graphviz_dot_for(
         key=lambda spec: (spec.kind, spec.id),
     )
     edges = sorted(
-        (source, target)
-        for source in included
-        for target in outgoing.get(source, ())
-        if target in included
+        (
+            edge
+            for source in included
+            for edge in outgoing.get(source, ())
+            if edge.target in included
+        ),
+        key=lambda edge: (edge.source, edge.target, edge.label or ""),
     )
     if profile == "debug":
         return _debug_dot(nodes, edges)
@@ -82,7 +84,7 @@ def graphviz_dot_for(
     )
 
 
-def _debug_dot(nodes: list[Spec], edges: list[tuple[str, str]]) -> str:
+def _debug_dot(nodes: list[Spec], edges: list[DotEdge]) -> str:
     lines = [
         "digraph grounded {",
         '  graph [rankdir="LR"];',
@@ -91,8 +93,8 @@ def _debug_dot(nodes: list[Spec], edges: list[tuple[str, str]]) -> str:
     ]
     for spec in nodes:
         lines.append(f'  "{_dot_escape(spec.id)}" [label="{_node_label(spec)}"];')
-    for source, target in edges:
-        lines.append(f'  "{_dot_escape(source)}" -> "{_dot_escape(target)}";')
+    for edge in edges:
+        lines.append(f'  "{_dot_escape(edge.source)}" -> "{_dot_escape(edge.target)}";')
     lines.append("}")
     return "\n".join(lines) + "\n"
 
@@ -101,8 +103,8 @@ def _presentation_dot(
     registry: SpecRegistry,
     start_id: str,
     nodes: list[Spec],
-    edges: list[tuple[str, str]],
-    outgoing: dict[str, tuple[str, ...]],
+    edges: list[DotEdge],
+    outgoing: dict[str, tuple[DotEdge, ...]],
     *,
     profile: GraphProfile,
     show_edge_labels: bool,
@@ -123,16 +125,16 @@ def _presentation_dot(
         dot_nodes[spec.id] = _dot_node_for_spec(spec, accent=spec.id == start_id)
 
     dot_edges: list[DotEdge] = []
-    for source, target in edges:
-        if source in collapsed_value_ids or target in collapsed_value_ids:
+    for edge in edges:
+        if edge.source in collapsed_value_ids or edge.target in collapsed_value_ids:
             continue
-        if source not in dot_nodes or target not in dot_nodes:
+        if edge.source not in dot_nodes or edge.target not in dot_nodes:
             continue
         dot_edges.append(
             DotEdge(
-                source=source,
-                target=target,
-                label=_edge_label(registry, start_id, source, target)
+                source=edge.source,
+                target=edge.target,
+                label=_edge_label(registry, start_id, edge)
                 if show_edge_labels
                 else None,
             )
@@ -230,30 +232,36 @@ def _type_is_included(
 
 def _outgoing_edges(
     registry: SpecRegistry, active_ids: set[str]
-) -> dict[str, tuple[str, ...]]:
+) -> dict[str, tuple[DotEdge, ...]]:
     return {
         spec.id: tuple(
-            target_id
-            for target_id in graph_reference_ids_for(spec)
-            if target_id in active_ids
+            DotEdge(
+                source=edge.source_id,
+                target=edge.target_id,
+                label=edge.edge_type,
+            )
+            for edge in registry.outgoing_edges_for(spec.id)
+            if edge.target_id in active_ids
         )
         for spec in registry.active_specs
         if spec.id in active_ids
     }
 
 
-def _incoming_edges(outgoing: dict[str, tuple[str, ...]]) -> dict[str, tuple[str, ...]]:
+def _incoming_edges(
+    outgoing: dict[str, tuple[DotEdge, ...]],
+) -> dict[str, tuple[str, ...]]:
     incoming: dict[str, list[str]] = {}
-    for source, targets in outgoing.items():
-        for target in targets:
-            incoming.setdefault(target, []).append(source)
+    for edges in outgoing.values():
+        for edge in edges:
+            incoming.setdefault(edge.target, []).append(edge.source)
     return {target: tuple(sorted(sources)) for target, sources in incoming.items()}
 
 
 def _related_ids(
     start_id: str,
     depth: int,
-    outgoing: dict[str, tuple[str, ...]],
+    outgoing: dict[str, tuple[DotEdge, ...]],
     incoming: dict[str, tuple[str, ...]],
 ) -> set[str]:
     included = {start_id}
@@ -261,7 +269,7 @@ def _related_ids(
     for _ in range(depth):
         next_frontier: set[str] = set()
         for spec_id in frontier:
-            next_frontier.update(outgoing.get(spec_id, ()))
+            next_frontier.update(edge.target for edge in outgoing.get(spec_id, ()))
             next_frontier.update(incoming.get(spec_id, ()))
         next_frontier.difference_update(included)
         if not next_frontier:
@@ -361,7 +369,7 @@ def _cluster_id(kind: str) -> str:
 def _collapsed_lifecycle_values(
     registry: SpecRegistry,
     visible_ids: set[str],
-    outgoing: dict[str, tuple[str, ...]],
+    outgoing: dict[str, tuple[DotEdge, ...]],
 ) -> dict[str, tuple[str, ...]]:
     collapsed: dict[str, tuple[str, ...]] = {}
     for spec_id in visible_ids:
@@ -370,7 +378,8 @@ def _collapsed_lifecycle_values(
             continue
         values = tuple(
             target_id
-            for target_id in outgoing.get(spec_id, ())
+            for edge in outgoing.get(spec_id, ())
+            for target_id in (edge.target,)
             if target_id in visible_ids
             and registry.by_id.get(target_id) is not None
             and registry.by_id[target_id].kind == "lifecycle_value"
@@ -400,14 +409,16 @@ def _field_summary(spec: Spec) -> str | None:
     return " | ".join(labels) if labels else None
 
 
-def _edge_label(registry: SpecRegistry, start_id: str, source: str, target: str) -> str:
-    source_spec = registry.by_id[source]
-    target_spec = registry.by_id[target]
+def _edge_label(registry: SpecRegistry, start_id: str, edge: DotEdge) -> str:
+    source_spec = registry.by_id[edge.source]
+    target_spec = registry.by_id[edge.target]
+    if edge.label:
+        return edge.label.replace("_", " ")
     if target_spec.kind == "lifecycle_type":
         return "has status"
-    if source == start_id and target_spec.kind == "business_entity":
+    if edge.source == start_id and target_spec.kind == "business_entity":
         return "depends on"
-    if target == start_id:
+    if edge.target == start_id:
         return "mentions"
     if source_spec.kind == "workflow":
         return "uses"

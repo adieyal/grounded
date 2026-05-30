@@ -1,0 +1,24 @@
+{
+  "id": "GROUNDED-TEST-034",
+  "kind": "test_binding",
+  "name": "Typed edge model tests",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Binds the P3 typed-edge guardrails to tests covering vocabulary, authored edge shape, legacy normalization, target-kind validation, semantic layers, manual backlink warnings, rendering, and search.",
+  "target": "GROUNDED-EDGE-001",
+  "test": "uv run pytest tests/test_edges.py -q",
+  "references": [
+    "GROUNDED-EDGE-001",
+    "GROUNDED-EDGE-002",
+    "GROUNDED-EDGE-003",
+    "GROUNDED-EDGE-004",
+    "GROUNDED-EDGE-005",
+    "GROUNDED-EDGE-006",
+    "GROUNDED-EDGE-007",
+    "GROUNDED-EDGE-008",
+    "GROUNDED-EDGE-009",
+    "GROUNDED-EDGE-010",
+    "GROUNDED-EDGE-011",
+    "GROUNDED-EDGE-012"
+  ]
+}

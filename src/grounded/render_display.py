@@ -359,6 +359,28 @@ def visible_link_nodes(spec: Spec, nodes: list[dict[str, Any]]) -> list[dict[str
     return [node for node in nodes if node.get("type") != "decision"]
 
 
+def grouped_edge_nodes(spec: Spec, nodes: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    grouped: dict[str, list[dict[str, Any]]] = {}
+    for node in visible_link_nodes(spec, nodes):
+        edge_type = str(node.get("edge_type") or "mentions")
+        grouped.setdefault(edge_type, []).append(node)
+    return [
+        {
+            "edge_type": edge_type,
+            "label": edge_label(edge_type),
+            "items": sorted(
+                items, key=lambda item: (str(item.get("type")), str(item.get("id")))
+            ),
+        }
+        for edge_type, items in sorted(grouped.items(), key=lambda item: item[0])
+        if items
+    ]
+
+
+def edge_label(edge_type: object) -> str:
+    return field_label(str(edge_type))
+
+
 def primary_statement(spec: Spec) -> str:
     for key in (
         "decision",

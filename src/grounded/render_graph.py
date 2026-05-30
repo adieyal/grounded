@@ -32,13 +32,15 @@ def grounded_registry_for(
     for spec in graph_specs:
         source = grounded_key(spec)
         targets = [
-            target
-            for target in graph_reference_ids_for(spec)
-            if target in registry.by_id and target in graph_ids
+            edge.target_id
+            for edge in registry.outgoing_edges_for(spec.id)
+            if edge.target_id in registry.by_id and edge.target_id in graph_ids
         ]
         outgoing[source] = [grounded_key(registry.by_id[target]) for target in targets]
         for target in targets:
-            backlinks.setdefault(grounded_key(registry.by_id[target]), []).append(source)
+            backlinks.setdefault(grounded_key(registry.by_id[target]), []).append(
+                source
+            )
 
     graph: dict[str, dict[str, Any]] = {}
     for spec in graph_specs:
@@ -51,20 +53,15 @@ def grounded_registry_for(
             "summary": spec.description,
             "concept_role": spec.data.get("concept_role"),
             "outgoing": outgoing.get(key, []),
+            "outgoing_edges": [
+                _edge_node_payload(edge, config, registry, from_path)
+                for edge in registry.outgoing_edges_for(spec.id)
+                if edge.target_id in graph_ids and edge.target_id in registry.by_id
+            ],
             "backlinks": [
-                {
-                    "type": registry.by_id[source_id].kind,
-                    "id": registry.by_id[source_id].id,
-                    "label": display_name(registry.by_id[source_id]),
-                    "summary": registry.by_id[source_id].description,
-                    "concept_role": registry.by_id[source_id].data.get("concept_role"),
-                    "href": href_for(
-                        from_path, unit_output_path(config, registry.by_id[source_id])
-                    ),
-                }
-                for source_key in sorted(backlinks.get(key, []))
-                for source_id in [source_key.split(":", 1)[1]]
-                if source_id in registry.by_id
+                _edge_node_payload(edge, config, registry, from_path, incoming=True)
+                for edge in registry.incoming_edges_for(spec.id)
+                if edge.source_id in graph_ids and edge.source_id in registry.by_id
             ],
         }
     return graph
@@ -74,14 +71,39 @@ def outgoing_links_for(
     spec: Spec, registry: SpecRegistry, graph: dict[str, dict[str, Any]]
 ) -> list[dict[str, Any]]:
     links = []
-    for target_id in graph_reference_ids_for(spec):
-        target = registry.by_id.get(target_id)
+    for edge in registry.outgoing_edges_for(spec.id):
+        target = registry.by_id.get(edge.target_id)
         if target is None:
             continue
         node = graph.get(grounded_key(target))
         if node is not None:
-            links.append(node)
+            links.append({**node, "edge_type": edge.edge_type})
     return links
+
+
+def _edge_node_payload(
+    edge: object,
+    config: GroundedConfig,
+    registry: SpecRegistry,
+    from_path: Path,
+    *,
+    incoming: bool = False,
+) -> dict[str, Any]:
+    source_id = getattr(edge, "source_id")
+    target_id = getattr(edge, "target_id")
+    spec_id = source_id if incoming else target_id
+    spec = registry.by_id[spec_id]
+    return {
+        "type": spec.kind,
+        "id": spec.id,
+        "label": display_name(spec),
+        "summary": spec.description,
+        "concept_role": spec.data.get("concept_role"),
+        "href": href_for(from_path, unit_output_path(config, spec)),
+        "edge_type": getattr(edge, "edge_type"),
+        "source_field": getattr(edge, "source_field"),
+        "authored": getattr(edge, "authored"),
+    }
 
 
 def build_search_index(
@@ -112,6 +134,16 @@ def build_search_index(
         node = graph[grounded_key(spec)]
         text_parts.extend(
             str(backlink["label"]) for backlink in node.get("backlinks", [])
+        )
+        text_parts.extend(
+            f"{edge.get('edge_type')} {edge.get('label')}"
+            for edge in node.get("outgoing_edges", [])
+            if isinstance(edge, dict)
+        )
+        text_parts.extend(
+            f"{edge.get('edge_type')} {edge.get('label')}"
+            for edge in node.get("backlinks", [])
+            if isinstance(edge, dict)
         )
         index.append(
             {

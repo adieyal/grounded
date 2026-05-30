@@ -1,8 +1,12 @@
 from __future__ import annotations
 
+from collections import defaultdict
+
+from ...edges import normalized_edges_for_units
 from ...models import Issue, Spec
 from ...modules.project_memory.domain.issues import ProjectMemoryIssue
 from ...modules.project_memory.domain.model import (
+    NormalizedEdge,
     ProjectMemory,
     ProjectMemoryType,
     TagTypeDefinition,
@@ -19,12 +23,47 @@ class SpecRegistry:
         issues: list[Issue],
         type_defs: dict[str, TypeDefinition],
         tag_type_defs: dict[str, TagTypeDefinition] | None = None,
+        normalized_edges: tuple[NormalizedEdge, ...] = (),
     ) -> None:
         self.specs = specs
         self.issues = issues
         self.type_defs = type_defs
         self.tag_type_defs = tag_type_defs or {}
         self.by_id = {spec.id: spec for spec in specs}
+        self.normalized_edges = normalized_edges or normalized_edges_for_units(specs)
+        outgoing_edges: dict[str, list[NormalizedEdge]] = defaultdict(list)
+        incoming_edges: dict[str, list[NormalizedEdge]] = defaultdict(list)
+        for edge in self.normalized_edges:
+            outgoing_edges[edge.source_id].append(edge)
+            incoming_edges[edge.target_id].append(edge)
+        self._outgoing_edges_by_id = {
+            spec.id: tuple(
+                sorted(
+                    outgoing_edges.get(spec.id, ()),
+                    key=lambda edge: (
+                        edge.edge_type,
+                        edge.target_id,
+                        edge.source_field or "",
+                        edge.authored,
+                    ),
+                )
+            )
+            for spec in specs
+        }
+        self._incoming_edges_by_id = {
+            spec.id: tuple(
+                sorted(
+                    incoming_edges.get(spec.id, ()),
+                    key=lambda edge: (
+                        edge.edge_type,
+                        edge.source_id,
+                        edge.source_field or "",
+                        edge.authored,
+                    ),
+                )
+            )
+            for spec in specs
+        }
 
     @property
     def active_specs(self) -> list[Spec]:
@@ -35,6 +74,12 @@ class SpecRegistry:
 
     def type_definition_for(self, spec: Spec) -> TypeDefinition | None:
         return self.type_defs.get(spec.kind)
+
+    def outgoing_edges_for(self, spec_id: str) -> tuple[NormalizedEdge, ...]:
+        return self._outgoing_edges_by_id.get(spec_id, ())
+
+    def incoming_edges_for(self, spec_id: str) -> tuple[NormalizedEdge, ...]:
+        return self._incoming_edges_by_id.get(spec_id, ())
 
 
 def spec_registry_from_project_memory(project_memory: ProjectMemory) -> SpecRegistry:
@@ -69,6 +114,7 @@ def spec_registry_from_project_memory(project_memory: ProjectMemory) -> SpecRegi
         issues,
         dict(project_memory.types.definitions),
         dict(project_memory.types.tag_type_definitions),
+        project_memory.normalized_edges,
     )
 
 

@@ -7,6 +7,7 @@ from jsonschema import Draft202012Validator
 from jsonschema.exceptions import SchemaError
 
 from ...models import GroundedConfig
+from ...edge_policy import EDGE_TYPES, SEMANTIC_LAYERS
 from ...tags import TAG_SCHEMA
 from ...trust_policy import TRUST_STATUSES
 from ...modules.project_memory.application.ports import TypeSourceResult
@@ -56,6 +57,19 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 "trust_basis": {"type": "string", "minLength": 1},
                 "observed_basis": {"type": "string", "minLength": 1},
                 "evidence": {"type": "string", "minLength": 1},
+                "semantic_layer": {"type": "string", "enum": [*SEMANTIC_LAYERS]},
+                "edges": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "required": ["type", "target"],
+                        "properties": {
+                            "type": {"type": "string", "enum": [*EDGE_TYPES]},
+                            "target": {"type": "string", "minLength": 1},
+                        },
+                        "additionalProperties": True,
+                    },
+                },
                 "verification_refs": {
                     "type": "array",
                     "items": {"type": "string", "minLength": 1},

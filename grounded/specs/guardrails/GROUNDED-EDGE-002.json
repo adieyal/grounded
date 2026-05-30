@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-EDGE-002",
+  "kind": "guardrail",
+  "name": "Authored edge entries have type and target",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the authored edge entry contract so each edge has enough structure to normalize and diagnose.",
+  "summary": "Each authored edge must be an object with type and a non-empty string target.",
+  "references": [
+    "GROUNDED-EDGE-001"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}
