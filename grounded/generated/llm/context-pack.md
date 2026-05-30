@@ -229,6 +229,8 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: PROJECT-RULE-001
 - `GROUNDED-KIND-001` (guardrail, owner: grounded): Defines the Unknown spec kind guardrail so validation, audit, and maintenance work can recognize this class of drift. Every spec kind must be registered in the type registry before specs can use it.
   Links: PROJECT-RULE-001
+- `GROUNDED-NAMING-001` (guardrail, owner: grounded): Defines the public naming guardrail so Grounded's release, package, documentation, generated views, examples, skills, templates, workflow text, tests, and source package public text use one canonical vocabulary. Grounded is the canonical public product name. CLI, package, and import vocabulary use grounded. Previous project-name vocabulary is forbidden on public surfaces and allowed only in explicitly approved historical or archive material.
+  Links: GROUNDED-DECISION-064, GROUNDED-VERIFY-002
 - `GROUNDED-OWNERSHIP-001` (guardrail, owner: grounded): Defines the Possible duplicate fact ownership guardrail so validation, audit, and maintenance work can recognize this class of drift. Specs with duplicate normalized statements are flagged because every durable fact should have one owner.
   Links: PROJECT-RULE-001
 - `GROUNDED-REF-001` (guardrail, owner: grounded): Defines the Unknown reference guardrail so validation, audit, and maintenance work can recognize this class of drift. A spec references another spec ID that does not exist in the registry.
@@ -353,12 +355,16 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: GROUNDED-DECISION-063
 - `GROUNDED-TEST-030` (test_binding, owner: grounded): Binds the 1.0.0 major release decision to an executable test proving pyproject metadata and the package __version__ value stay synchronized.
   Links: GROUNDED-DECISION-064
+- `GROUNDED-TEST-031` (test_binding, owner: grounded): Binds the public naming guardrail to an executable tracked-file scan so public surfaces cannot reintroduce previous project-name vocabulary.
+  Links: GROUNDED-NAMING-001, GROUNDED-VERIFY-002
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Grounded can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Grounded can verify the documented behavior.
   Links: PROJECT-RULE-003
 - `PROJECT-TEST-003` (test_binding, owner: project): Binds PROJECT-DECISION-001 to an executable test so Grounded can verify the documented behavior.
   Links: PROJECT-DECISION-001
+- `GROUNDED-VERIFY-002` (verification, owner: grounded): Defines the verification command that scans tracked public surfaces for previous project-name vocabulary before release.
+  Links: GROUNDED-NAMING-001
 - `PROJECT-VERIFY-001` (verification, owner: grounded): Defines the verification command for PROJECT-RULE-001 so project checks can be run consistently.
   Links: PROJECT-RULE-001
 - `PROJECT-WORKFLOW-001` (workflow, owner: project): Describes the Scope a bounded Grounded model workflow so agents and maintainers can follow the expected process. An LLM interviews the user with a structured question ladder to define a bounded modeling slice of an existing codebase, clarify the relevant comparison semantics and analysis rubric, and stop before implementation until the user confirms the scope is stable.

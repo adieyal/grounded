@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-VERIFY-002",
+  "kind": "verification",
+  "name": "Public naming drift check",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the verification command that scans tracked public surfaces for previous project-name vocabulary before release.",
+  "target": "GROUNDED-NAMING-001",
+  "command": "uv run pytest tests/test_public_naming.py -q",
+  "references": [
+    "GROUNDED-NAMING-001"
+  ]
+}
