@@ -8,6 +8,7 @@ from jsonschema.exceptions import SchemaError
 
 from ...models import GroundedConfig
 from ...tags import TAG_SCHEMA
+from ...trust_policy import TRUST_STATUSES
 from ...modules.project_memory.application.ports import TypeSourceResult
 from ...modules.project_memory.domain.issues import ProjectMemoryIssue
 from ...modules.project_memory.domain.model import (
@@ -29,6 +30,10 @@ DOCUMENTED_REQUIRED_FIELDS = (
     "description",
 )
 BASE_LINK_FIELDS = ("references", "tests", "examples")
+TRUST_STATUS_SCHEMA = {
+    "type": "string",
+    "enum": [*TRUST_STATUSES],
+}
 
 
 DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
@@ -47,6 +52,12 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 "owner": {"type": "string", "minLength": 1},
                 "status": {"type": "string", "enum": ["active", "draft", "retired"]},
                 "summary": {"type": "string"},
+                "trust_status": TRUST_STATUS_SCHEMA,
+                "verification_refs": {
+                    "type": "array",
+                    "items": {"type": "string", "minLength": 1},
+                    "uniqueItems": True,
+                },
             },
             "additionalProperties": True,
         },
@@ -91,7 +102,8 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "renderer": "domain_object.html.j2",
         "required": [*DOCUMENTED_REQUIRED_FIELDS],
         "search_fields": ["id", "name", "definition", "summary", "description"],
-        "reference_fields": [*BASE_LINK_FIELDS],
+        "reference_fields": [*BASE_LINK_FIELDS, "verification_refs"],
+        "list_fields": ["verification_refs"],
     },
     "enum": {
         "extends": "knowledge_unit",
@@ -120,7 +132,8 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "summary",
             "description",
         ],
-        "reference_fields": [*BASE_LINK_FIELDS],
+        "reference_fields": [*BASE_LINK_FIELDS, "verification_refs"],
+        "list_fields": ["verification_refs"],
     },
     "verification": {
         "extends": "knowledge_unit",
@@ -170,7 +183,8 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "summary",
             "description",
         ],
-        "reference_fields": [*BASE_LINK_FIELDS],
+        "reference_fields": [*BASE_LINK_FIELDS, "verification_refs"],
+        "list_fields": ["verification_refs"],
     },
     "slice": {
         "extends": "knowledge_unit",

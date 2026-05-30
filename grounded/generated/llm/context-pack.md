@@ -193,6 +193,8 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: GROUNDED-DOC-008
 - `GROUNDED-DOCS-001` (documentation_set, owner: grounded): Groups the generated public documentation artifacts that Grounded should render and check together.
   Links: GROUNDED-DECISION-060
+- `GROUNDED-TRUST-STATUS-001` (enum, owner: grounded): Defines the trust-status vocabulary used to describe claim credibility separately from lifecycle status. Trust status records credibility while status records lifecycle.
+  Links: GROUNDED-TRUST-GUARDRAIL-001
 - `PROJECT-RULE-001-EX001` (example, owner: project): Provides a concrete example for PROJECT-RULE-001 so the rule can be understood and verified in context.
   Links: PROJECT-RULE-001
 - `GROUNDED-DOC-001` (generated_document, owner: grounded): Defines the generated README view so the repository entrypoint can be assembled from Grounded source specs.
@@ -269,6 +271,22 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: GROUNDED-DECISION-035, PROJECT-RULE-001
 - `GROUNDED-TAG-003` (guardrail, owner: grounded): Defines the Malformed tag list guardrail so validation and maintenance work can recognize invalid tag shapes. A tags field must be a list whose entries are either non-empty strings or typed tag objects with non-empty type and value fields.
   Links: GROUNDED-DECISION-035, PROJECT-RULE-001
+- `GROUNDED-TRUST-001` (guardrail, owner: grounded): Defines the invalid trust-status guardrail so validation can report claim credibility values outside the governed vocabulary. Specs that declare trust_status must use the governed trust-status vocabulary.
+  Links: GROUNDED-TRUST-STATUS-001, GROUNDED-TRUST-GUARDRAIL-001
+- `GROUNDED-TRUST-002` (guardrail, owner: grounded): Defines the verified-claim proof guardrail so validation can report verified claims with no active targeted verification. An active verified claim must have at least one active verification_ref whose verification target equals the claim ID.
+  Links: GROUNDED-TRUST-GUARDRAIL-002
+- `GROUNDED-TRUST-003` (guardrail, owner: grounded): Defines the invalid verification reference guardrail so validation can report verified claims linked to inactive or non-verification specs. verification_refs for verified claims must point to active verification specs, not inactive units or other spec kinds.
+  Links: GROUNDED-TRUST-GUARDRAIL-002
+- `GROUNDED-TRUST-004` (guardrail, owner: grounded): Defines the verification target-mismatch guardrail so validation can report verified claims linked to proof for a different target. A verification spec only proves the spec named by its target field.
+  Links: GROUNDED-TRUST-GUARDRAIL-002
+- `GROUNDED-TRUST-GUARDRAIL-001` (guardrail, owner: grounded): Defines the trust-status guardrail so claim credibility is modeled independently from active, draft, and retired lifecycle state. Claim-bearing specs may declare trust_status as verified, checkable, observed, aspirational, or unknown; lifecycle status remains active, draft, or retired.
+  Links: GROUNDED-TRUST-STATUS-001, GROUNDED-VERIFY-003
+- `GROUNDED-TRUST-GUARDRAIL-002` (guardrail, owner: grounded): Defines the verified-claim proof guardrail so active verified claims must link to active verification specs that target the claim. An active claim-bearing spec with trust_status verified must declare verification_refs that point to active verification specs whose target equals the claim ID.
+  Links: GROUNDED-TRUST-GUARDRAIL-001, GROUNDED-VERIFY-003
+- `GROUNDED-TRUST-GUARDRAIL-003` (guardrail, owner: grounded): Defines the command-existence guardrail so active verification specs must declare a non-empty command whose first executable can be resolved during validation. Validation checks command presence and executable resolution without executing the command; runtime success remains the responsibility of grounded verify.
+  Links: GROUNDED-VERIFY-001, GROUNDED-VERIFY-003
+- `GROUNDED-TRUST-GUARDRAIL-004` (guardrail, owner: grounded): Defines the runtime verification-result guardrail so grounded verify records in-memory results and fails when a verified claim's linked verification does not pass. Verification runs produce in-memory result objects with verification ID, target ID, command, exit code, pass/fail state, duration, and optional issue code; verified claims fail verification when their linked proof fails.
+  Links: GROUNDED-TRUST-GUARDRAIL-002, GROUNDED-VERIFY-003
 - `GROUNDED-TYPE-001` (guardrail, owner: grounded): Defines the Invalid type registry JSON guardrail so validation, audit, and maintenance work can recognize this class of drift. The type registry must be valid JSON so spec kinds have an executable source of truth.
   Links: PROJECT-GAP-001, PROJECT-RULE-001
 - `GROUNDED-TYPE-002` (guardrail, owner: grounded): Defines the Invalid type registry root guardrail so validation, audit, and maintenance work can recognize this class of drift. The type registry root must be an object keyed by spec kind.
@@ -293,6 +311,12 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-056, PROJECT-RULE-001
 - `GROUNDED-VERIFY-001` (guardrail, owner: grounded): Defines the Verification command failed guardrail so validation, audit, and maintenance work can recognize this class of drift. Project-specific verification commands declared by registry type definitions must pass when grounded verify runs.
   Links: GROUNDED-DECISION-001, PROJECT-RULE-001
+- `GROUNDED-VERIFY-004` (guardrail, owner: grounded): Defines the verification timeout guardrail so runtime verification cannot hang indefinitely. grounded verify must apply a timeout to verification command execution and report timed-out commands.
+  Links: GROUNDED-TRUST-GUARDRAIL-004, GROUNDED-VERIFY-001
+- `GROUNDED-VERIFY-005` (guardrail, owner: grounded): Defines the runtime verification target-mismatch guardrail so grounded verify can report proof linked to the wrong target. grounded verify must not treat a verification result as proof for a spec unless the verification target equals that spec ID.
+  Links: GROUNDED-TRUST-GUARDRAIL-002, GROUNDED-TRUST-GUARDRAIL-004
+- `GROUNDED-VERIFY-006` (guardrail, owner: grounded): Defines the verified-claim runtime proof guardrail so grounded verify fails when linked verification results do not pass. A spec with trust_status verified is not runtime-proven unless its linked targeted verification result passes in the same grounded verify run.
+  Links: GROUNDED-TRUST-GUARDRAIL-004
 - `PROJECT-GAP-001` (schema_gap, owner: project): Records the registry_type schema gap for project-specific fact shapes so future registry or renderer work has a canonical owner. When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.
   Links: PROJECT-RULE-001
 - `PROJECT-GAP-002` (schema_gap, owner: project): Records the Semantic slice structure schema gap so future registry or renderer work has a canonical owner. The current concept schema does not provide structured fields for slice members, parent slice, or display metadata, so semantic slices can only be described indirectly in prose and references.
@@ -357,6 +381,8 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: GROUNDED-DECISION-064
 - `GROUNDED-TEST-031` (test_binding, owner: grounded): Binds the public naming guardrail to an executable tracked-file scan so public surfaces cannot reintroduce previous project-name vocabulary.
   Links: GROUNDED-NAMING-001, GROUNDED-VERIFY-002
+- `GROUNDED-TEST-032` (test_binding, owner: grounded): Binds the trust-status vocabulary, verified-claim proof requirement, verification command checks, and runtime verification-result semantics to focused executable tests.
+  Links: GROUNDED-TRUST-STATUS-001, GROUNDED-TRUST-GUARDRAIL-001, GROUNDED-TRUST-GUARDRAIL-002, GROUNDED-TRUST-GUARDRAIL-003, GROUNDED-TRUST-GUARDRAIL-004, GROUNDED-VERIFY-003
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Grounded can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Grounded can verify the documented behavior.
@@ -365,6 +391,8 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: PROJECT-DECISION-001
 - `GROUNDED-VERIFY-002` (verification, owner: grounded): Defines the verification command that scans tracked public surfaces for previous project-name vocabulary before release.
   Links: GROUNDED-NAMING-001
+- `GROUNDED-VERIFY-003` (verification, owner: grounded): Defines the verification command for the trust-status and verified-claim credibility loop.
+  Links: GROUNDED-TRUST-GUARDRAIL-001, GROUNDED-TRUST-GUARDRAIL-002, GROUNDED-TRUST-GUARDRAIL-003, GROUNDED-TRUST-GUARDRAIL-004
 - `PROJECT-VERIFY-001` (verification, owner: grounded): Defines the verification command for PROJECT-RULE-001 so project checks can be run consistently.
   Links: PROJECT-RULE-001
 - `PROJECT-WORKFLOW-001` (workflow, owner: project): Describes the Scope a bounded Grounded model workflow so agents and maintainers can follow the expected process. An LLM interviews the user with a structured question ladder to define a bounded modeling slice of an existing codebase, clarify the relevant comparison semantics and analysis rubric, and stop before implementation until the user confirms the scope is stable.

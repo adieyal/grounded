@@ -1,0 +1,17 @@
+{
+  "id": "GROUNDED-TRUST-GUARDRAIL-004",
+  "kind": "guardrail",
+  "name": "Runtime verification proves verified claims",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the runtime verification-result guardrail so grounded verify records in-memory results and fails when a verified claim's linked verification does not pass.",
+  "summary": "Verification runs produce in-memory result objects with verification ID, target ID, command, exit code, pass/fail state, duration, and optional issue code; verified claims fail verification when their linked proof fails.",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-002",
+    "GROUNDED-VERIFY-003"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

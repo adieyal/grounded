@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-VERIFY-003",
+  "kind": "verification",
+  "name": "Trust credibility loop tests",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the verification command for the trust-status and verified-claim credibility loop.",
+  "target": "GROUNDED-TRUST-GUARDRAIL-002",
+  "command": "uv run pytest tests/test_trust.py -q",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-001",
+    "GROUNDED-TRUST-GUARDRAIL-002",
+    "GROUNDED-TRUST-GUARDRAIL-003",
+    "GROUNDED-TRUST-GUARDRAIL-004"
+  ]
+}

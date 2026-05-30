@@ -1,0 +1,17 @@
+{
+  "id": "GROUNDED-VERIFY-005",
+  "kind": "guardrail",
+  "name": "Runtime verification target mismatch",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the runtime verification target-mismatch guardrail so grounded verify can report proof linked to the wrong target.",
+  "summary": "grounded verify must not treat a verification result as proof for a spec unless the verification target equals that spec ID.",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-002",
+    "GROUNDED-TRUST-GUARDRAIL-004"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

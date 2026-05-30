@@ -1,0 +1,17 @@
+{
+  "id": "GROUNDED-VERIFY-004",
+  "kind": "guardrail",
+  "name": "Verification command timed out",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the verification timeout guardrail so runtime verification cannot hang indefinitely.",
+  "summary": "grounded verify must apply a timeout to verification command execution and report timed-out commands.",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-004",
+    "GROUNDED-VERIFY-001"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

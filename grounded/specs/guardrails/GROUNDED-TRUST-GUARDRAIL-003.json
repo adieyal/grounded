@@ -1,0 +1,17 @@
+{
+  "id": "GROUNDED-TRUST-GUARDRAIL-003",
+  "kind": "guardrail",
+  "name": "Verification commands must be runnable-looking",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the command-existence guardrail so active verification specs must declare a non-empty command whose first executable can be resolved during validation.",
+  "summary": "Validation checks command presence and executable resolution without executing the command; runtime success remains the responsibility of grounded verify.",
+  "references": [
+    "GROUNDED-VERIFY-001",
+    "GROUNDED-VERIFY-003"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

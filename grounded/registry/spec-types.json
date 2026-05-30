@@ -4,12 +4,14 @@
     "list_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "reference_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "required": [
       "id",
@@ -33,12 +35,14 @@
     "list_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "reference_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "required": [
       "id",
@@ -54,12 +58,14 @@
     "list_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "reference_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "renderer": "decision.html.j2",
     "required": [
@@ -84,12 +90,14 @@
     "list_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "reference_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "required": [
       "id",
@@ -109,12 +117,14 @@
     "list_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "reference_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "renderer": "guardrail.html.j2",
     "required": [
@@ -158,12 +168,14 @@
     "list_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "reference_fields": [
       "references",
       "tests",
-      "examples"
+      "examples",
+      "verification_refs"
     ],
     "required": [
       "id",

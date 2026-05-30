@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-VERIFY-006",
+  "kind": "guardrail",
+  "name": "Verified claim failed runtime proof",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the verified-claim runtime proof guardrail so grounded verify fails when linked verification results do not pass.",
+  "summary": "A spec with trust_status verified is not runtime-proven unless its linked targeted verification result passes in the same grounded verify run.",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-004"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

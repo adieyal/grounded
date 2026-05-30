@@ -1,0 +1,17 @@
+{
+  "id": "GROUNDED-TRUST-GUARDRAIL-002",
+  "kind": "guardrail",
+  "name": "Verified claims require targeted proof",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the verified-claim proof guardrail so active verified claims must link to active verification specs that target the claim.",
+  "summary": "An active claim-bearing spec with trust_status verified must declare verification_refs that point to active verification specs whose target equals the claim ID.",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-001",
+    "GROUNDED-VERIFY-003"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

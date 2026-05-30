@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-TRUST-003",
+  "kind": "guardrail",
+  "name": "Verified claim references invalid verification",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the invalid verification reference guardrail so validation can report verified claims linked to inactive or non-verification specs.",
+  "summary": "verification_refs for verified claims must point to active verification specs, not inactive units or other spec kinds.",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-002"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}
