@@ -7,12 +7,10 @@ build/
 *.egg-info/
 
 # Rendered Grounded sites
-/grounded/generated/docs/
-/grounded/generated/llm/
-/grounded/generated/manifest.json
-/examples/todo/site/
+grounded/generated
+examples/todo/site/
 # Assembled GitHub Pages deployment output
-/pages-site/
+pages-site/
 
 # Generated Todo example manifest
-/examples/todo/manifest.json
+examples/todo/manifest.json
