@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-DOC-GRAPH-002",
+  "kind": "guardrail",
+  "name": "Sourced document section has no sources",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the sourced document-section guardrail so generated documentation sections do not become ungrounded prose buckets.",
+  "summary": "A document_section with content_mode sourced or mixed must declare source_refs."
+}

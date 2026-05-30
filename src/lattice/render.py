@@ -20,6 +20,7 @@ from .render_context import (
     specs_by_type,
     template_environment,
 )
+from .render_documents import generated_documents
 from .render_display import (
     concept_sections,
     detail_sections,
@@ -165,6 +166,17 @@ def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> Render
         owner="LLM context pack",
     )
 
+    for document in generated_documents(config, registry):
+        if document.write_mode == "full_file":
+            site.add(document.path, document.content, owner=document.spec.id)
+        else:
+            site.add_block(
+                document.path,
+                document.spec.id,
+                document.content,
+                owner=document.spec.id,
+            )
+
     for tag, tagged_specs in tag_groups.items():
         tag_path = tag_output_path(config, tag)
         tag_context = base_context(
@@ -268,6 +280,12 @@ def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> Render
             env.get_template(template_name).render(**render_context),
             owner=f"{spec.kind}:{spec.id}",
         )
+
+    site.add(
+        config.generated_docs_dir.parent / "manifest.json",
+        site.manifest_json(),
+        owner="generated artifact manifest",
+    )
 
     return site
 

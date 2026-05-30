@@ -1,0 +1,24 @@
+{
+  "id": "LATTICE-DOC-SECTION-001",
+  "kind": "document_section",
+  "name": "Documentation source of truth section",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the README problem section from governed source specs and the before-and-after diagram asset.",
+  "heading": "The problem",
+  "heading_level": 2,
+  "order": 10,
+  "renderer": "asset_figure",
+  "content_mode": "mixed",
+  "intro": "Most projects repeat the same important idea in many places: design docs, README files, tests, prompts, comments, and source code. At first this is fine. Later, one copy changes and the others do not. Lattice treats that as drift.",
+  "source_refs": [
+    "LATTICE-THEORY-001",
+    "PROJECT-RULE-001"
+  ],
+  "asset_refs": [
+    "LATTICE-ASSET-002"
+  ],
+  "references": [
+    "LATTICE-DOC-001"
+  ]
+}

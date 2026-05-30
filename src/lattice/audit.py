@@ -5,7 +5,7 @@ from collections import defaultdict
 
 from .models import Issue, LatticeConfig, Spec
 from .registry import SpecRegistry
-from .render import render_all
+from .render import build_rendered_site, render_all
 
 
 REFERENCE_PATTERN = re.compile(
@@ -19,6 +19,8 @@ HARD_CODED_STYLE_PATTERN = re.compile(
 def audit(config: LatticeConfig, registry: SpecRegistry) -> list[Issue]:
     issues: list[Issue] = []
     issues.extend(audit_generated_views(config, registry))
+    issues.extend(audit_generated_document_coverage(config, registry))
+    issues.extend(audit_documentation_graph(registry))
     issues.extend(audit_style_source(config))
     issues.extend(audit_test_coverage(config, registry))
     issues.extend(audit_unknown_artifact_references(config, registry))
@@ -34,6 +36,78 @@ def audit_generated_views(config: LatticeConfig, registry: SpecRegistry) -> list
         )
         for path in stale
     ]
+
+
+def audit_generated_document_coverage(
+    config: LatticeConfig, registry: SpecRegistry
+) -> list[Issue]:
+    site = build_rendered_site(config, registry)
+    managed = set(site.outputs) | {block.path for block in site.blocks}
+    expected = {config.root / "README.md"}
+    docs_dir = config.root / "docs"
+    if docs_dir.exists():
+        expected.update(
+            path
+            for path in docs_dir.rglob("*.md")
+            if path.is_file() and "images" not in path.relative_to(docs_dir).parts
+        )
+    return [
+        Issue(
+            "LATTICE-DOC-GRAPH-004",
+            f"documentation file is not managed by a generated_document: {path}",
+            path,
+        )
+        for path in sorted(expected)
+        if path.exists() and path not in managed
+    ]
+
+
+def audit_documentation_graph(registry: SpecRegistry) -> list[Issue]:
+    issues: list[Issue] = []
+    for spec in registry.active_specs:
+        if spec.kind == "generated_document":
+            issues.extend(_audit_generated_document(spec))
+            issues.extend(
+                _audit_typed_refs(
+                    spec,
+                    "section_refs",
+                    "document_section",
+                    "LATTICE-DOC-GRAPH-001",
+                    registry,
+                )
+            )
+        elif spec.kind == "documentation_set":
+            issues.extend(
+                _audit_typed_refs(
+                    spec,
+                    "document_refs",
+                    "generated_document",
+                    "LATTICE-DOC-GRAPH-001",
+                    registry,
+                )
+            )
+        elif spec.kind == "document_section":
+            issues.extend(_audit_document_section(spec))
+            issues.extend(
+                _audit_typed_refs(
+                    spec,
+                    "asset_refs",
+                    "asset",
+                    "LATTICE-DOC-GRAPH-001",
+                    registry,
+                )
+            )
+        elif spec.kind == "asset":
+            issues.extend(
+                _audit_typed_refs(
+                    spec,
+                    "used_by",
+                    "generated_document",
+                    "LATTICE-DOC-GRAPH-001",
+                    registry,
+                )
+            )
+    return issues
 
 
 def audit_style_source(config: LatticeConfig) -> list[Issue]:
@@ -68,6 +142,70 @@ def audit_style_source(config: LatticeConfig) -> list[Issue]:
                 )
             )
     return issues
+
+
+def _audit_generated_document(spec: Spec) -> list[Issue]:
+    if spec.data.get("write_mode") in {"protected_block", "full_file"}:
+        return []
+    return [
+        Issue(
+            "LATTICE-DOC-GRAPH-003",
+            (
+                f"generated_document {spec.id} must declare write_mode "
+                "protected_block or full_file"
+            ),
+            spec.path,
+        )
+    ]
+
+
+def _audit_typed_refs(
+    spec: Spec,
+    field: str,
+    expected_kind: str,
+    code: str,
+    registry: SpecRegistry,
+) -> list[Issue]:
+    refs = spec.data.get(field, [])
+    if not isinstance(refs, list):
+        return []
+    issues: list[Issue] = []
+    for ref in refs:
+        if not isinstance(ref, str):
+            continue
+        target = registry.get(ref)
+        if target is not None and target.kind != expected_kind:
+            issues.append(
+                Issue(
+                    code,
+                    (
+                        f"{spec.kind} {spec.id} field {field} references {ref}, "
+                        f"but expected {expected_kind} and found {target.kind}"
+                    ),
+                    spec.path,
+                )
+            )
+    return issues
+
+
+def _audit_document_section(spec: Spec) -> list[Issue]:
+    content_mode = spec.data.get("content_mode")
+    source_refs = spec.data.get("source_refs", [])
+    has_sources = isinstance(source_refs, list) and any(
+        isinstance(ref, str) and ref for ref in source_refs
+    )
+    if content_mode in {"sourced", "mixed"} and not has_sources:
+        return [
+            Issue(
+                "LATTICE-DOC-GRAPH-002",
+                (
+                    f"document_section {spec.id} declares content_mode "
+                    f"{content_mode} but has no source_refs"
+                ),
+                spec.path,
+            )
+        ]
+    return []
 
 
 def audit_test_coverage(config: LatticeConfig, registry: SpecRegistry) -> list[Issue]:

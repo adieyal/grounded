@@ -1,0 +1,9 @@
+{
+  "id": "LATTICE-DOC-GRAPH-001",
+  "kind": "guardrail",
+  "name": "Documentation graph reference has wrong type",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the documentation graph typed-reference guardrail so generated document views remain explainable and sections, documents, sets, and assets reference the expected kinds.",
+  "summary": "Documentation graph reference fields must point at the expected registry type."
+}

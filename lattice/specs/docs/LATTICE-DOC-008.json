@@ -1,0 +1,29 @@
+{
+  "id": "LATTICE-DOC-008",
+  "kind": "generated_document",
+  "name": "Publishing generated document",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the generated publishing guide from GitHub Pages and release-oriented documentation decisions.",
+  "output_path": "docs/PUBLISHING.md",
+  "format": "markdown",
+  "write_mode": "full_file",
+  "front_matter": {
+    "last_updated": "2026-05-30"
+  },
+  "title": "Publishing",
+  "audience": "maintainers",
+  "purpose": "Explain how generated documentation and the Todo demo are published.",
+  "stability": "experimental",
+  "section_refs": [
+    "LATTICE-DOC-SECTION-016",
+    "LATTICE-DOC-SECTION-019"
+  ],
+  "source_refs": [
+    "LATTICE-DECISION-049",
+    "LATTICE-DECISION-052"
+  ],
+  "references": [
+    "LATTICE-DECISION-060"
+  ]
+}

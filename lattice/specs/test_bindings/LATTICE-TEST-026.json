@@ -1,0 +1,13 @@
+{
+  "id": "LATTICE-TEST-026",
+  "kind": "test_binding",
+  "name": "Generated document blocks render from specs",
+  "owner": "lattice",
+  "status": "active",
+  "references": [
+    "LATTICE-DECISION-060"
+  ],
+  "description": "Binds LATTICE-DECISION-060 to an executable renderer test proving generated_document specs write protected README blocks and manifest entries.",
+  "target": "LATTICE-DECISION-060",
+  "test": "uv run pytest tests/test_lattice.py::LatticeTests::test_generated_document_blocks_render_from_specs -q"
+}

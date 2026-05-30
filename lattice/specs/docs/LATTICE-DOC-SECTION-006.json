@@ -1,0 +1,23 @@
+{
+  "id": "LATTICE-DOC-SECTION-006",
+  "kind": "document_section",
+  "name": "Tiny example section",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the README section that shows a small source spec example.",
+  "heading": "A tiny example",
+  "heading_level": 2,
+  "order": 30,
+  "renderer": "json_example",
+  "content_mode": "mixed",
+  "intro": "Instead of leaving an important rule only in prose, give it a stable Lattice ID.",
+  "example": "{\n  \"id\": \"REPORT-RULE-NNN\",\n  \"type\": \"business_rule\",\n  \"name\": \"Date-only reports use UTC\",\n  \"owner\": \"reporting\",\n  \"status\": \"active\",\n  \"description\": \"Defines how date-only values are displayed in generated reports.\",\n  \"statement\": \"Date-only report fields must be formatted using UTC semantics, not local browser timezone semantics.\",\n  \"tests\": [\"REPORT-VERIFY-NNN\"]\n}",
+  "outro": "Docs, tests, generated LLM context, review comments, and implementation plans can point to the same rule ID instead of rewriting the rule in five places.",
+  "source_refs": [
+    "PROJECT-RULE-001",
+    "PROJECT-RULE-001-EX001"
+  ],
+  "references": [
+    "LATTICE-DOC-001"
+  ]
+}

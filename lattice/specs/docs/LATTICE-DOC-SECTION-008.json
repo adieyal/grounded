@@ -1,0 +1,28 @@
+{
+  "id": "LATTICE-DOC-SECTION-008",
+  "kind": "document_section",
+  "name": "First useful spec section",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the README section that suggests good first Lattice specs.",
+  "heading": "Your first useful spec",
+  "heading_level": 2,
+  "order": 50,
+  "renderer": "bullet_list",
+  "content_mode": "mixed",
+  "intro": "Good first candidates are facts that already cause confusion or repeated explanations:",
+  "items": [
+    "\"Revenue means sales excluding tax.\"",
+    "\"Manual supplier-item aliases outrank fuzzy matches.\"",
+    "\"Date-only report fields use UTC semantics.\"",
+    "\"Generated docs must not be edited by hand.\"",
+    "\"A completed todo cannot be reopened without an explicit reopen action.\""
+  ],
+  "outro": "Start with one fact. Give it a stable ID. Link other docs, tests, plans, and prompts back to that ID.",
+  "source_refs": [
+    "PROJECT-RULE-001"
+  ],
+  "references": [
+    "LATTICE-DOC-001"
+  ]
+}

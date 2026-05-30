@@ -1,0 +1,37 @@
+{
+  "id": "LATTICE-DOC-SECTION-009",
+  "kind": "document_section",
+  "name": "Common commands section",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the README command table for common Lattice CLI workflows.",
+  "heading": "Common commands",
+  "heading_level": 2,
+  "order": 60,
+  "renderer": "command_table",
+  "content_mode": "mixed",
+  "commands": [
+    { "command": "lattice init", "description": "Adds Lattice project memory to an existing repo." },
+    { "command": "lattice validate", "description": "Checks that specs are well-formed and references resolve." },
+    { "command": "lattice render", "description": "Generates human docs and LLM context from the specs." },
+    { "command": "lattice render --check", "description": "Fails if generated outputs are stale." },
+    { "command": "lattice search QUERY", "description": "Searches project memory by ID, name, aliases, text, and relationships." },
+    { "command": "lattice entities", "description": "Lists entity-like specs for discovery before creating new facts." },
+    { "command": "lattice specs --uses QUERY", "description": "Shows specs related to a matching entity or spec." },
+    { "command": "lattice check-new NAME", "description": "Checks whether a proposed entity or concept probably already exists." },
+    { "command": "lattice registry", "description": "Lists merged registry types and authored specs." },
+    { "command": "lattice verify", "description": "Runs project-specific verification commands declared in specs." },
+    { "command": "lattice audit", "description": "Checks for drift and missing coverage." },
+    { "command": "lattice graph SPEC-ID", "description": "Shows a documentation-oriented Graphviz relationship diagram around one durable fact." }
+  ],
+  "outro": "During local development, prefer `uv run lattice ...` so the command uses the checkout.",
+  "source_refs": [
+    "LATTICE-DECISION-047",
+    "LATTICE-DECISION-054",
+    "LATTICE-DECISION-058",
+    "PROJECT-VERIFY-001"
+  ],
+  "references": [
+    "LATTICE-DOC-001"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "LATTICE-ASSET-002",
+  "kind": "asset",
+  "name": "Before and after knowledge drift diagram",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Governs the README diagram that compares scattered project knowledge with Lattice-owned canonical facts.",
+  "asset_kind": "source_asset",
+  "path": "docs/images/before_and_after.png",
+  "media_type": "image/png",
+  "width": "900",
+  "alt": "Before Lattice, project knowledge drifts across README files, tests, agent instructions, comments, and design docs. After Lattice, one stable fact owns the rule and downstream artifacts link back to it.",
+  "used_by": [
+    "LATTICE-DOC-001"
+  ],
+  "references": [
+    "LATTICE-DECISION-060"
+  ]
+}

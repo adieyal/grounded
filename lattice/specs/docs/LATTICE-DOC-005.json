@@ -1,0 +1,30 @@
+{
+  "id": "LATTICE-DOC-005",
+  "kind": "generated_document",
+  "name": "Incremental adoption generated document",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the generated incremental adoption guide as a projection over adoption and first-spec sections.",
+  "output_path": "docs/incremental-adoption.md",
+  "format": "markdown",
+  "write_mode": "full_file",
+  "front_matter": {
+    "last_updated": "2026-05-30"
+  },
+  "title": "Incremental Adoption",
+  "audience": "teams evaluating Lattice",
+  "purpose": "Show how to adopt Lattice in small steps without turning the whole project into documentation theatre.",
+  "stability": "experimental",
+  "section_refs": [
+    "LATTICE-DOC-SECTION-012",
+    "LATTICE-DOC-SECTION-008",
+    "LATTICE-DOC-SECTION-013"
+  ],
+  "source_refs": [
+    "PROJECT-RULE-001",
+    "PROJECT-RULE-002"
+  ],
+  "references": [
+    "LATTICE-DECISION-060"
+  ]
+}

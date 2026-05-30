@@ -1,0 +1,22 @@
+{
+  "id": "LATTICE-DOCS-001",
+  "kind": "documentation_set",
+  "name": "Public documentation set",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Groups the generated public documentation artifacts that Lattice should render and check together.",
+  "default_output_dir": ".",
+  "document_refs": [
+    "LATTICE-DOC-001",
+    "LATTICE-DOC-002",
+    "LATTICE-DOC-003",
+    "LATTICE-DOC-004",
+    "LATTICE-DOC-005",
+    "LATTICE-DOC-006",
+    "LATTICE-DOC-007",
+    "LATTICE-DOC-008"
+  ],
+  "references": [
+    "LATTICE-DECISION-060"
+  ]
+}

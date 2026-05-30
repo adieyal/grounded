@@ -1,0 +1,29 @@
+{
+  "id": "LATTICE-DOC-SECTION-007",
+  "kind": "document_section",
+  "name": "Quick start section",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the README quick start section as ordered setup and render steps.",
+  "heading": "Quick start",
+  "heading_level": 2,
+  "order": 40,
+  "renderer": "ordered_steps",
+  "content_mode": "mixed",
+  "intro": "From a checkout:",
+  "steps": [
+    "Run `uv sync`.",
+    "Run `uv run lattice init`.",
+    "Run `uv run lattice validate`.",
+    "Run `uv run lattice render`.",
+    "Add one durable project fact: a domain term, business rule, architecture decision, workflow, or verification command.",
+    "Run `uv run lattice validate`, `uv run lattice render --check`, and `uv run lattice audit`."
+  ],
+  "source_refs": [
+    "LATTICE-DECISION-025",
+    "PROJECT-RULE-002"
+  ],
+  "references": [
+    "LATTICE-DOC-001"
+  ]
+}

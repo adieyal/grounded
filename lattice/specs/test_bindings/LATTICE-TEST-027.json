@@ -1,0 +1,16 @@
+{
+  "id": "LATTICE-TEST-027",
+  "kind": "test_binding",
+  "name": "Documentation graph audit catches invalid edges",
+  "owner": "lattice",
+  "status": "active",
+  "references": [
+    "LATTICE-DOC-GRAPH-001",
+    "LATTICE-DOC-GRAPH-002",
+    "LATTICE-DOC-GRAPH-003",
+    "LATTICE-DOC-GRAPH-004"
+  ],
+  "description": "Binds documentation graph guardrails to executable audit tests proving wrong typed edges, missing write modes, unmanaged Markdown docs, and ungrounded sourced sections are reported.",
+  "target": "LATTICE-DOC-GRAPH-001",
+  "test": "uv run pytest tests/test_lattice.py::LatticeTests::test_audit_checks_documentation_graph_edges tests/test_lattice.py::LatticeTests::test_audit_requires_generated_document_write_mode tests/test_lattice.py::LatticeTests::test_audit_requires_markdown_docs_to_be_generated tests/test_lattice.py::LatticeTests::test_audit_rejects_ungrounded_sourced_document_sections -q"
+}

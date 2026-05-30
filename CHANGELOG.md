@@ -8,6 +8,17 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
 
 ## Unreleased
 
+- Added documentation-graph registry types for generated documents, document
+  sections, documentation sets, and governed assets.
+- Added generated Markdown protected blocks and a generated artifact manifest
+  so root docs such as `README.md` can migrate toward Lattice ownership.
+- Added full-file generated document write mode so mature documentation graph
+  outputs can own their entire target path.
+- Converted `README.md` and public Markdown files under `docs/` to full-file
+  generated outputs owned by `generated_document` specs.
+- Added an audit guardrail requiring public Markdown documentation to be
+  managed by the generated-document graph.
+
 ## 0.13.0 - 2026-05-30
 
 - Added `lattice registry` to list merged registry types and authored specs,

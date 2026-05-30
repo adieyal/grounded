@@ -1,0 +1,30 @@
+{
+  "id": "LATTICE-DOC-006",
+  "kind": "generated_document",
+  "name": "LLM workflows generated document",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the generated LLM workflows guide from agent maintenance and search workflow source specs.",
+  "output_path": "docs/llm-workflows.md",
+  "format": "markdown",
+  "write_mode": "full_file",
+  "front_matter": {
+    "last_updated": "2026-05-30"
+  },
+  "title": "LLM Workflows",
+  "audience": "LLM agents and maintainers",
+  "purpose": "Explain how agents should use Lattice search, specs, generated context, and audits during project work.",
+  "stability": "experimental",
+  "section_refs": [
+    "LATTICE-DOC-SECTION-018",
+    "LATTICE-DOC-SECTION-004",
+    "LATTICE-DOC-SECTION-009"
+  ],
+  "source_refs": [
+    "PROJECT-RULE-002",
+    "LATTICE-DECISION-054"
+  ],
+  "references": [
+    "LATTICE-DECISION-060"
+  ]
+}

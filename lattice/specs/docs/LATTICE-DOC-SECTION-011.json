@@ -1,0 +1,23 @@
+{
+  "id": "LATTICE-DOC-SECTION-011",
+  "kind": "document_section",
+  "name": "Adoption diagram section",
+  "owner": "lattice",
+  "status": "active",
+  "description": "Defines the README adoption diagram section with governed alt text.",
+  "heading": "Adopt incrementally",
+  "heading_level": 2,
+  "order": 80,
+  "renderer": "asset_figure",
+  "content_mode": "mixed",
+  "intro": "You do not need to model your whole system on day one.",
+  "asset_refs": [
+    "LATTICE-ASSET-003"
+  ],
+  "source_refs": [
+    "PROJECT-RULE-002"
+  ],
+  "references": [
+    "LATTICE-DOC-001"
+  ]
+}

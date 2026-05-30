@@ -44,8 +44,12 @@ class LatticeTests(unittest.TestCase):
             )
             self.assertEqual(
                 [
+                    "asset",
+                    "document_section",
+                    "documentation_set",
                     "domain_object",
                     "enum",
+                    "generated_document",
                     "knowledge_unit",
                     "registry_unit",
                     "schema_gap",
@@ -208,6 +212,301 @@ class LatticeTests(unittest.TestCase):
             self.assertFalse(obsolete.exists())
             self.assertFalse(legacy_index.exists())
 
+    def test_generated_document_blocks_render_from_specs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            readme = root / "README.md"
+            readme.write_text("# Demo\n\nHand-written shell.\n", encoding="utf-8")
+            docs_dir = root / ".lattice/specs/docs"
+            docs_dir.mkdir(parents=True)
+            doc_id = "".join(["PROJECT", "-DOC-001"])
+            section_id = "".join(["PROJECT", "-DOC", "-SECTION-001"])
+            (docs_dir / f"{doc_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": doc_id,
+                        "kind": "generated_document",
+                        "name": "Demo README",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Defines the generated README block for the demo project.",
+                        "output_path": "README.md",
+                        "format": "markdown",
+                        "write_mode": "protected_block",
+                        "audience": "maintainers",
+                        "purpose": "Show that README content can be generated from Lattice specs.",
+                        "stability": "experimental",
+                        "section_refs": [section_id],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (docs_dir / f"{section_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": section_id,
+                        "kind": "document_section",
+                        "name": "Source-backed README section",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Defines a source-backed generated README section.",
+                        "heading": "Generated from Lattice",
+                        "heading_level": 2,
+                        "order": 10,
+                        "renderer": "source_list",
+                        "content_mode": "sourced",
+                        "source_refs": ["PROJECT-GAP-001"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            config = load_config(root)
+            registry = load_registry(config)
+
+            self.assertIn("README.md", render_all(config, registry, check=True))
+            render_all(config, registry)
+            self.assertEqual([], render_all(config, registry, check=True))
+
+            text = readme.read_text(encoding="utf-8")
+            self.assertIn(f"<!-- lattice:generated:start {doc_id} -->", text)
+            self.assertIn("## Generated from Lattice", text)
+            self.assertIn("`PROJECT-GAP-001`", text)
+            manifest = json.loads(
+                (root / ".lattice/generated/manifest.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(
+                doc_id, manifest["artifacts"]["README.md"]["owner"]
+            )
+            self.assertEqual(
+                "protected_block",
+                manifest["artifacts"]["README.md"]["artifact_kind"],
+            )
+
+            readme.write_text(
+                text.replace("Generated from Lattice", "Edited"), encoding="utf-8"
+            )
+
+            self.assertIn("README.md", render_all(config, registry, check=True))
+
+    def test_generated_documents_can_own_full_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            output_path = root / "docs/generated.md"
+            output_path.parent.mkdir()
+            output_path.write_text("stale", encoding="utf-8")
+            docs_dir = root / ".lattice/specs/docs"
+            docs_dir.mkdir(parents=True)
+            doc_id = "".join(["PROJECT", "-DOC-001"])
+            section_id = "".join(["PROJECT", "-DOC", "-SECTION-001"])
+            (docs_dir / f"{doc_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": doc_id,
+                        "kind": "generated_document",
+                        "name": "Generated full file",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Defines a fully generated Markdown file.",
+                        "output_path": "docs/generated.md",
+                        "format": "markdown",
+                        "write_mode": "full_file",
+                        "audience": "maintainers",
+                        "purpose": "Prove generated documents can own full files.",
+                        "section_refs": [section_id],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (docs_dir / f"{section_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": section_id,
+                        "kind": "document_section",
+                        "name": "Full file section",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Defines a source-backed full-file section.",
+                        "heading": "Full file",
+                        "heading_level": 2,
+                        "order": 10,
+                        "renderer": "source_summary",
+                        "content_mode": "sourced",
+                        "source_refs": ["PROJECT-GAP-001"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            config = load_config(root)
+            registry = load_registry(config)
+
+            self.assertIn("docs/generated.md", render_all(config, registry, check=True))
+            render_all(config, registry)
+            self.assertEqual([], render_all(config, registry, check=True))
+
+            text = output_path.read_text(encoding="utf-8")
+            self.assertNotIn("lattice:generated:start", text)
+            self.assertIn("## Full file", text)
+            manifest = json.loads(
+                (root / ".lattice/generated/manifest.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            self.assertEqual(
+                "file", manifest["artifacts"]["docs/generated.md"]["artifact_kind"]
+            )
+            self.assertEqual(doc_id, manifest["artifacts"]["docs/generated.md"]["owner"])
+
+    def test_audit_checks_documentation_graph_edges(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            doc_id = "".join(["PROJECT", "-DOC-001"])
+            docs_dir = root / ".lattice/specs/docs"
+            docs_dir.mkdir(parents=True)
+            (docs_dir / f"{doc_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": doc_id,
+                        "kind": "generated_document",
+                        "name": "Invalid README graph",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Defines an intentionally invalid documentation graph.",
+                        "output_path": "README.md",
+                        "format": "markdown",
+                        "write_mode": "protected_block",
+                        "audience": "maintainers",
+                        "purpose": "Exercise documentation graph auditing.",
+                        "section_refs": ["PROJECT-GAP-001"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            config = load_config(root)
+            registry = load_registry(config)
+            issues = audit(config, registry)
+
+            self.assertTrue(
+                any(issue.code == "LATTICE-DOC-GRAPH-001" for issue in issues)
+            )
+
+    def test_audit_requires_generated_document_write_mode(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            doc_id = "".join(["PROJECT", "-DOC-001"])
+            section_id = "".join(["PROJECT", "-DOC", "-SECTION-001"])
+            docs_dir = root / ".lattice/specs/docs"
+            docs_dir.mkdir(parents=True)
+            (docs_dir / f"{doc_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": doc_id,
+                        "kind": "generated_document",
+                        "name": "Missing write mode",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Defines an intentionally incomplete generated document.",
+                        "output_path": "README.md",
+                        "format": "markdown",
+                        "audience": "maintainers",
+                        "purpose": "Exercise write mode auditing.",
+                        "section_refs": [section_id],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (docs_dir / f"{section_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": section_id,
+                        "kind": "document_section",
+                        "name": "Backed section",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Defines a source-backed section.",
+                        "heading": "Backed",
+                        "heading_level": 2,
+                        "order": 10,
+                        "renderer": "source_summary",
+                        "content_mode": "sourced",
+                        "source_refs": ["PROJECT-GAP-001"],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            config = load_config(root)
+            registry = load_registry(config)
+            issues = audit(config, registry)
+
+            self.assertTrue(
+                any(issue.code == "LATTICE-DOC-GRAPH-003" for issue in issues)
+            )
+
+    def test_audit_requires_markdown_docs_to_be_generated(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            (root / "README.md").write_text("# Manual\n", encoding="utf-8")
+            docs_dir = root / "docs"
+            docs_dir.mkdir()
+            (docs_dir / "manual.md").write_text("# Manual doc\n", encoding="utf-8")
+
+            config = load_config(root)
+            registry = load_registry(config)
+            issues = audit(config, registry)
+
+            unmanaged_paths = {
+                issue.path.relative_to(root).as_posix()
+                for issue in issues
+                if issue.code == "LATTICE-DOC-GRAPH-004" and issue.path is not None
+            }
+            self.assertIn("README.md", unmanaged_paths)
+            self.assertIn("docs/manual.md", unmanaged_paths)
+
+    def test_audit_rejects_ungrounded_sourced_document_sections(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            section_id = "".join(["PROJECT", "-DOC", "-SECTION-001"])
+            docs_dir = root / ".lattice/specs/docs"
+            docs_dir.mkdir(parents=True)
+            (docs_dir / f"{section_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": section_id,
+                        "kind": "document_section",
+                        "name": "Ungrounded sourced section",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Defines an intentionally ungrounded document section.",
+                        "heading": "Ungrounded",
+                        "heading_level": 2,
+                        "order": 10,
+                        "renderer": "source_summary",
+                        "content_mode": "sourced",
+                        "source_refs": [],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            config = load_config(root)
+            registry = load_registry(config)
+            issues = audit(config, registry)
+
+            self.assertTrue(
+                any(issue.code == "LATTICE-DOC-GRAPH-002" for issue in issues)
+            )
+
     def test_field_type_target_requires_exact_display_match(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -296,8 +595,12 @@ class LatticeTests(unittest.TestCase):
 
         self.assertEqual(
             [
+                "asset",
+                "document_section",
+                "documentation_set",
                 "domain_object",
                 "enum",
+                "generated_document",
                 "knowledge_unit",
                 "registry_unit",
                 "schema_gap",

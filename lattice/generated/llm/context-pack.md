@@ -4,6 +4,14 @@
 
 Use these canonical specs as the source of truth. Do not duplicate or invent competing facts.
 
+- `LATTICE-ASSET-001` (asset, owner: lattice): Governs the README and documentation diagram that shows Lattice specs producing generated docs, LLM context, validation, verification, and drift reports.
+  Links: LATTICE-DECISION-060
+- `LATTICE-ASSET-002` (asset, owner: lattice): Governs the README diagram that compares scattered project knowledge with Lattice-owned canonical facts.
+  Links: LATTICE-DECISION-060
+- `LATTICE-ASSET-003` (asset, owner: lattice): Governs the README diagram that shows Lattice's incremental adoption ladder.
+  Links: LATTICE-DECISION-060
+- `LATTICE-ASSET-004` (asset, owner: lattice): Governs the README image that previews generated Todo example documentation.
+  Links: LATTICE-DECISION-060
 - `PROJECT-RULE-001` (business_rule, owner: project): Defines the Single owner for durable facts rule so agents and maintainers know when and how to apply it. Every durable project fact has exactly one canonical owner; other artifacts reference that owner instead of duplicating it.
   Links: PROJECT-CONCEPT-001
 - `PROJECT-RULE-002` (business_rule, owner: project): Defines the Agents maintain Lattice during project work rule so agents and maintainers know when and how to apply it. Agents must use, create, and maintain Lattice specs whenever project work changes durable knowledge.
@@ -133,14 +141,78 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: LATTICE-DECISION-001, LATTICE-DECISION-057
 - `LATTICE-DECISION-059` (decision, owner: lattice): Documents the 0.13.0 version bump so registry inspection and metamodel terminology changes have a canonical Lattice release owner. The package version is bumped to 0.13.0 for the registry inspection CLI command and the metamodel nomenclature cleanup that distinguishes registry types, registry units, knowledge units, authored specs, and generated views.
   Links: LATTICE-DECISION-001, LATTICE-DECISION-057, LATTICE-DECISION-058
+- `LATTICE-DECISION-060` (decision, owner: lattice): Documents the documentation-graph model so generated docs are projections over source specs instead of hand-maintained durable knowledge. Lattice documentation is generated from a documentation graph. Durable knowledge lives in source specs; generated_document specs define output artifacts; document_section specs define ordered projections over source specs; documentation_set specs group generated documents; asset specs govern static and generated media. README.md and docs pages should move toward generated views rather than independent sources of truth.
+  Links: LATTICE-DECISION-001, LATTICE-DECISION-057, LATTICE-DOC-001, LATTICE-TEST-026
+- `LATTICE-DECISION-061` (decision, owner: lattice): Documents generated document write modes so Lattice can migrate safely from protected generated blocks to fully generated documentation files. Generated document specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated_document own the entire output path once the source specs and section graph are mature enough. README.md is now generated in full_file mode from LATTICE-DOC-001.
+  Links: LATTICE-DECISION-060, LATTICE-DOC-001, LATTICE-TEST-026
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
+- `LATTICE-DOC-SECTION-001` (document_section, owner: lattice): Defines the README problem section from governed source specs and the before-and-after diagram asset.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-002` (document_section, owner: lattice): Defines the README section that points readers to the registry inspection command as a way to understand the active documentation graph.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-003` (document_section, owner: lattice): Defines the README section that summarizes Lattice's source-of-truth value from canonical source specs.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-004` (document_section, owner: lattice): Defines the README section that summarizes the CLI workflow capabilities from command-owning decisions.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-005` (document_section, owner: lattice): Defines the README section that explains the safe migration path toward generated public documentation.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-006` (document_section, owner: lattice): Defines the README section that shows a small source spec example.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-007` (document_section, owner: lattice): Defines the README quick start section as ordered setup and render steps.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-008` (document_section, owner: lattice): Defines the README section that suggests good first Lattice specs.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-009` (document_section, owner: lattice): Defines the README command table for common Lattice CLI workflows.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-010` (document_section, owner: lattice): Defines the README section that introduces typed tags and constrained references.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-011` (document_section, owner: lattice): Defines the README adoption diagram section with governed alt text.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-012` (document_section, owner: lattice): Defines the README adoption ladder as structured generated documentation.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-013` (document_section, owner: lattice): Defines the README section that describes when Lattice is and is not a good fit.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-014` (document_section, owner: lattice): Defines the README link list for examples and deeper documentation.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-015` (document_section, owner: lattice): Defines the README section that shows the default Lattice project layout.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-016` (document_section, owner: lattice): Defines the README section that summarizes Todo demo publishing.
+  Links: LATTICE-DOC-001
+- `LATTICE-DOC-SECTION-017` (document_section, owner: lattice): Defines the drift checks guide section that lists the main validation, audit, and verification guardrails.
+  Links: LATTICE-DOC-007
+- `LATTICE-DOC-SECTION-018` (document_section, owner: lattice): Defines the LLM workflows guide section that explains agent responsibilities from canonical rules and decisions.
+  Links: LATTICE-DOC-006
+- `LATTICE-DOC-SECTION-019` (document_section, owner: lattice): Defines the publishing guide section that summarizes publishing and generated documentation release decisions.
+  Links: LATTICE-DOC-008
+- `LATTICE-DOCS-001` (documentation_set, owner: lattice): Groups the generated public documentation artifacts that Lattice should render and check together.
+  Links: LATTICE-DECISION-060
 - `PROJECT-RULE-001-EX001` (example, owner: project): Provides a concrete example for PROJECT-RULE-001 so the rule can be understood and verified in context.
   Links: PROJECT-RULE-001
+- `LATTICE-DOC-001` (generated_document, owner: lattice): Defines the generated README view so the repository entrypoint can be assembled from Lattice source specs.
+  Links: LATTICE-DECISION-060
+- `LATTICE-DOC-002` (generated_document, owner: lattice): Defines the generated getting-started guide as a projection over setup, first-spec, command, and layout sections.
+  Links: LATTICE-DECISION-060
+- `LATTICE-DOC-003` (generated_document, owner: lattice): Defines the generated concepts guide as a projection over Lattice metamodel and documentation graph specs.
+  Links: LATTICE-DECISION-060
+- `LATTICE-DOC-004` (generated_document, owner: lattice): Defines the generated CLI reference as a projection over command and CLI workflow sections.
+  Links: LATTICE-DECISION-060
+- `LATTICE-DOC-005` (generated_document, owner: lattice): Defines the generated incremental adoption guide as a projection over adoption and first-spec sections.
+  Links: LATTICE-DECISION-060
+- `LATTICE-DOC-006` (generated_document, owner: lattice): Defines the generated LLM workflows guide from agent maintenance and search workflow source specs.
+  Links: LATTICE-DECISION-060
+- `LATTICE-DOC-007` (generated_document, owner: lattice): Defines the generated drift checks guide from validation, audit, verification, and generated-view guardrails.
+  Links: LATTICE-DECISION-060
+- `LATTICE-DOC-008` (generated_document, owner: lattice): Defines the generated publishing guide from GitHub Pages and release-oriented documentation decisions.
+  Links: LATTICE-DECISION-060
 - `LATTICE-COMPAT-001` (guardrail, owner: lattice): Defines the Pathless SpecRegistry compatibility unit guardrail so compatibility adapters report source models that cannot be represented by the filesystem-shaped legacy SpecRegistry API. The SpecRegistry compatibility adapter must not invent filesystem paths for project-memory units loaded from non-filesystem sources.
   Links: LATTICE-DECISION-056, PROJECT-RULE-001
 - `LATTICE-COVERAGE-001` (guardrail, owner: lattice): Defines the Required canonical fact lacks declared test coverage guardrail so validation, audit, and maintenance work can recognize this class of drift. Specs whose kind requires executable proof must declare a test directly or through a test_binding.
   Links: PROJECT-RULE-001
+- `LATTICE-DOC-GRAPH-001` (guardrail, owner: lattice): Defines the documentation graph typed-reference guardrail so generated document views remain explainable and sections, documents, sets, and assets reference the expected kinds. Documentation graph reference fields must point at the expected registry type.
+- `LATTICE-DOC-GRAPH-002` (guardrail, owner: lattice): Defines the sourced document-section guardrail so generated documentation sections do not become ungrounded prose buckets. A document_section with content_mode sourced or mixed must declare source_refs.
+- `LATTICE-DOC-GRAPH-003` (guardrail, owner: lattice): Defines the generated document write-mode guardrail so each generated output declares whether Lattice owns a protected block or the entire file. A generated_document must declare write_mode as protected_block or full_file.
+- `LATTICE-DOC-GRAPH-004` (guardrail, owner: lattice): Defines the generated documentation coverage guardrail so README.md and Markdown files under docs are owned by generated_document specs instead of drifting as independent sources of truth. README.md and docs/*.md must be managed by generated_document specs.
 - `LATTICE-DRIFT-001` (guardrail, owner: lattice): Defines the Generated view is stale guardrail so validation, audit, and maintenance work can recognize this class of drift. Generated Lattice views must match the current canonical registry.
   Links: PROJECT-RULE-001
 - `LATTICE-EXTENSION-001` (guardrail, owner: lattice): Defines the extension-point guardrail so project-specific behavior stays in registries, schemas, template overrides, styles, slice metadata, or verification specs instead of core Lattice internals. Project-specific behavior must not directly edit bundled Lattice templates, validation code, or rendering functions when an extension or override point can express the change.
@@ -265,6 +337,10 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: LATTICE-DECISION-001
 - `LATTICE-TEST-025` (test_binding, owner: lattice): Binds LATTICE-DECISION-058 to an executable CLI test proving registry output includes registry types and authored specs.
   Links: LATTICE-DECISION-058
+- `LATTICE-TEST-026` (test_binding, owner: lattice): Binds LATTICE-DECISION-060 to an executable renderer test proving generated_document specs write protected README blocks and manifest entries.
+  Links: LATTICE-DECISION-060
+- `LATTICE-TEST-027` (test_binding, owner: lattice): Binds documentation graph guardrails to executable audit tests proving wrong typed edges, missing write modes, unmanaged Markdown docs, and ungrounded sourced sections are reported.
+  Links: LATTICE-DOC-GRAPH-001, LATTICE-DOC-GRAPH-002, LATTICE-DOC-GRAPH-003, LATTICE-DOC-GRAPH-004
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.

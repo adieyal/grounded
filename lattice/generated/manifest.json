@@ -1,0 +1,1150 @@
+{
+  "artifacts": {
+    "README.md": {
+      "artifact_kind": "file",
+      "bytes": 9953,
+      "generated": true,
+      "owner": "LATTICE-DOC-001"
+    },
+    "docs/PUBLISHING.md": {
+      "artifact_kind": "file",
+      "bytes": 1670,
+      "generated": true,
+      "owner": "LATTICE-DOC-008"
+    },
+    "docs/cli-reference.md": {
+      "artifact_kind": "file",
+      "bytes": 2338,
+      "generated": true,
+      "owner": "LATTICE-DOC-004"
+    },
+    "docs/concepts.md": {
+      "artifact_kind": "file",
+      "bytes": 2761,
+      "generated": true,
+      "owner": "LATTICE-DOC-003"
+    },
+    "docs/drift-checks.md": {
+      "artifact_kind": "file",
+      "bytes": 2606,
+      "generated": true,
+      "owner": "LATTICE-DOC-007"
+    },
+    "docs/getting-started.md": {
+      "artifact_kind": "file",
+      "bytes": 2638,
+      "generated": true,
+      "owner": "LATTICE-DOC-002"
+    },
+    "docs/incremental-adoption.md": {
+      "artifact_kind": "file",
+      "bytes": 2155,
+      "generated": true,
+      "owner": "LATTICE-DOC-005"
+    },
+    "docs/llm-workflows.md": {
+      "artifact_kind": "file",
+      "bytes": 3294,
+      "generated": true,
+      "owner": "LATTICE-DOC-006"
+    },
+    "lattice/generated/docs/index.html": {
+      "artifact_kind": "file",
+      "bytes": 442116,
+      "generated": true,
+      "owner": "index html"
+    },
+    "lattice/generated/docs/lattice-background.html": {
+      "artifact_kind": "file",
+      "bytes": 302128,
+      "generated": true,
+      "owner": "background page"
+    },
+    "lattice/generated/docs/lattice-link.js": {
+      "artifact_kind": "file",
+      "bytes": 34441,
+      "generated": true,
+      "owner": "lattice-link.js"
+    },
+    "lattice/generated/docs/project-memory.md": {
+      "artifact_kind": "file",
+      "bytes": 73223,
+      "generated": true,
+      "owner": "project-memory markdown"
+    },
+    "lattice/generated/docs/search-index.json": {
+      "artifact_kind": "file",
+      "bytes": 141353,
+      "generated": true,
+      "owner": "search-index.json"
+    },
+    "lattice/generated/docs/style.css": {
+      "artifact_kind": "file",
+      "bytes": 16290,
+      "generated": true,
+      "owner": "style.css"
+    },
+    "lattice/generated/docs/units/lattice-asset-001.html": {
+      "artifact_kind": "file",
+      "bytes": 350566,
+      "generated": true,
+      "owner": "asset:LATTICE-ASSET-001"
+    },
+    "lattice/generated/docs/units/lattice-asset-002.html": {
+      "artifact_kind": "file",
+      "bytes": 350657,
+      "generated": true,
+      "owner": "asset:LATTICE-ASSET-002"
+    },
+    "lattice/generated/docs/units/lattice-asset-003.html": {
+      "artifact_kind": "file",
+      "bytes": 350454,
+      "generated": true,
+      "owner": "asset:LATTICE-ASSET-003"
+    },
+    "lattice/generated/docs/units/lattice-asset-004.html": {
+      "artifact_kind": "file",
+      "bytes": 350387,
+      "generated": true,
+      "owner": "asset:LATTICE-ASSET-004"
+    },
+    "lattice/generated/docs/units/lattice-compat-001.html": {
+      "artifact_kind": "file",
+      "bytes": 348123,
+      "generated": true,
+      "owner": "guardrail:LATTICE-COMPAT-001"
+    },
+    "lattice/generated/docs/units/lattice-coverage-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347993,
+      "generated": true,
+      "owner": "guardrail:LATTICE-COVERAGE-001"
+    },
+    "lattice/generated/docs/units/lattice-decision-001.html": {
+      "artifact_kind": "file",
+      "bytes": 355558,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-001"
+    },
+    "lattice/generated/docs/units/lattice-decision-002.html": {
+      "artifact_kind": "file",
+      "bytes": 349050,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-002"
+    },
+    "lattice/generated/docs/units/lattice-decision-003.html": {
+      "artifact_kind": "file",
+      "bytes": 348974,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-003"
+    },
+    "lattice/generated/docs/units/lattice-decision-004.html": {
+      "artifact_kind": "file",
+      "bytes": 348615,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-004"
+    },
+    "lattice/generated/docs/units/lattice-decision-005.html": {
+      "artifact_kind": "file",
+      "bytes": 349254,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-005"
+    },
+    "lattice/generated/docs/units/lattice-decision-006.html": {
+      "artifact_kind": "file",
+      "bytes": 348923,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-006"
+    },
+    "lattice/generated/docs/units/lattice-decision-007.html": {
+      "artifact_kind": "file",
+      "bytes": 348652,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-007"
+    },
+    "lattice/generated/docs/units/lattice-decision-008.html": {
+      "artifact_kind": "file",
+      "bytes": 348974,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-008"
+    },
+    "lattice/generated/docs/units/lattice-decision-009.html": {
+      "artifact_kind": "file",
+      "bytes": 349357,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-009"
+    },
+    "lattice/generated/docs/units/lattice-decision-010.html": {
+      "artifact_kind": "file",
+      "bytes": 348095,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-010"
+    },
+    "lattice/generated/docs/units/lattice-decision-011.html": {
+      "artifact_kind": "file",
+      "bytes": 349536,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-011"
+    },
+    "lattice/generated/docs/units/lattice-decision-012.html": {
+      "artifact_kind": "file",
+      "bytes": 348484,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-012"
+    },
+    "lattice/generated/docs/units/lattice-decision-013.html": {
+      "artifact_kind": "file",
+      "bytes": 348533,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-013"
+    },
+    "lattice/generated/docs/units/lattice-decision-014.html": {
+      "artifact_kind": "file",
+      "bytes": 348346,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-014"
+    },
+    "lattice/generated/docs/units/lattice-decision-015.html": {
+      "artifact_kind": "file",
+      "bytes": 349089,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-015"
+    },
+    "lattice/generated/docs/units/lattice-decision-016.html": {
+      "artifact_kind": "file",
+      "bytes": 348500,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-016"
+    },
+    "lattice/generated/docs/units/lattice-decision-017.html": {
+      "artifact_kind": "file",
+      "bytes": 348395,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-017"
+    },
+    "lattice/generated/docs/units/lattice-decision-018.html": {
+      "artifact_kind": "file",
+      "bytes": 348521,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-018"
+    },
+    "lattice/generated/docs/units/lattice-decision-019.html": {
+      "artifact_kind": "file",
+      "bytes": 348722,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-019"
+    },
+    "lattice/generated/docs/units/lattice-decision-020.html": {
+      "artifact_kind": "file",
+      "bytes": 348687,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-020"
+    },
+    "lattice/generated/docs/units/lattice-decision-021.html": {
+      "artifact_kind": "file",
+      "bytes": 348529,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-021"
+    },
+    "lattice/generated/docs/units/lattice-decision-022.html": {
+      "artifact_kind": "file",
+      "bytes": 352198,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-022"
+    },
+    "lattice/generated/docs/units/lattice-decision-023.html": {
+      "artifact_kind": "file",
+      "bytes": 350366,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-023"
+    },
+    "lattice/generated/docs/units/lattice-decision-024.html": {
+      "artifact_kind": "file",
+      "bytes": 349128,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-024"
+    },
+    "lattice/generated/docs/units/lattice-decision-025.html": {
+      "artifact_kind": "file",
+      "bytes": 348805,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-025"
+    },
+    "lattice/generated/docs/units/lattice-decision-026.html": {
+      "artifact_kind": "file",
+      "bytes": 348449,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-026"
+    },
+    "lattice/generated/docs/units/lattice-decision-027.html": {
+      "artifact_kind": "file",
+      "bytes": 349725,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-027"
+    },
+    "lattice/generated/docs/units/lattice-decision-028.html": {
+      "artifact_kind": "file",
+      "bytes": 349210,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-028"
+    },
+    "lattice/generated/docs/units/lattice-decision-029.html": {
+      "artifact_kind": "file",
+      "bytes": 349473,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-029"
+    },
+    "lattice/generated/docs/units/lattice-decision-030.html": {
+      "artifact_kind": "file",
+      "bytes": 349272,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-030"
+    },
+    "lattice/generated/docs/units/lattice-decision-031.html": {
+      "artifact_kind": "file",
+      "bytes": 349338,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-031"
+    },
+    "lattice/generated/docs/units/lattice-decision-032.html": {
+      "artifact_kind": "file",
+      "bytes": 349552,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-032"
+    },
+    "lattice/generated/docs/units/lattice-decision-033.html": {
+      "artifact_kind": "file",
+      "bytes": 348689,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-033"
+    },
+    "lattice/generated/docs/units/lattice-decision-034.html": {
+      "artifact_kind": "file",
+      "bytes": 348664,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-034"
+    },
+    "lattice/generated/docs/units/lattice-decision-035.html": {
+      "artifact_kind": "file",
+      "bytes": 350501,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-035"
+    },
+    "lattice/generated/docs/units/lattice-decision-036.html": {
+      "artifact_kind": "file",
+      "bytes": 350629,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-036"
+    },
+    "lattice/generated/docs/units/lattice-decision-037.html": {
+      "artifact_kind": "file",
+      "bytes": 349932,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-037"
+    },
+    "lattice/generated/docs/units/lattice-decision-038.html": {
+      "artifact_kind": "file",
+      "bytes": 349309,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-038"
+    },
+    "lattice/generated/docs/units/lattice-decision-039.html": {
+      "artifact_kind": "file",
+      "bytes": 350006,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-039"
+    },
+    "lattice/generated/docs/units/lattice-decision-040.html": {
+      "artifact_kind": "file",
+      "bytes": 348384,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-040"
+    },
+    "lattice/generated/docs/units/lattice-decision-041.html": {
+      "artifact_kind": "file",
+      "bytes": 349446,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-041"
+    },
+    "lattice/generated/docs/units/lattice-decision-042.html": {
+      "artifact_kind": "file",
+      "bytes": 348219,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-042"
+    },
+    "lattice/generated/docs/units/lattice-decision-043.html": {
+      "artifact_kind": "file",
+      "bytes": 349188,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-043"
+    },
+    "lattice/generated/docs/units/lattice-decision-045.html": {
+      "artifact_kind": "file",
+      "bytes": 349996,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-045"
+    },
+    "lattice/generated/docs/units/lattice-decision-046.html": {
+      "artifact_kind": "file",
+      "bytes": 348821,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-046"
+    },
+    "lattice/generated/docs/units/lattice-decision-047.html": {
+      "artifact_kind": "file",
+      "bytes": 349959,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-047"
+    },
+    "lattice/generated/docs/units/lattice-decision-048.html": {
+      "artifact_kind": "file",
+      "bytes": 348408,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-048"
+    },
+    "lattice/generated/docs/units/lattice-decision-049.html": {
+      "artifact_kind": "file",
+      "bytes": 348855,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-049"
+    },
+    "lattice/generated/docs/units/lattice-decision-050.html": {
+      "artifact_kind": "file",
+      "bytes": 349464,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-050"
+    },
+    "lattice/generated/docs/units/lattice-decision-051.html": {
+      "artifact_kind": "file",
+      "bytes": 349652,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-051"
+    },
+    "lattice/generated/docs/units/lattice-decision-052.html": {
+      "artifact_kind": "file",
+      "bytes": 348615,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-052"
+    },
+    "lattice/generated/docs/units/lattice-decision-053.html": {
+      "artifact_kind": "file",
+      "bytes": 348362,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-053"
+    },
+    "lattice/generated/docs/units/lattice-decision-054.html": {
+      "artifact_kind": "file",
+      "bytes": 349253,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-054"
+    },
+    "lattice/generated/docs/units/lattice-decision-055.html": {
+      "artifact_kind": "file",
+      "bytes": 348063,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-055"
+    },
+    "lattice/generated/docs/units/lattice-decision-056.html": {
+      "artifact_kind": "file",
+      "bytes": 349607,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-056"
+    },
+    "lattice/generated/docs/units/lattice-decision-057.html": {
+      "artifact_kind": "file",
+      "bytes": 349621,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-057"
+    },
+    "lattice/generated/docs/units/lattice-decision-058.html": {
+      "artifact_kind": "file",
+      "bytes": 348902,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-058"
+    },
+    "lattice/generated/docs/units/lattice-decision-059.html": {
+      "artifact_kind": "file",
+      "bytes": 348587,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-059"
+    },
+    "lattice/generated/docs/units/lattice-decision-060.html": {
+      "artifact_kind": "file",
+      "bytes": 351747,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-060"
+    },
+    "lattice/generated/docs/units/lattice-decision-061.html": {
+      "artifact_kind": "file",
+      "bytes": 348914,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-061"
+    },
+    "lattice/generated/docs/units/lattice-doc-001.html": {
+      "artifact_kind": "file",
+      "bytes": 356735,
+      "generated": true,
+      "owner": "generated_document:LATTICE-DOC-001"
+    },
+    "lattice/generated/docs/units/lattice-doc-002.html": {
+      "artifact_kind": "file",
+      "bytes": 353105,
+      "generated": true,
+      "owner": "generated_document:LATTICE-DOC-002"
+    },
+    "lattice/generated/docs/units/lattice-doc-003.html": {
+      "artifact_kind": "file",
+      "bytes": 353100,
+      "generated": true,
+      "owner": "generated_document:LATTICE-DOC-003"
+    },
+    "lattice/generated/docs/units/lattice-doc-004.html": {
+      "artifact_kind": "file",
+      "bytes": 353067,
+      "generated": true,
+      "owner": "generated_document:LATTICE-DOC-004"
+    },
+    "lattice/generated/docs/units/lattice-doc-005.html": {
+      "artifact_kind": "file",
+      "bytes": 353072,
+      "generated": true,
+      "owner": "generated_document:LATTICE-DOC-005"
+    },
+    "lattice/generated/docs/units/lattice-doc-006.html": {
+      "artifact_kind": "file",
+      "bytes": 353151,
+      "generated": true,
+      "owner": "generated_document:LATTICE-DOC-006"
+    },
+    "lattice/generated/docs/units/lattice-doc-007.html": {
+      "artifact_kind": "file",
+      "bytes": 353092,
+      "generated": true,
+      "owner": "generated_document:LATTICE-DOC-007"
+    },
+    "lattice/generated/docs/units/lattice-doc-008.html": {
+      "artifact_kind": "file",
+      "bytes": 352978,
+      "generated": true,
+      "owner": "generated_document:LATTICE-DOC-008"
+    },
+    "lattice/generated/docs/units/lattice-doc-graph-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347951,
+      "generated": true,
+      "owner": "guardrail:LATTICE-DOC-GRAPH-001"
+    },
+    "lattice/generated/docs/units/lattice-doc-graph-002.html": {
+      "artifact_kind": "file",
+      "bytes": 347830,
+      "generated": true,
+      "owner": "guardrail:LATTICE-DOC-GRAPH-002"
+    },
+    "lattice/generated/docs/units/lattice-doc-graph-003.html": {
+      "artifact_kind": "file",
+      "bytes": 347885,
+      "generated": true,
+      "owner": "guardrail:LATTICE-DOC-GRAPH-003"
+    },
+    "lattice/generated/docs/units/lattice-doc-graph-004.html": {
+      "artifact_kind": "file",
+      "bytes": 347928,
+      "generated": true,
+      "owner": "guardrail:LATTICE-DOC-GRAPH-004"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-001.html": {
+      "artifact_kind": "file",
+      "bytes": 352050,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-001"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-002.html": {
+      "artifact_kind": "file",
+      "bytes": 350483,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-002"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-003.html": {
+      "artifact_kind": "file",
+      "bytes": 353825,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-003"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-004.html": {
+      "artifact_kind": "file",
+      "bytes": 350528,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-004"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-005.html": {
+      "artifact_kind": "file",
+      "bytes": 351469,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-005"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-006.html": {
+      "artifact_kind": "file",
+      "bytes": 353541,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-006"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-007.html": {
+      "artifact_kind": "file",
+      "bytes": 352308,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-007"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-008.html": {
+      "artifact_kind": "file",
+      "bytes": 353007,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-008"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-009.html": {
+      "artifact_kind": "file",
+      "bytes": 355521,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-009"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-010.html": {
+      "artifact_kind": "file",
+      "bytes": 352792,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-010"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-011.html": {
+      "artifact_kind": "file",
+      "bytes": 351541,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-011"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-012.html": {
+      "artifact_kind": "file",
+      "bytes": 353310,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-012"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-013.html": {
+      "artifact_kind": "file",
+      "bytes": 353217,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-013"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-014.html": {
+      "artifact_kind": "file",
+      "bytes": 352092,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-014"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-015.html": {
+      "artifact_kind": "file",
+      "bytes": 352211,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-015"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-016.html": {
+      "artifact_kind": "file",
+      "bytes": 351210,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-016"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-017.html": {
+      "artifact_kind": "file",
+      "bytes": 350746,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-017"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-018.html": {
+      "artifact_kind": "file",
+      "bytes": 350628,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-018"
+    },
+    "lattice/generated/docs/units/lattice-doc-section-019.html": {
+      "artifact_kind": "file",
+      "bytes": 350604,
+      "generated": true,
+      "owner": "document_section:LATTICE-DOC-SECTION-019"
+    },
+    "lattice/generated/docs/units/lattice-docs-001.html": {
+      "artifact_kind": "file",
+      "bytes": 348531,
+      "generated": true,
+      "owner": "documentation_set:LATTICE-DOCS-001"
+    },
+    "lattice/generated/docs/units/lattice-drift-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347775,
+      "generated": true,
+      "owner": "guardrail:LATTICE-DRIFT-001"
+    },
+    "lattice/generated/docs/units/lattice-extension-001.html": {
+      "artifact_kind": "file",
+      "bytes": 348318,
+      "generated": true,
+      "owner": "guardrail:LATTICE-EXTENSION-001"
+    },
+    "lattice/generated/docs/units/lattice-id-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347765,
+      "generated": true,
+      "owner": "guardrail:LATTICE-ID-001"
+    },
+    "lattice/generated/docs/units/lattice-json-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347778,
+      "generated": true,
+      "owner": "guardrail:LATTICE-JSON-001"
+    },
+    "lattice/generated/docs/units/lattice-kind-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347770,
+      "generated": true,
+      "owner": "guardrail:LATTICE-KIND-001"
+    },
+    "lattice/generated/docs/units/lattice-ownership-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347913,
+      "generated": true,
+      "owner": "guardrail:LATTICE-OWNERSHIP-001"
+    },
+    "lattice/generated/docs/units/lattice-ref-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347747,
+      "generated": true,
+      "owner": "guardrail:LATTICE-REF-001"
+    },
+    "lattice/generated/docs/units/lattice-ref-002.html": {
+      "artifact_kind": "file",
+      "bytes": 347832,
+      "generated": true,
+      "owner": "guardrail:LATTICE-REF-002"
+    },
+    "lattice/generated/docs/units/lattice-ref-003.html": {
+      "artifact_kind": "file",
+      "bytes": 347779,
+      "generated": true,
+      "owner": "guardrail:LATTICE-REF-003"
+    },
+    "lattice/generated/docs/units/lattice-ref-004.html": {
+      "artifact_kind": "file",
+      "bytes": 347822,
+      "generated": true,
+      "owner": "guardrail:LATTICE-REF-004"
+    },
+    "lattice/generated/docs/units/lattice-ref-005.html": {
+      "artifact_kind": "file",
+      "bytes": 348019,
+      "generated": true,
+      "owner": "guardrail:LATTICE-REF-005"
+    },
+    "lattice/generated/docs/units/lattice-schema-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347769,
+      "generated": true,
+      "owner": "guardrail:LATTICE-SCHEMA-001"
+    },
+    "lattice/generated/docs/units/lattice-schema-002.html": {
+      "artifact_kind": "file",
+      "bytes": 347731,
+      "generated": true,
+      "owner": "guardrail:LATTICE-SCHEMA-002"
+    },
+    "lattice/generated/docs/units/lattice-schema-003.html": {
+      "artifact_kind": "file",
+      "bytes": 347897,
+      "generated": true,
+      "owner": "guardrail:LATTICE-SCHEMA-003"
+    },
+    "lattice/generated/docs/units/lattice-schema-004.html": {
+      "artifact_kind": "file",
+      "bytes": 347796,
+      "generated": true,
+      "owner": "guardrail:LATTICE-SCHEMA-004"
+    },
+    "lattice/generated/docs/units/lattice-schema-005.html": {
+      "artifact_kind": "file",
+      "bytes": 347848,
+      "generated": true,
+      "owner": "guardrail:LATTICE-SCHEMA-005"
+    },
+    "lattice/generated/docs/units/lattice-schema-006.html": {
+      "artifact_kind": "file",
+      "bytes": 347933,
+      "generated": true,
+      "owner": "guardrail:LATTICE-SCHEMA-006"
+    },
+    "lattice/generated/docs/units/lattice-specs-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347774,
+      "generated": true,
+      "owner": "guardrail:LATTICE-SPECS-001"
+    },
+    "lattice/generated/docs/units/lattice-style-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347798,
+      "generated": true,
+      "owner": "guardrail:LATTICE-STYLE-001"
+    },
+    "lattice/generated/docs/units/lattice-style-002.html": {
+      "artifact_kind": "file",
+      "bytes": 347799,
+      "generated": true,
+      "owner": "guardrail:LATTICE-STYLE-002"
+    },
+    "lattice/generated/docs/units/lattice-style-003.html": {
+      "artifact_kind": "file",
+      "bytes": 347944,
+      "generated": true,
+      "owner": "guardrail:LATTICE-STYLE-003"
+    },
+    "lattice/generated/docs/units/lattice-tag-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347842,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TAG-001"
+    },
+    "lattice/generated/docs/units/lattice-tag-002.html": {
+      "artifact_kind": "file",
+      "bytes": 347867,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TAG-002"
+    },
+    "lattice/generated/docs/units/lattice-tag-003.html": {
+      "artifact_kind": "file",
+      "bytes": 347888,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TAG-003"
+    },
+    "lattice/generated/docs/units/lattice-test-001.html": {
+      "artifact_kind": "file",
+      "bytes": 348173,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-001"
+    },
+    "lattice/generated/docs/units/lattice-test-002.html": {
+      "artifact_kind": "file",
+      "bytes": 348149,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-002"
+    },
+    "lattice/generated/docs/units/lattice-test-003.html": {
+      "artifact_kind": "file",
+      "bytes": 348182,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-003"
+    },
+    "lattice/generated/docs/units/lattice-test-004.html": {
+      "artifact_kind": "file",
+      "bytes": 348230,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-004"
+    },
+    "lattice/generated/docs/units/lattice-test-005.html": {
+      "artifact_kind": "file",
+      "bytes": 348188,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-005"
+    },
+    "lattice/generated/docs/units/lattice-test-006.html": {
+      "artifact_kind": "file",
+      "bytes": 348125,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-006"
+    },
+    "lattice/generated/docs/units/lattice-test-007.html": {
+      "artifact_kind": "file",
+      "bytes": 348209,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-007"
+    },
+    "lattice/generated/docs/units/lattice-test-008.html": {
+      "artifact_kind": "file",
+      "bytes": 348311,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-008"
+    },
+    "lattice/generated/docs/units/lattice-test-009.html": {
+      "artifact_kind": "file",
+      "bytes": 348325,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-009"
+    },
+    "lattice/generated/docs/units/lattice-test-010.html": {
+      "artifact_kind": "file",
+      "bytes": 348506,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-010"
+    },
+    "lattice/generated/docs/units/lattice-test-011.html": {
+      "artifact_kind": "file",
+      "bytes": 348410,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-011"
+    },
+    "lattice/generated/docs/units/lattice-test-012.html": {
+      "artifact_kind": "file",
+      "bytes": 348322,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-012"
+    },
+    "lattice/generated/docs/units/lattice-test-013.html": {
+      "artifact_kind": "file",
+      "bytes": 348394,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-013"
+    },
+    "lattice/generated/docs/units/lattice-test-015.html": {
+      "artifact_kind": "file",
+      "bytes": 348412,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-015"
+    },
+    "lattice/generated/docs/units/lattice-test-016.html": {
+      "artifact_kind": "file",
+      "bytes": 348297,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-016"
+    },
+    "lattice/generated/docs/units/lattice-test-017.html": {
+      "artifact_kind": "file",
+      "bytes": 348506,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-017"
+    },
+    "lattice/generated/docs/units/lattice-test-018.html": {
+      "artifact_kind": "file",
+      "bytes": 348524,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-018"
+    },
+    "lattice/generated/docs/units/lattice-test-019.html": {
+      "artifact_kind": "file",
+      "bytes": 348320,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-019"
+    },
+    "lattice/generated/docs/units/lattice-test-020.html": {
+      "artifact_kind": "file",
+      "bytes": 348509,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-020"
+    },
+    "lattice/generated/docs/units/lattice-test-021.html": {
+      "artifact_kind": "file",
+      "bytes": 348357,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-021"
+    },
+    "lattice/generated/docs/units/lattice-test-022.html": {
+      "artifact_kind": "file",
+      "bytes": 348289,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-022"
+    },
+    "lattice/generated/docs/units/lattice-test-023.html": {
+      "artifact_kind": "file",
+      "bytes": 348263,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-023"
+    },
+    "lattice/generated/docs/units/lattice-test-024.html": {
+      "artifact_kind": "file",
+      "bytes": 348289,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-024"
+    },
+    "lattice/generated/docs/units/lattice-test-025.html": {
+      "artifact_kind": "file",
+      "bytes": 348297,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-025"
+    },
+    "lattice/generated/docs/units/lattice-test-026.html": {
+      "artifact_kind": "file",
+      "bytes": 348368,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-026"
+    },
+    "lattice/generated/docs/units/lattice-test-027.html": {
+      "artifact_kind": "file",
+      "bytes": 349809,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-027"
+    },
+    "lattice/generated/docs/units/lattice-theory-001.html": {
+      "artifact_kind": "file",
+      "bytes": 348928,
+      "generated": true,
+      "owner": "concept:LATTICE-THEORY-001"
+    },
+    "lattice/generated/docs/units/lattice-type-001.html": {
+      "artifact_kind": "file",
+      "bytes": 348071,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-001"
+    },
+    "lattice/generated/docs/units/lattice-type-002.html": {
+      "artifact_kind": "file",
+      "bytes": 348019,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-002"
+    },
+    "lattice/generated/docs/units/lattice-type-003.html": {
+      "artifact_kind": "file",
+      "bytes": 348018,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-003"
+    },
+    "lattice/generated/docs/units/lattice-type-004.html": {
+      "artifact_kind": "file",
+      "bytes": 347882,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-004"
+    },
+    "lattice/generated/docs/units/lattice-type-005.html": {
+      "artifact_kind": "file",
+      "bytes": 347889,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-005"
+    },
+    "lattice/generated/docs/units/lattice-type-006.html": {
+      "artifact_kind": "file",
+      "bytes": 347789,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-006"
+    },
+    "lattice/generated/docs/units/lattice-type-007.html": {
+      "artifact_kind": "file",
+      "bytes": 347833,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-007"
+    },
+    "lattice/generated/docs/units/lattice-type-008.html": {
+      "artifact_kind": "file",
+      "bytes": 347849,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-008"
+    },
+    "lattice/generated/docs/units/lattice-type-009.html": {
+      "artifact_kind": "file",
+      "bytes": 347876,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-009"
+    },
+    "lattice/generated/docs/units/lattice-type-010.html": {
+      "artifact_kind": "file",
+      "bytes": 348032,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-010"
+    },
+    "lattice/generated/docs/units/lattice-type-011.html": {
+      "artifact_kind": "file",
+      "bytes": 347949,
+      "generated": true,
+      "owner": "guardrail:LATTICE-TYPE-011"
+    },
+    "lattice/generated/docs/units/lattice-verify-001.html": {
+      "artifact_kind": "file",
+      "bytes": 347926,
+      "generated": true,
+      "owner": "guardrail:LATTICE-VERIFY-001"
+    },
+    "lattice/generated/docs/units/project-concept-001.html": {
+      "artifact_kind": "file",
+      "bytes": 349870,
+      "generated": true,
+      "owner": "concept:PROJECT-CONCEPT-001"
+    },
+    "lattice/generated/docs/units/project-concept-002.html": {
+      "artifact_kind": "file",
+      "bytes": 349767,
+      "generated": true,
+      "owner": "concept:PROJECT-CONCEPT-002"
+    },
+    "lattice/generated/docs/units/project-concept-003.html": {
+      "artifact_kind": "file",
+      "bytes": 350155,
+      "generated": true,
+      "owner": "concept:PROJECT-CONCEPT-003"
+    },
+    "lattice/generated/docs/units/project-decision-001.html": {
+      "artifact_kind": "file",
+      "bytes": 349490,
+      "generated": true,
+      "owner": "decision:PROJECT-DECISION-001"
+    },
+    "lattice/generated/docs/units/project-gap-001.html": {
+      "artifact_kind": "file",
+      "bytes": 349872,
+      "generated": true,
+      "owner": "schema_gap:PROJECT-GAP-001"
+    },
+    "lattice/generated/docs/units/project-gap-002.html": {
+      "artifact_kind": "file",
+      "bytes": 349797,
+      "generated": true,
+      "owner": "schema_gap:PROJECT-GAP-002"
+    },
+    "lattice/generated/docs/units/project-rule-001-ex001.html": {
+      "artifact_kind": "file",
+      "bytes": 348658,
+      "generated": true,
+      "owner": "example:PROJECT-RULE-001-EX001"
+    },
+    "lattice/generated/docs/units/project-rule-001.html": {
+      "artifact_kind": "file",
+      "bytes": 355946,
+      "generated": true,
+      "owner": "business_rule:PROJECT-RULE-001"
+    },
+    "lattice/generated/docs/units/project-rule-002.html": {
+      "artifact_kind": "file",
+      "bytes": 349915,
+      "generated": true,
+      "owner": "business_rule:PROJECT-RULE-002"
+    },
+    "lattice/generated/docs/units/project-rule-003.html": {
+      "artifact_kind": "file",
+      "bytes": 350080,
+      "generated": true,
+      "owner": "business_rule:PROJECT-RULE-003"
+    },
+    "lattice/generated/docs/units/project-test-001.html": {
+      "artifact_kind": "file",
+      "bytes": 348491,
+      "generated": true,
+      "owner": "test_binding:PROJECT-TEST-001"
+    },
+    "lattice/generated/docs/units/project-test-002.html": {
+      "artifact_kind": "file",
+      "bytes": 348310,
+      "generated": true,
+      "owner": "test_binding:PROJECT-TEST-002"
+    },
+    "lattice/generated/docs/units/project-test-003.html": {
+      "artifact_kind": "file",
+      "bytes": 348146,
+      "generated": true,
+      "owner": "test_binding:PROJECT-TEST-003"
+    },
+    "lattice/generated/docs/units/project-verify-001.html": {
+      "artifact_kind": "file",
+      "bytes": 348220,
+      "generated": true,
+      "owner": "verification:PROJECT-VERIFY-001"
+    },
+    "lattice/generated/docs/units/project-workflow-001.html": {
+      "artifact_kind": "file",
+      "bytes": 348986,
+      "generated": true,
+      "owner": "workflow:PROJECT-WORKFLOW-001"
+    },
+    "lattice/generated/llm/context-pack.md": {
+      "artifact_kind": "file",
+      "bytes": 62561,
+      "generated": true,
+      "owner": "LLM context pack"
+    }
+  }
+}
