@@ -4,6 +4,9 @@
   "name": "Documentation file is not generated",
   "owner": "grounded",
   "status": "active",
-  "description": "Defines the generated documentation coverage guardrail so README.md and Markdown files under docs are owned by generated_document specs instead of drifting as independent sources of truth.",
-  "summary": "README.md and docs/*.md must be managed by generated_document specs."
+  "description": "Defines the generated documentation coverage guardrail so configured Markdown roots stay owned by generated_document specs instead of drifting as independent sources of truth. Projects opt in additional roots through grounded.yml, while the generated docs tree remains covered by default through the built-in managed_markdown_roots setting owned by GROUNDED-DECISION-068.",
+  "references": [
+    "GROUNDED-DECISION-068"
+  ],
+  "summary": "Configured Markdown roots must be managed by generated_document specs."
 }

@@ -8,6 +8,8 @@ build/
 
 # Rendered Grounded sites
 /grounded/generated/docs/
+/grounded/generated/llm/
+/grounded/generated/manifest.json
 /examples/todo/site/
 # Assembled GitHub Pages deployment output
 /pages-site/

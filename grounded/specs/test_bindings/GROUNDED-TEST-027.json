@@ -12,5 +12,5 @@
   ],
   "description": "Binds documentation graph guardrails to executable audit tests proving wrong typed edges, missing write modes, unmanaged Markdown docs, and ungrounded sourced sections are reported.",
   "target": "GROUNDED-DOC-GRAPH-001",
-  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_audit_checks_documentation_graph_edges tests/test_grounded.py::GroundedTests::test_audit_requires_generated_document_write_mode tests/test_grounded.py::GroundedTests::test_audit_requires_markdown_docs_to_be_generated tests/test_grounded.py::GroundedTests::test_audit_rejects_ungrounded_sourced_document_sections -q"
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_audit_checks_documentation_graph_edges tests/test_grounded.py::GroundedTests::test_audit_requires_generated_document_write_mode tests/test_grounded.py::GroundedTests::test_audit_checks_only_configured_markdown_roots tests/test_grounded.py::GroundedTests::test_audit_rejects_ungrounded_sourced_document_sections -q"
 }
