@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import os
+import signal
 import subprocess
 import time
 from dataclasses import dataclass
@@ -24,10 +26,20 @@ class VerificationResult:
     issue_code: str | None = None
 
 
+@dataclass(frozen=True)
+class CommandExecution:
+    exit_code: int | None
+    stdout: str
+    stderr: str
+    duration_seconds: float
+    timed_out: bool = False
+
+
 def verify(
     config: GroundedConfig,
     registry: SpecRegistry,
     *,
+    include_test_bindings: bool = False,
     timeout_seconds: float = VERIFY_TIMEOUT_SECONDS,
 ) -> list[Issue]:
     if registry.issues:
@@ -35,7 +47,12 @@ def verify(
 
     issues: list[Issue] = []
     results: list[VerificationResult] = []
+    executions: dict[tuple[str, float], CommandExecution] = {}
     for spec in registry.active_specs:
+        if spec.kind != "verification" and not (
+            include_test_bindings and spec.kind == "test_binding"
+        ):
+            continue
         type_def = registry.type_definition_for(spec)
         if type_def is None:
             continue
@@ -44,6 +61,7 @@ def verify(
                 config,
                 spec,
                 field,
+                executions,
                 timeout_seconds=timeout_seconds,
             )
             results.append(result)
@@ -104,6 +122,7 @@ def _run_verification_field(
     config: GroundedConfig,
     spec: Spec,
     field: str,
+    executions: dict[tuple[str, float], CommandExecution],
     *,
     timeout_seconds: float,
 ) -> tuple[VerificationResult, Issue | None]:
@@ -151,54 +170,49 @@ def _run_verification_field(
             ),
         )
 
-    started = time.monotonic()
-    try:
-        completed = subprocess.run(
-            value,
-            cwd=config.root,
-            shell=True,
-            text=True,
-            capture_output=True,
-            check=False,
-            timeout=timeout_seconds,
+    execution_key = (value, timeout_seconds)
+    execution = executions.get(execution_key)
+    if execution is None:
+        execution = _execute_command(
+            value, config=config, timeout_seconds=timeout_seconds
         )
-    except subprocess.TimeoutExpired as exc:
-        duration = time.monotonic() - started
+        executions[execution_key] = execution
+
+    if execution.timed_out:
         result = VerificationResult(
             verification_id=spec.id,
             target_id=target_id,
             command=value,
             exit_code=None,
             passed=False,
-            duration_seconds=duration,
+            duration_seconds=execution.duration_seconds,
             issue_code="GROUNDED-VERIFY-004",
         )
         return (
             result,
             Issue(
                 "GROUNDED-VERIFY-004",
-                (f"{spec.id}.{field} timed out after {exc.timeout:g}s: {value!r}"),
+                (f"{spec.id}.{field} timed out after {timeout_seconds:g}s: {value!r}"),
                 spec.path,
             ),
         )
 
-    duration = time.monotonic() - started
-    passed = completed.returncode == 0
+    passed = execution.exit_code == 0
     result = VerificationResult(
         verification_id=spec.id,
         target_id=target_id,
         command=value,
-        exit_code=completed.returncode,
+        exit_code=execution.exit_code,
         passed=passed,
-        duration_seconds=duration,
+        duration_seconds=execution.duration_seconds,
         issue_code=None if passed else "GROUNDED-VERIFY-001",
     )
     if passed:
         return result, None
     detail = (
-        completed.stderr.strip()
-        or completed.stdout.strip()
-        or f"exit code {completed.returncode}"
+        execution.stderr.strip()
+        or execution.stdout.strip()
+        or f"exit code {execution.exit_code}"
     )
     return (
         result,
@@ -207,4 +221,43 @@ def _run_verification_field(
             f"{spec.id}.{field} failed: {value!r}: {detail}",
             spec.path,
         ),
+    )
+
+
+def _execute_command(
+    command: str, *, config: GroundedConfig, timeout_seconds: float
+) -> CommandExecution:
+    started = time.monotonic()
+    process = subprocess.Popen(
+        command,
+        cwd=config.root,
+        shell=True,
+        text=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        start_new_session=os.name == "posix",
+    )
+    try:
+        stdout, stderr = process.communicate(timeout=timeout_seconds)
+    except subprocess.TimeoutExpired:
+        try:
+            if os.name == "posix":
+                os.killpg(process.pid, signal.SIGKILL)
+            else:
+                process.kill()
+        except ProcessLookupError:
+            pass
+        stdout, stderr = process.communicate()
+        return CommandExecution(
+            exit_code=None,
+            stdout=stdout or "",
+            stderr=stderr or "",
+            duration_seconds=time.monotonic() - started,
+            timed_out=True,
+        )
+    return CommandExecution(
+        exit_code=process.returncode,
+        stdout=stdout,
+        stderr=stderr,
+        duration_seconds=time.monotonic() - started,
     )

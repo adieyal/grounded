@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-TEST-035",
+  "kind": "test_binding",
+  "name": "Verification and audit reuse repeated work",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Binds the default verification scope, opt-in test-binding verification, verification command deduplication, and audit rendered-site reuse decision to focused executable tests.",
+  "target": "GROUNDED-DECISION-067",
+  "test": "uv run pytest tests/test_trust.py::TrustCredibilityTests::test_verify_excludes_test_bindings_by_default tests/test_trust.py::TrustCredibilityTests::test_verify_can_include_test_bindings tests/test_trust.py::TrustCredibilityTests::test_verify_deduplicates_identical_commands tests/test_trust.py::TrustCredibilityTests::test_verification_timeout_fails_verify tests/test_grounded.py::GroundedTests::test_audit_reuses_rendered_site -q",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-004",
+    "GROUNDED-VERIFY-004",
+    "GROUNDED-DRIFT-001",
+    "GROUNDED-DOC-GRAPH-004"
+  ]
+}

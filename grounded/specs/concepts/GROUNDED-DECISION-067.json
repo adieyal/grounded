@@ -1,0 +1,18 @@
+{
+  "id": "GROUNDED-DECISION-067",
+  "kind": "decision",
+  "name": "Verification runs reuse repeated work",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Documents the runtime efficiency and scope contract for verification and audit execution so repeated proof commands and generated-site rendering stay bounded.",
+  "decision": "By default, grounded verify executes commands declared by verification specs and does not execute test_binding commands. Operators can request the broader sweep with grounded verify --include-test-bindings. A single grounded verify run executes each distinct included command once per timeout configuration and reuses that command result for every included spec field that declared it. Verification timeouts terminate the spawned command tree when the platform supports process groups. A single grounded audit run builds the rendered site once and shares that rendered snapshot across generated-view drift and generated-document coverage checks.",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-004",
+    "GROUNDED-VERIFY-004",
+    "GROUNDED-DRIFT-001",
+    "GROUNDED-DOC-GRAPH-004"
+  ],
+  "tests": [
+    "GROUNDED-TEST-035"
+  ]
+}

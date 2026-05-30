@@ -65,9 +65,14 @@ def main(argv: list[str] | None = None) -> int:
     )
 
     subcommands.add_parser("audit", help="Run drift and coverage audits.")
-    subcommands.add_parser(
+    verify_parser = subcommands.add_parser(
         "verify",
         help="Run project-specific verification commands declared by specs.",
+    )
+    verify_parser.add_argument(
+        "--include-test-bindings",
+        action="store_true",
+        help="Also run executable commands declared by test_binding specs.",
     )
     graph_parser = subcommands.add_parser(
         "graph", help="Generate a Graphviz DOT relationship graph."
@@ -195,7 +200,7 @@ def main(argv: list[str] | None = None) -> int:
             return _print_issues(config.root, registry.issues)
         return _print_issues(
             config.root,
-            verify(config, registry),
+            verify(config, registry, include_test_bindings=args.include_test_bindings),
             success="Grounded verification passed.",
         )
 

@@ -2,7 +2,7 @@
   "artifacts": {
     "README.md": {
       "artifact_kind": "file",
-      "bytes": 10266,
+      "bytes": 10335,
       "generated": true,
       "owner": "GROUNDED-DOC-001"
     },
@@ -14,7 +14,7 @@
     },
     "docs/cli-reference.md": {
       "artifact_kind": "file",
-      "bytes": 2360,
+      "bytes": 2429,
       "generated": true,
       "owner": "GROUNDED-DOC-004"
     },
@@ -26,13 +26,13 @@
     },
     "docs/drift-checks.md": {
       "artifact_kind": "file",
-      "bytes": 2630,
+      "bytes": 2699,
       "generated": true,
       "owner": "GROUNDED-DOC-007"
     },
     "docs/getting-started.md": {
       "artifact_kind": "file",
-      "bytes": 2786,
+      "bytes": 2855,
       "generated": true,
       "owner": "GROUNDED-DOC-002"
     },
@@ -44,25 +44,25 @@
     },
     "docs/llm-workflows.md": {
       "artifact_kind": "file",
-      "bytes": 3319,
+      "bytes": 3388,
       "generated": true,
       "owner": "GROUNDED-DOC-006"
     },
     "grounded/generated/docs/artifact-index.html": {
       "artifact_kind": "file",
-      "bytes": 890002,
+      "bytes": 890801,
       "generated": true,
       "owner": "artifact index page"
     },
     "grounded/generated/docs/document-graph.html": {
       "artifact_kind": "file",
-      "bytes": 923977,
+      "bytes": 924776,
       "generated": true,
       "owner": "document graph page"
     },
     "grounded/generated/docs/grounded-background.html": {
       "artifact_kind": "file",
-      "bytes": 826174,
+      "bytes": 826973,
       "generated": true,
       "owner": "background page"
     },
@@ -74,19 +74,19 @@
     },
     "grounded/generated/docs/index.html": {
       "artifact_kind": "file",
-      "bytes": 1020569,
+      "bytes": 1021441,
       "generated": true,
       "owner": "index html"
     },
     "grounded/generated/docs/project-memory.md": {
       "artifact_kind": "file",
-      "bytes": 148723,
+      "bytes": 149011,
       "generated": true,
       "owner": "project-memory markdown"
     },
     "grounded/generated/docs/search-index.json": {
       "artifact_kind": "file",
-      "bytes": 247130,
+      "bytes": 247491,
       "generated": true,
       "owner": "search-index.json"
     },
@@ -98,1363 +98,1363 @@
     },
     "grounded/generated/docs/units/grounded-asset-001.html": {
       "artifact_kind": "file",
-      "bytes": 883237,
+      "bytes": 884036,
       "generated": true,
       "owner": "asset:GROUNDED-ASSET-001"
     },
     "grounded/generated/docs/units/grounded-asset-002.html": {
       "artifact_kind": "file",
-      "bytes": 883354,
+      "bytes": 884153,
       "generated": true,
       "owner": "asset:GROUNDED-ASSET-002"
     },
     "grounded/generated/docs/units/grounded-asset-003.html": {
       "artifact_kind": "file",
-      "bytes": 883036,
+      "bytes": 883835,
       "generated": true,
       "owner": "asset:GROUNDED-ASSET-003"
     },
     "grounded/generated/docs/units/grounded-asset-004.html": {
       "artifact_kind": "file",
-      "bytes": 882936,
+      "bytes": 883735,
       "generated": true,
       "owner": "asset:GROUNDED-ASSET-004"
     },
     "grounded/generated/docs/units/grounded-compat-001.html": {
       "artifact_kind": "file",
-      "bytes": 880695,
+      "bytes": 881494,
       "generated": true,
       "owner": "guardrail:GROUNDED-COMPAT-001"
     },
     "grounded/generated/docs/units/grounded-concept-001.html": {
       "artifact_kind": "file",
-      "bytes": 881240,
+      "bytes": 882039,
       "generated": true,
       "owner": "guardrail:GROUNDED-CONCEPT-001"
     },
     "grounded/generated/docs/units/grounded-coverage-001.html": {
       "artifact_kind": "file",
-      "bytes": 881023,
+      "bytes": 881822,
       "generated": true,
       "owner": "guardrail:GROUNDED-COVERAGE-001"
     },
     "grounded/generated/docs/units/grounded-decision-001.html": {
       "artifact_kind": "file",
-      "bytes": 891807,
+      "bytes": 892606,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-001"
     },
     "grounded/generated/docs/units/grounded-decision-002.html": {
       "artifact_kind": "file",
-      "bytes": 882589,
+      "bytes": 883388,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-002"
     },
     "grounded/generated/docs/units/grounded-decision-003.html": {
       "artifact_kind": "file",
-      "bytes": 882459,
+      "bytes": 883258,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-003"
     },
     "grounded/generated/docs/units/grounded-decision-004.html": {
       "artifact_kind": "file",
-      "bytes": 882067,
+      "bytes": 882866,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-004"
     },
     "grounded/generated/docs/units/grounded-decision-005.html": {
       "artifact_kind": "file",
-      "bytes": 882747,
+      "bytes": 883546,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-005"
     },
     "grounded/generated/docs/units/grounded-decision-006.html": {
       "artifact_kind": "file",
-      "bytes": 882411,
+      "bytes": 883210,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-006"
     },
     "grounded/generated/docs/units/grounded-decision-007.html": {
       "artifact_kind": "file",
-      "bytes": 882098,
+      "bytes": 882897,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-007"
     },
     "grounded/generated/docs/units/grounded-decision-008.html": {
       "artifact_kind": "file",
-      "bytes": 882469,
+      "bytes": 883268,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-008"
     },
     "grounded/generated/docs/units/grounded-decision-009.html": {
       "artifact_kind": "file",
-      "bytes": 882855,
+      "bytes": 883654,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-009"
     },
     "grounded/generated/docs/units/grounded-decision-010.html": {
       "artifact_kind": "file",
-      "bytes": 881347,
+      "bytes": 882146,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-010"
     },
     "grounded/generated/docs/units/grounded-decision-011.html": {
       "artifact_kind": "file",
-      "bytes": 883122,
+      "bytes": 883921,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-011"
     },
     "grounded/generated/docs/units/grounded-decision-012.html": {
       "artifact_kind": "file",
-      "bytes": 881784,
+      "bytes": 882583,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-012"
     },
     "grounded/generated/docs/units/grounded-decision-013.html": {
       "artifact_kind": "file",
-      "bytes": 882025,
+      "bytes": 882824,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-013"
     },
     "grounded/generated/docs/units/grounded-decision-014.html": {
       "artifact_kind": "file",
-      "bytes": 881812,
+      "bytes": 882611,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-014"
     },
     "grounded/generated/docs/units/grounded-decision-015.html": {
       "artifact_kind": "file",
-      "bytes": 882629,
+      "bytes": 883428,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-015"
     },
     "grounded/generated/docs/units/grounded-decision-016.html": {
       "artifact_kind": "file",
-      "bytes": 881958,
+      "bytes": 882757,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-016"
     },
     "grounded/generated/docs/units/grounded-decision-017.html": {
       "artifact_kind": "file",
-      "bytes": 881796,
+      "bytes": 882595,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-017"
     },
     "grounded/generated/docs/units/grounded-decision-018.html": {
       "artifact_kind": "file",
-      "bytes": 881857,
+      "bytes": 882656,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-018"
     },
     "grounded/generated/docs/units/grounded-decision-019.html": {
       "artifact_kind": "file",
-      "bytes": 882299,
+      "bytes": 883098,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-019"
     },
     "grounded/generated/docs/units/grounded-decision-020.html": {
       "artifact_kind": "file",
-      "bytes": 882169,
+      "bytes": 882968,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-020"
     },
     "grounded/generated/docs/units/grounded-decision-021.html": {
       "artifact_kind": "file",
-      "bytes": 881882,
+      "bytes": 882681,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-021"
     },
     "grounded/generated/docs/units/grounded-decision-022.html": {
       "artifact_kind": "file",
-      "bytes": 887074,
+      "bytes": 887873,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-022"
     },
     "grounded/generated/docs/units/grounded-decision-023.html": {
       "artifact_kind": "file",
-      "bytes": 884087,
+      "bytes": 884886,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-023"
     },
     "grounded/generated/docs/units/grounded-decision-024.html": {
       "artifact_kind": "file",
-      "bytes": 883092,
+      "bytes": 883891,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-024"
     },
     "grounded/generated/docs/units/grounded-decision-025.html": {
       "artifact_kind": "file",
-      "bytes": 883062,
+      "bytes": 883861,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-025"
     },
     "grounded/generated/docs/units/grounded-decision-026.html": {
       "artifact_kind": "file",
-      "bytes": 882104,
+      "bytes": 882903,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-026"
     },
     "grounded/generated/docs/units/grounded-decision-027.html": {
       "artifact_kind": "file",
-      "bytes": 883417,
+      "bytes": 884216,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-027"
     },
     "grounded/generated/docs/units/grounded-decision-028.html": {
       "artifact_kind": "file",
-      "bytes": 882797,
+      "bytes": 883596,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-028"
     },
     "grounded/generated/docs/units/grounded-decision-029.html": {
       "artifact_kind": "file",
-      "bytes": 883040,
+      "bytes": 883839,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-029"
     },
     "grounded/generated/docs/units/grounded-decision-030.html": {
       "artifact_kind": "file",
-      "bytes": 882778,
+      "bytes": 883577,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-030"
     },
     "grounded/generated/docs/units/grounded-decision-031.html": {
       "artifact_kind": "file",
-      "bytes": 882881,
+      "bytes": 883680,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-031"
     },
     "grounded/generated/docs/units/grounded-decision-032.html": {
       "artifact_kind": "file",
-      "bytes": 883258,
+      "bytes": 884057,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-032"
     },
     "grounded/generated/docs/units/grounded-decision-033.html": {
       "artifact_kind": "file",
-      "bytes": 882246,
+      "bytes": 883045,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-033"
     },
     "grounded/generated/docs/units/grounded-decision-034.html": {
       "artifact_kind": "file",
-      "bytes": 882125,
+      "bytes": 882924,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-034"
     },
     "grounded/generated/docs/units/grounded-decision-035.html": {
       "artifact_kind": "file",
-      "bytes": 885110,
+      "bytes": 885909,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-035"
     },
     "grounded/generated/docs/units/grounded-decision-036.html": {
       "artifact_kind": "file",
-      "bytes": 884716,
+      "bytes": 885515,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-036"
     },
     "grounded/generated/docs/units/grounded-decision-037.html": {
       "artifact_kind": "file",
-      "bytes": 883976,
+      "bytes": 884775,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-037"
     },
     "grounded/generated/docs/units/grounded-decision-038.html": {
       "artifact_kind": "file",
-      "bytes": 881883,
+      "bytes": 882682,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-038"
     },
     "grounded/generated/docs/units/grounded-decision-039.html": {
       "artifact_kind": "file",
-      "bytes": 883775,
+      "bytes": 884574,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-039"
     },
     "grounded/generated/docs/units/grounded-decision-040.html": {
       "artifact_kind": "file",
-      "bytes": 880921,
+      "bytes": 881720,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-040"
     },
     "grounded/generated/docs/units/grounded-decision-041.html": {
       "artifact_kind": "file",
-      "bytes": 883057,
+      "bytes": 883856,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-041"
     },
     "grounded/generated/docs/units/grounded-decision-042.html": {
       "artifact_kind": "file",
-      "bytes": 880677,
+      "bytes": 881476,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-042"
     },
     "grounded/generated/docs/units/grounded-decision-043.html": {
       "artifact_kind": "file",
-      "bytes": 882828,
+      "bytes": 883627,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-043"
     },
     "grounded/generated/docs/units/grounded-decision-045.html": {
       "artifact_kind": "file",
-      "bytes": 883761,
+      "bytes": 884560,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-045"
     },
     "grounded/generated/docs/units/grounded-decision-046.html": {
       "artifact_kind": "file",
-      "bytes": 881369,
+      "bytes": 882168,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-046"
     },
     "grounded/generated/docs/units/grounded-decision-047.html": {
       "artifact_kind": "file",
-      "bytes": 884486,
+      "bytes": 885285,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-047"
     },
     "grounded/generated/docs/units/grounded-decision-048.html": {
       "artifact_kind": "file",
-      "bytes": 880806,
+      "bytes": 881605,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-048"
     },
     "grounded/generated/docs/units/grounded-decision-049.html": {
       "artifact_kind": "file",
-      "bytes": 883028,
+      "bytes": 883827,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-049"
     },
     "grounded/generated/docs/units/grounded-decision-050.html": {
       "artifact_kind": "file",
-      "bytes": 883263,
+      "bytes": 884062,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-050"
     },
     "grounded/generated/docs/units/grounded-decision-051.html": {
       "artifact_kind": "file",
-      "bytes": 883510,
+      "bytes": 884309,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-051"
     },
     "grounded/generated/docs/units/grounded-decision-052.html": {
       "artifact_kind": "file",
-      "bytes": 881853,
+      "bytes": 882652,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-052"
     },
     "grounded/generated/docs/units/grounded-decision-053.html": {
       "artifact_kind": "file",
-      "bytes": 881029,
+      "bytes": 881828,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-053"
     },
     "grounded/generated/docs/units/grounded-decision-054.html": {
       "artifact_kind": "file",
-      "bytes": 884010,
+      "bytes": 884809,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-054"
     },
     "grounded/generated/docs/units/grounded-decision-055.html": {
       "artifact_kind": "file",
-      "bytes": 880404,
+      "bytes": 881203,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-055"
     },
     "grounded/generated/docs/units/grounded-decision-056.html": {
       "artifact_kind": "file",
-      "bytes": 883723,
+      "bytes": 884522,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-056"
     },
     "grounded/generated/docs/units/grounded-decision-057.html": {
       "artifact_kind": "file",
-      "bytes": 884050,
+      "bytes": 884849,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-057"
     },
     "grounded/generated/docs/units/grounded-decision-058.html": {
       "artifact_kind": "file",
-      "bytes": 883343,
+      "bytes": 884142,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-058"
     },
     "grounded/generated/docs/units/grounded-decision-059.html": {
       "artifact_kind": "file",
-      "bytes": 881290,
+      "bytes": 882089,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-059"
     },
     "grounded/generated/docs/units/grounded-decision-060.html": {
       "artifact_kind": "file",
-      "bytes": 885502,
+      "bytes": 886301,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-060"
     },
     "grounded/generated/docs/units/grounded-decision-061.html": {
       "artifact_kind": "file",
-      "bytes": 881772,
+      "bytes": 882571,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-061"
     },
     "grounded/generated/docs/units/grounded-decision-062.html": {
       "artifact_kind": "file",
-      "bytes": 882036,
+      "bytes": 882835,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-062"
     },
     "grounded/generated/docs/units/grounded-decision-063.html": {
       "artifact_kind": "file",
-      "bytes": 884223,
+      "bytes": 885022,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-063"
     },
     "grounded/generated/docs/units/grounded-decision-064.html": {
       "artifact_kind": "file",
-      "bytes": 883103,
+      "bytes": 883902,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-064"
     },
     "grounded/generated/docs/units/grounded-decision-065.html": {
       "artifact_kind": "file",
-      "bytes": 885436,
+      "bytes": 886235,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-065"
     },
     "grounded/generated/docs/units/grounded-decision-066.html": {
       "artifact_kind": "file",
-      "bytes": 883842,
+      "bytes": 884641,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-066"
     },
     "grounded/generated/docs/units/grounded-decision-067.html": {
       "artifact_kind": "file",
-      "bytes": 883030,
+      "bytes": 884657,
       "generated": true,
       "owner": "decision:GROUNDED-DECISION-067"
     },
     "grounded/generated/docs/units/grounded-decision-shape-001.html": {
       "artifact_kind": "file",
-      "bytes": 881241,
+      "bytes": 882040,
       "generated": true,
       "owner": "guardrail:GROUNDED-DECISION-SHAPE-001"
     },
     "grounded/generated/docs/units/grounded-doc-001.html": {
       "artifact_kind": "file",
-      "bytes": 897800,
+      "bytes": 898599,
       "generated": true,
       "owner": "generated_document:GROUNDED-DOC-001"
     },
     "grounded/generated/docs/units/grounded-doc-002.html": {
       "artifact_kind": "file",
-      "bytes": 886190,
+      "bytes": 886989,
       "generated": true,
       "owner": "generated_document:GROUNDED-DOC-002"
     },
     "grounded/generated/docs/units/grounded-doc-003.html": {
       "artifact_kind": "file",
-      "bytes": 886960,
+      "bytes": 887759,
       "generated": true,
       "owner": "generated_document:GROUNDED-DOC-003"
     },
     "grounded/generated/docs/units/grounded-doc-004.html": {
       "artifact_kind": "file",
-      "bytes": 886304,
+      "bytes": 887103,
       "generated": true,
       "owner": "generated_document:GROUNDED-DOC-004"
     },
     "grounded/generated/docs/units/grounded-doc-005.html": {
       "artifact_kind": "file",
-      "bytes": 885369,
+      "bytes": 886168,
       "generated": true,
       "owner": "generated_document:GROUNDED-DOC-005"
     },
     "grounded/generated/docs/units/grounded-doc-006.html": {
       "artifact_kind": "file",
-      "bytes": 885894,
+      "bytes": 886693,
       "generated": true,
       "owner": "generated_document:GROUNDED-DOC-006"
     },
     "grounded/generated/docs/units/grounded-doc-007.html": {
       "artifact_kind": "file",
-      "bytes": 885532,
+      "bytes": 886334,
       "generated": true,
       "owner": "generated_document:GROUNDED-DOC-007"
     },
     "grounded/generated/docs/units/grounded-doc-008.html": {
       "artifact_kind": "file",
-      "bytes": 886740,
+      "bytes": 887539,
       "generated": true,
       "owner": "generated_document:GROUNDED-DOC-008"
     },
     "grounded/generated/docs/units/grounded-doc-graph-001.html": {
       "artifact_kind": "file",
-      "bytes": 880661,
+      "bytes": 881460,
       "generated": true,
       "owner": "guardrail:GROUNDED-DOC-GRAPH-001"
     },
     "grounded/generated/docs/units/grounded-doc-graph-002.html": {
       "artifact_kind": "file",
-      "bytes": 880349,
+      "bytes": 881148,
       "generated": true,
       "owner": "guardrail:GROUNDED-DOC-GRAPH-002"
     },
     "grounded/generated/docs/units/grounded-doc-graph-003.html": {
       "artifact_kind": "file",
-      "bytes": 880404,
+      "bytes": 881203,
       "generated": true,
       "owner": "guardrail:GROUNDED-DOC-GRAPH-003"
     },
     "grounded/generated/docs/units/grounded-doc-graph-004.html": {
       "artifact_kind": "file",
-      "bytes": 880628,
+      "bytes": 881427,
       "generated": true,
       "owner": "guardrail:GROUNDED-DOC-GRAPH-004"
     },
     "grounded/generated/docs/units/grounded-doc-graph-005.html": {
       "artifact_kind": "file",
-      "bytes": 882090,
+      "bytes": 882889,
       "generated": true,
       "owner": "guardrail:GROUNDED-DOC-GRAPH-005"
     },
     "grounded/generated/docs/units/grounded-doc-section-001.html": {
       "artifact_kind": "file",
-      "bytes": 884288,
+      "bytes": 885087,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-001"
     },
     "grounded/generated/docs/units/grounded-doc-section-002.html": {
       "artifact_kind": "file",
-      "bytes": 881915,
+      "bytes": 882714,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-002"
     },
     "grounded/generated/docs/units/grounded-doc-section-003.html": {
       "artifact_kind": "file",
-      "bytes": 888895,
+      "bytes": 889694,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-003"
     },
     "grounded/generated/docs/units/grounded-doc-section-004.html": {
       "artifact_kind": "file",
-      "bytes": 883832,
+      "bytes": 884631,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-004"
     },
     "grounded/generated/docs/units/grounded-doc-section-005.html": {
       "artifact_kind": "file",
-      "bytes": 883508,
+      "bytes": 884307,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-005"
     },
     "grounded/generated/docs/units/grounded-doc-section-006.html": {
       "artifact_kind": "file",
-      "bytes": 883947,
+      "bytes": 884746,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-006"
     },
     "grounded/generated/docs/units/grounded-doc-section-007.html": {
       "artifact_kind": "file",
-      "bytes": 884934,
+      "bytes": 885733,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-007"
     },
     "grounded/generated/docs/units/grounded-doc-section-008.html": {
       "artifact_kind": "file",
-      "bytes": 883635,
+      "bytes": 884434,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-008"
     },
     "grounded/generated/docs/units/grounded-doc-section-009.html": {
       "artifact_kind": "file",
-      "bytes": 889418,
+      "bytes": 890501,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-009"
     },
     "grounded/generated/docs/units/grounded-doc-section-010.html": {
       "artifact_kind": "file",
-      "bytes": 884189,
+      "bytes": 884988,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-010"
     },
     "grounded/generated/docs/units/grounded-doc-section-011.html": {
       "artifact_kind": "file",
-      "bytes": 882489,
+      "bytes": 883288,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-011"
     },
     "grounded/generated/docs/units/grounded-doc-section-012.html": {
       "artifact_kind": "file",
-      "bytes": 885194,
+      "bytes": 885993,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-012"
     },
     "grounded/generated/docs/units/grounded-doc-section-013.html": {
       "artifact_kind": "file",
-      "bytes": 885261,
+      "bytes": 886060,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-013"
     },
     "grounded/generated/docs/units/grounded-doc-section-014.html": {
       "artifact_kind": "file",
-      "bytes": 884246,
+      "bytes": 885045,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-014"
     },
     "grounded/generated/docs/units/grounded-doc-section-015.html": {
       "artifact_kind": "file",
-      "bytes": 883220,
+      "bytes": 884019,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-015"
     },
     "grounded/generated/docs/units/grounded-doc-section-016.html": {
       "artifact_kind": "file",
-      "bytes": 882435,
+      "bytes": 883234,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-016"
     },
     "grounded/generated/docs/units/grounded-doc-section-017.html": {
       "artifact_kind": "file",
-      "bytes": 884465,
+      "bytes": 885267,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-017"
     },
     "grounded/generated/docs/units/grounded-doc-section-018.html": {
       "artifact_kind": "file",
-      "bytes": 883872,
+      "bytes": 884671,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-018"
     },
     "grounded/generated/docs/units/grounded-doc-section-019.html": {
       "artifact_kind": "file",
-      "bytes": 884485,
+      "bytes": 885284,
       "generated": true,
       "owner": "document_section:GROUNDED-DOC-SECTION-019"
     },
     "grounded/generated/docs/units/grounded-docs-001.html": {
       "artifact_kind": "file",
-      "bytes": 883938,
+      "bytes": 884737,
       "generated": true,
       "owner": "documentation_set:GROUNDED-DOCS-001"
     },
     "grounded/generated/docs/units/grounded-drift-001.html": {
       "artifact_kind": "file",
-      "bytes": 881150,
+      "bytes": 881949,
       "generated": true,
       "owner": "guardrail:GROUNDED-DRIFT-001"
     },
     "grounded/generated/docs/units/grounded-edge-001.html": {
       "artifact_kind": "file",
-      "bytes": 881024,
+      "bytes": 881823,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-001"
     },
     "grounded/generated/docs/units/grounded-edge-002.html": {
       "artifact_kind": "file",
-      "bytes": 881485,
+      "bytes": 882284,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-002"
     },
     "grounded/generated/docs/units/grounded-edge-003.html": {
       "artifact_kind": "file",
-      "bytes": 881357,
+      "bytes": 882156,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-003"
     },
     "grounded/generated/docs/units/grounded-edge-004.html": {
       "artifact_kind": "file",
-      "bytes": 881377,
+      "bytes": 882176,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-004"
     },
     "grounded/generated/docs/units/grounded-edge-005.html": {
       "artifact_kind": "file",
-      "bytes": 881987,
+      "bytes": 882786,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-005"
     },
     "grounded/generated/docs/units/grounded-edge-006.html": {
       "artifact_kind": "file",
-      "bytes": 881738,
+      "bytes": 882537,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-006"
     },
     "grounded/generated/docs/units/grounded-edge-007.html": {
       "artifact_kind": "file",
-      "bytes": 881168,
+      "bytes": 881967,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-007"
     },
     "grounded/generated/docs/units/grounded-edge-008.html": {
       "artifact_kind": "file",
-      "bytes": 881274,
+      "bytes": 882073,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-008"
     },
     "grounded/generated/docs/units/grounded-edge-009.html": {
       "artifact_kind": "file",
-      "bytes": 881211,
+      "bytes": 882010,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-009"
     },
     "grounded/generated/docs/units/grounded-edge-010.html": {
       "artifact_kind": "file",
-      "bytes": 881638,
+      "bytes": 882437,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-010"
     },
     "grounded/generated/docs/units/grounded-edge-011.html": {
       "artifact_kind": "file",
-      "bytes": 881622,
+      "bytes": 882421,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-011"
     },
     "grounded/generated/docs/units/grounded-edge-012.html": {
       "artifact_kind": "file",
-      "bytes": 881972,
+      "bytes": 882771,
       "generated": true,
       "owner": "guardrail:GROUNDED-EDGE-012"
     },
     "grounded/generated/docs/units/grounded-extension-001.html": {
       "artifact_kind": "file",
-      "bytes": 880940,
+      "bytes": 881739,
       "generated": true,
       "owner": "guardrail:GROUNDED-EXTENSION-001"
     },
     "grounded/generated/docs/units/grounded-id-001.html": {
       "artifact_kind": "file",
-      "bytes": 880272,
+      "bytes": 881071,
       "generated": true,
       "owner": "guardrail:GROUNDED-ID-001"
     },
     "grounded/generated/docs/units/grounded-json-001.html": {
       "artifact_kind": "file",
-      "bytes": 880301,
+      "bytes": 881100,
       "generated": true,
       "owner": "guardrail:GROUNDED-JSON-001"
     },
     "grounded/generated/docs/units/grounded-kind-001.html": {
       "artifact_kind": "file",
-      "bytes": 880289,
+      "bytes": 881088,
       "generated": true,
       "owner": "guardrail:GROUNDED-KIND-001"
     },
     "grounded/generated/docs/units/grounded-naming-001.html": {
       "artifact_kind": "file",
-      "bytes": 882602,
+      "bytes": 883401,
       "generated": true,
       "owner": "guardrail:GROUNDED-NAMING-001"
     },
     "grounded/generated/docs/units/grounded-ownership-001.html": {
       "artifact_kind": "file",
-      "bytes": 880456,
+      "bytes": 881255,
       "generated": true,
       "owner": "guardrail:GROUNDED-OWNERSHIP-001"
     },
     "grounded/generated/docs/units/grounded-ref-001.html": {
       "artifact_kind": "file",
-      "bytes": 880574,
+      "bytes": 881373,
       "generated": true,
       "owner": "guardrail:GROUNDED-REF-001"
     },
     "grounded/generated/docs/units/grounded-ref-002.html": {
       "artifact_kind": "file",
-      "bytes": 880356,
+      "bytes": 881155,
       "generated": true,
       "owner": "guardrail:GROUNDED-REF-002"
     },
     "grounded/generated/docs/units/grounded-ref-003.html": {
       "artifact_kind": "file",
-      "bytes": 880284,
+      "bytes": 881083,
       "generated": true,
       "owner": "guardrail:GROUNDED-REF-003"
     },
     "grounded/generated/docs/units/grounded-ref-004.html": {
       "artifact_kind": "file",
-      "bytes": 880667,
+      "bytes": 881466,
       "generated": true,
       "owner": "guardrail:GROUNDED-REF-004"
     },
     "grounded/generated/docs/units/grounded-ref-005.html": {
       "artifact_kind": "file",
-      "bytes": 880582,
+      "bytes": 881381,
       "generated": true,
       "owner": "guardrail:GROUNDED-REF-005"
     },
     "grounded/generated/docs/units/grounded-schema-001.html": {
       "artifact_kind": "file",
-      "bytes": 880262,
+      "bytes": 881061,
       "generated": true,
       "owner": "guardrail:GROUNDED-SCHEMA-001"
     },
     "grounded/generated/docs/units/grounded-schema-002.html": {
       "artifact_kind": "file",
-      "bytes": 880225,
+      "bytes": 881024,
       "generated": true,
       "owner": "guardrail:GROUNDED-SCHEMA-002"
     },
     "grounded/generated/docs/units/grounded-schema-003.html": {
       "artifact_kind": "file",
-      "bytes": 880929,
+      "bytes": 881728,
       "generated": true,
       "owner": "guardrail:GROUNDED-SCHEMA-003"
     },
     "grounded/generated/docs/units/grounded-schema-004.html": {
       "artifact_kind": "file",
-      "bytes": 880295,
+      "bytes": 881094,
       "generated": true,
       "owner": "guardrail:GROUNDED-SCHEMA-004"
     },
     "grounded/generated/docs/units/grounded-schema-005.html": {
       "artifact_kind": "file",
-      "bytes": 880343,
+      "bytes": 881142,
       "generated": true,
       "owner": "guardrail:GROUNDED-SCHEMA-005"
     },
     "grounded/generated/docs/units/grounded-schema-006.html": {
       "artifact_kind": "file",
-      "bytes": 880461,
+      "bytes": 881260,
       "generated": true,
       "owner": "guardrail:GROUNDED-SCHEMA-006"
     },
     "grounded/generated/docs/units/grounded-semantic-001.html": {
       "artifact_kind": "file",
-      "bytes": 881380,
+      "bytes": 882179,
       "generated": true,
       "owner": "guardrail:GROUNDED-SEMANTIC-001"
     },
     "grounded/generated/docs/units/grounded-semantic-002.html": {
       "artifact_kind": "file",
-      "bytes": 881552,
+      "bytes": 882351,
       "generated": true,
       "owner": "guardrail:GROUNDED-SEMANTIC-002"
     },
     "grounded/generated/docs/units/grounded-specs-001.html": {
       "artifact_kind": "file",
-      "bytes": 880274,
+      "bytes": 881073,
       "generated": true,
       "owner": "guardrail:GROUNDED-SPECS-001"
     },
     "grounded/generated/docs/units/grounded-style-001.html": {
       "artifact_kind": "file",
-      "bytes": 880307,
+      "bytes": 881106,
       "generated": true,
       "owner": "guardrail:GROUNDED-STYLE-001"
     },
     "grounded/generated/docs/units/grounded-style-002.html": {
       "artifact_kind": "file",
-      "bytes": 880321,
+      "bytes": 881120,
       "generated": true,
       "owner": "guardrail:GROUNDED-STYLE-002"
     },
     "grounded/generated/docs/units/grounded-style-003.html": {
       "artifact_kind": "file",
-      "bytes": 880481,
+      "bytes": 881280,
       "generated": true,
       "owner": "guardrail:GROUNDED-STYLE-003"
     },
     "grounded/generated/docs/units/grounded-tag-001.html": {
       "artifact_kind": "file",
-      "bytes": 880372,
+      "bytes": 881171,
       "generated": true,
       "owner": "guardrail:GROUNDED-TAG-001"
     },
     "grounded/generated/docs/units/grounded-tag-002.html": {
       "artifact_kind": "file",
-      "bytes": 880405,
+      "bytes": 881204,
       "generated": true,
       "owner": "guardrail:GROUNDED-TAG-002"
     },
     "grounded/generated/docs/units/grounded-tag-003.html": {
       "artifact_kind": "file",
-      "bytes": 880457,
+      "bytes": 881256,
       "generated": true,
       "owner": "guardrail:GROUNDED-TAG-003"
     },
     "grounded/generated/docs/units/grounded-test-001.html": {
       "artifact_kind": "file",
-      "bytes": 879577,
+      "bytes": 880376,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-001"
     },
     "grounded/generated/docs/units/grounded-test-002.html": {
       "artifact_kind": "file",
-      "bytes": 879550,
+      "bytes": 880349,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-002"
     },
     "grounded/generated/docs/units/grounded-test-003.html": {
       "artifact_kind": "file",
-      "bytes": 879591,
+      "bytes": 880390,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-003"
     },
     "grounded/generated/docs/units/grounded-test-004.html": {
       "artifact_kind": "file",
-      "bytes": 879651,
+      "bytes": 880450,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-004"
     },
     "grounded/generated/docs/units/grounded-test-005.html": {
       "artifact_kind": "file",
-      "bytes": 879619,
+      "bytes": 880418,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-005"
     },
     "grounded/generated/docs/units/grounded-test-006.html": {
       "artifact_kind": "file",
-      "bytes": 879526,
+      "bytes": 880325,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-006"
     },
     "grounded/generated/docs/units/grounded-test-007.html": {
       "artifact_kind": "file",
-      "bytes": 879632,
+      "bytes": 880431,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-007"
     },
     "grounded/generated/docs/units/grounded-test-008.html": {
       "artifact_kind": "file",
-      "bytes": 879720,
+      "bytes": 880519,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-008"
     },
     "grounded/generated/docs/units/grounded-test-009.html": {
       "artifact_kind": "file",
-      "bytes": 879746,
+      "bytes": 880545,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-009"
     },
     "grounded/generated/docs/units/grounded-test-010.html": {
       "artifact_kind": "file",
-      "bytes": 880068,
+      "bytes": 880867,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-010"
     },
     "grounded/generated/docs/units/grounded-test-011.html": {
       "artifact_kind": "file",
-      "bytes": 879821,
+      "bytes": 880620,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-011"
     },
     "grounded/generated/docs/units/grounded-test-012.html": {
       "artifact_kind": "file",
-      "bytes": 879725,
+      "bytes": 880524,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-012"
     },
     "grounded/generated/docs/units/grounded-test-013.html": {
       "artifact_kind": "file",
-      "bytes": 879809,
+      "bytes": 880608,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-013"
     },
     "grounded/generated/docs/units/grounded-test-015.html": {
       "artifact_kind": "file",
-      "bytes": 879839,
+      "bytes": 880638,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-015"
     },
     "grounded/generated/docs/units/grounded-test-016.html": {
       "artifact_kind": "file",
-      "bytes": 879706,
+      "bytes": 880505,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-016"
     },
     "grounded/generated/docs/units/grounded-test-017.html": {
       "artifact_kind": "file",
-      "bytes": 879911,
+      "bytes": 880710,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-017"
     },
     "grounded/generated/docs/units/grounded-test-018.html": {
       "artifact_kind": "file",
-      "bytes": 879957,
+      "bytes": 880756,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-018"
     },
     "grounded/generated/docs/units/grounded-test-019.html": {
       "artifact_kind": "file",
-      "bytes": 879727,
+      "bytes": 880526,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-019"
     },
     "grounded/generated/docs/units/grounded-test-020.html": {
       "artifact_kind": "file",
-      "bytes": 879934,
+      "bytes": 880733,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-020"
     },
     "grounded/generated/docs/units/grounded-test-021.html": {
       "artifact_kind": "file",
-      "bytes": 879740,
+      "bytes": 880539,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-021"
     },
     "grounded/generated/docs/units/grounded-test-022.html": {
       "artifact_kind": "file",
-      "bytes": 879694,
+      "bytes": 880493,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-022"
     },
     "grounded/generated/docs/units/grounded-test-023.html": {
       "artifact_kind": "file",
-      "bytes": 879697,
+      "bytes": 880496,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-023"
     },
     "grounded/generated/docs/units/grounded-test-024.html": {
       "artifact_kind": "file",
-      "bytes": 879662,
+      "bytes": 880461,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-024"
     },
     "grounded/generated/docs/units/grounded-test-025.html": {
       "artifact_kind": "file",
-      "bytes": 879718,
+      "bytes": 880517,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-025"
     },
     "grounded/generated/docs/units/grounded-test-026.html": {
       "artifact_kind": "file",
-      "bytes": 879803,
+      "bytes": 880602,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-026"
     },
     "grounded/generated/docs/units/grounded-test-027.html": {
       "artifact_kind": "file",
-      "bytes": 881446,
+      "bytes": 882245,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-027"
     },
     "grounded/generated/docs/units/grounded-test-028.html": {
       "artifact_kind": "file",
-      "bytes": 879917,
+      "bytes": 880716,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-028"
     },
     "grounded/generated/docs/units/grounded-test-029.html": {
       "artifact_kind": "file",
-      "bytes": 879985,
+      "bytes": 880784,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-029"
     },
     "grounded/generated/docs/units/grounded-test-030.html": {
       "artifact_kind": "file",
-      "bytes": 879711,
+      "bytes": 880510,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-030"
     },
     "grounded/generated/docs/units/grounded-test-031.html": {
       "artifact_kind": "file",
-      "bytes": 880442,
+      "bytes": 881241,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-031"
     },
     "grounded/generated/docs/units/grounded-test-032.html": {
       "artifact_kind": "file",
-      "bytes": 883452,
+      "bytes": 884251,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-032"
     },
     "grounded/generated/docs/units/grounded-test-033.html": {
       "artifact_kind": "file",
-      "bytes": 883482,
+      "bytes": 884281,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-033"
     },
     "grounded/generated/docs/units/grounded-test-034.html": {
       "artifact_kind": "file",
-      "bytes": 884753,
+      "bytes": 885552,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-034"
     },
     "grounded/generated/docs/units/grounded-test-035.html": {
       "artifact_kind": "file",
-      "bytes": 880984,
+      "bytes": 882253,
       "generated": true,
       "owner": "test_binding:GROUNDED-TEST-035"
     },
     "grounded/generated/docs/units/grounded-theory-001.html": {
       "artifact_kind": "file",
-      "bytes": 882102,
+      "bytes": 882901,
       "generated": true,
       "owner": "concept:GROUNDED-THEORY-001"
     },
     "grounded/generated/docs/units/grounded-trust-001.html": {
       "artifact_kind": "file",
-      "bytes": 882849,
+      "bytes": 883648,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-001"
     },
     "grounded/generated/docs/units/grounded-trust-002.html": {
       "artifact_kind": "file",
-      "bytes": 883128,
+      "bytes": 883927,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-002"
     },
     "grounded/generated/docs/units/grounded-trust-003.html": {
       "artifact_kind": "file",
-      "bytes": 883224,
+      "bytes": 884023,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-003"
     },
     "grounded/generated/docs/units/grounded-trust-004.html": {
       "artifact_kind": "file",
-      "bytes": 883040,
+      "bytes": 883839,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-004"
     },
     "grounded/generated/docs/units/grounded-trust-005.html": {
       "artifact_kind": "file",
-      "bytes": 882453,
+      "bytes": 883252,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-005"
     },
     "grounded/generated/docs/units/grounded-trust-006.html": {
       "artifact_kind": "file",
-      "bytes": 881601,
+      "bytes": 882400,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-006"
     },
     "grounded/generated/docs/units/grounded-trust-007.html": {
       "artifact_kind": "file",
-      "bytes": 881775,
+      "bytes": 882574,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-007"
     },
     "grounded/generated/docs/units/grounded-trust-guardrail-001.html": {
       "artifact_kind": "file",
-      "bytes": 884127,
+      "bytes": 884926,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-GUARDRAIL-001"
     },
     "grounded/generated/docs/units/grounded-trust-guardrail-002.html": {
       "artifact_kind": "file",
-      "bytes": 885002,
+      "bytes": 885801,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-GUARDRAIL-002"
     },
     "grounded/generated/docs/units/grounded-trust-guardrail-003.html": {
       "artifact_kind": "file",
-      "bytes": 883734,
+      "bytes": 884533,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-GUARDRAIL-003"
     },
     "grounded/generated/docs/units/grounded-trust-guardrail-004.html": {
       "artifact_kind": "file",
-      "bytes": 884695,
+      "bytes": 885494,
       "generated": true,
       "owner": "guardrail:GROUNDED-TRUST-GUARDRAIL-004"
     },
     "grounded/generated/docs/units/grounded-trust-status-001.html": {
       "artifact_kind": "file",
-      "bytes": 885947,
+      "bytes": 886746,
       "generated": true,
       "owner": "enum:GROUNDED-TRUST-STATUS-001"
     },
     "grounded/generated/docs/units/grounded-type-001.html": {
       "artifact_kind": "file",
-      "bytes": 880599,
+      "bytes": 881398,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-001"
     },
     "grounded/generated/docs/units/grounded-type-002.html": {
       "artifact_kind": "file",
-      "bytes": 880521,
+      "bytes": 881320,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-002"
     },
     "grounded/generated/docs/units/grounded-type-003.html": {
       "artifact_kind": "file",
-      "bytes": 880527,
+      "bytes": 881326,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-003"
     },
     "grounded/generated/docs/units/grounded-type-004.html": {
       "artifact_kind": "file",
-      "bytes": 880435,
+      "bytes": 881234,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-004"
     },
     "grounded/generated/docs/units/grounded-type-005.html": {
       "artifact_kind": "file",
-      "bytes": 880433,
+      "bytes": 881232,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-005"
     },
     "grounded/generated/docs/units/grounded-type-006.html": {
       "artifact_kind": "file",
-      "bytes": 880283,
+      "bytes": 881082,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-006"
     },
     "grounded/generated/docs/units/grounded-type-007.html": {
       "artifact_kind": "file",
-      "bytes": 880349,
+      "bytes": 881148,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-007"
     },
     "grounded/generated/docs/units/grounded-type-008.html": {
       "artifact_kind": "file",
-      "bytes": 880363,
+      "bytes": 881162,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-008"
     },
     "grounded/generated/docs/units/grounded-type-009.html": {
       "artifact_kind": "file",
-      "bytes": 880407,
+      "bytes": 881206,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-009"
     },
     "grounded/generated/docs/units/grounded-type-010.html": {
       "artifact_kind": "file",
-      "bytes": 880595,
+      "bytes": 881394,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-010"
     },
     "grounded/generated/docs/units/grounded-type-011.html": {
       "artifact_kind": "file",
-      "bytes": 880490,
+      "bytes": 881289,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-011"
     },
     "grounded/generated/docs/units/grounded-type-012.html": {
       "artifact_kind": "file",
-      "bytes": 881530,
+      "bytes": 882329,
       "generated": true,
       "owner": "guardrail:GROUNDED-TYPE-012"
     },
     "grounded/generated/docs/units/grounded-verify-001.html": {
       "artifact_kind": "file",
-      "bytes": 881531,
+      "bytes": 882339,
       "generated": true,
       "owner": "guardrail:GROUNDED-VERIFY-001"
     },
     "grounded/generated/docs/units/grounded-verify-002.html": {
       "artifact_kind": "file",
-      "bytes": 880553,
+      "bytes": 881352,
       "generated": true,
       "owner": "verification:GROUNDED-VERIFY-002"
     },
     "grounded/generated/docs/units/grounded-verify-003.html": {
       "artifact_kind": "file",
-      "bytes": 881925,
+      "bytes": 882724,
       "generated": true,
       "owner": "verification:GROUNDED-VERIFY-003"
     },
     "grounded/generated/docs/units/grounded-verify-004.html": {
       "artifact_kind": "file",
-      "bytes": 883243,
+      "bytes": 884042,
       "generated": true,
       "owner": "guardrail:GROUNDED-VERIFY-004"
     },
     "grounded/generated/docs/units/grounded-verify-005.html": {
       "artifact_kind": "file",
-      "bytes": 883091,
+      "bytes": 883890,
       "generated": true,
       "owner": "guardrail:GROUNDED-VERIFY-005"
     },
     "grounded/generated/docs/units/grounded-verify-006.html": {
       "artifact_kind": "file",
-      "bytes": 882904,
+      "bytes": 883703,
       "generated": true,
       "owner": "guardrail:GROUNDED-VERIFY-006"
     },
     "grounded/generated/docs/units/project-concept-001.html": {
       "artifact_kind": "file",
-      "bytes": 882565,
+      "bytes": 883364,
       "generated": true,
       "owner": "concept:PROJECT-CONCEPT-001"
     },
     "grounded/generated/docs/units/project-concept-002.html": {
       "artifact_kind": "file",
-      "bytes": 882356,
+      "bytes": 883155,
       "generated": true,
       "owner": "concept:PROJECT-CONCEPT-002"
     },
     "grounded/generated/docs/units/project-concept-003.html": {
       "artifact_kind": "file",
-      "bytes": 882833,
+      "bytes": 883632,
       "generated": true,
       "owner": "concept:PROJECT-CONCEPT-003"
     },
     "grounded/generated/docs/units/project-decision-001.html": {
       "artifact_kind": "file",
-      "bytes": 882914,
+      "bytes": 883713,
       "generated": true,
       "owner": "decision:PROJECT-DECISION-001"
     },
     "grounded/generated/docs/units/project-gap-001.html": {
       "artifact_kind": "file",
-      "bytes": 881736,
+      "bytes": 882535,
       "generated": true,
       "owner": "schema_gap:PROJECT-GAP-001"
     },
     "grounded/generated/docs/units/project-gap-002.html": {
       "artifact_kind": "file",
-      "bytes": 881258,
+      "bytes": 882057,
       "generated": true,
       "owner": "schema_gap:PROJECT-GAP-002"
     },
     "grounded/generated/docs/units/project-rule-001-ex001.html": {
       "artifact_kind": "file",
-      "bytes": 882005,
+      "bytes": 882804,
       "generated": true,
       "owner": "example:PROJECT-RULE-001-EX001"
     },
     "grounded/generated/docs/units/project-rule-001.html": {
       "artifact_kind": "file",
-      "bytes": 890467,
+      "bytes": 891266,
       "generated": true,
       "owner": "business_rule:PROJECT-RULE-001"
     },
     "grounded/generated/docs/units/project-rule-002.html": {
       "artifact_kind": "file",
-      "bytes": 884088,
+      "bytes": 884887,
       "generated": true,
       "owner": "business_rule:PROJECT-RULE-002"
     },
     "grounded/generated/docs/units/project-rule-003.html": {
       "artifact_kind": "file",
-      "bytes": 882146,
+      "bytes": 882945,
       "generated": true,
       "owner": "business_rule:PROJECT-RULE-003"
     },
     "grounded/generated/docs/units/project-test-001.html": {
       "artifact_kind": "file",
-      "bytes": 880987,
+      "bytes": 881786,
       "generated": true,
       "owner": "test_binding:PROJECT-TEST-001"
     },
     "grounded/generated/docs/units/project-test-002.html": {
       "artifact_kind": "file",
-      "bytes": 879906,
+      "bytes": 880705,
       "generated": true,
       "owner": "test_binding:PROJECT-TEST-002"
     },
     "grounded/generated/docs/units/project-test-003.html": {
       "artifact_kind": "file",
-      "bytes": 879564,
+      "bytes": 880363,
       "generated": true,
       "owner": "test_binding:PROJECT-TEST-003"
     },
     "grounded/generated/docs/units/project-verify-001.html": {
       "artifact_kind": "file",
-      "bytes": 880458,
+      "bytes": 881257,
       "generated": true,
       "owner": "verification:PROJECT-VERIFY-001"
     },
     "grounded/generated/docs/units/project-workflow-001.html": {
       "artifact_kind": "file",
-      "bytes": 881435,
+      "bytes": 882234,
       "generated": true,
       "owner": "workflow:PROJECT-WORKFLOW-001"
     },
     "grounded/generated/llm/context-pack.md": {
       "artifact_kind": "file",
-      "bytes": 130508,
+      "bytes": 130796,
       "generated": true,
       "owner": "LLM context pack"
     }
