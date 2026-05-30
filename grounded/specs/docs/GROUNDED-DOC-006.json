@@ -18,12 +18,14 @@
   "stability": "experimental",
   "section_refs": [
     "GROUNDED-DOC-SECTION-018",
+    "GROUNDED-DOC-SECTION-021",
     "GROUNDED-DOC-SECTION-004",
     "GROUNDED-DOC-SECTION-009"
   ],
   "source_refs": [
     "PROJECT-RULE-002",
-    "GROUNDED-DECISION-054"
+    "GROUNDED-DECISION-054",
+    "GROUNDED-DECISION-070"
   ],
   "references": [
     "GROUNDED-DECISION-060"

@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-038",
+  "kind": "test_binding",
+  "name": "CLI context builds focused LLM context",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-070"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-070 to executable CLI tests proving context seed resolution, graph traversal, Markdown output, JSON output, bounds handling, retired seed filtering, invalid argument rejection, and registry issue refusal.",
+  "target": "GROUNDED-DECISION-070",
+  "test": "uv run pytest tests/test_grounded.py -q -k context_cli"
+}

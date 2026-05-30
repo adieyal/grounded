@@ -1,0 +1,25 @@
+{
+  "id": "GROUNDED-DOC-SECTION-021",
+  "kind": "document_section",
+  "name": "Focused context section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the focused context workflow guidance for LLM agents and maintainers.",
+  "heading": "Focused context",
+  "heading_level": 2,
+  "order": 45,
+  "renderer": "bullet_list",
+  "content_mode": "mixed",
+  "intro": "Use `grounded context START` when an LLM agent needs bounded project memory before modifying, extending, or reviewing a spec. `START` may be either an exact spec ID or a search query; exact active spec IDs take precedence. Search-resolved seeds must be verified before treating the pack as authoritative. The command resolves a seed spec, includes that seed, then includes active related specs up to the requested relationship depth and item limit.",
+  "items": [
+    "`grounded search QUERY` is for discovery.",
+    "`grounded context START` is for assembling a focused working set before making a change.",
+    "`grounded specs --uses QUERY` is for dependency and usage inspection.",
+    "`grounded render --check` is for generated-view drift enforcement."
+  ],
+  "outro": "Examples: `grounded context GROUNDED-DOC-001`, `grounded context \"CLI search workflow\" --depth 2 --limit 20`, and `grounded context GROUNDED-DECISION-070 --json`.",
+  "source_refs": [
+    "GROUNDED-DECISION-070",
+    "GROUNDED-DECISION-054"
+  ]
+}

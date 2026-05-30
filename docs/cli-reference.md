@@ -19,9 +19,23 @@ Source: `GROUNDED-DECISION-058`
 
 - `GROUNDED-DECISION-047` (decision): Generate Graphviz relationship graphs - Documents the Graphviz DOT CLI export so Grounded relationship graphs can be generated from the same canonical registry references used by rendered docs.
 - `GROUNDED-DECISION-054` (decision): Search project memory from the CLI - Documents the CLI search workflow so LLM agents can discover existing entities, concepts, and specs before creating new specs.
+- `GROUNDED-DECISION-070` (decision): Build focused LLM context from the CLI - Documents the focused CLI context command so LLM agents can gather bounded, graph-aware project memory from a specific starting point.
 - `GROUNDED-DECISION-058` (decision): List registry types and specs from the CLI - Documents the registry inspection CLI command so maintainers and agents can see both registry types and authored specs from one entry point.
 
-Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-058`
+Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-070`, `GROUNDED-DECISION-058`
+
+## Focused context
+
+Use `grounded context START` when an LLM agent needs bounded project memory before modifying, extending, or reviewing a spec. `START` may be either an exact spec ID or a search query; exact active spec IDs take precedence. Search-resolved seeds must be verified before treating the pack as authoritative. The command resolves a seed spec, includes that seed, then includes active related specs up to the requested relationship depth and item limit.
+
+- `grounded search QUERY` is for discovery.
+- `grounded context START` is for assembling a focused working set before making a change.
+- `grounded specs --uses QUERY` is for dependency and usage inspection.
+- `grounded render --check` is for generated-view drift enforcement.
+
+Examples: `grounded context GROUNDED-DOC-001`, `grounded context "CLI search workflow" --depth 2 --limit 20`, and `grounded context GROUNDED-DECISION-070 --json`.
+
+Sources: `GROUNDED-DECISION-070`, `GROUNDED-DECISION-054`
 
 ## Common commands
 
@@ -32,6 +46,7 @@ Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-05
 | `grounded render` | Generates human docs and LLM context from the specs. |
 | `grounded render --check` | Fails if generated outputs are stale. |
 | `grounded search QUERY` | Searches project memory by ID, name, aliases, text, and relationships. |
+| `grounded context START` | Builds focused LLM context around a spec ID or search query. |
 | `grounded entities` | Lists entity-like specs for discovery before creating new facts. |
 | `grounded specs --uses QUERY` | Shows specs related to a matching entity or spec. |
 | `grounded check-new NAME` | Checks whether a proposed entity or concept probably already exists. |
@@ -43,4 +58,4 @@ Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-05
 
 During local development, prefer `uv run grounded ...` so the command uses the checkout.
 
-Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-058`
+Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-070`, `GROUNDED-DECISION-058`

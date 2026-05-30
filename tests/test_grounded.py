@@ -6,7 +6,7 @@ import sys
 import tempfile
 import tomllib
 import unittest
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from io import StringIO
 from pathlib import Path
 from unittest.mock import patch
@@ -455,12 +455,20 @@ class GroundedTests(unittest.TestCase):
         self.assertIn("## Output Format", text)
         self.assertIn("### 1. Executive Summary", text)
         self.assertIn("### 8. Migration Plan", text)
-        self.assertTrue(text.rstrip().endswith("What trust status can this graph honestly support, and what evidence would raise it?"))
+        self.assertTrue(
+            text.rstrip().endswith(
+                "What trust status can this graph honestly support, and what evidence would raise it?"
+            )
+        )
 
         result = subprocess.run(
             [
                 sys.executable,
-                str(Path(__file__).resolve().parents[1] / "scripts" / "verify_audit_skill_format.py"),
+                str(
+                    Path(__file__).resolve().parents[1]
+                    / "scripts"
+                    / "verify_audit_skill_format.py"
+                ),
                 "--path",
                 str(skill),
             ],
@@ -489,7 +497,11 @@ class GroundedTests(unittest.TestCase):
             result = subprocess.run(
                 [
                     sys.executable,
-                    str(Path(__file__).resolve().parents[1] / "scripts" / "verify_audit_skill_format.py"),
+                    str(
+                        Path(__file__).resolve().parents[1]
+                        / "scripts"
+                        / "verify_audit_skill_format.py"
+                    ),
                     "--path",
                     str(skill),
                 ],
@@ -499,7 +511,9 @@ class GroundedTests(unittest.TestCase):
             )
 
             self.assertNotEqual(0, result.returncode)
-            self.assertIn("Output Format ### headings are not in fixed order", result.stdout)
+            self.assertIn(
+                "Output Format ### headings are not in fixed order", result.stdout
+            )
 
     def test_audit_skill_verifier_rejects_previous_name_outside_migration(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -522,7 +536,11 @@ class GroundedTests(unittest.TestCase):
             result = subprocess.run(
                 [
                     sys.executable,
-                    str(Path(__file__).resolve().parents[1] / "scripts" / "verify_audit_skill_format.py"),
+                    str(
+                        Path(__file__).resolve().parents[1]
+                        / "scripts"
+                        / "verify_audit_skill_format.py"
+                    ),
                     "--path",
                     str(skill),
                 ],
@@ -1148,6 +1166,271 @@ class GroundedTests(unittest.TestCase):
                 payload["recommendation"],
             )
             self.assertEqual(item_id, payload["entity_matches"][0]["id"])
+
+    def _write_context_fixture(self, root: Path) -> tuple[str, str, str]:
+        specs_dir = root / ".grounded/specs/examples"
+        specs_dir.mkdir(parents=True)
+        item_id = "TODO-ITEM-001"
+        rule_id = "TODO" + "-RULE-001"
+        status_id = "TODO-STATUS-001"
+        (specs_dir / f"{item_id}.json").write_text(
+            json.dumps(
+                {
+                    "id": item_id,
+                    "kind": "domain_object",
+                    "name": "Todo Item",
+                    "short_name": "Task",
+                    "owner": "todo",
+                    "status": "active",
+                    "description": "A user-visible task in the todo list.",
+                }
+            ),
+            encoding="utf-8",
+        )
+        (specs_dir / f"{rule_id}.json").write_text(
+            json.dumps(
+                {
+                    "id": rule_id,
+                    "kind": "schema_gap",
+                    "name": "Todo item requires status",
+                    "owner": "todo",
+                    "status": "active",
+                    "description": "Documents a missing status rule for todo items.",
+                    "gap": "Todo items need a stronger status rule.",
+                    "suggested_improvement": "Add a todo status rule type.",
+                    "references": [item_id, status_id],
+                }
+            ),
+            encoding="utf-8",
+        )
+        (specs_dir / f"{status_id}.json").write_text(
+            json.dumps(
+                {
+                    "id": status_id,
+                    "kind": "domain_object",
+                    "name": "Todo Status",
+                    "owner": "todo",
+                    "status": "active",
+                    "description": "A value that describes todo item progress.",
+                }
+            ),
+            encoding="utf-8",
+        )
+        return item_id, rule_id, status_id
+
+    def test_context_cli_builds_focused_llm_context(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            item_id, rule_id, status_id = self._write_context_fixture(root)
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(["--root", str(root), "context", "task"])
+
+            self.assertEqual(0, result)
+            text = output.getvalue()
+            self.assertIn("# Grounded Focused Context", text)
+            self.assertIn(f"Seed: `{item_id}`", text)
+            self.assertIn("Warning: START was resolved by search", text)
+            self.assertIn(f"### `{rule_id}`", text)
+            self.assertIn(f"{rule_id} mentions -> {item_id}", text)
+            self.assertIn(".grounded/specs/examples/TODO-ITEM-001.json", text)
+            self.assertNotIn(str(root), text)
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    ["--root", str(root), "context", rule_id, "--depth", "1", "--json"]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual(rule_id, payload["seed"]["id"])
+            self.assertEqual("exact_id", payload["seed_resolution"])
+            self.assertEqual(
+                f".grounded/specs/examples/{rule_id}.json",
+                payload["seed"]["path"],
+            )
+            self.assertEqual(
+                [rule_id, item_id, status_id],
+                [item["id"] for item in payload["items"]],
+            )
+
+    def test_context_cli_prefers_exact_id_over_search(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            self._write_context_fixture(root)
+            exact_id = "TASK"
+            exact_path = root / ".grounded/specs/examples/TASK.json"
+            exact_path.write_text(
+                json.dumps(
+                    {
+                        "id": exact_id,
+                        "kind": "domain_object",
+                        "name": "Exact Task Entity",
+                        "owner": "todo",
+                        "status": "active",
+                        "description": "The exact ID must win over fuzzy task matches.",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(["--root", str(root), "context", exact_id, "--json"])
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual(exact_id, payload["seed"]["id"])
+            self.assertEqual("exact id match", payload["seed_reason"])
+
+    def test_context_cli_does_not_fuzzy_select_retired_seed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            item_id, _, _ = self._write_context_fixture(root)
+            retired_ids = tuple(f"TASK-OLD-{index:03d}" for index in range(10))
+            for retired_id in retired_ids:
+                retired_path = root / f".grounded/specs/examples/{retired_id}.json"
+                retired_path.write_text(
+                    json.dumps(
+                        {
+                            "id": retired_id,
+                            "kind": "domain_object",
+                            "name": "Task",
+                            "owner": "todo",
+                            "status": "retired",
+                            "description": "A retired task concept.",
+                        }
+                    ),
+                    encoding="utf-8",
+                )
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(["--root", str(root), "context", "task", "--json"])
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual(item_id, payload["seed"]["id"])
+            self.assertTrue(
+                set(retired_ids).isdisjoint({item["id"] for item in payload["items"]})
+            )
+
+    def test_context_cli_reports_no_seed(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            self._write_context_fixture(root)
+            output = StringIO()
+            errors = StringIO()
+
+            with redirect_stdout(output), redirect_stderr(errors):
+                result = main(["--root", str(root), "context", "no-such-context"])
+
+            self.assertEqual(1, result)
+            self.assertEqual("", output.getvalue())
+            self.assertIn(
+                "No context seed found for: no-such-context", errors.getvalue()
+            )
+
+    def test_context_cli_depth_zero_and_limit_are_deterministic(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            item_id, rule_id, status_id = self._write_context_fixture(root)
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        rule_id,
+                        "--depth",
+                        "0",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual([rule_id], [item["id"] for item in payload["items"]])
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        rule_id,
+                        "--depth",
+                        "1",
+                        "--limit",
+                        "2",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual(
+                [rule_id, item_id],
+                [item["id"] for item in payload["items"]],
+            )
+            self.assertNotIn(status_id, [item["id"] for item in payload["items"]])
+
+    def test_context_cli_rejects_invalid_depth_and_limit(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            self._write_context_fixture(root)
+
+            for args, expected_error in (
+                (["--depth", "-1"], "--depth must be >= 0"),
+                (["--limit", "0"], "--limit must be >= 1"),
+                (["--limit", "-5"], "--limit must be >= 1"),
+            ):
+                with self.subTest(args=args):
+                    errors = StringIO()
+                    with redirect_stderr(errors):
+                        result = main(["--root", str(root), "context", "task", *args])
+
+                    self.assertEqual(2, result)
+                    self.assertIn(expected_error, errors.getvalue())
+
+    def test_context_cli_refuses_registry_issues(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            specs_dir = root / ".grounded/specs/examples"
+            specs_dir.mkdir(parents=True)
+            missing_id = "UNKNOWN" + "-001"
+            (specs_dir / "BROKEN-001.json").write_text(
+                json.dumps(
+                    {
+                        "id": "BROKEN-001",
+                        "kind": "domain_object",
+                        "name": "Broken",
+                        "owner": "todo",
+                        "status": "active",
+                        "description": "A broken unit for registry issue testing.",
+                        "references": [missing_id],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            errors = StringIO()
+            with redirect_stderr(errors):
+                result = main(["--root", str(root), "context", "Broken"])
+
+            self.assertEqual(1, result)
+            self.assertIn("GROUNDED-REF", errors.getvalue())
 
     def test_registry_cli_lists_registry_types_and_specs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

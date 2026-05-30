@@ -8,6 +8,7 @@ from pathlib import Path
 from .audit import audit
 from .bootstrap import init_project
 from .config import load_config
+from .context import build_context_pack, context_pack_json, render_context_pack_markdown
 from .graphviz import graphviz_dot_for
 from .registry import load_registry
 from .render import render_all
@@ -37,7 +38,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     subcommands = parser.add_subparsers(dest="command", required=True)
 
-    init_parser = subcommands.add_parser("init", help="Bootstrap Grounded in a project.")
+    init_parser = subcommands.add_parser(
+        "init", help="Bootstrap Grounded in a project."
+    )
     init_parser.add_argument(
         "--force",
         action="store_true",
@@ -119,6 +122,24 @@ def main(argv: list[str] | None = None) -> int:
     )
     search_parser.add_argument("--limit", type=int, default=8)
     search_parser.add_argument("--json", action="store_true")
+
+    context_parser = subcommands.add_parser(
+        "context", help="Build focused LLM context around a spec ID or search query."
+    )
+    context_parser.add_argument("start", help="Starting spec ID or search query.")
+    context_parser.add_argument(
+        "--depth",
+        type=int,
+        default=1,
+        help="Relationship depth from the resolved starting spec. Defaults to 1.",
+    )
+    context_parser.add_argument(
+        "--limit",
+        type=int,
+        default=12,
+        help="Maximum number of specs to include. Defaults to 12.",
+    )
+    context_parser.add_argument("--json", action="store_true")
 
     entities_parser = subcommands.add_parser("entities", help="List entity-like specs.")
     entities_parser.add_argument("--json", action="store_true")
@@ -238,6 +259,27 @@ def main(argv: list[str] | None = None) -> int:
             print(results_json(results))
             return 0
         return print_search_results(results)
+
+    if args.command == "context":
+        if registry.issues:
+            return _print_issues(config.root, registry.issues)
+        if args.depth < 0:
+            print("--depth must be >= 0", file=sys.stderr)
+            return 2
+        if args.limit < 1:
+            print("--limit must be >= 1", file=sys.stderr)
+            return 2
+        pack = build_context_pack(
+            registry, args.start, depth=args.depth, limit=args.limit
+        )
+        if pack is None:
+            print(f"No context seed found for: {args.start}", file=sys.stderr)
+            return 1
+        if args.json:
+            print(context_pack_json(pack, registry, root=config.root))
+            return 0
+        print(render_context_pack_markdown(pack, registry, root=config.root), end="")
+        return 0
 
     if args.command == "entities":
         if registry.issues:

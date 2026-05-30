@@ -16,6 +16,7 @@
     { "command": "grounded render", "description": "Generates human docs and LLM context from the specs." },
     { "command": "grounded render --check", "description": "Fails if generated outputs are stale." },
     { "command": "grounded search QUERY", "description": "Searches project memory by ID, name, aliases, text, and relationships." },
+    { "command": "grounded context START", "description": "Builds focused LLM context around a spec ID or search query." },
     { "command": "grounded entities", "description": "Lists entity-like specs for discovery before creating new facts." },
     { "command": "grounded specs --uses QUERY", "description": "Shows specs related to a matching entity or spec." },
     { "command": "grounded check-new NAME", "description": "Checks whether a proposed entity or concept probably already exists." },
@@ -29,6 +30,7 @@
   "source_refs": [
     "GROUNDED-DECISION-047",
     "GROUNDED-DECISION-054",
+    "GROUNDED-DECISION-070",
     "GROUNDED-DECISION-058"
   ]
 }
