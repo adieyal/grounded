@@ -6,3 +6,8 @@ __pycache__/
 # Rendered Lattice sites
 /lattice/generated/docs/
 /examples/todo/site/
+# Assembled GitHub Pages deployment output
+/pages-site/
+
+# Generated Todo example manifest
+/examples/todo/manifest.json

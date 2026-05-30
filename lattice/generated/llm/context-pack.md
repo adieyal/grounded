@@ -119,7 +119,7 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: LATTICE-DECISION-039, LATTICE-DECISION-045
 - `LATTICE-DECISION-048` (decision, owner: lattice): Documents the 0.7.0 version bump so the Graphviz relationship graph CLI release has a canonical Lattice owner. The package version is bumped to 0.7.0 for the Graphviz relationship graph CLI, including bounded traversal from a starting spec ID, outgoing and backlink relationships, optional type include/exclude filters, stdout output, and file output.
   Links: LATTICE-DECISION-046, LATTICE-DECISION-047
-- `LATTICE-DECISION-049` (decision, owner: lattice): Documents the GitHub Pages preparation for the Todo demo so publishing uses generated artifacts without committing rendered site files. The Todo example is prepared for GitHub Pages through a GitHub Actions workflow that renders examples/todo into the ignored examples/todo/site directory, validates and audits the example, uploads the rendered site as a Pages artifact, and deploys it with the official GitHub Pages deployment action. Rendered demo output remains out of version control.
+- `LATTICE-DECISION-049` (decision, owner: lattice): Documents the GitHub Pages preparation for generated Lattice documentation and the Todo demo so publishing uses generated artifacts without committing rendered site files. The GitHub Pages deployment workflow builds the root Lattice registry docs and the standalone Todo example docs during deployment, validates and audits the root registry, validates the Todo registry, verifies rendered outputs are current, assembles the generated root docs at the Pages site root and the generated Todo site under pages-site/todo, uploads that assembled site as a Pages artifact, and deploys it with the official GitHub Pages deployment action. Rendered site output remains out of version control.
   Links: LATTICE-DECISION-032, LATTICE-DECISION-046
 - `LATTICE-DECISION-050` (decision, owner: lattice): Documents the light and dark theme toggle for generated Lattice documentation so theme behavior has a canonical owner. Generated documentation includes a bundled lattice-theme-toggle Lit component in the shared top bar. The toggle switches between explicit light and dark themes, persists the preference in localStorage under lattice-theme, and applies the selected mode by setting data-theme on the document root. When no explicit preference is stored, generated docs follow the user's system color scheme.
   Links: LATTICE-DECISION-022, LATTICE-DECISION-028, LATTICE-DECISION-045
@@ -179,7 +179,7 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: LATTICE-DOC-001
 - `LATTICE-DOC-SECTION-015` (document_section, owner: lattice): Defines the README section that shows the default Lattice project layout.
   Links: LATTICE-DOC-001
-- `LATTICE-DOC-SECTION-016` (document_section, owner: lattice): Defines the README section that summarizes Todo demo publishing.
+- `LATTICE-DOC-SECTION-016` (document_section, owner: lattice): Defines the README section that summarizes generated documentation publishing.
   Links: LATTICE-DOC-001
 - `LATTICE-DOC-SECTION-017` (document_section, owner: lattice): Defines the drift checks guide section that lists the main validation, audit, and verification guardrails.
   Links: LATTICE-DOC-007

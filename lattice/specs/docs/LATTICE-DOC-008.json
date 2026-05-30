@@ -13,7 +13,7 @@
   },
   "title": "Publishing",
   "audience": "maintainers",
-  "purpose": "Explain how generated documentation and the Todo demo are published.",
+  "purpose": "Explain how generated documentation and the Todo demo are built and published.",
   "stability": "experimental",
   "section_refs": [
     "LATTICE-DOC-SECTION-016",

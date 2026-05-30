@@ -1,4 +1,4 @@
-name: Deploy Todo demo to GitHub Pages
+name: Deploy documentation to GitHub Pages
 
 on:
   push:
@@ -6,10 +6,14 @@ on:
       - main
       - master
     paths:
-      - ".github/workflows/todo-pages.yml"
+      - ".github/workflows/docs-pages.yml"
+      - "README.md"
+      - "docs/**"
       - "examples/todo/**"
       - "lattice/**"
+      - "lattice.yml"
       - "pyproject.toml"
+      - "scripts/build-pages-site.sh"
       - "src/**"
       - "uv.lock"
   workflow_dispatch:
@@ -41,20 +45,29 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
+      - name: Validate Lattice docs
+        run: uv run lattice validate
+
+      - name: Render Lattice docs
+        run: uv run lattice render
+
+      - name: Audit Lattice docs
+        run: uv run lattice audit
+
+      - name: Check rendered Lattice docs
+        run: uv run lattice render --check
+
       - name: Validate Todo Lattice
         run: uv run lattice --root examples/todo validate
 
       - name: Render Todo docs
         run: uv run lattice --root examples/todo render
 
-      - name: Audit Todo Lattice
-        run: uv run lattice --root examples/todo audit
-
       - name: Check rendered Todo docs
         run: uv run lattice --root examples/todo render --check
 
-      - name: Disable Jekyll
-        run: touch examples/todo/site/.nojekyll
+      - name: Assemble Pages site
+        run: scripts/build-pages-site.sh
 
       - name: Configure Pages
         uses: actions/configure-pages@v6
@@ -62,7 +75,7 @@ jobs:
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:
-          path: examples/todo/site
+          path: pages-site
 
   deploy:
     needs: build

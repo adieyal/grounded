@@ -44,4 +44,4 @@ This is the adoption pattern for real projects: start with a few important facts
 
 ## Publishing
 
-When this repository is published on GitHub, enable GitHub Pages with the source set to GitHub Actions. The workflow at `../../.github/workflows/todo-pages.yml` renders this example and uploads `examples/todo/site` as the Pages artifact.
+When this repository is published on GitHub, enable GitHub Pages with the source set to GitHub Actions. The workflow at `../../.github/workflows/docs-pages.yml` renders this example under the `todo/` path in the assembled Pages artifact.
