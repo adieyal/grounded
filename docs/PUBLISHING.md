@@ -16,8 +16,9 @@ Explain how generated documentation and the Todo demo are built and published.
 - `GROUNDED-DECISION-053`: The package version is bumped to 0.9.0 for documentation-oriented Graphviz profiles, generated docs sidebar accordion navigation, component script cache busting, and Todo graph artifacts.
 - `GROUNDED-DECISION-063`: Grounded is prepared for PyPI publication by declaring package discovery, PyPI-facing metadata, Apache-2.0 license metadata and license file inclusion, project URLs, Python version classifiers, a PEP 561 py.typed marker, sdist contents, and a GitHub Actions workflow that builds with uv and publishes through PyPI trusted publishing on release publication or manual dispatch. The workflow requires PyPI trusted publisher configuration for the adieyal/grounded repository, the .github/workflows/pypi.yml workflow, and the pypi environment before an actual release can upload artifacts.
 - `GROUNDED-DECISION-064`: The package version is bumped to 1.0.0 for the first major Grounded release, including generated-document graph ownership, a protected-block README exemplar, full-file generated docs for mature pages, PyPI publication preparation, Apache-2.0 licensing, PEP 561 typed package metadata, and trusted-publishing workflow support.
+- `GROUNDED-DECISION-071`: The package version is bumped to 1.1.0 for the focused LLM context CLI command, including exact-ID and search-based seed resolution, bounded bidirectional graph traversal, Markdown and JSON context output, active-spec filtering, project-relative paths, search-resolution warnings, focused workflow documentation, and executable context CLI coverage.
 
-Sources: `GROUNDED-DECISION-049`, `GROUNDED-DECISION-052`, `GROUNDED-DECISION-053`, `GROUNDED-DECISION-063`, `GROUNDED-DECISION-064`
+Sources: `GROUNDED-DECISION-049`, `GROUNDED-DECISION-052`, `GROUNDED-DECISION-053`, `GROUNDED-DECISION-063`, `GROUNDED-DECISION-064`, `GROUNDED-DECISION-071`
 
 ## Documentation publishing
 

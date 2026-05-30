@@ -1,6 +1,6 @@
 [project]
 name = "grounded"
-version = "1.0.0"
+version = "1.1.0"
 description = "Executable project memory with single-owner specs, generated views, and drift checks."
 readme = "README.md"
 requires-python = ">=3.11"

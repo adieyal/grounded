@@ -1,0 +1,16 @@
+{
+  "decision": "The package version is bumped to 1.1.0 for the focused LLM context CLI command, including exact-ID and search-based seed resolution, bounded bidirectional graph traversal, Markdown and JSON context output, active-spec filtering, project-relative paths, search-resolution warnings, focused workflow documentation, and executable context CLI coverage.",
+  "id": "GROUNDED-DECISION-071",
+  "kind": "decision",
+  "name": "Release focused context CLI as 1.1.0",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-070",
+    "GROUNDED-TEST-038"
+  ],
+  "tests": [
+    "GROUNDED-TEST-030"
+  ],
+  "status": "active",
+  "description": "Documents the 1.1.0 version bump so the focused context CLI release has a canonical Grounded owner."
+}
