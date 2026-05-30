@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-NAMING-001",
+  "kind": "guardrail",
+  "name": "Grounded public naming guardrail",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the public naming guardrail so Grounded's release, package, documentation, generated views, examples, skills, templates, workflow text, tests, and source package public text use one canonical vocabulary.",
+  "summary": "Grounded is the canonical public product name. CLI, package, and import vocabulary use grounded. Previous project-name vocabulary is forbidden on public surfaces and allowed only in explicitly approved historical or archive material.",
+  "references": [
+    "GROUNDED-DECISION-064",
+    "GROUNDED-VERIFY-002"
+  ],
+  "tests": [
+    "GROUNDED-TEST-031"
+  ]
+}

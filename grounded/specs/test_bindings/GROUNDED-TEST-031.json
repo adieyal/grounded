@@ -1,0 +1,14 @@
+{
+  "id": "GROUNDED-TEST-031",
+  "kind": "test_binding",
+  "name": "Public surfaces use Grounded naming",
+  "owner": "grounded",
+  "status": "active",
+  "references": [
+    "GROUNDED-NAMING-001",
+    "GROUNDED-VERIFY-002"
+  ],
+  "description": "Binds the public naming guardrail to an executable tracked-file scan so public surfaces cannot reintroduce previous project-name vocabulary.",
+  "target": "GROUNDED-NAMING-001",
+  "test": "uv run pytest tests/test_public_naming.py -q"
+}
