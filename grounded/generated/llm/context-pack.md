@@ -225,7 +225,7 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
 - `GROUNDED-DECISION-047` (decision, owner: grounded): Documents the Graphviz DOT CLI export so Grounded relationship graphs can be generated from the same canonical registry references used by rendered docs. The CLI includes a graph command that emits Graphviz DOT for relationships around a starting spec ID. The command traverses both outgoing references and backlinks up to a configurable depth, can include or exclude specific spec types, writes to stdout by default, and can write to a requested output path. Graph output supports profiles: docs is the default readable documentation profile with structured labels, focus highlighting, softer layout styling, and collapsed noisy values; compact is a smaller presentation-oriented variant; debug preserves the raw relationship graph for inspection.
   Links: GROUNDED-DECISION-039, GROUNDED-DECISION-045
   Edges: mentions -> GROUNDED-DECISION-039, mentions -> GROUNDED-DECISION-045, tests -> GROUNDED-TEST-016
-  Incoming edges: derives_from <- GROUNDED-DOC-004, derives_from <- GROUNDED-DOC-SECTION-004, derives_from <- GROUNDED-DOC-SECTION-009, mentions <- GROUNDED-DECISION-048, mentions <- GROUNDED-DECISION-053, mentions <- GROUNDED-DECISION-056, mentions <- GROUNDED-TEST-016
+  Incoming edges: derives_from <- GROUNDED-DOC-001, derives_from <- GROUNDED-DOC-004, derives_from <- GROUNDED-DOC-SECTION-004, derives_from <- GROUNDED-DOC-SECTION-009, mentions <- GROUNDED-DECISION-048, mentions <- GROUNDED-DECISION-053, mentions <- GROUNDED-DECISION-056, mentions <- GROUNDED-TEST-016
 - `GROUNDED-DECISION-048` (decision, owner: grounded): Documents the 0.7.0 version bump so the Graphviz relationship graph CLI release has a canonical Grounded owner. The package version is bumped to 0.7.0 for the Graphviz relationship graph CLI, including bounded traversal from a starting spec ID, outgoing and backlink relationships, optional type include/exclude filters, stdout output, and file output.
   Links: GROUNDED-DECISION-046, GROUNDED-DECISION-047
   Edges: mentions -> GROUNDED-DECISION-046, mentions -> GROUNDED-DECISION-047
@@ -252,7 +252,7 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
 - `GROUNDED-DECISION-054` (decision, owner: grounded): Documents the CLI search workflow so LLM agents can discover existing entities, concepts, and specs before creating new specs. The CLI includes search-oriented commands for LLM and maintainer workflows: search ranks matching specs, entities lists entity-like specs, specs lists available specs and can filter by references, spec searches non-entity specs, and check-new recommends whether a proposed entity or concept likely already exists. Results are deterministic, registry-backed, and available as human-readable text or JSON.
   Links: GROUNDED-DECISION-001, PROJECT-RULE-001
   Edges: mentions -> GROUNDED-DECISION-001, mentions -> PROJECT-RULE-001, tests -> GROUNDED-TEST-019
-  Incoming edges: derives_from <- GROUNDED-DOC-004, derives_from <- GROUNDED-DOC-006, derives_from <- GROUNDED-DOC-SECTION-004, derives_from <- GROUNDED-DOC-SECTION-009, derives_from <- GROUNDED-DOC-SECTION-018, mentions <- GROUNDED-DECISION-055, mentions <- GROUNDED-DECISION-056, mentions <- GROUNDED-TEST-019
+  Incoming edges: derives_from <- GROUNDED-DOC-001, derives_from <- GROUNDED-DOC-004, derives_from <- GROUNDED-DOC-006, derives_from <- GROUNDED-DOC-SECTION-004, derives_from <- GROUNDED-DOC-SECTION-009, derives_from <- GROUNDED-DOC-SECTION-018, mentions <- GROUNDED-DECISION-055, mentions <- GROUNDED-DECISION-056, mentions <- GROUNDED-TEST-019
 - `GROUNDED-DECISION-055` (decision, owner: grounded): Documents the 0.10.0 version bump so the CLI project-memory search release has a canonical Grounded owner. The package version is bumped to 0.10.0 for CLI project-memory search commands, including search, entities, specs, spec, and check-new workflows with deterministic ranking and JSON output.
   Links: GROUNDED-DECISION-054
   Edges: mentions -> GROUNDED-DECISION-054
@@ -267,7 +267,7 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
 - `GROUNDED-DECISION-058` (decision, owner: grounded): Documents the registry inspection CLI command so maintainers and agents can see both registry types and authored specs from one entry point. The CLI includes a registry command that prints the merged registry_type definitions and authored specs loaded for the active Grounded project. The command supports JSON output for tools and human-readable text for maintainers who need to inspect the active metamodel and registry contents.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-057
   Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-057, tests -> GROUNDED-TEST-025
-  Incoming edges: derives_from <- GROUNDED-DOC-004, derives_from <- GROUNDED-DOC-SECTION-002, derives_from <- GROUNDED-DOC-SECTION-004, derives_from <- GROUNDED-DOC-SECTION-009, mentions <- GROUNDED-DECISION-059, mentions <- GROUNDED-TEST-025
+  Incoming edges: derives_from <- GROUNDED-DOC-001, derives_from <- GROUNDED-DOC-004, derives_from <- GROUNDED-DOC-SECTION-002, derives_from <- GROUNDED-DOC-SECTION-004, derives_from <- GROUNDED-DOC-SECTION-009, mentions <- GROUNDED-DECISION-059, mentions <- GROUNDED-TEST-025
 - `GROUNDED-DECISION-059` (decision, owner: grounded): Documents the 0.13.0 version bump so registry inspection and metamodel terminology changes have a canonical Grounded release owner. The package version is bumped to 0.13.0 for the registry inspection CLI command and the metamodel nomenclature cleanup that distinguishes registry types, registry units, knowledge units, authored specs, and generated views.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-057, GROUNDED-DECISION-058
   Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-057, mentions -> GROUNDED-DECISION-058
@@ -275,11 +275,11 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
 - `GROUNDED-DECISION-060` (decision, owner: grounded): Documents the documentation-graph model so generated docs are projections over source specs instead of hand-maintained durable knowledge. Grounded documentation is generated from a documentation graph. Durable knowledge lives in source specs; generated artifact specs define output files, projection sections, documentation sets, and governed assets. README.md and docs pages should move toward generated artifacts rather than independent sources of truth.
   Links: GROUNDED-DECISION-001, GROUNDED-DECISION-057, GROUNDED-DOC-001, GROUNDED-TEST-026
   Edges: mentions -> GROUNDED-DECISION-001, mentions -> GROUNDED-DECISION-057, mentions -> GROUNDED-DOC-001, mentions -> GROUNDED-TEST-026
-  Incoming edges: derives_from <- GROUNDED-DOC-001, derives_from <- GROUNDED-DOC-003, derives_from <- GROUNDED-DOC-SECTION-005, mentions <- GROUNDED-ASSET-001, mentions <- GROUNDED-ASSET-002, mentions <- GROUNDED-ASSET-003, mentions <- GROUNDED-ASSET-004, mentions <- GROUNDED-DECISION-061, mentions <- GROUNDED-DECISION-062, mentions <- GROUNDED-DECISION-064, mentions <- GROUNDED-DECISION-065, mentions <- GROUNDED-DOC-001, mentions <- GROUNDED-DOC-002, mentions <- GROUNDED-DOC-003, mentions <- GROUNDED-DOC-004, mentions <- GROUNDED-DOC-005, mentions <- GROUNDED-DOC-006, mentions <- GROUNDED-DOC-007, mentions <- GROUNDED-DOC-008, mentions <- GROUNDED-DOCS-001, mentions <- GROUNDED-TEST-026
-- `GROUNDED-DECISION-061` (decision, owner: grounded): Documents generated document write modes so Grounded can migrate safely from protected generated blocks to fully generated documentation files. Generated artifact specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated artifact own the entire output path once the source specs and projection graph are mature enough. README.md is now generated in full_file mode from GROUNDED-DOC-001.
+  Incoming edges: derives_from <- GROUNDED-DOC-003, derives_from <- GROUNDED-DOC-SECTION-005, derives_from <- GROUNDED-DOC-SECTION-020, mentions <- GROUNDED-ASSET-001, mentions <- GROUNDED-ASSET-002, mentions <- GROUNDED-ASSET-003, mentions <- GROUNDED-ASSET-004, mentions <- GROUNDED-DECISION-061, mentions <- GROUNDED-DECISION-062, mentions <- GROUNDED-DECISION-064, mentions <- GROUNDED-DECISION-065, mentions <- GROUNDED-DECISION-068, mentions <- GROUNDED-DOC-001, mentions <- GROUNDED-DOC-002, mentions <- GROUNDED-DOC-003, mentions <- GROUNDED-DOC-004, mentions <- GROUNDED-DOC-005, mentions <- GROUNDED-DOC-006, mentions <- GROUNDED-DOC-007, mentions <- GROUNDED-DOC-008, mentions <- GROUNDED-DOCS-001, mentions <- GROUNDED-TEST-026
+- `GROUNDED-DECISION-061` (decision, owner: grounded): Documents generated document write modes so Grounded can migrate safely from protected generated blocks to fully generated documentation files. Generated artifact specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated artifact own the entire output path once the source specs and projection graph are mature enough. README.md demonstrates protected_block mode through GROUNDED-DOC-001; full_file generation remains available for mature documentation pages.
   Links: GROUNDED-DECISION-060, GROUNDED-DOC-001, GROUNDED-TEST-026
   Edges: mentions -> GROUNDED-DECISION-060, mentions -> GROUNDED-DOC-001, mentions -> GROUNDED-TEST-026
-  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-005
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-005, derives_from <- GROUNDED-DOC-SECTION-020, mentions <- GROUNDED-DECISION-068, mentions <- GROUNDED-DOC-001
 - `GROUNDED-DECISION-062` (decision, owner: grounded): Documents the generated documentation redesign so Grounded pages communicate the underlying graph and source meaning before showing implementation metadata. Generated HTML documentation should use semantic templates for important Grounded types instead of leading with generic metadata tables. Generated documents, document sections, documentation sets, assets, decisions, guardrails, test bindings, schema gaps, verification specs, enums, and domain objects should render their source meaning, artifact ownership, relationships, and proof obligations before exposing raw field metadata.
   Links: GROUNDED-DECISION-060, GROUNDED-TEST-028
   Edges: mentions -> GROUNDED-DECISION-060, mentions -> GROUNDED-TEST-028
@@ -288,7 +288,7 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: GROUNDED-DECISION-052, GROUNDED-DECISION-059
   Edges: mentions -> GROUNDED-DECISION-052, mentions -> GROUNDED-DECISION-059, tests -> GROUNDED-TEST-029
   Incoming edges: derives_from <- GROUNDED-DOC-008, derives_from <- GROUNDED-DOC-SECTION-007, derives_from <- GROUNDED-DOC-SECTION-019, mentions <- GROUNDED-DECISION-064, mentions <- GROUNDED-TEST-029
-- `GROUNDED-DECISION-064` (decision, owner: grounded): Documents the 1.0.0 major version bump so the PyPI-ready release has a canonical Grounded owner. The package version is bumped to 1.0.0 for the first major Grounded release, including generated-document graph ownership, full-file generated README and docs, PyPI publication preparation, Apache-2.0 licensing, PEP 561 typed package metadata, and trusted-publishing workflow support.
+- `GROUNDED-DECISION-064` (decision, owner: grounded): Documents the 1.0.0 major version bump so the PyPI-ready release has a canonical Grounded owner. The package version is bumped to 1.0.0 for the first major Grounded release, including generated-document graph ownership, a protected-block README exemplar, full-file generated docs for mature pages, PyPI publication preparation, Apache-2.0 licensing, PEP 561 typed package metadata, and trusted-publishing workflow support.
   Links: GROUNDED-DECISION-060, GROUNDED-DECISION-062, GROUNDED-DECISION-063
   Edges: mentions -> GROUNDED-DECISION-060, mentions -> GROUNDED-DECISION-062, mentions -> GROUNDED-DECISION-063, tests -> GROUNDED-TEST-030
   Incoming edges: derives_from <- GROUNDED-DOC-008, derives_from <- GROUNDED-DOC-SECTION-019, mentions <- GROUNDED-NAMING-001, mentions <- GROUNDED-TEST-030
@@ -303,86 +303,70 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
 - `GROUNDED-DECISION-067` (decision, owner: grounded): Documents the runtime efficiency and scope contract for verification and audit execution so repeated proof commands and generated-site rendering stay bounded. By default, grounded verify executes commands declared by verification specs and does not execute test_binding commands. Operators can request the broader sweep with grounded verify --include-test-bindings. A single grounded verify run executes each distinct included command once per timeout configuration and reuses that command result for every included spec field that declared it. Verification timeouts terminate the spawned command tree when the platform supports process groups. A single grounded audit run builds the rendered site once and shares that rendered snapshot across generated-view drift and generated-document coverage checks.
   Links: GROUNDED-TRUST-GUARDRAIL-004, GROUNDED-VERIFY-004, GROUNDED-DRIFT-001, GROUNDED-DOC-GRAPH-004
   Edges: mentions -> GROUNDED-DOC-GRAPH-004, mentions -> GROUNDED-DRIFT-001, mentions -> GROUNDED-TRUST-GUARDRAIL-004, mentions -> GROUNDED-VERIFY-004, tests -> GROUNDED-TEST-035
+- `GROUNDED-DECISION-068` (decision, owner: grounded): Documents the P4 documentation projection contract so generated artifacts stay lightweight projections over source specs. Grounded presents protected generated blocks as the default first adoption path: keep the existing Markdown file, add one governed block, source that block from durable specs, and run grounded render --check in CI. Full-file generation remains supported as an advanced mode for mature documentation whose durable claims have already moved into specs. Generated documents and document sections own rendering behavior, output paths, write modes, section assembly, asset usage, and compact provenance; they do not own or prove durable claims. Sourced and mixed projection sections must cite source_refs unless they are local prose without canonical claim language.
+  Links: GROUNDED-DECISION-060, GROUNDED-DECISION-061, GROUNDED-DOC-001, GROUNDED-DOC-GRAPH-002, GROUNDED-DOC-GRAPH-003, GROUNDED-DOC-GRAPH-005, GROUNDED-DRIFT-001
+  Edges: mentions -> GROUNDED-DECISION-060, mentions -> GROUNDED-DECISION-061, mentions -> GROUNDED-DOC-001, mentions -> GROUNDED-DOC-GRAPH-002, mentions -> GROUNDED-DOC-GRAPH-003, mentions -> GROUNDED-DOC-GRAPH-005, mentions -> GROUNDED-DRIFT-001, tests -> GROUNDED-TEST-036
+  Incoming edges: mentions <- GROUNDED-TEST-036
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as grounded-links decision and explains how it guides Grounded behavior or project maintenance. Member pages should render the semantic slices they belong to as grounded-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
   Edges: mentions -> PROJECT-CONCEPT-003, mentions -> PROJECT-GAP-002, mentions -> PROJECT-RULE-003, tests -> PROJECT-TEST-003
   Incoming edges: mentions <- GROUNDED-DECISION-029, mentions <- PROJECT-GAP-002, mentions <- PROJECT-TEST-003
 - `GROUNDED-DOC-SECTION-001` (document_section, owner: grounded): Defines the README problem section from governed source specs and the before-and-after diagram asset.
-  Links: GROUNDED-DOC-001
-  Edges: contains -> GROUNDED-ASSET-002, derives_from -> GROUNDED-THEORY-001, derives_from -> PROJECT-RULE-001, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001
+  Edges: contains -> GROUNDED-ASSET-002, derives_from -> GROUNDED-THEORY-001, derives_from -> PROJECT-RULE-001
 - `GROUNDED-DOC-SECTION-002` (document_section, owner: grounded): Defines the README section that points readers to the registry inspection command as a way to understand the active documentation graph.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> GROUNDED-DECISION-058, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-004
+  Edges: derives_from -> GROUNDED-DECISION-058
+  Incoming edges: contains <- GROUNDED-DOC-004
 - `GROUNDED-DOC-SECTION-003` (document_section, owner: grounded): Defines the README section that summarizes Grounded's source-of-truth value from canonical source specs.
-  Links: GROUNDED-DOC-001
-  Edges: contains -> GROUNDED-ASSET-001, derives_from -> GROUNDED-DECISION-065, derives_from -> GROUNDED-THEORY-001, derives_from -> PROJECT-CONCEPT-001, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-003
+  Edges: contains -> GROUNDED-ASSET-001, derives_from -> GROUNDED-DECISION-065, derives_from -> GROUNDED-THEORY-001, derives_from -> PROJECT-CONCEPT-001, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002
+  Incoming edges: contains <- GROUNDED-DOC-003
 - `GROUNDED-DOC-SECTION-004` (document_section, owner: grounded): Defines the README section that summarizes the CLI workflow capabilities from command-owning decisions.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> GROUNDED-DECISION-047, derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-058, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-004, contains <- GROUNDED-DOC-006
-- `GROUNDED-DOC-SECTION-005` (document_section, owner: grounded): Defines the README section that explains the safe migration path toward generated public documentation.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> GROUNDED-DECISION-037, derives_from -> GROUNDED-DECISION-060, derives_from -> GROUNDED-DECISION-061, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-003
+  Edges: derives_from -> GROUNDED-DECISION-047, derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-058
+  Incoming edges: contains <- GROUNDED-DOC-004, contains <- GROUNDED-DOC-006
+- `GROUNDED-DOC-SECTION-005` (document_section, owner: grounded): Defines the documentation section that explains the safe migration path toward generated public documentation.
+  Edges: derives_from -> GROUNDED-DECISION-037, derives_from -> GROUNDED-DECISION-060, derives_from -> GROUNDED-DECISION-061
+  Incoming edges: contains <- GROUNDED-DOC-003
 - `GROUNDED-DOC-SECTION-006` (document_section, owner: grounded): Defines the README section that shows a small source spec example.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-001-EX001, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001
+  Edges: derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-001-EX001
 - `GROUNDED-DOC-SECTION-007` (document_section, owner: grounded): Defines the README quick start section as ordered setup and render steps.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> GROUNDED-DECISION-025, derives_from -> GROUNDED-DECISION-063, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-002
+  Edges: derives_from -> GROUNDED-DECISION-025, derives_from -> GROUNDED-DECISION-063, derives_from -> PROJECT-RULE-002
+  Incoming edges: contains <- GROUNDED-DOC-002
 - `GROUNDED-DOC-SECTION-008` (document_section, owner: grounded): Defines the README section that suggests good first Grounded specs.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> PROJECT-RULE-001, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-002, contains <- GROUNDED-DOC-005
+  Edges: derives_from -> PROJECT-RULE-001
+  Incoming edges: contains <- GROUNDED-DOC-002, contains <- GROUNDED-DOC-005
 - `GROUNDED-DOC-SECTION-009` (document_section, owner: grounded): Defines the README command table for common Grounded CLI workflows.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> GROUNDED-DECISION-047, derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-058, derives_from -> PROJECT-VERIFY-001, mentions -> GROUNDED-DOC-001
+  Edges: derives_from -> GROUNDED-DECISION-047, derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-058
   Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-002, contains <- GROUNDED-DOC-004, contains <- GROUNDED-DOC-006, contains <- GROUNDED-DOC-007
 - `GROUNDED-DOC-SECTION-010` (document_section, owner: grounded): Defines the README section that introduces typed tags and constrained references.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> GROUNDED-DECISION-001, derives_from -> GROUNDED-DECISION-057, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-003
+  Edges: derives_from -> GROUNDED-DECISION-001, derives_from -> GROUNDED-DECISION-057
+  Incoming edges: contains <- GROUNDED-DOC-003
 - `GROUNDED-DOC-SECTION-011` (document_section, owner: grounded): Defines the README adoption diagram section with governed alt text.
-  Links: GROUNDED-DOC-001
-  Edges: contains -> GROUNDED-ASSET-003, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001
+  Edges: contains -> GROUNDED-ASSET-003, derives_from -> PROJECT-RULE-002
 - `GROUNDED-DOC-SECTION-012` (document_section, owner: grounded): Defines the README adoption ladder as structured generated documentation.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> PROJECT-RULE-002, derives_from -> PROJECT-VERIFY-001, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-005
+  Edges: derives_from -> PROJECT-RULE-002, derives_from -> PROJECT-VERIFY-001
+  Incoming edges: contains <- GROUNDED-DOC-005
 - `GROUNDED-DOC-SECTION-013` (document_section, owner: grounded): Defines the README section that describes when Grounded is and is not a good fit.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> GROUNDED-THEORY-001, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-005
+  Edges: derives_from -> GROUNDED-THEORY-001, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002
+  Incoming edges: contains <- GROUNDED-DOC-005
 - `GROUNDED-DOC-SECTION-014` (document_section, owner: grounded): Defines the README link list for examples and deeper documentation.
-  Links: GROUNDED-DOC-001
-  Edges: contains -> GROUNDED-ASSET-004, derives_from -> GROUNDED-DECISION-024, derives_from -> GROUNDED-DECISION-049, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001
+  Edges: contains -> GROUNDED-ASSET-004, derives_from -> GROUNDED-DECISION-024, derives_from -> GROUNDED-DECISION-049
 - `GROUNDED-DOC-SECTION-015` (document_section, owner: grounded): Defines the README section that shows the default Grounded project layout.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> GROUNDED-DECISION-025, derives_from -> GROUNDED-DECISION-026, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-002
+  Edges: derives_from -> GROUNDED-DECISION-025, derives_from -> GROUNDED-DECISION-026
+  Incoming edges: contains <- GROUNDED-DOC-002
 - `GROUNDED-DOC-SECTION-016` (document_section, owner: grounded): Defines the README section that summarizes generated documentation publishing.
-  Links: GROUNDED-DOC-001
-  Edges: derives_from -> GROUNDED-DECISION-049, mentions -> GROUNDED-DOC-001
-  Incoming edges: contains <- GROUNDED-DOC-001, contains <- GROUNDED-DOC-008
+  Edges: derives_from -> GROUNDED-DECISION-049
+  Incoming edges: contains <- GROUNDED-DOC-008
 - `GROUNDED-DOC-SECTION-017` (document_section, owner: grounded): Defines the drift checks guide section that lists the main validation, audit, and verification guardrails.
-  Links: GROUNDED-DOC-007
-  Edges: derives_from -> GROUNDED-COVERAGE-001, derives_from -> GROUNDED-DRIFT-001, derives_from -> GROUNDED-REF-001, derives_from -> GROUNDED-REF-004, derives_from -> GROUNDED-SCHEMA-003, derives_from -> GROUNDED-VERIFY-001, mentions -> GROUNDED-DOC-007
+  Edges: derives_from -> GROUNDED-COVERAGE-001, derives_from -> GROUNDED-DRIFT-001, derives_from -> GROUNDED-REF-001, derives_from -> GROUNDED-REF-004, derives_from -> GROUNDED-SCHEMA-003, derives_from -> GROUNDED-VERIFY-001
   Incoming edges: contains <- GROUNDED-DOC-007
 - `GROUNDED-DOC-SECTION-018` (document_section, owner: grounded): Defines the LLM workflows guide section that explains agent responsibilities from canonical rules and decisions.
-  Links: GROUNDED-DOC-006
-  Edges: derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-056, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DOC-006
+  Edges: derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-056, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002
   Incoming edges: contains <- GROUNDED-DOC-006
 - `GROUNDED-DOC-SECTION-019` (document_section, owner: grounded): Defines the publishing guide section that summarizes publishing and generated documentation release decisions.
-  Links: GROUNDED-DOC-008
-  Edges: derives_from -> GROUNDED-DECISION-049, derives_from -> GROUNDED-DECISION-052, derives_from -> GROUNDED-DECISION-053, derives_from -> GROUNDED-DECISION-063, derives_from -> GROUNDED-DECISION-064, mentions -> GROUNDED-DOC-008
+  Edges: derives_from -> GROUNDED-DECISION-049, derives_from -> GROUNDED-DECISION-052, derives_from -> GROUNDED-DECISION-053, derives_from -> GROUNDED-DECISION-063, derives_from -> GROUNDED-DECISION-064
   Incoming edges: contains <- GROUNDED-DOC-008
+- `GROUNDED-DOC-SECTION-020` (document_section, owner: grounded): Defines the migration example that shows a handwritten README section becoming a protected generated block sourced from specs.
+  Edges: derives_from -> GROUNDED-DECISION-060, derives_from -> GROUNDED-DECISION-061, derives_from -> GROUNDED-DRIFT-001
+  Incoming edges: contains <- GROUNDED-DOC-005
 - `GROUNDED-DOCS-001` (documentation_set, owner: grounded): Groups the generated public documentation artifacts that Grounded should render and check together.
   Links: GROUNDED-DECISION-060
   Edges: contains -> GROUNDED-DOC-001, contains -> GROUNDED-DOC-002, contains -> GROUNDED-DOC-003, contains -> GROUNDED-DOC-004, contains -> GROUNDED-DOC-005, contains -> GROUNDED-DOC-006, contains -> GROUNDED-DOC-007, contains -> GROUNDED-DOC-008, mentions -> GROUNDED-DECISION-060
@@ -394,10 +378,10 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: PROJECT-RULE-001
   Edges: mentions -> PROJECT-RULE-001, tests -> PROJECT-TEST-001
   Incoming edges: derives_from <- GROUNDED-DOC-SECTION-006, mentions <- PROJECT-RULE-001, mentions <- PROJECT-TEST-001
-- `GROUNDED-DOC-001` (generated_document, owner: grounded): Defines the generated README view so the repository entrypoint can be assembled from Grounded source specs.
-  Links: GROUNDED-DECISION-060
-  Edges: contains -> GROUNDED-DOC-SECTION-001, contains -> GROUNDED-DOC-SECTION-002, contains -> GROUNDED-DOC-SECTION-003, contains -> GROUNDED-DOC-SECTION-004, contains -> GROUNDED-DOC-SECTION-005, contains -> GROUNDED-DOC-SECTION-006, contains -> GROUNDED-DOC-SECTION-007, contains -> GROUNDED-DOC-SECTION-008, contains -> GROUNDED-DOC-SECTION-009, contains -> GROUNDED-DOC-SECTION-010, contains -> GROUNDED-DOC-SECTION-011, contains -> GROUNDED-DOC-SECTION-012, contains -> GROUNDED-DOC-SECTION-013, contains -> GROUNDED-DOC-SECTION-014, contains -> GROUNDED-DOC-SECTION-015, contains -> GROUNDED-DOC-SECTION-016, derives_from -> GROUNDED-DECISION-060, mentions -> GROUNDED-DECISION-060
-  Incoming edges: contains <- GROUNDED-DOCS-001, mentions <- GROUNDED-DECISION-060, mentions <- GROUNDED-DECISION-061, mentions <- GROUNDED-DOC-SECTION-001, mentions <- GROUNDED-DOC-SECTION-002, mentions <- GROUNDED-DOC-SECTION-003, mentions <- GROUNDED-DOC-SECTION-004, mentions <- GROUNDED-DOC-SECTION-005, mentions <- GROUNDED-DOC-SECTION-006, mentions <- GROUNDED-DOC-SECTION-007, mentions <- GROUNDED-DOC-SECTION-008, mentions <- GROUNDED-DOC-SECTION-009, mentions <- GROUNDED-DOC-SECTION-010, mentions <- GROUNDED-DOC-SECTION-011, mentions <- GROUNDED-DOC-SECTION-012, mentions <- GROUNDED-DOC-SECTION-013, mentions <- GROUNDED-DOC-SECTION-014, mentions <- GROUNDED-DOC-SECTION-015, mentions <- GROUNDED-DOC-SECTION-016
+- `GROUNDED-DOC-001` (generated_document, owner: grounded): Defines the protected README command block so the repository entrypoint can stay hand-authored while one useful section is projected from Grounded source specs.
+  Links: GROUNDED-DECISION-060, GROUNDED-DECISION-061
+  Edges: contains -> GROUNDED-DOC-SECTION-009, derives_from -> GROUNDED-DECISION-047, derives_from -> GROUNDED-DECISION-054, derives_from -> GROUNDED-DECISION-058, mentions -> GROUNDED-DECISION-060, mentions -> GROUNDED-DECISION-061
+  Incoming edges: contains <- GROUNDED-DOCS-001, mentions <- GROUNDED-DECISION-060, mentions <- GROUNDED-DECISION-061, mentions <- GROUNDED-DECISION-068
 - `GROUNDED-DOC-002` (generated_document, owner: grounded): Defines the generated getting-started guide as a projection over setup, first-spec, command, and layout sections.
   Links: GROUNDED-DECISION-060
   Edges: contains -> GROUNDED-DOC-SECTION-007, contains -> GROUNDED-DOC-SECTION-008, contains -> GROUNDED-DOC-SECTION-009, contains -> GROUNDED-DOC-SECTION-015, derives_from -> GROUNDED-DECISION-025, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DECISION-060
@@ -412,20 +396,20 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Incoming edges: contains <- GROUNDED-DOCS-001
 - `GROUNDED-DOC-005` (generated_document, owner: grounded): Defines the generated incremental adoption guide as a projection over adoption and first-spec sections.
   Links: GROUNDED-DECISION-060
-  Edges: contains -> GROUNDED-DOC-SECTION-008, contains -> GROUNDED-DOC-SECTION-012, contains -> GROUNDED-DOC-SECTION-013, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DECISION-060
+  Edges: contains -> GROUNDED-DOC-SECTION-008, contains -> GROUNDED-DOC-SECTION-012, contains -> GROUNDED-DOC-SECTION-013, contains -> GROUNDED-DOC-SECTION-020, derives_from -> PROJECT-RULE-001, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DECISION-060
   Incoming edges: contains <- GROUNDED-DOCS-001
 - `GROUNDED-DOC-006` (generated_document, owner: grounded): Defines the generated LLM workflows guide from agent maintenance and search workflow source specs.
   Links: GROUNDED-DECISION-060
   Edges: contains -> GROUNDED-DOC-SECTION-004, contains -> GROUNDED-DOC-SECTION-009, contains -> GROUNDED-DOC-SECTION-018, derives_from -> GROUNDED-DECISION-054, derives_from -> PROJECT-RULE-002, mentions -> GROUNDED-DECISION-060
-  Incoming edges: contains <- GROUNDED-DOCS-001, mentions <- GROUNDED-DOC-SECTION-018
+  Incoming edges: contains <- GROUNDED-DOCS-001
 - `GROUNDED-DOC-007` (generated_document, owner: grounded): Defines the generated drift checks guide from validation, audit, verification, and generated-view guardrails.
   Links: GROUNDED-DECISION-060
   Edges: contains -> GROUNDED-DOC-SECTION-009, contains -> GROUNDED-DOC-SECTION-017, derives_from -> GROUNDED-COVERAGE-001, derives_from -> GROUNDED-DRIFT-001, derives_from -> GROUNDED-VERIFY-001, mentions -> GROUNDED-DECISION-060
-  Incoming edges: contains <- GROUNDED-DOCS-001, mentions <- GROUNDED-DOC-SECTION-017
+  Incoming edges: contains <- GROUNDED-DOCS-001
 - `GROUNDED-DOC-008` (generated_document, owner: grounded): Defines the generated publishing guide from GitHub Pages and release-oriented documentation decisions.
   Links: GROUNDED-DECISION-060
   Edges: contains -> GROUNDED-DOC-SECTION-016, contains -> GROUNDED-DOC-SECTION-019, derives_from -> GROUNDED-DECISION-049, derives_from -> GROUNDED-DECISION-052, derives_from -> GROUNDED-DECISION-063, derives_from -> GROUNDED-DECISION-064, mentions -> GROUNDED-DECISION-060
-  Incoming edges: contains <- GROUNDED-DOCS-001, mentions <- GROUNDED-DOC-SECTION-019
+  Incoming edges: contains <- GROUNDED-DOCS-001
 - `GROUNDED-COMPAT-001` (guardrail, owner: grounded): Defines the Pathless SpecRegistry compatibility unit guardrail so compatibility adapters report source models that cannot be represented by the filesystem-shaped legacy SpecRegistry API. The SpecRegistry compatibility adapter must not invent filesystem paths for project-memory units loaded from non-filesystem sources.
   Links: GROUNDED-DECISION-056, PROJECT-RULE-001
   Edges: mentions -> GROUNDED-DECISION-056, mentions -> PROJECT-RULE-001
@@ -443,20 +427,20 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Incoming edges: mentions <- GROUNDED-TEST-033
 - `GROUNDED-DOC-GRAPH-001` (guardrail, owner: grounded): Defines the documentation graph typed-reference guardrail so generated document views remain explainable and sections, documents, sets, and assets reference the expected kinds. Documentation graph reference fields must point at the expected registry type.
   Incoming edges: mentions <- GROUNDED-DOC-GRAPH-005, mentions <- GROUNDED-TEST-027
-- `GROUNDED-DOC-GRAPH-002` (guardrail, owner: grounded): Defines the sourced document-section guardrail so generated documentation sections do not become ungrounded prose buckets. A document_section with content_mode sourced or mixed must declare source_refs.
-  Incoming edges: mentions <- GROUNDED-TEST-027
-- `GROUNDED-DOC-GRAPH-003` (guardrail, owner: grounded): Defines the generated document write-mode guardrail so each generated output declares whether Grounded owns a protected block or the entire file. A generated_document must declare write_mode as protected_block or full_file.
-  Incoming edges: mentions <- GROUNDED-TEST-027
+- `GROUNDED-DOC-GRAPH-002` (guardrail, owner: grounded): Defines the sourced projection guardrail so generated documents and document sections do not become ungrounded prose buckets. A generated_document must declare source_refs, and a document_section with content_mode sourced or mixed must declare source_refs unless it is local prose.
+  Incoming edges: mentions <- GROUNDED-DECISION-068, mentions <- GROUNDED-TEST-027, mentions <- GROUNDED-TEST-036
+- `GROUNDED-DOC-GRAPH-003` (guardrail, owner: grounded): Defines the generated document projection-contract guardrail so each generated output declares how Grounded renders and writes it. A generated_document must declare output_path, markdown format, renderer, source_refs, and write_mode as protected_block or full_file.
+  Incoming edges: mentions <- GROUNDED-DECISION-068, mentions <- GROUNDED-TEST-027, mentions <- GROUNDED-TEST-036
 - `GROUNDED-DOC-GRAPH-004` (guardrail, owner: grounded): Defines the generated documentation coverage guardrail so README.md and Markdown files under docs are owned by generated_document specs instead of drifting as independent sources of truth. README.md and docs/*.md must be managed by generated_document specs.
   Incoming edges: mentions <- GROUNDED-DECISION-067, mentions <- GROUNDED-TEST-027, mentions <- GROUNDED-TEST-035
-- `GROUNDED-DOC-GRAPH-005` (guardrail, owner: grounded): Defines the document-section truth boundary so generated document sections organize projections without becoming canonical claim owners. A document_section may provide descriptive glue, but durable claims rendered through it should cite source_refs owned by authored specs.
+- `GROUNDED-DOC-GRAPH-005` (guardrail, owner: grounded): Defines the document-section truth boundary so generated document sections organize projections without becoming canonical claim owners. A document_section may provide descriptive glue, but local prose without source_refs must not contain unsupported canonical claim language.
   Links: GROUNDED-DOC-GRAPH-001, GROUNDED-TRUST-005
   Edges: mentions -> GROUNDED-DOC-GRAPH-001, mentions -> GROUNDED-TRUST-005, tests -> GROUNDED-TEST-033
-  Incoming edges: mentions <- GROUNDED-EDGE-006, mentions <- GROUNDED-TEST-033
-- `GROUNDED-DRIFT-001` (guardrail, owner: grounded): Defines the Generated view is stale guardrail so validation, audit, and maintenance work can recognize this class of drift. Generated Grounded views must match the current canonical registry.
+  Incoming edges: mentions <- GROUNDED-DECISION-068, mentions <- GROUNDED-EDGE-006, mentions <- GROUNDED-TEST-033, mentions <- GROUNDED-TEST-036
+- `GROUNDED-DRIFT-001` (guardrail, owner: grounded): Defines the Generated view is stale guardrail so validation, audit, and maintenance work can recognize this class of drift. Generated Grounded files and protected blocks must match the current canonical registry.
   Links: PROJECT-RULE-001
   Edges: mentions -> PROJECT-RULE-001
-  Incoming edges: derives_from <- GROUNDED-DOC-007, derives_from <- GROUNDED-DOC-SECTION-017, mentions <- GROUNDED-DECISION-067, mentions <- GROUNDED-TEST-035
+  Incoming edges: derives_from <- GROUNDED-DOC-007, derives_from <- GROUNDED-DOC-SECTION-017, derives_from <- GROUNDED-DOC-SECTION-020, mentions <- GROUNDED-DECISION-067, mentions <- GROUNDED-DECISION-068, mentions <- GROUNDED-TEST-035, mentions <- GROUNDED-TEST-036
 - `GROUNDED-EDGE-001` (guardrail, owner: grounded): Defines the authored edges container shape so typed relationships enter the registry through a predictable list field. If present, edges must be a list.
   Links: GROUNDED-DECISION-066
   Edges: mentions -> GROUNDED-DECISION-066, tests -> GROUNDED-TEST-034
@@ -609,7 +593,7 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
 - `GROUNDED-TRUST-005` (guardrail, owner: grounded): Defines the generated-artifact truth boundary so projected documentation artifacts cannot satisfy claim credibility. Generated artifacts may render, cite, or derive from authored specs, but they cannot use verified, checkable, or observed trust_status as canonical truth owners.
   Links: GROUNDED-SEMANTIC-002
   Edges: mentions -> GROUNDED-SEMANTIC-002, tests -> GROUNDED-TEST-033
-  Incoming edges: mentions <- GROUNDED-DOC-GRAPH-005, mentions <- GROUNDED-EDGE-006, mentions <- GROUNDED-EDGE-008, mentions <- GROUNDED-TEST-033, mentions <- GROUNDED-TRUST-007
+  Incoming edges: mentions <- GROUNDED-DOC-GRAPH-005, mentions <- GROUNDED-EDGE-006, mentions <- GROUNDED-EDGE-008, mentions <- GROUNDED-TEST-033, mentions <- GROUNDED-TEST-036, mentions <- GROUNDED-TRUST-007
 - `GROUNDED-TRUST-006` (guardrail, owner: grounded): Defines the checkable trust-status guardrail so checkable claims either link to a targeted verification or explain why the verification is not wired yet. An active claim-bearing spec with trust_status checkable must declare an active targeted verification_ref or a trust_basis.
   Links: GROUNDED-TRUST-STATUS-001
   Edges: mentions -> GROUNDED-TRUST-STATUS-001, tests -> GROUNDED-TEST-033
@@ -828,6 +812,10 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: GROUNDED-TRUST-GUARDRAIL-004, GROUNDED-VERIFY-004, GROUNDED-DRIFT-001, GROUNDED-DOC-GRAPH-004
   Edges: mentions -> GROUNDED-DOC-GRAPH-004, mentions -> GROUNDED-DRIFT-001, mentions -> GROUNDED-TRUST-GUARDRAIL-004, mentions -> GROUNDED-VERIFY-004
   Incoming edges: tests <- GROUNDED-DECISION-067
+- `GROUNDED-TEST-036` (test_binding, owner: grounded): Binds the P4 protected-block adoption path and projection contract to tests covering rendering, drift detection, provenance, source-ref auditing, trust boundaries, and full-file compatibility.
+  Links: GROUNDED-DECISION-068, GROUNDED-DOC-GRAPH-002, GROUNDED-DOC-GRAPH-003, GROUNDED-DOC-GRAPH-005, GROUNDED-DRIFT-001, GROUNDED-TRUST-005
+  Edges: mentions -> GROUNDED-DECISION-068, mentions -> GROUNDED-DOC-GRAPH-002, mentions -> GROUNDED-DOC-GRAPH-003, mentions -> GROUNDED-DOC-GRAPH-005, mentions -> GROUNDED-DRIFT-001, mentions -> GROUNDED-TRUST-005
+  Incoming edges: tests <- GROUNDED-DECISION-068
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Grounded can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
   Edges: mentions -> PROJECT-RULE-001, mentions -> PROJECT-RULE-001-EX001
@@ -850,7 +838,7 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
 - `PROJECT-VERIFY-001` (verification, owner: grounded): Defines the verification command for PROJECT-RULE-001 so project checks can be run consistently.
   Links: PROJECT-RULE-001
   Edges: mentions -> PROJECT-RULE-001
-  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-009, derives_from <- GROUNDED-DOC-SECTION-012, verified_by <- PROJECT-RULE-001
+  Incoming edges: derives_from <- GROUNDED-DOC-SECTION-012, verified_by <- PROJECT-RULE-001
 - `PROJECT-WORKFLOW-001` (workflow, owner: project): Describes the Scope a bounded Grounded model workflow so agents and maintainers can follow the expected process. An LLM interviews the user with a structured question ladder to define a bounded modeling slice of an existing codebase, clarify the relevant comparison semantics and analysis rubric, and stop before implementation until the user confirms the scope is stable.
   Links: PROJECT-CONCEPT-002, PROJECT-RULE-002
   Edges: mentions -> PROJECT-CONCEPT-002, mentions -> PROJECT-RULE-002

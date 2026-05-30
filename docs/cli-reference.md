@@ -13,11 +13,15 @@ List the Grounded CLI commands and the canonical workflow decisions that own the
 
 - `GROUNDED-DECISION-058` (decision): List registry types and specs from the CLI - Documents the registry inspection CLI command so maintainers and agents can see both registry types and authored specs from one entry point.
 
+Source: `GROUNDED-DECISION-058`
+
 ## CLI workflows
 
 - `GROUNDED-DECISION-047` (decision): Generate Graphviz relationship graphs - Documents the Graphviz DOT CLI export so Grounded relationship graphs can be generated from the same canonical registry references used by rendered docs.
 - `GROUNDED-DECISION-054` (decision): Search project memory from the CLI - Documents the CLI search workflow so LLM agents can discover existing entities, concepts, and specs before creating new specs.
 - `GROUNDED-DECISION-058` (decision): List registry types and specs from the CLI - Documents the registry inspection CLI command so maintainers and agents can see both registry types and authored specs from one entry point.
+
+Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-058`
 
 ## Common commands
 
@@ -38,3 +42,5 @@ List the Grounded CLI commands and the canonical workflow decisions that own the
 | `grounded graph SPEC-ID` | Shows a documentation-oriented Graphviz relationship diagram around one durable fact. |
 
 During local development, prefer `uv run grounded ...` so the command uses the checkout.
+
+Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-058`

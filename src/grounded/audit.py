@@ -155,18 +155,51 @@ def audit_style_source(config: GroundedConfig) -> list[Issue]:
 
 
 def _audit_generated_document(spec: Spec) -> list[Issue]:
-    if spec.data.get("write_mode") in {"protected_block", "full_file"}:
-        return []
-    return [
-        Issue(
-            "GROUNDED-DOC-GRAPH-003",
-            (
-                f"generated_document {spec.id} must declare write_mode "
-                "protected_block or full_file"
-            ),
-            spec.path,
+    issues: list[Issue] = []
+    if not _string_value(spec.data.get("output_path")):
+        issues.append(
+            Issue(
+                "GROUNDED-DOC-GRAPH-003",
+                f"generated_document {spec.id} must declare output_path",
+                spec.path,
+            )
         )
-    ]
+    if spec.data.get("format") != "markdown":
+        issues.append(
+            Issue(
+                "GROUNDED-DOC-GRAPH-003",
+                f"generated_document {spec.id} must declare format markdown",
+                spec.path,
+            )
+        )
+    if spec.data.get("write_mode") not in {"protected_block", "full_file"}:
+        issues.append(
+            Issue(
+                "GROUNDED-DOC-GRAPH-003",
+                (
+                    f"generated_document {spec.id} must declare write_mode "
+                    "protected_block or full_file"
+                ),
+                spec.path,
+            )
+        )
+    if not _string_value(spec.data.get("renderer")):
+        issues.append(
+            Issue(
+                "GROUNDED-DOC-GRAPH-003",
+                f"generated_document {spec.id} must declare renderer",
+                spec.path,
+            )
+        )
+    if not _has_source_refs(spec):
+        issues.append(
+            Issue(
+                "GROUNDED-DOC-GRAPH-002",
+                f"generated_document {spec.id} must declare source_refs",
+                spec.path,
+            )
+        )
+    return issues
 
 
 def _audit_typed_refs(
@@ -443,13 +476,12 @@ def _audit_document_section_truth_boundary(spec: Spec) -> list[Issue]:
     if _has_source_refs(spec):
         return []
     text_parts = [
-        value
-        for value in (
-            spec.data.get("intro"),
-            spec.data.get("outro"),
-            spec.data.get("description"),
-        )
-        if isinstance(value, str)
+        *_text_values(spec.data.get("intro")),
+        *_text_values(spec.data.get("outro")),
+        *_text_values(spec.data.get("description")),
+        *_text_values(spec.data.get("items")),
+        *_text_values(spec.data.get("steps")),
+        *_text_values(spec.data.get("commands")),
     ]
     text = " ".join(text_parts)
     if not CLAIM_WORD_PATTERN.search(text):
@@ -472,6 +504,26 @@ def _has_source_refs(spec: Spec) -> bool:
     return isinstance(source_refs, list) and any(
         isinstance(ref, str) and ref for ref in source_refs
     )
+
+
+def _string_value(value: object) -> str | None:
+    return value if isinstance(value, str) and value else None
+
+
+def _text_values(value: object) -> list[str]:
+    if isinstance(value, str) and value:
+        return [value]
+    if isinstance(value, list):
+        values: list[str] = []
+        for item in value:
+            values.extend(_text_values(item))
+        return values
+    if isinstance(value, dict):
+        values = []
+        for item in value.values():
+            values.extend(_text_values(item))
+        return values
+    return []
 
 
 def _normalize_statement(statement: str) -> str:

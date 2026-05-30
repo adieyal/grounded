@@ -9,6 +9,35 @@ last_updated: 2026-05-30
 
 Show how to adopt Grounded in small steps without turning the whole project into documentation theatre.
 
+## Small migration example
+
+Move durable claims into source specs first, then project a small README block from those specs. The README remains approachable, while CI can run `grounded render --check` to catch stale generated content.
+
+Before:
+
+```markdown
+## Verification workflow
+
+Grounded guarantees validation, rendering, audit, and verification stay in sync.
+```
+
+After:
+
+```markdown
+## Verification workflow
+
+<!-- grounded:generated:start PROJECT-DOC-README-CHECKS -->
+<!-- This block is generated from PROJECT-RULE-001 and PROJECT-VERIFY-001. -->
+Run `grounded validate`, `grounded render --check`, `grounded audit`, and `grounded verify` before merging.
+
+Sources: `PROJECT-RULE-001`, `PROJECT-VERIFY-001`
+<!-- grounded:generated:end PROJECT-DOC-README-CHECKS -->
+```
+
+The important rule and verification command are owned by specs; the README block only renders them.
+
+Sources: `GROUNDED-DECISION-060`, `GROUNDED-DECISION-061`, `GROUNDED-DRIFT-001`
+
 ## Your first useful spec
 
 Good first candidates are facts that already cause confusion or repeated explanations:
@@ -20,6 +49,8 @@ Good first candidates are facts that already cause confusion or repeated explana
 - "A completed todo cannot be reopened without an explicit reopen action."
 
 Start with one fact. Give it a stable ID. Link other docs, tests, plans, and prompts back to that ID.
+
+Source: `PROJECT-RULE-001`
 
 ## Adoption ladder
 
@@ -48,6 +79,8 @@ Use verification specs and audits to prove that important facts still have check
 Good for CI, semantic contracts, executable documentation, and project governance.
 
 
+Sources: `PROJECT-RULE-002`, `PROJECT-VERIFY-001`
+
 ## When to use Grounded
 
 Use Grounded when:
@@ -60,3 +93,5 @@ Use Grounded when:
 - you want a small, incremental path toward executable documentation
 
 Grounded is probably too much if your project has very little durable domain knowledge, your docs rarely affect implementation, or nobody will run validation, rendering, and audit commands.
+
+Sources: `GROUNDED-THEORY-001`, `PROJECT-RULE-001`, `PROJECT-RULE-002`

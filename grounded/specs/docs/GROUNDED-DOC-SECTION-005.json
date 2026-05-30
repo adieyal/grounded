@@ -4,19 +4,16 @@
   "name": "Documentation migration section",
   "owner": "grounded",
   "status": "active",
-  "description": "Defines the README section that explains the safe migration path toward generated public documentation.",
+  "description": "Defines the documentation section that explains the safe migration path toward generated public documentation.",
   "heading": "Migration path",
   "heading_level": 2,
   "order": 50,
   "renderer": "source_summary",
   "content_mode": "mixed",
-  "intro": "README.md is now a full-file generated artifact. The same path can be used for docs pages as their durable claims move into source specs and their projection graphs become complete.",
+  "intro": "Start with protected generated blocks inside existing Markdown files. Full-file generation remains available for mature docs once the source specs and projection graph are complete.",
   "source_refs": [
     "GROUNDED-DECISION-037",
     "GROUNDED-DECISION-060",
     "GROUNDED-DECISION-061"
-  ],
-  "references": [
-    "GROUNDED-DOC-001"
   ]
 }

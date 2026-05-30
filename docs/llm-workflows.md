@@ -16,11 +16,15 @@ Explain how agents should use Grounded search, specs, generated context, and aud
 - `GROUNDED-DECISION-054`: The CLI includes search-oriented commands for LLM and maintainer workflows: search ranks matching specs, entities lists entity-like specs, specs lists available specs and can filter by references, spec searches non-entity specs, and check-new recommends whether a proposed entity or concept likely already exists. Results are deterministic, registry-backed, and available as human-readable text or JSON.
 - `GROUNDED-DECISION-056`: Project-memory loading is adapter-backed: the project_memory module owns Grounded graph semantics such as unit indexing, lifecycle views, reference extraction, backlink derivation, duplicate IDs, and unknown-reference issues, while filesystem JSON loading, type-registry JSON loading, and JSON Schema execution live in project_memory_json infrastructure adapters. The legacy registry API remains a compatibility wrapper for this migration slice.
 
+Sources: `PROJECT-RULE-001`, `PROJECT-RULE-002`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-056`
+
 ## CLI workflows
 
 - `GROUNDED-DECISION-047` (decision): Generate Graphviz relationship graphs - Documents the Graphviz DOT CLI export so Grounded relationship graphs can be generated from the same canonical registry references used by rendered docs.
 - `GROUNDED-DECISION-054` (decision): Search project memory from the CLI - Documents the CLI search workflow so LLM agents can discover existing entities, concepts, and specs before creating new specs.
 - `GROUNDED-DECISION-058` (decision): List registry types and specs from the CLI - Documents the registry inspection CLI command so maintainers and agents can see both registry types and authored specs from one entry point.
+
+Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-058`
 
 ## Common commands
 
@@ -41,3 +45,5 @@ Explain how agents should use Grounded search, specs, generated context, and aud
 | `grounded graph SPEC-ID` | Shows a documentation-oriented Graphviz relationship diagram around one durable fact. |
 
 During local development, prefer `uv run grounded ...` so the command uses the checkout.
+
+Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-058`

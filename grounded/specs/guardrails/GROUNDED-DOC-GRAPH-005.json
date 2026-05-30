@@ -5,7 +5,7 @@
   "owner": "grounded",
   "status": "active",
   "description": "Defines the document-section truth boundary so generated document sections organize projections without becoming canonical claim owners.",
-  "summary": "A document_section may provide descriptive glue, but durable claims rendered through it should cite source_refs owned by authored specs.",
+  "summary": "A document_section may provide descriptive glue, but local prose without source_refs must not contain unsupported canonical claim language.",
   "references": [
     "GROUNDED-DOC-GRAPH-001",
     "GROUNDED-TRUST-005"

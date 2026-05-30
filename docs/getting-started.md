@@ -20,6 +20,8 @@ From a checkout today. After the first PyPI release, install with `pipx install 
 5. Add one durable project fact: a domain term, business rule, architecture decision, workflow, or verification command.
 6. Run `uv run grounded validate`, `uv run grounded render --check`, and `uv run grounded audit`.
 
+Sources: `GROUNDED-DECISION-025`, `GROUNDED-DECISION-063`, `PROJECT-RULE-002`
+
 ## Your first useful spec
 
 Good first candidates are facts that already cause confusion or repeated explanations:
@@ -31,6 +33,8 @@ Good first candidates are facts that already cause confusion or repeated explana
 - "A completed todo cannot be reopened without an explicit reopen action."
 
 Start with one fact. Give it a stable ID. Link other docs, tests, plans, and prompts back to that ID.
+
+Source: `PROJECT-RULE-001`
 
 ## Common commands
 
@@ -52,6 +56,8 @@ Start with one fact. Give it a stable ID. Link other docs, tests, plans, and pro
 
 During local development, prefer `uv run grounded ...` so the command uses the checkout.
 
+Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-058`
+
 ## Project layout
 
 ```text
@@ -69,3 +75,5 @@ grounded.yml
 ```
 
 `grounded init` creates this layout. Use `grounded init --grounded-dir path/to/memory` to choose a different project directory. Use `grounded init --update-agents` to add a Grounded section to `AGENTS.md`.
+
+Sources: `GROUNDED-DECISION-025`, `GROUNDED-DECISION-026`

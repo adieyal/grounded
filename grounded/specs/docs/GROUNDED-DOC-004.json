@@ -7,6 +7,7 @@
   "description": "Defines the generated CLI reference as a projection over command and CLI workflow sections.",
   "output_path": "docs/cli-reference.md",
   "format": "markdown",
+  "renderer": "markdown_document",
   "write_mode": "full_file",
   "front_matter": {
     "last_updated": "2026-05-30"

@@ -1,0 +1,18 @@
+{
+  "id": "GROUNDED-TEST-036",
+  "kind": "test_binding",
+  "name": "Protected-block projection loop tests",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Binds the P4 protected-block adoption path and projection contract to tests covering rendering, drift detection, provenance, source-ref auditing, trust boundaries, and full-file compatibility.",
+  "target": "GROUNDED-DECISION-068",
+  "test": "uv run pytest tests/test_grounded.py tests/test_semantic_compression.py -q",
+  "references": [
+    "GROUNDED-DECISION-068",
+    "GROUNDED-DOC-GRAPH-002",
+    "GROUNDED-DOC-GRAPH-003",
+    "GROUNDED-DOC-GRAPH-005",
+    "GROUNDED-DRIFT-001",
+    "GROUNDED-TRUST-005"
+  ]
+}

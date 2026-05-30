@@ -18,6 +18,8 @@ Explain the checks Grounded uses to make documentation drift visible and reviewa
 - `GROUNDED-SCHEMA-003` (guardrail): Missing required fields - Defines the Missing required fields guardrail so validation, audit, and maintenance work can recognize this class of drift.
 - `GROUNDED-VERIFY-001` (guardrail): Verification command failed - Defines the Verification command failed guardrail so validation, audit, and maintenance work can recognize this class of drift.
 
+Sources: `GROUNDED-DRIFT-001`, `GROUNDED-COVERAGE-001`, `GROUNDED-REF-001`, `GROUNDED-REF-004`, `GROUNDED-SCHEMA-003`, `GROUNDED-VERIFY-001`
+
 ## Common commands
 
 | Command | What it does |
@@ -37,3 +39,5 @@ Explain the checks Grounded uses to make documentation drift visible and reviewa
 | `grounded graph SPEC-ID` | Shows a documentation-oriented Graphviz relationship diagram around one durable fact. |
 
 During local development, prefer `uv run grounded ...` so the command uses the checkout.
+
+Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-058`

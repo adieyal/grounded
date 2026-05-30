@@ -1,5 +1,5 @@
 {
-  "decision": "Generated artifact specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated artifact own the entire output path once the source specs and projection graph are mature enough. README.md is now generated in full_file mode from GROUNDED-DOC-001.",
+  "decision": "Generated artifact specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated artifact own the entire output path once the source specs and projection graph are mature enough. README.md demonstrates protected_block mode through GROUNDED-DOC-001; full_file generation remains available for mature documentation pages.",
   "id": "GROUNDED-DECISION-061",
   "kind": "decision",
   "name": "Support full-file generated document ownership",

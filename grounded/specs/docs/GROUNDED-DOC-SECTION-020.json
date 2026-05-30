@@ -1,0 +1,22 @@
+{
+  "id": "GROUNDED-DOC-SECTION-020",
+  "kind": "document_section",
+  "name": "Protected block migration example section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the migration example that shows a handwritten README section becoming a protected generated block sourced from specs.",
+  "heading": "Small migration example",
+  "heading_level": 2,
+  "order": 45,
+  "renderer": "migration_example",
+  "content_mode": "mixed",
+  "intro": "Move durable claims into source specs first, then project a small README block from those specs. The README remains approachable, while CI can run `grounded render --check` to catch stale generated content.",
+  "before": "## Verification workflow\n\nGrounded guarantees validation, rendering, audit, and verification stay in sync.",
+  "after": "## Verification workflow\n\n<!-- grounded:generated:start PROJECT-DOC-README-CHECKS -->\n<!-- This block is generated from PROJECT-RULE-001 and PROJECT-VERIFY-001. -->\nRun `grounded validate`, `grounded render --check`, `grounded audit`, and `grounded verify` before merging.\n\nSources: `PROJECT-RULE-001`, `PROJECT-VERIFY-001`\n<!-- grounded:generated:end PROJECT-DOC-README-CHECKS -->",
+  "outro": "The important rule and verification command are owned by specs; the README block only renders them.",
+  "source_refs": [
+    "GROUNDED-DECISION-060",
+    "GROUNDED-DECISION-061",
+    "GROUNDED-DRIFT-001"
+  ]
+}
