@@ -253,6 +253,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 "output_path": {"type": "string", "minLength": 1},
                 "format": {"type": "string", "enum": ["markdown"]},
                 "renderer": {"type": "string", "minLength": 1},
+                "source_path": {"type": "string", "minLength": 1},
                 "write_mode": {
                     "type": "string",
                     "enum": ["protected_block", "full_file"],
@@ -274,6 +275,15 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                     "uniqueItems": True,
                 },
             },
+            "allOf": [
+                {
+                    "if": {
+                        "properties": {"renderer": {"const": "skill_markdown"}},
+                        "required": ["renderer"],
+                    },
+                    "then": {"required": ["source_path"]},
+                }
+            ],
             "additionalProperties": True,
         },
         "renderer": "generated_document.html.j2",

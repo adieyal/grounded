@@ -169,6 +169,9 @@ def _grounded_yml(root: Path, config: GroundedConfig) -> str:
     generated_docs_dir = _config_path(root, config.generated_docs_dir)
     generated_llm_dir = _config_path(root, config.generated_llm_dir)
     search_index_path = _config_path(root, config.search_index_path)
+    managed_markdown_roots = ",".join(
+        _config_path(root, path) for path in config.managed_markdown_roots
+    )
     return f"""\
 # Grounded registry configuration.
 specs_dir: {specs_dir}
@@ -179,6 +182,7 @@ styles_dir: {styles_dir}
 generated_docs_dir: {generated_docs_dir}
 generated_llm_dir: {generated_llm_dir}
 search_index_path: {search_index_path}
+managed_markdown_roots: {managed_markdown_roots}
 required_test_kinds:
 audit_roots: src,tests,docs,README.md,AGENTS.md
 """

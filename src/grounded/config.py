@@ -52,6 +52,18 @@ def load_config(root: Path | None = None) -> GroundedConfig:
     search_index_path = project_root / values.get(
         "search_index_path", str(config.search_index_path.relative_to(project_root))
     )
+    try:
+        default_managed_markdown_roots = docs_dir.relative_to(project_root).as_posix()
+    except ValueError:
+        default_managed_markdown_roots = docs_dir.as_posix()
+    managed_markdown_roots_value = values.get(
+        "managed_markdown_roots", default_managed_markdown_roots
+    )
+    managed_markdown_roots = tuple(
+        project_root / item.strip()
+        for item in managed_markdown_roots_value.split(",")
+        if item.strip()
+    )
     docs_title = values.get("docs_title", config.docs_title)
     docs_eyebrow = values.get("docs_eyebrow", config.docs_eyebrow)
     docs_description = values.get("docs_description", config.docs_description)
@@ -83,6 +95,7 @@ def load_config(root: Path | None = None) -> GroundedConfig:
         generated_docs_dir=docs_dir,
         generated_llm_dir=llm_dir,
         search_index_path=search_index_path,
+        managed_markdown_roots=managed_markdown_roots,
         docs_title=docs_title,
         docs_eyebrow=docs_eyebrow,
         docs_description=docs_description,

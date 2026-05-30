@@ -19,10 +19,7 @@ HARD_CODED_STYLE_PATTERN = re.compile(
 
 
 def audit(config: GroundedConfig, registry: SpecRegistry) -> list[Issue]:
-    site = build_rendered_site(config, registry)
     issues: list[Issue] = []
-    issues.extend(audit_generated_views(config, registry, site=site))
-    issues.extend(audit_generated_document_coverage(config, registry, site=site))
     issues.extend(audit_documentation_graph(registry))
     issues.extend(audit_style_source(config))
     issues.extend(audit_test_coverage(config, registry))
@@ -30,6 +27,13 @@ def audit(config: GroundedConfig, registry: SpecRegistry) -> list[Issue]:
     issues.extend(audit_possible_duplicate_statements(registry))
     issues.extend(audit_semantic_compression_boundaries(registry))
     issues.extend(audit_manual_backlinks(registry))
+    try:
+        site = build_rendered_site(config, registry)
+    except FileNotFoundError as exc:
+        issues.append(Issue("GROUNDED-DOC-GRAPH-003", str(exc), None))
+        return issues
+    issues.extend(audit_generated_views(config, registry, site=site))
+    issues.extend(audit_generated_document_coverage(config, registry, site=site))
     return issues
 
 
@@ -53,14 +57,7 @@ def audit_generated_document_coverage(
     if site is None:
         site = build_rendered_site(config, registry)
     managed = set(site.outputs) | {block.path for block in site.blocks}
-    expected = {config.root / "README.md"}
-    docs_dir = config.root / "docs"
-    if docs_dir.exists():
-        expected.update(
-            path
-            for path in docs_dir.rglob("*.md")
-            if path.is_file() and "images" not in path.relative_to(docs_dir).parts
-        )
+    expected = set(_configured_markdown_paths(config))
     return [
         Issue(
             "GROUNDED-DOC-GRAPH-004",
@@ -70,6 +67,19 @@ def audit_generated_document_coverage(
         for path in sorted(expected)
         if path.exists() and path not in managed
     ]
+
+
+def _configured_markdown_paths(config: GroundedConfig):
+    seen: set[Path] = set()
+    for root in config.managed_markdown_roots:
+        if not root.exists():
+            continue
+        paths = [root] if root.is_file() else root.rglob("*.md")
+        for path in paths:
+            if not path.is_file() or path in seen:
+                continue
+            seen.add(path)
+            yield path
 
 
 def audit_documentation_graph(registry: SpecRegistry) -> list[Issue]:
@@ -188,6 +198,16 @@ def _audit_generated_document(spec: Spec) -> list[Issue]:
             Issue(
                 "GROUNDED-DOC-GRAPH-003",
                 f"generated_document {spec.id} must declare renderer",
+                spec.path,
+            )
+        )
+    if spec.data.get("renderer") == "skill_markdown" and not _string_value(
+        spec.data.get("source_path")
+    ):
+        issues.append(
+            Issue(
+                "GROUNDED-DOC-GRAPH-003",
+                f"generated_document {spec.id} must declare source_path for skill_markdown",
                 spec.path,
             )
         )

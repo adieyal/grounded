@@ -1,0 +1,14 @@
+{
+  "id": "GROUNDED-SKILL-VERIFY-001",
+  "kind": "verification",
+  "name": "Audit skill format check",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the deterministic verification command for the rendered Grounded knowledge-graph audit skill format.",
+  "target": "GROUNDED-DOC-009",
+  "command": "uv run python scripts/verify_audit_skill_format.py",
+  "references": [
+    "GROUNDED-DOC-009",
+    "GROUNDED-DECISION-069"
+  ]
+}

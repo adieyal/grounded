@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-TEST-037",
+  "kind": "test_binding",
+  "name": "Audit skill format is verified",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Binds the governed Grounded knowledge-graph audit skill artifact to its deterministic format verification script.",
+  "target": "GROUNDED-DOC-009",
+  "test": "uv run python scripts/verify_audit_skill_format.py",
+  "references": [
+    "GROUNDED-DOC-009",
+    "GROUNDED-SKILL-VERIFY-001",
+    "GROUNDED-DECISION-069"
+  ]
+}

@@ -22,6 +22,7 @@ class GroundedConfig:
     generated_docs_dir: Path
     generated_llm_dir: Path
     search_index_path: Path
+    managed_markdown_roots: tuple[Path, ...] = ()
     docs_title: str = "Project Memory"
     docs_eyebrow: str = "Project memory"
     docs_description: str = (
@@ -57,6 +58,7 @@ class GroundedConfig:
             generated_docs_dir=grounded_path / "generated" / "docs",
             generated_llm_dir=grounded_path / "generated" / "llm",
             search_index_path=grounded_path / "generated" / "docs" / "search-index.json",
+            managed_markdown_roots=(grounded_path / "generated" / "docs",),
             audit_roots=(
                 root / "src",
                 root / "tests",

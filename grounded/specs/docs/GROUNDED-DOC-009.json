@@ -1,0 +1,24 @@
+{
+  "id": "GROUNDED-DOC-009",
+  "kind": "generated_document",
+  "name": "Grounded knowledge graph audit skill",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the rendered Grounded knowledge-graph audit skill as a generated artifact sourced from the maintained skill source and governing decision.",
+  "output_path": "skills/audit-grounded-knowledge-graph/SKILL.md",
+  "format": "markdown",
+  "renderer": "skill_markdown",
+  "write_mode": "full_file",
+  "audience": "agents and maintainers auditing Grounded graphs",
+  "purpose": "Render the standard audit skill from its canonical maintained source.",
+  "stability": "experimental",
+  "source_path": "skills/audit-grounded-knowledge-graph.source.md",
+  "section_refs": [],
+  "source_refs": [
+    "GROUNDED-DECISION-069"
+  ],
+  "references": [
+    "GROUNDED-DECISION-069",
+    "GROUNDED-SKILL-VERIFY-001"
+  ]
+}

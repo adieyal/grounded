@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-DECISION-069",
+  "kind": "decision",
+  "name": "Govern the Grounded knowledge graph audit skill",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Documents the governed audit skill artifact so Grounded knowledge-graph review guidance has one canonical source and one rendered skill output.",
+  "decision": "The Grounded knowledge graph audit skill is maintained as a human-edited source Markdown file and rendered as a generated_document artifact at skills/audit-grounded-knowledge-graph/SKILL.md. The skill source Markdown is the canonical human-maintained content for the artifact. The rendered skill must use Grounded public terminology, include the full trust-status and edge vocabularies, keep a fixed section order, and remain a generated projection rather than an independent source of truth.",
+  "references": [
+    "GROUNDED-DECISION-060",
+    "GROUNDED-DECISION-068"
+  ],
+  "tests": [
+    "GROUNDED-TEST-037"
+  ]
+}
