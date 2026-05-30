@@ -21,8 +21,5 @@
   "outro": "Start with one fact. Give it a stable ID. Link other docs, tests, plans, and prompts back to that ID.",
   "source_refs": [
     "PROJECT-RULE-001"
-  ],
-  "references": [
-    "GROUNDED-DOC-001"
   ]
 }

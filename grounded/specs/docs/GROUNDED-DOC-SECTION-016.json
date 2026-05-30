@@ -13,8 +13,5 @@
   "intro": "The GitHub Pages deployment workflow builds the root generated Grounded docs at the Pages site root and the Todo example site under `todo/`, then publishes them from an assembled Pages artifact. Rendered site directories remain ignored by git.",
   "source_refs": [
     "GROUNDED-DECISION-049"
-  ],
-  "references": [
-    "GROUNDED-DOC-001"
   ]
 }

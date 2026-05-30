@@ -21,13 +21,17 @@ These source specs describe the current Grounded value proposition without makin
 - Generated docs for humans and generated context for LLM agents.
 - Validation for broken references, verification commands for project checks, and audits for stale generated artifacts.
 
+Sources: `GROUNDED-THEORY-001`, `PROJECT-CONCEPT-001`, `PROJECT-RULE-001`, `PROJECT-RULE-002`, `GROUNDED-DECISION-065`
+
 ## Migration path
 
-README.md is now a full-file generated artifact. The same path can be used for docs pages as their durable claims move into source specs and their projection graphs become complete.
+Start with protected generated blocks inside existing Markdown files. Full-file generation remains available for mature docs once the source specs and projection graph are complete.
 
 - `GROUNDED-DECISION-037`: Slice specs define explicit, scoped documentation views with their own metadata, generated index.html page, optional index template override, and optional stylesheet. Slice pages render only their declared members in navigation and search while preserving links into the full Grounded graph.
 - `GROUNDED-DECISION-060`: Grounded documentation is generated from a documentation graph. Durable knowledge lives in source specs; generated artifact specs define output files, projection sections, documentation sets, and governed assets. README.md and docs pages should move toward generated artifacts rather than independent sources of truth.
-- `GROUNDED-DECISION-061`: Generated artifact specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated artifact own the entire output path once the source specs and projection graph are mature enough. README.md is now generated in full_file mode from GROUNDED-DOC-001.
+- `GROUNDED-DECISION-061`: Generated artifact specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated artifact own the entire output path once the source specs and projection graph are mature enough. README.md demonstrates protected_block mode through GROUNDED-DOC-001; full_file generation remains available for mature documentation pages.
+
+Sources: `GROUNDED-DECISION-037`, `GROUNDED-DECISION-060`, `GROUNDED-DECISION-061`
 
 ## Typed tags and constrained references
 
@@ -42,3 +46,5 @@ Plain string tags are useful for loose grouping. Use typed tags when the classif
 ```
 
 Projects can declare typed tag vocabularies in the type registry and require reference fields to point only at targets with a specific typed tag.
+
+Sources: `GROUNDED-DECISION-001`, `GROUNDED-DECISION-057`

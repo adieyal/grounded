@@ -1,0 +1,21 @@
+{
+  "id": "GROUNDED-DECISION-068",
+  "kind": "decision",
+  "name": "Protected blocks are the default documentation adoption path",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Documents the P4 documentation projection contract so generated artifacts stay lightweight projections over source specs.",
+  "decision": "Grounded presents protected generated blocks as the default first adoption path: keep the existing Markdown file, add one governed block, source that block from durable specs, and run grounded render --check in CI. Full-file generation remains supported as an advanced mode for mature documentation whose durable claims have already moved into specs. Generated documents and document sections own rendering behavior, output paths, write modes, section assembly, asset usage, and compact provenance; they do not own or prove durable claims. Sourced and mixed projection sections must cite source_refs unless they are local prose without canonical claim language.",
+  "references": [
+    "GROUNDED-DECISION-060",
+    "GROUNDED-DECISION-061",
+    "GROUNDED-DOC-001",
+    "GROUNDED-DOC-GRAPH-002",
+    "GROUNDED-DOC-GRAPH-003",
+    "GROUNDED-DOC-GRAPH-005",
+    "GROUNDED-DRIFT-001"
+  ],
+  "tests": [
+    "GROUNDED-TEST-036"
+  ]
+}

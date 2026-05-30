@@ -19,8 +19,5 @@
   "source_refs": [
     "PROJECT-RULE-002",
     "PROJECT-VERIFY-001"
-  ],
-  "references": [
-    "GROUNDED-DOC-001"
   ]
 }

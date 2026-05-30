@@ -7,6 +7,7 @@
   "description": "Defines the generated getting-started guide as a projection over setup, first-spec, command, and layout sections.",
   "output_path": "docs/getting-started.md",
   "format": "markdown",
+  "renderer": "markdown_document",
   "write_mode": "full_file",
   "front_matter": {
     "last_updated": "2026-05-30"

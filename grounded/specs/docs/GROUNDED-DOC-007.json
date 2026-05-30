@@ -7,6 +7,7 @@
   "description": "Defines the generated drift checks guide from validation, audit, verification, and generated-view guardrails.",
   "output_path": "docs/drift-checks.md",
   "format": "markdown",
+  "renderer": "markdown_document",
   "write_mode": "full_file",
   "front_matter": {
     "last_updated": "2026-05-30"

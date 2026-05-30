@@ -401,6 +401,42 @@ class SemanticCompressionTests(unittest.TestCase):
 
             self.assertIssue(issues, "GROUNDED-DOC-GRAPH-005")
 
+    def test_mixed_document_section_requires_source_refs(self) -> None:
+        with initialized_project() as root:
+            write_spec(
+                root,
+                "docs",
+                {
+                    **document_section(source_refs=[]),
+                    "content_mode": "mixed",
+                    "intro": "This section mixes local glue with projected source material.",
+                },
+            )
+            config = load_config(root)
+            registry = load_registry(config)
+
+            issues = audit(config, registry)
+
+            self.assertIssue(issues, "GROUNDED-DOC-GRAPH-002")
+
+    def test_local_prose_without_claim_language_can_omit_source_refs(self) -> None:
+        with initialized_project() as root:
+            write_spec(
+                root,
+                "docs",
+                document_section(
+                    source_refs=[],
+                    intro="This short transition introduces the next generated section.",
+                ),
+            )
+            config = load_config(root)
+            registry = load_registry(config)
+
+            issues = audit(config, registry)
+
+            self.assertNoIssue(issues, "GROUNDED-DOC-GRAPH-002")
+            self.assertNoIssue(issues, "GROUNDED-DOC-GRAPH-005")
+
     def assertIssue(self, issues: list[object], code: str) -> None:
         self.assertTrue(any(getattr(issue, "code", None) == code for issue in issues))
 
@@ -442,7 +478,10 @@ def generated_document(
         "description": "Defines a generated document artifact.",
         "output_path": "README.md",
         "format": "markdown",
+        "renderer": "markdown_document",
+        "write_mode": "protected_block",
         "purpose": "Render a project README.",
+        "source_refs": [],
         "section_refs": [],
     }
     if trust_status is not None:

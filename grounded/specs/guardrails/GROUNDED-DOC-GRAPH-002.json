@@ -4,6 +4,6 @@
   "name": "Sourced document section has no sources",
   "owner": "grounded",
   "status": "active",
-  "description": "Defines the sourced document-section guardrail so generated documentation sections do not become ungrounded prose buckets.",
-  "summary": "A document_section with content_mode sourced or mixed must declare source_refs."
+  "description": "Defines the sourced projection guardrail so generated documents and document sections do not become ungrounded prose buckets.",
+  "summary": "A generated_document must declare source_refs, and a document_section with content_mode sourced or mixed must declare source_refs unless it is local prose."
 }

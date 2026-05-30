@@ -293,10 +293,12 @@ class GroundedTests(unittest.TestCase):
                         "description": "Defines the generated README block for the demo project.",
                         "output_path": "README.md",
                         "format": "markdown",
+                        "renderer": "markdown_document",
                         "write_mode": "protected_block",
                         "audience": "maintainers",
                         "purpose": "Show that README content can be generated from Grounded specs.",
                         "stability": "experimental",
+                        "source_refs": ["PROJECT-GAP-001"],
                         "section_refs": [section_id],
                     }
                 ),
@@ -333,6 +335,7 @@ class GroundedTests(unittest.TestCase):
             self.assertIn(f"<!-- grounded:generated:start {doc_id} -->", text)
             self.assertIn("## Generated from Grounded", text)
             self.assertIn("`PROJECT-GAP-001`", text)
+            self.assertIn("Source: `PROJECT-GAP-001`", text)
             manifest = json.loads(
                 (root / ".grounded/generated/manifest.json").read_text(encoding="utf-8")
             )
@@ -347,6 +350,16 @@ class GroundedTests(unittest.TestCase):
             )
 
             self.assertIn("README.md", render_all(config, registry, check=True))
+
+            gap_path = root / ".grounded/specs/schema_gaps/PROJECT-GAP-001.json"
+            gap_data = json.loads(gap_path.read_text(encoding="utf-8"))
+            gap_data["description"] = "Changed source spec description."
+            gap_path.write_text(json.dumps(gap_data), encoding="utf-8")
+            registry = load_registry(config)
+
+            self.assertIn("README.md", render_all(config, registry, check=True))
+            render_all(config, registry)
+            self.assertEqual([], render_all(config, registry, check=True))
 
     def test_generated_documents_can_own_full_files(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -370,9 +383,11 @@ class GroundedTests(unittest.TestCase):
                         "description": "Defines a fully generated Markdown file.",
                         "output_path": "docs/generated.md",
                         "format": "markdown",
+                        "renderer": "markdown_document",
                         "write_mode": "full_file",
                         "audience": "maintainers",
                         "purpose": "Prove generated documents can own full files.",
+                        "source_refs": ["PROJECT-GAP-001"],
                         "section_refs": [section_id],
                     }
                 ),
@@ -476,9 +491,11 @@ class GroundedTests(unittest.TestCase):
                         "description": "Defines a generated README artifact.",
                         "output_path": "README.md",
                         "format": "markdown",
+                        "renderer": "markdown_document",
                         "write_mode": "protected_block",
                         "audience": "maintainers",
                         "purpose": "Explain the project from governed specs.",
+                        "source_refs": [decision_id],
                         "section_refs": [section_id],
                     }
                 ),
@@ -582,9 +599,11 @@ class GroundedTests(unittest.TestCase):
                         "description": "Defines an intentionally invalid documentation graph.",
                         "output_path": "README.md",
                         "format": "markdown",
+                        "renderer": "markdown_document",
                         "write_mode": "protected_block",
                         "audience": "maintainers",
                         "purpose": "Exercise documentation graph auditing.",
+                        "source_refs": ["PROJECT-GAP-001"],
                         "section_refs": ["PROJECT-GAP-001"],
                     }
                 ),
@@ -599,7 +618,7 @@ class GroundedTests(unittest.TestCase):
                 any(issue.code == "GROUNDED-DOC-GRAPH-001" for issue in issues)
             )
 
-    def test_audit_requires_generated_document_write_mode(self) -> None:
+    def test_audit_requires_generated_document_projection_contract(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
@@ -618,6 +637,7 @@ class GroundedTests(unittest.TestCase):
                         "description": "Defines an intentionally incomplete generated document.",
                         "output_path": "README.md",
                         "format": "markdown",
+                        "renderer": "markdown_document",
                         "audience": "maintainers",
                         "purpose": "Exercise write mode auditing.",
                         "section_refs": [section_id],
@@ -651,6 +671,29 @@ class GroundedTests(unittest.TestCase):
 
             self.assertTrue(
                 any(issue.code == "GROUNDED-DOC-GRAPH-003" for issue in issues)
+            )
+            messages = [issue.message for issue in issues]
+            self.assertIn(
+                f"generated_document {doc_id} must declare write_mode protected_block or full_file",
+                messages,
+            )
+            self.assertIn(
+                f"generated_document {doc_id} must declare source_refs",
+                messages,
+            )
+
+            doc_path = docs_dir / f"{doc_id}.json"
+            doc_data = json.loads(doc_path.read_text(encoding="utf-8"))
+            doc_data["write_mode"] = "protected_block"
+            doc_data["source_refs"] = ["PROJECT-GAP-001"]
+            del doc_data["renderer"]
+            doc_path.write_text(json.dumps(doc_data), encoding="utf-8")
+            registry = load_registry(config)
+            issues = audit(config, registry)
+
+            self.assertIn(
+                f"generated_document {doc_id} must declare renderer",
+                [issue.message for issue in issues],
             )
 
     def test_audit_requires_markdown_docs_to_be_generated(self) -> None:

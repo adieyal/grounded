@@ -252,6 +252,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 "kind": {"const": "generated_document"},
                 "output_path": {"type": "string", "minLength": 1},
                 "format": {"type": "string", "enum": ["markdown"]},
+                "renderer": {"type": "string", "minLength": 1},
                 "write_mode": {
                     "type": "string",
                     "enum": ["protected_block", "full_file"],
@@ -325,6 +326,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                         "json_example",
                         "ordered_steps",
                         "project_layout",
+                        "migration_example",
                         "source_summary",
                         "source_list",
                     ],
