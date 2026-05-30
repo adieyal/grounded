@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-002",
+  "kind": "guardrail",
+  "name": "Duplicate binding ID",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for duplicate binding identifiers within one spec.",
+  "summary": "Binding IDs must be unique within the declaring spec.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

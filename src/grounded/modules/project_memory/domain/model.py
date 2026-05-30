@@ -68,6 +68,8 @@ class ProjectMemoryType:
     reference_tag_constraints: tuple[ReferenceTagConstraint, ...]
     required: tuple[str, ...]
     list_fields: tuple[str, ...]
+    capabilities: tuple[str, ...] = ()
+    binding_field_mappings: tuple[dict[str, Any], ...] = ()
     semantic_category: str | None = None
 
     @property

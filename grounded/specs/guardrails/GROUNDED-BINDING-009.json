@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-009",
+  "kind": "guardrail",
+  "name": "Missing file binding path",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for file bindings whose configured path_exists validation points at a missing repository file.",
+  "summary": "Missing file binding paths are reported with the severity configured by the binding validation policy.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

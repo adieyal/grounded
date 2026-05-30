@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-006",
+  "kind": "guardrail",
+  "name": "Unsupported binding target kind",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for binding targets whose kind is not supported by the current binding slice.",
+  "summary": "The first binding slice supports file targets only; unsupported target kinds are reported clearly.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

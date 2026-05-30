@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-011",
+  "kind": "guardrail",
+  "name": "Binding mapping without bindable capability",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for type definitions that declare binding field mappings without opting into bindability.",
+  "summary": "A type must declare the bindable capability before declaring binding_field_mappings.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

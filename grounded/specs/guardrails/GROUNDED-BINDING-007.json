@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-007",
+  "kind": "guardrail",
+  "name": "Invalid binding role",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for binding roles outside Grounded's supported binding-role vocabulary.",
+  "summary": "Binding roles must use the supported role vocabulary until role-extension metadata exists.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

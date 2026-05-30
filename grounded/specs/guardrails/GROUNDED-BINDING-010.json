@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-010",
+  "kind": "guardrail",
+  "name": "Unknown type capability",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for type definitions that declare unsupported capability names.",
+  "summary": "Type capabilities must use supported capability names; this slice supports bindable.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

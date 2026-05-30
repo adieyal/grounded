@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-004",
+  "kind": "guardrail",
+  "name": "Invalid mapped binding value",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for mapped binding fields whose values do not match their declared cardinality.",
+  "summary": "A binding mapping with cardinality one requires a scalar path, and cardinality many requires a list of paths.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

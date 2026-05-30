@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import re
 from collections import defaultdict
+from pathlib import Path
 
 from .edge_policy import LEGACY_BACKLINK_FIELDS
 from .models import Issue, GroundedConfig, Spec

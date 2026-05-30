@@ -1,0 +1,18 @@
+{
+  "decision": "Grounded models external artifact links as generic bindings that are opt-in by type. Concrete binding fields such as file, repository_file, tests, component, route_path, or verification_commands must not be added to the knowledge_unit base schema and must not require a parallel bound_entity hierarchy. A type becomes bindable only when its type registry definition declares the bindable capability. Bindable types may declare explicit bindings, and may map existing type-specific fields into normalized bindings through binding_field_mappings. Binding field mappings are registry metadata, not semantic relations: relations connect specs to specs, while bindings connect specs to external artifacts such as files. Grounded core consumes declared bindings generically for validation and context output, including repo-relative file paths, target kind, role, validation status, binding metadata inclusion status, artifact content inclusion status, and structured diagnostics. The first binding context slice exposes metadata only; code and test file content require future artifact-content flags such as --include-code or --include-tests. Grounded core does not infer bindings from framework conventions, source-code symbols, routes, component names, or test filename patterns; those discovery concerns belong in future plugins or project-specific tooling.",
+  "id": "GROUNDED-DECISION-072",
+  "kind": "decision",
+  "name": "Model bindings as opt-in type capabilities",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-027",
+    "GROUNDED-DECISION-070",
+    "GROUNDED-EXTENSION-001",
+    "GROUNDED-BINDING-GUARDRAIL-001"
+  ],
+  "status": "active",
+  "description": "Defines the generic binding model so context packs can expose implementation and test artifacts without making every knowledge unit inherently bound.",
+  "tests": [
+    "GROUNDED-TEST-039"
+  ]
+}

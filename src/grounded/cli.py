@@ -8,7 +8,12 @@ from pathlib import Path
 from .audit import audit
 from .bootstrap import init_project
 from .config import load_config
-from .context import build_context_pack, context_pack_json, render_context_pack_markdown
+from .context import (
+    build_context_pack,
+    build_context_pack_for_changed_files,
+    context_pack_json,
+    render_context_pack_markdown,
+)
 from .graphviz import graphviz_dot_for
 from .registry import load_registry
 from .render import render_all
@@ -126,7 +131,15 @@ def main(argv: list[str] | None = None) -> int:
     context_parser = subcommands.add_parser(
         "context", help="Build focused LLM context around a spec ID or search query."
     )
-    context_parser.add_argument("start", help="Starting spec ID or search query.")
+    context_parser.add_argument(
+        "start", nargs="?", help="Starting spec ID or search query."
+    )
+    context_parser.add_argument(
+        "--changed-files",
+        nargs="+",
+        metavar="PATH",
+        help="Resolve context seeds from declared file bindings for changed paths.",
+    )
     context_parser.add_argument(
         "--depth",
         type=int,
@@ -138,6 +151,11 @@ def main(argv: list[str] | None = None) -> int:
         type=int,
         default=12,
         help="Maximum number of specs to include. Defaults to 12.",
+    )
+    context_parser.add_argument(
+        "--include-bindings",
+        action="store_true",
+        help="Include normalized external binding metadata in context output.",
     )
     context_parser.add_argument("--json", action="store_true")
 
@@ -198,7 +216,7 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     if args.command == "render":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         stale = render_all(config, registry, check=args.check)
         if stale:
@@ -217,7 +235,7 @@ def main(argv: list[str] | None = None) -> int:
         return _print_issues(config.root, issues, success="Grounded audit passed.")
 
     if args.command == "verify":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         return _print_issues(
             config.root,
@@ -226,7 +244,7 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     if args.command == "graph":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         try:
             dot = graphviz_dot_for(
@@ -251,47 +269,84 @@ def main(argv: list[str] | None = None) -> int:
         return 0
 
     if args.command == "search":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         records = build_search_records(registry)
         results = search_records(records, args.query, kind=args.kind, limit=args.limit)
         if args.json:
             print(results_json(results))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         return print_search_results(results)
 
     if args.command == "context":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
+        if bool(args.start) == bool(args.changed_files):
+            print(
+                "Provide either START or --changed-files PATH [PATH ...]",
+                file=sys.stderr,
+            )
+            return 2
         if args.depth < 0:
             print("--depth must be >= 0", file=sys.stderr)
             return 2
         if args.limit < 1:
             print("--limit must be >= 1", file=sys.stderr)
             return 2
-        pack = build_context_pack(
-            registry, args.start, depth=args.depth, limit=args.limit
-        )
+        if args.changed_files:
+            pack = build_context_pack_for_changed_files(
+                registry,
+                tuple(args.changed_files),
+                root=config.root,
+                depth=args.depth,
+                limit=args.limit,
+            )
+            no_seed_message = "No context seed found for changed files: " + ", ".join(
+                args.changed_files
+            )
+        else:
+            pack = build_context_pack(
+                registry, args.start, depth=args.depth, limit=args.limit
+            )
+            no_seed_message = f"No context seed found for: {args.start}"
         if pack is None:
-            print(f"No context seed found for: {args.start}", file=sys.stderr)
+            print(no_seed_message, file=sys.stderr)
             return 1
         if args.json:
-            print(context_pack_json(pack, registry, root=config.root))
+            print(
+                context_pack_json(
+                    pack,
+                    registry,
+                    root=config.root,
+                    include_bindings=args.include_bindings,
+                )
+            )
             return 0
-        print(render_context_pack_markdown(pack, registry, root=config.root), end="")
+        _print_warning_issues(config.root, registry.issues)
+        print(
+            render_context_pack_markdown(
+                pack,
+                registry,
+                root=config.root,
+                include_bindings=args.include_bindings,
+            ),
+            end="",
+        )
         return 0
 
     if args.command == "entities":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         records = filter_records(build_search_records(registry), "entities")
         if args.json:
             print(records_json(records))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         return print_records(records, verbose=args.verbose)
 
     if args.command == "specs":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         records = filter_records(build_search_records(registry), args.kind)
         if args.uses:
@@ -313,18 +368,20 @@ def main(argv: list[str] | None = None) -> int:
         if args.json:
             print(records_json(records))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         return print_records(records, verbose=args.verbose)
 
     if args.command == "registry":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         if args.json:
             print(json.dumps(_registry_payload(config.root, registry), indent=2))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         return _print_registry(config.root, registry)
 
     if args.command == "spec":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         records = build_search_records(registry)
         results = [
@@ -337,10 +394,11 @@ def main(argv: list[str] | None = None) -> int:
         if args.json:
             print(results_json(results))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         return print_search_results(results)
 
     if args.command == "check-new":
-        if registry.issues:
+        if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
         payload = check_new_payload(
             build_search_records(registry), args.name, limit=args.limit
@@ -348,6 +406,7 @@ def main(argv: list[str] | None = None) -> int:
         if args.json:
             print(json.dumps(payload, indent=2))
             return 0
+        _print_warning_issues(config.root, registry.issues)
         print(f"Query: {payload['query']}")
         print(f"Recommendation: {payload['recommendation']}")
         print()
@@ -395,6 +454,16 @@ def _print_issues(
     if success:
         print(success)
     return 0
+
+
+def _print_warning_issues(root: Path, issues: list[object]) -> None:
+    for issue in issues:
+        if getattr(issue, "severity", "error") != "error":
+            print(issue.format(root), file=sys.stderr)
+
+
+def _has_error_issues(issues: list[object]) -> bool:
+    return any(getattr(issue, "severity", "error") == "error" for issue in issues)
 
 
 def _registry_payload(root: Path, registry: object) -> dict[str, object]:

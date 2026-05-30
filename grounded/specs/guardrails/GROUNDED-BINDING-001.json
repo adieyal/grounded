@@ -1,0 +1,11 @@
+{
+  "id": "GROUNDED-BINDING-001",
+  "kind": "guardrail",
+  "name": "Bindings on non-bindable type",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the guardrail for specs that declare explicit bindings without a bindable type capability.",
+  "summary": "A spec may declare explicit bindings only when its registry type declares the bindable capability.",
+  "references": ["GROUNDED-DECISION-072"],
+  "tests": ["GROUNDED-TEST-039"]
+}

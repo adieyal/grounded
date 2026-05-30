@@ -178,6 +178,11 @@ def _legacy_edges_for(
 def _legacy_edge_type_for_field(
     unit: EdgeBearingUnit, field: str, types: ProjectMemoryTypes | None
 ) -> str | None:
+    type_def = types.get(unit.kind) if types is not None else None
+    if type_def is not None and any(
+        mapping.get("field") == field for mapping in type_def.binding_field_mappings
+    ):
+        return None
     if field == "source_refs":
         return (
             "derives_from" if _is_generated_artifact_like(unit, types) else "mentions"
