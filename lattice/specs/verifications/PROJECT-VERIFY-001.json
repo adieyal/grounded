@@ -5,9 +5,9 @@
   "name": "Bootstrap validation",
   "owner": "lattice",
   "references": [
-    "PROJECT-DOMAIN-001"
+    "PROJECT-RULE-001"
   ],
   "status": "active",
-  "description": "Defines the verification command for PROJECT-DOMAIN-001 so project checks can be run consistently.",
-  "target": "PROJECT-DOMAIN-001"
+  "description": "Defines the verification command for PROJECT-RULE-001 so project checks can be run consistently.",
+  "target": "PROJECT-RULE-001"
 }

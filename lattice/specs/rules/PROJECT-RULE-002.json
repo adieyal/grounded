@@ -5,7 +5,6 @@
   "owner": "project",
   "references": [
     "PROJECT-CONCEPT-001",
-    "PROJECT-DOMAIN-001",
     "PROJECT-RULE-001"
   ],
   "statement": "Agents must use, create, and maintain Lattice specs whenever project work changes durable knowledge.",

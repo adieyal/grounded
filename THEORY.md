@@ -4,8 +4,8 @@ last_updated: 2026-05-23
 
 # Theory of Lattice
 
-This document explains the intent behind Lattice. The canonical project memory
-facts live in `lattice/specs`; this overview is a readable synthesis grounded in
+This document explains the intent behind Lattice. The canonical project-memory
+facts live in `lattice/specs`; this overview is grounded in
 `LATTICE-THEORY-001`, `PROJECT-CONCEPT-001`, and `PROJECT-RULE-001`.
 
 ## What Lattice Is
@@ -17,10 +17,10 @@ business rules, architectural boundaries, workflows, examples, verification
 expectations, decisions, and other facts that should not live only in scattered
 prose or implicit code structure.
 
-The central idea is simple: every durable project fact should have one canonical
-owner. Other artifacts can reference that owner, but should not quietly duplicate
-or reinterpret it. When code, tests, docs, plans, and LLM context all carry their
-own slightly different versions of the same idea, the project develops semantic
+The core idea is simple: every durable fact should have one canonical owner.
+Other artifacts can reference that owner, but should not duplicate or
+reinterpret it. When code, tests, docs, plans, and LLM context all carry
+slightly different versions of the same idea, the project develops semantic
 drift. Lattice treats that drift as something to detect and repair.
 
 Lattice is not a runtime framework, business rule engine, or replacement for
@@ -86,7 +86,7 @@ boundaries, affects correctness, or guides future changes.
 
 The goals of Lattice are:
 
-- Give durable project facts stable IDs and single ownership.
+- Give durable facts stable IDs and single ownership.
 - Make project knowledge readable by humans and machines.
 - Generate human docs and LLM context from the same canonical registry.
 - Detect broken references, stale generated views, missing proof, and duplicate
@@ -127,10 +127,11 @@ bounded context. A context pack generated from canonical specs can tell an agent
 which concepts exist, which rules are active, which IDs are valid, and where
 semantic ownership lives.
 
-That acts as a context firewall. Instead of asking an LLM to infer project memory
-from scattered files, the project can provide a curated registry of what must be
-preserved. The goal is not to make LLMs unquestionable. It is to make their work
-easier to audit and less likely to invent a second version of the project.
+That acts as a context firewall. Instead of asking an LLM to infer project
+memory from scattered files, the project can provide a curated registry of what
+must be preserved. The goal is not to make LLMs unquestionable. It is to make
+their work easier to audit and less likely to invent a second version of the
+project.
 
 ## Non-Goals
 

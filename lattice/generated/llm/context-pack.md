@@ -7,7 +7,7 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
 - `PROJECT-RULE-001` (business_rule, owner: project): Defines the Single owner for durable facts rule so agents and maintainers know when and how to apply it. Every durable project fact has exactly one canonical owner; other artifacts reference that owner instead of duplicating it.
   Links: PROJECT-CONCEPT-001
 - `PROJECT-RULE-002` (business_rule, owner: project): Defines the Agents maintain Lattice during project work rule so agents and maintainers know when and how to apply it. Agents must use, create, and maintain Lattice specs whenever project work changes durable knowledge.
-  Links: PROJECT-CONCEPT-001, PROJECT-DOMAIN-001, PROJECT-RULE-001
+  Links: PROJECT-CONCEPT-001, PROJECT-RULE-001
 - `PROJECT-RULE-003` (business_rule, owner: project): Defines the Semantic slices may nest and overlap rule so agents and maintainers know when and how to apply it. Semantic slices may overlap, and a semantic slice may optionally declare a parent slice to form a nested hierarchy.
   Links: PROJECT-CONCEPT-001, PROJECT-CONCEPT-002, PROJECT-CONCEPT-003
 - `LATTICE-THEORY-001` (concept, owner: lattice): Explains the Lattice theory concept and how it should be used as canonical Lattice knowledge. Lattice is executable project memory: a schema-validated coordination layer that gives durable project knowledge one canonical owner, models knowledge units as a reference graph, and uses deterministic validation wherever possible to prevent drift between specs, docs, tests, code, and LLM context.
@@ -129,8 +129,6 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: LATTICE-DECISION-001, LATTICE-DECISION-047, LATTICE-DECISION-054
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
-- `PROJECT-DOMAIN-001` (domain_object, owner: project): Defines the Canonical project fact domain object and explains how other specs should refer to it. A durable unit of project knowledge with exactly one Lattice spec as its source of truth.
-  Links: PROJECT-CONCEPT-001, PROJECT-RULE-001
 - `PROJECT-RULE-001-EX001` (example, owner: project): Provides a concrete example for PROJECT-RULE-001 so the rule can be understood and verified in context.
   Links: PROJECT-RULE-001
 - `LATTICE-COMPAT-001` (guardrail, owner: lattice): Defines the Pathless SpecRegistry compatibility unit guardrail so compatibility adapters report source models that cannot be represented by the filesystem-shaped legacy SpecRegistry API. The SpecRegistry compatibility adapter must not invent filesystem paths for project-memory units loaded from non-filesystem sources.
@@ -261,7 +259,7 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: PROJECT-RULE-003
 - `PROJECT-TEST-003` (test_binding, owner: project): Binds PROJECT-DECISION-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-DECISION-001
-- `PROJECT-VERIFY-001` (verification, owner: lattice): Defines the verification command for PROJECT-DOMAIN-001 so project checks can be run consistently.
-  Links: PROJECT-DOMAIN-001
+- `PROJECT-VERIFY-001` (verification, owner: lattice): Defines the verification command for PROJECT-RULE-001 so project checks can be run consistently.
+  Links: PROJECT-RULE-001
 - `PROJECT-WORKFLOW-001` (workflow, owner: project): Describes the Scope a bounded Lattice model workflow so agents and maintainers can follow the expected process. An LLM interviews the user with a structured question ladder to define a bounded modeling slice of an existing codebase, clarify the relevant comparison semantics and analysis rubric, and stop before implementation until the user confirms the scope is stable.
   Links: PROJECT-CONCEPT-002, PROJECT-RULE-002

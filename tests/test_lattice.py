@@ -27,9 +27,6 @@ class LatticeTests(unittest.TestCase):
 
             self.assertIn(root / "lattice.yml", created)
             self.assertTrue(
-                (root / ".lattice/specs/glossary/PROJECT-DOMAIN-001.json").exists()
-            )
-            self.assertTrue(
                 (root / ".lattice/specs/schema_gaps/PROJECT-GAP-001.json").exists()
             )
             self.assertTrue(
@@ -91,6 +88,21 @@ class LatticeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
+            item = {
+                "id": "TODO-ITEM-001",
+                "kind": "domain_object",
+                "name": "Bootstrap Item",
+                "owner": "todo",
+                "status": "active",
+                "description": "A bootstrap domain object used by the round-trip test.",
+                "summary": "A bootstrap item.",
+            }
+            specs_dir = root / ".lattice/specs/examples"
+            specs_dir.mkdir(parents=True)
+            (specs_dir / f"{item['id']}.json").write_text(
+                json.dumps(item), encoding="utf-8"
+            )
+
             config = load_config(root)
             registry = load_registry(config)
 
@@ -121,8 +133,7 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("lattice-theme", html)
             self.assertIn("lattice-link.js", html)
             self.assertRegex(html, r'lattice-link\.js\?v=[0-9a-f]{12}')
-            self.assertIn("Canonical project fact", html)
-            self.assertIn("Schema Gap", html)
+            self.assertIn("Bootstrap Item", html)
             self.assertNotIn("Todo system", html)
             self.assertIn('href="style.css"', html)
             self.assertIn(":root", css)
@@ -135,7 +146,7 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("--radius-md: 0.5rem;", css)
             self.assertIn("--radius-lg: 0.75rem;", css)
             self.assertIn("--radius-pill: 9999px;", css)
-            self.assertIn("Canonical project fact", search)
+            self.assertIn("Bootstrap Item", search)
             self.assertNotIn("last_updated:", markdown)
             self.assertNotIn("last_updated:", context_pack)
 
@@ -194,11 +205,29 @@ class LatticeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
-            config = load_config(root)
-            registry = load_registry(config)
+            self.assertIsNone(
+                field_type_target("domain_object", load_registry(load_config(root)))
+            )
 
-            self.assertIsNone(field_type_target("domain_object", registry))
-            self.assertIsNotNone(field_type_target("Canonical project fact", registry))
+            spec_path = root / ".lattice/specs/examples/TODO-ITEM-001.json"
+            spec_path.parent.mkdir(parents=True, exist_ok=True)
+            spec_path.write_text(
+                json.dumps(
+                    {
+                        "id": "TODO-ITEM-001",
+                        "kind": "domain_object",
+                        "name": "Todo Item",
+                        "owner": "todo",
+                        "status": "active",
+                        "description": "A user-visible task in the todo list.",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            registry = load_registry(load_config(root))
+
+            self.assertIsNotNone(field_type_target("Todo Item", registry))
 
     def test_render_rejects_slug_collisions(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -332,10 +361,20 @@ class LatticeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
-            path = root / ".lattice/specs/glossary/PROJECT-DOMAIN-001.json"
-            data = json.loads(path.read_text(encoding="utf-8"))
-            data.pop("description")
-            path.write_text(json.dumps(data), encoding="utf-8")
+            path = root / ".lattice/specs/examples/TODO-ITEM-001.json"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(
+                json.dumps(
+                    {
+                        "id": "TODO-ITEM-001",
+                        "kind": "domain_object",
+                        "name": "Todo Item",
+                        "owner": "todo",
+                        "status": "active",
+                    }
+                ),
+                encoding="utf-8",
+            )
 
             config = load_config(root)
             registry = load_registry(config)
@@ -706,8 +745,14 @@ class LatticeTests(unittest.TestCase):
 
             self.assertIn("TodoItem", visible_html)
             self.assertIn("lattice-background.html", visible_html)
-            self.assertNotIn("Canonical project fact", visible_html)
-            self.assertIn("Canonical project fact", background)
+            self.assertNotIn(
+                "Project-specific fact shapes belong in the type registry",
+                visible_html,
+            )
+            self.assertIn(
+                "Project-specific fact shapes belong in the type registry",
+                background,
+            )
             self.assertEqual(["TODO-LIST-001"], [item["id"] for item in search])
             self.assertIn("lattice-search-index", html)
             self.assertNotIn("fetch(", html)
@@ -1184,6 +1229,19 @@ class LatticeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
+            item = {
+                "id": "TODO-ITEM-001",
+                "kind": "domain_object",
+                "name": "Coverage Item",
+                "owner": "todo",
+                "status": "active",
+                "description": "A domain object without test coverage.",
+            }
+            specs_dir = root / ".lattice/specs/examples"
+            specs_dir.mkdir(parents=True)
+            (specs_dir / f"{item['id']}.json").write_text(
+                json.dumps(item), encoding="utf-8"
+            )
             config_path = root / "lattice.yml"
             config_path.write_text(
                 config_path.read_text(encoding="utf-8").replace(
@@ -1244,10 +1302,24 @@ class LatticeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
-            path = root / ".lattice/specs/glossary/PROJECT-DOMAIN-001.json"
-            spec = json.loads(path.read_text(encoding="utf-8"))
-            spec["fields"] = [{"name": "id", "type": "string", "required": "yes"}]
-            path.write_text(json.dumps(spec), encoding="utf-8")
+            path = root / ".lattice/specs/examples/TODO-ITEM-001.json"
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text(
+                json.dumps(
+                    {
+                        "id": "TODO-ITEM-001",
+                        "kind": "domain_object",
+                        "name": "Todo Item",
+                        "owner": "todo",
+                        "status": "active",
+                        "description": "A placeholder domain object.",
+                        "fields": [
+                            {"name": "id", "type": "string", "required": "yes"}
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
 
             registry = load_registry(load_config(root))
 

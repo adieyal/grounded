@@ -4,11 +4,11 @@ last_updated: 2026-05-27
 
 # Core Concepts
 
-Lattice is deliberately small. It is a way to store important project knowledge as checked, linked facts instead of scattered prose.
+Lattice is deliberately small. It stores important project knowledge as checked, linked facts instead of scattered prose.
 
 ## Project fact
 
-A project fact is a durable idea that other work depends on.
+A project fact is a durable idea other work depends on.
 
 Examples:
 
@@ -24,7 +24,7 @@ A project fact deserves a stable home when changing it would affect docs, tests,
 
 ## Canonical owner
 
-A canonical owner is the one place where a fact is defined.
+A canonical owner is the one place a fact is defined.
 
 Other artifacts may repeat, summarize, or apply the fact, but they should point back to the owner instead of becoming competing sources of truth.
 
@@ -139,11 +139,11 @@ When generated docs are stale, update the specs and render again.
 
 Lattice can generate context for coding agents and other LLM workflows.
 
-The point is not to create more prompt prose. The point is to give agents checked, stable project memory with IDs they can reference when they make changes.
+The point is to give agents checked, stable project memory with IDs they can reference when they make changes.
 
 ## Verification
 
-A verification spec connects a project fact to a command that can check it.
+A verification spec connects a fact to a command that can check it.
 
 Examples:
 
@@ -180,6 +180,6 @@ Do not invent a new kind just because one fact feels slightly different. That tu
 
 A schema gap records a limitation in the current modelling language.
 
-Use a schema gap when a real project fact does not fit the current registry cleanly.
+Use a schema gap when a real fact does not fit the current registry cleanly.
 
 That is better than hiding structure inside prose or changing core renderer code for one project-specific need.

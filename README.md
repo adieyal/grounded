@@ -6,7 +6,7 @@ last_updated: 2026-05-27
 
 Lattice helps teams keep project knowledge from drifting.
 
-It gives important project facts — rules, decisions, domain terms, workflows, examples, and verification commands — one source of truth. From that source, Lattice can generate human docs, generate LLM context, validate links, run project-specific checks, and detect stale generated views.
+It gives important project facts one source of truth and can then generate docs, LLM context, validation, verification checks, and drift reports from that registry.
 
 Use it when your project has important knowledge scattered across README files, architecture docs, tests, prompts, issue comments, and source code — especially when LLMs are helping write code.
 
@@ -79,9 +79,9 @@ uv run lattice validate
 uv run lattice render
 ```
 
-This creates a Lattice project memory directory, a starter registry, starter schemas, generated docs, and generated LLM context.
+This creates a Lattice project-memory directory, a starter registry, starter schemas, generated docs, and generated LLM context.
 
-Then add one real project fact: a domain term, business rule, architecture decision, workflow, or verification command. Do not start by modelling the whole project.
+Then add one durable project fact: a domain term, business rule, architecture decision, workflow, or verification command.
 
 Run the checks again:
 
@@ -117,7 +117,7 @@ Start with one fact. Give it a stable ID. Link other docs, tests, plans, and pro
 | `lattice check-new NAME` | Checks whether a proposed entity or concept probably already exists. |
 | `lattice verify` | Runs project-specific verification commands declared in specs. |
 | `lattice audit` | Checks for drift and missing coverage. |
-| `lattice graph SPEC-ID` | Shows a documentation-oriented Graphviz relationship diagram around one project fact. |
+| `lattice graph SPEC-ID` | Shows a documentation-oriented Graphviz relationship diagram around one durable fact. |
 
 During local development, prefer `uv run lattice ...` so the command uses the checkout.
 

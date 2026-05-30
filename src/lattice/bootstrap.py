@@ -100,13 +100,6 @@ def init_project(
     )
     created.extend(
         _write_if_missing(
-            config.specs_dir / "glossary" / "PROJECT-DOMAIN-001.json",
-            _project_domain_object(),
-            force=force,
-        )
-    )
-    created.extend(
-        _write_if_missing(
             config.specs_dir / "schema_gaps" / "PROJECT-GAP-001.json",
             _schema_gap(),
             force=force,
@@ -317,21 +310,6 @@ def _project_concept() -> str:
     )
 
 
-def _project_domain_object() -> str:
-    return _json(
-        {
-            "id": "PROJECT-DOMAIN-001",
-            "type": "domain_object",
-            "name": "Canonical project fact",
-            "owner": "project",
-            "status": "active",
-            "description": "Defines the canonical project fact domain object so durable knowledge has a shared reference point.",
-            "definition": "A durable unit of project knowledge with exactly one Lattice spec as its source of truth.",
-            "references": [],
-        }
-    )
-
-
 def _project_rule() -> str:
     return _json(
         {
@@ -343,8 +321,6 @@ def _project_rule() -> str:
             "description": "Defines the rule that every durable project fact has one source of truth.",
             "statement": "Every durable project fact has exactly one canonical owner; other artifacts reference that owner instead of duplicating it.",
             "references": ["PROJECT-CONCEPT-001"],
-            "examples": ["PROJECT-RULE-001-EX001"],
-            "tests": ["PROJECT-TEST-001"],
         }
     )
 
@@ -361,7 +337,6 @@ def _agent_maintenance_rule() -> str:
             "statement": "Agents must use, create, and maintain Lattice specs whenever project work changes durable knowledge.",
             "references": [
                 "PROJECT-CONCEPT-001",
-                "PROJECT-DOMAIN-001",
                 "PROJECT-RULE-001",
             ],
             "tests": ["PROJECT-TEST-001"],
@@ -381,7 +356,7 @@ def _schema_gap() -> str:
             "gap": "When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.",
             "suggested_improvement": "Record the mismatch as a schema_gap, then evolve the configured type registry and templates when the shape becomes stable.",
             "affected_kind": "spec_type",
-            "references": ["PROJECT-DOMAIN-001"],
+            "references": [],
             "tests": ["PROJECT-VERIFY-001"],
         }
     )
@@ -413,9 +388,9 @@ def _verification() -> str:
             "owner": "project",
             "status": "active",
             "description": "Defines the command used to verify that a newly initialized Lattice project is valid.",
-            "target": "PROJECT-DOMAIN-001",
+            "target": "PROJECT-GAP-001",
             "command": "lattice validate && lattice audit",
-            "references": ["PROJECT-DOMAIN-001"],
+            "references": ["PROJECT-GAP-001"],
         }
     )
 

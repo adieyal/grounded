@@ -6,7 +6,7 @@ last_updated: 2026-05-27
 
 This guide gets you from an ordinary repository to useful Lattice output with the smallest possible commitment.
 
-The goal is not to model the whole project. The goal is to capture one durable project fact, give it a stable ID, and generate checked docs from it.
+The goal is not to model the whole project. The goal is to capture one durable fact, give it a stable ID, and generate checked docs from it.
 
 ## 1. Install from a checkout
 

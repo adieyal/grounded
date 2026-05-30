@@ -6,7 +6,7 @@ last_updated: 2026-05-27
 
 Lattice is useful for LLM-assisted development because agents are vulnerable to stale, duplicated, and ambiguous project context.
 
-A normal prompt can tell an agent what to do today. Lattice gives the agent durable project memory it can reference, update, and validate.
+A normal prompt can tell an agent what to do today. Lattice gives the agent durable project memory it can reference and validate.
 
 ## The problem with plain prompt context
 
@@ -39,16 +39,15 @@ Before a non-trivial change, the agent should:
 
 1. Read `lattice.yml`.
 2. Search project memory with `lattice search`, `lattice entities`, `lattice specs --uses`, or `lattice check-new`.
-3. Find relevant existing specs.
-4. Update the existing owner if the fact already exists.
-5. Create a new spec only when no owner exists.
-6. Use the registry before inventing a new kind.
-7. Add a `schema_gap` when the current shapes cannot express the fact cleanly.
-8. Regenerate docs and context with `lattice render`.
-9. Run `lattice validate` and `lattice audit`.
-10. Report changed Lattice IDs.
+3. Update the existing owner if the fact already exists.
+4. Create a new spec only when no owner exists.
+5. Use the registry before inventing a new kind.
+6. Add a `schema_gap` when the current shapes cannot express the fact cleanly.
+7. Regenerate docs and context with `lattice render`.
+8. Run `lattice validate` and `lattice audit`.
+9. Report changed Lattice IDs.
 
-This turns project memory into part of normal implementation work instead of a separate documentation chore.
+That keeps project memory part of normal implementation work instead of a separate documentation chore.
 
 ## Updating AGENTS.md
 
@@ -60,13 +59,13 @@ uv run lattice init --update-agents
 
 This adds a Lattice section to `AGENTS.md` so coding agents know how to work with project memory.
 
-The important instruction is not “read these docs”. The important instruction is:
+The important instruction is:
 
 > If the change introduces or changes durable project knowledge, update the canonical Lattice owner in the same change.
 
 ## Good LLM-facing facts
 
-Good facts for LLM context are facts the agent must not improvise:
+Good facts for LLM context are facts the agent should not improvise:
 
 - domain terms
 - architecture boundaries
@@ -95,7 +94,7 @@ Avoid this:
 
 > Make sure dates work properly. You know, the UTC thing we discussed before.
 
-Stable IDs reduce ambiguity. They also make reviews sharper because everyone can inspect the same owner.
+Stable IDs reduce ambiguity and make reviews sharper because everyone can inspect the same owner.
 
 ## Agent reporting
 

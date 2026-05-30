@@ -248,7 +248,7 @@ class GraphvizCliTests(unittest.TestCase):
                     "--root",
                     str(root),
                     "graph",
-                    "PROJECT-DOMAIN-001",
+                    "PROJECT-GAP-001",
                     "--profile",
                     "docs",
                     "--output",
