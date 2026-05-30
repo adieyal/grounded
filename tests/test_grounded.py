@@ -1730,6 +1730,157 @@ class GroundedTests(unittest.TestCase):
                 payload["items"][0]["bindings"][0]["id"],
             )
 
+    def test_context_cli_resolves_changed_files_from_declared_bindings(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            view_id, _ = self._write_binding_fixture(root)
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        "--changed-files",
+                        "frontend/src/pages/home/home-page.ts",
+                        "--depth",
+                        "0",
+                        "--include-bindings",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual("changed_files", payload["seed_resolution"])
+            self.assertEqual(view_id, payload["seed"]["id"])
+            self.assertEqual([view_id], [item["id"] for item in payload["items"]])
+            self.assertEqual(
+                ["declared file binding match: frontend/src/pages/home/home-page.ts"],
+                payload["items"][0]["reasons"],
+            )
+            self.assertEqual(
+                "frontend/src/pages/home/home-page.ts",
+                payload["items"][0]["bindings"][0]["target"]["path"],
+            )
+
+    def test_context_cli_changed_files_accepts_absolute_project_paths(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            view_id, _ = self._write_binding_fixture(root)
+            changed_path = root / "frontend/src/pages/home/home-page.ts"
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        "--changed-files",
+                        str(changed_path),
+                        "--depth",
+                        "0",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual(view_id, payload["seed"]["id"])
+            self.assertNotIn("bindings", payload["items"][0])
+
+    def test_context_cli_changed_files_can_seed_multiple_specs(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            view_id, query_id = self._write_binding_fixture(root)
+
+            output = StringIO()
+            with redirect_stdout(output):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        "--changed-files",
+                        "frontend/src/pages/home/home-page.ts",
+                        "frontend/src/pages/home/home-query.ts",
+                        "--depth",
+                        "0",
+                        "--json",
+                    ]
+                )
+
+            self.assertEqual(0, result)
+            payload = json.loads(output.getvalue())
+            self.assertEqual(
+                [view_id, query_id], [item["id"] for item in payload["items"]]
+            )
+            self.assertEqual([0, 0], [item["distance"] for item in payload["items"]])
+
+    def test_context_cli_changed_files_reports_no_binding_match(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            self._write_binding_fixture(root)
+            errors = StringIO()
+
+            with redirect_stderr(errors):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        "--changed-files",
+                        "frontend/src/pages/home/not-bound.ts",
+                    ]
+                )
+
+            self.assertEqual(1, result)
+            self.assertIn(
+                "No context seed found for changed files: "
+                "frontend/src/pages/home/not-bound.ts",
+                errors.getvalue(),
+            )
+
+    def test_context_cli_requires_start_or_changed_files(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            errors = StringIO()
+
+            with redirect_stderr(errors):
+                result = main(["--root", str(root), "context"])
+
+            self.assertEqual(2, result)
+            self.assertIn(
+                "Provide either START or --changed-files PATH [PATH ...]",
+                errors.getvalue(),
+            )
+
+            errors = StringIO()
+            with redirect_stderr(errors):
+                result = main(
+                    [
+                        "--root",
+                        str(root),
+                        "context",
+                        "anything",
+                        "--changed-files",
+                        "frontend/src/pages/home/home-page.ts",
+                    ]
+                )
+
+            self.assertEqual(2, result)
+            self.assertIn(
+                "Provide either START or --changed-files PATH [PATH ...]",
+                errors.getvalue(),
+            )
+
     def test_binding_paths_normalize_backslashes(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from collections import deque
 import json
+import posixpath
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Literal
@@ -25,7 +26,7 @@ class ContextPack:
     start: str
     seed: Spec
     seed_reason: str
-    seed_resolution: Literal["exact_id", "search"]
+    seed_resolution: Literal["exact_id", "search", "changed_files"]
     alternatives: tuple[SearchResult, ...]
     items: tuple[ContextItem, ...]
 
@@ -46,10 +47,73 @@ def build_context_pack(
     if seed is None:
         return None
 
+    return _build_context_pack_from_seeds(
+        registry,
+        start=start,
+        seeds=((seed, seed_reason),),
+        seed_resolution=seed_resolution,
+        alternatives=alternatives,
+        depth=depth,
+        limit=limit,
+    )
+
+
+def build_context_pack_for_changed_files(
+    registry: SpecRegistry,
+    changed_files: tuple[str, ...],
+    *,
+    root: Path | None = None,
+    depth: int = 1,
+    limit: int = 12,
+) -> ContextPack | None:
+    if depth < 0:
+        raise ValueError("depth must be >= 0")
+    if limit < 1:
+        raise ValueError("limit must be >= 1")
+
+    normalized_files = tuple(
+        dict.fromkeys(
+            _normalize_changed_file_path(changed_file, root)
+            for changed_file in changed_files
+        )
+    )
+    seeds = _seeds_for_changed_files(registry, normalized_files, root=root)
+    if not seeds:
+        return None
+
+    return _build_context_pack_from_seeds(
+        registry,
+        start=", ".join(normalized_files),
+        seeds=seeds,
+        seed_resolution="changed_files",
+        alternatives=(),
+        depth=depth,
+        limit=limit,
+    )
+
+
+def _build_context_pack_from_seeds(
+    registry: SpecRegistry,
+    *,
+    start: str,
+    seeds: tuple[tuple[Spec, str], ...],
+    seed_resolution: Literal["exact_id", "search", "changed_files"],
+    alternatives: tuple[SearchResult, ...],
+    depth: int,
+    limit: int,
+) -> ContextPack:
     active_ids = {spec.id for spec in registry.active_specs}
-    distances: dict[str, int] = {seed.id: 0}
-    reasons: dict[str, list[str]] = {seed.id: [seed_reason]}
-    queue: deque[Spec] = deque([seed])
+    seed_order = {spec.id: index for index, (spec, _) in enumerate(seeds)}
+    distances: dict[str, int] = {}
+    reasons: dict[str, list[str]] = {}
+    queue: deque[Spec] = deque()
+
+    for seed, reason in seeds:
+        if seed.id not in active_ids:
+            continue
+        distances[seed.id] = 0
+        reasons.setdefault(seed.id, []).append(reason)
+        queue.append(seed)
 
     while queue:
         current = queue.popleft()
@@ -74,7 +138,7 @@ def build_context_pack(
         distances,
         key=lambda spec_id: (
             distances[spec_id],
-            0 if spec_id == seed.id else 1,
+            seed_order.get(spec_id, len(seed_order)),
             registry.by_id[spec_id].kind,
             spec_id,
         ),
@@ -89,8 +153,8 @@ def build_context_pack(
     )
     return ContextPack(
         start=start,
-        seed=seed,
-        seed_reason=seed_reason,
+        seed=seeds[0][0],
+        seed_reason=seeds[0][1],
         seed_resolution=seed_resolution,
         alternatives=alternatives,
         items=items,
@@ -120,10 +184,17 @@ def render_context_pack_markdown(
                 "",
             ]
         )
-    else:
+    elif pack.seed_resolution == "search":
         lines.extend(
             [
                 "Warning: START was resolved by search, not exact ID. Verify the seed before treating this pack as authoritative.",
+                "",
+            ]
+        )
+    else:
+        lines.extend(
+            [
+                "Resolved from declared file bindings. No source-code inference or artifact content is included.",
                 "",
             ]
         )
@@ -223,7 +294,12 @@ def context_pack_json(
 
 def _resolve_seed(
     registry: SpecRegistry, start: str
-) -> tuple[Spec | None, str, Literal["exact_id", "search"], tuple[SearchResult, ...]]:
+) -> tuple[
+    Spec | None,
+    str,
+    Literal["exact_id", "search", "changed_files"],
+    tuple[SearchResult, ...],
+]:
     active_ids = {spec.id for spec in registry.active_specs}
     exact = registry.get(start)
     if exact is not None and exact.id in active_ids:
@@ -240,6 +316,53 @@ def _resolve_seed(
     if seed is None:
         return None, "", "search", ()
     return seed, results[0].reason, "search", tuple(results[1:])
+
+
+def _seeds_for_changed_files(
+    registry: SpecRegistry,
+    changed_files: tuple[str, ...],
+    *,
+    root: Path | None,
+) -> tuple[tuple[Spec, str], ...]:
+    seeds: list[tuple[Spec, str]] = []
+    seen_ids: set[str] = set()
+    specs = sorted(registry.active_specs, key=lambda item: (item.kind, item.id))
+
+    for changed_file in changed_files:
+        for spec in specs:
+            for binding in _bindings_for_context(spec, registry, root=root):
+                if binding.target.kind != "file" or not binding.target.path:
+                    continue
+                if _binding_omission(binding, include_bindings=True) not in (
+                    None,
+                    "missing_path",
+                ):
+                    continue
+                target_path = _normalize_changed_file_path(binding.target.path, root)
+                if target_path != changed_file:
+                    continue
+                if spec.id in seen_ids:
+                    continue
+                seen_ids.add(spec.id)
+                seeds.append(
+                    (
+                        spec,
+                        f"declared file binding match: {target_path}",
+                    )
+                )
+    return tuple(seeds)
+
+
+def _normalize_changed_file_path(changed_file: str, root: Path | None) -> str:
+    value = changed_file.strip().replace("\\", "/")
+    path = Path(value)
+    if root is not None and path.is_absolute():
+        try:
+            value = path.resolve().relative_to(root.resolve()).as_posix()
+        except ValueError:
+            value = path.as_posix()
+    normalized = posixpath.normpath(value)
+    return "" if normalized == "." else normalized
 
 
 def _neighbors(registry: SpecRegistry, spec_id: str) -> list[tuple[str, str]]:

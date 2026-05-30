@@ -29,14 +29,15 @@ Sources: `GROUNDED-DECISION-047`, `GROUNDED-DECISION-054`, `GROUNDED-DECISION-07
 
 ## Focused context
 
-Use `grounded context START` when an LLM agent needs bounded project memory before modifying, extending, or reviewing a spec. `START` may be either an exact spec ID or a search query; exact active spec IDs take precedence. Search-resolved seeds must be verified before treating the pack as authoritative. The command resolves a seed spec, includes that seed, then includes active related specs up to the requested relationship depth and item limit. When bindable registry types declare bindings, `--include-bindings` exposes metadata for external artifacts such as implementation and test files. Binding metadata is separate from artifact content; this first slice reports that file contents are not included.
+Use `grounded context START` when an LLM agent needs bounded project memory before modifying, extending, or reviewing a spec. `START` may be either an exact spec ID or a search query; exact active spec IDs take precedence. Search-resolved seeds must be verified before treating the pack as authoritative. Use `grounded context --changed-files PATH [PATH ...]` when the starting point is one or more changed files that should resolve through declared file bindings. The command resolves seed specs, includes those seeds, then includes active related specs up to the requested relationship depth and item limit. When bindable registry types declare bindings, `--include-bindings` exposes metadata for external artifacts such as implementation and test files. Binding metadata is separate from artifact content; this first slice reports that file contents are not included.
 
 - `grounded search QUERY` is for discovery.
 - `grounded context START` is for assembling a focused working set before making a change.
+- `grounded context --changed-files PATH [PATH ...]` is for assembling context from declared file-binding owners.
 - `grounded specs --uses QUERY` is for dependency and usage inspection.
 - `grounded render --check` is for generated-view drift enforcement.
 
-Examples: `grounded context GROUNDED-DOC-001`, `grounded context "CLI search workflow" --depth 2 --limit 20`, `grounded context GROUNDED-DECISION-070 --json`, and `grounded context GROUNDED-DECISION-070 --include-bindings`.
+Examples: `grounded context GROUNDED-DOC-001`, `grounded context "CLI search workflow" --depth 2 --limit 20`, `grounded context GROUNDED-DECISION-070 --json`, `grounded context GROUNDED-DECISION-070 --include-bindings`, and `grounded context --changed-files frontend/src/pages/home/home-page.ts --include-bindings`.
 
 Sources: `GROUNDED-DECISION-070`, `GROUNDED-DECISION-072`, `GROUNDED-DECISION-054`
 

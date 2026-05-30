@@ -8,7 +8,12 @@ from pathlib import Path
 from .audit import audit
 from .bootstrap import init_project
 from .config import load_config
-from .context import build_context_pack, context_pack_json, render_context_pack_markdown
+from .context import (
+    build_context_pack,
+    build_context_pack_for_changed_files,
+    context_pack_json,
+    render_context_pack_markdown,
+)
 from .graphviz import graphviz_dot_for
 from .registry import load_registry
 from .render import render_all
@@ -126,7 +131,15 @@ def main(argv: list[str] | None = None) -> int:
     context_parser = subcommands.add_parser(
         "context", help="Build focused LLM context around a spec ID or search query."
     )
-    context_parser.add_argument("start", help="Starting spec ID or search query.")
+    context_parser.add_argument(
+        "start", nargs="?", help="Starting spec ID or search query."
+    )
+    context_parser.add_argument(
+        "--changed-files",
+        nargs="+",
+        metavar="PATH",
+        help="Resolve context seeds from declared file bindings for changed paths.",
+    )
     context_parser.add_argument(
         "--depth",
         type=int,
@@ -269,17 +282,36 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "context":
         if _has_error_issues(registry.issues):
             return _print_issues(config.root, registry.issues)
+        if bool(args.start) == bool(args.changed_files):
+            print(
+                "Provide either START or --changed-files PATH [PATH ...]",
+                file=sys.stderr,
+            )
+            return 2
         if args.depth < 0:
             print("--depth must be >= 0", file=sys.stderr)
             return 2
         if args.limit < 1:
             print("--limit must be >= 1", file=sys.stderr)
             return 2
-        pack = build_context_pack(
-            registry, args.start, depth=args.depth, limit=args.limit
-        )
+        if args.changed_files:
+            pack = build_context_pack_for_changed_files(
+                registry,
+                tuple(args.changed_files),
+                root=config.root,
+                depth=args.depth,
+                limit=args.limit,
+            )
+            no_seed_message = "No context seed found for changed files: " + ", ".join(
+                args.changed_files
+            )
+        else:
+            pack = build_context_pack(
+                registry, args.start, depth=args.depth, limit=args.limit
+            )
+            no_seed_message = f"No context seed found for: {args.start}"
         if pack is None:
-            print(f"No context seed found for: {args.start}", file=sys.stderr)
+            print(no_seed_message, file=sys.stderr)
             return 1
         if args.json:
             print(
