@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-TRUST-002",
+  "kind": "guardrail",
+  "name": "Verified claim lacks proof",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the verified-claim proof guardrail so validation can report verified claims with no active targeted verification.",
+  "summary": "An active verified claim must have at least one active verification_ref whose verification target equals the claim ID.",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-002"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

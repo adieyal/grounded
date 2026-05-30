@@ -1,0 +1,16 @@
+{
+  "id": "GROUNDED-TRUST-004",
+  "kind": "guardrail",
+  "name": "Verified claim proof targets another spec",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the verification target-mismatch guardrail so validation can report verified claims linked to proof for a different target.",
+  "summary": "A verification spec only proves the spec named by its target field.",
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-002"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

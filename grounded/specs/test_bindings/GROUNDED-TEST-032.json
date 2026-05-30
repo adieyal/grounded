@@ -1,0 +1,18 @@
+{
+  "id": "GROUNDED-TEST-032",
+  "kind": "test_binding",
+  "name": "Trust credibility loop is enforced",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Binds the trust-status vocabulary, verified-claim proof requirement, verification command checks, and runtime verification-result semantics to focused executable tests.",
+  "target": "GROUNDED-TRUST-GUARDRAIL-002",
+  "test": "uv run pytest tests/test_trust.py -q",
+  "references": [
+    "GROUNDED-TRUST-STATUS-001",
+    "GROUNDED-TRUST-GUARDRAIL-001",
+    "GROUNDED-TRUST-GUARDRAIL-002",
+    "GROUNDED-TRUST-GUARDRAIL-003",
+    "GROUNDED-TRUST-GUARDRAIL-004",
+    "GROUNDED-VERIFY-003"
+  ]
+}

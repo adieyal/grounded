@@ -35,11 +35,7 @@ def _tracked_files() -> list[Path]:
         ["git", "ls-files", "-z"],
         cwd=ROOT,
     )
-    return [
-        ROOT / path
-        for path in output.decode("utf-8").split("\0")
-        if path
-    ]
+    return [ROOT / path for path in output.decode("utf-8").split("\0") if path]
 
 
 def _is_public_surface(path: Path) -> bool:

@@ -1,0 +1,17 @@
+{
+  "id": "GROUNDED-TRUST-GUARDRAIL-001",
+  "kind": "guardrail",
+  "name": "Trust status is separate from lifecycle status",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the trust-status guardrail so claim credibility is modeled independently from active, draft, and retired lifecycle state.",
+  "summary": "Claim-bearing specs may declare trust_status as verified, checkable, observed, aspirational, or unknown; lifecycle status remains active, draft, or retired.",
+  "references": [
+    "GROUNDED-TRUST-STATUS-001",
+    "GROUNDED-VERIFY-003"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

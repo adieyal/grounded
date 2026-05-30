@@ -1,0 +1,23 @@
+{
+  "id": "GROUNDED-TRUST-STATUS-001",
+  "kind": "enum",
+  "name": "Trust status",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the trust-status vocabulary used to describe claim credibility separately from lifecycle status.",
+  "definition": "Trust status records credibility while status records lifecycle.",
+  "values": [
+    "verified",
+    "checkable",
+    "observed",
+    "aspirational",
+    "unknown"
+  ],
+  "references": [
+    "GROUNDED-TRUST-GUARDRAIL-001"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

@@ -29,6 +29,7 @@ def load_registry(config: GroundedConfig) -> SpecRegistry:
         FilesystemUnitSource(config),
         JsonTypeSource(config),
         JsonProjectMemoryShapeValidator(),
+        project_root=config.root,
     )
     return spec_registry_from_project_memory(facade.load())
 

@@ -1,0 +1,17 @@
+{
+  "id": "GROUNDED-TRUST-001",
+  "kind": "guardrail",
+  "name": "Invalid trust status",
+  "owner": "grounded",
+  "status": "active",
+  "trust_status": "checkable",
+  "description": "Defines the invalid trust-status guardrail so validation can report claim credibility values outside the governed vocabulary.",
+  "summary": "Specs that declare trust_status must use the governed trust-status vocabulary.",
+  "references": [
+    "GROUNDED-TRUST-STATUS-001",
+    "GROUNDED-TRUST-GUARDRAIL-001"
+  ],
+  "tests": [
+    "GROUNDED-TEST-032"
+  ]
+}

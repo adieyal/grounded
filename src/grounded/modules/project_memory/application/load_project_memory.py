@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from pathlib import Path
+
 from ..domain.issues import ProjectMemoryIssue
 from ..domain.model import (
     ProjectMemory,
@@ -10,12 +12,15 @@ from ..domain.model import (
 )
 from ..domain.references import reference_ids_for, validate_references
 from .ports import ShapeValidator, TypeSource, UnitSource
+from ....trust import validate_trust_credibility
 
 
 def load_project_memory(
     unit_source: UnitSource,
     type_source: TypeSource,
     shape_validator: ShapeValidator,
+    *,
+    project_root: Path | None = None,
 ) -> ProjectMemory:
     type_result = type_source.read_types()
     unit_result = unit_source.read_units()
@@ -67,6 +72,9 @@ def load_project_memory(
 
     unit_tuple = tuple(units)
     issues.extend(validate_references(unit_tuple, type_result.types))
+    issues.extend(
+        validate_trust_credibility(unit_tuple, type_result.types, cwd=project_root)
+    )
     references_by_id = {
         unit.id: reference_ids_for(unit, type_result.types) for unit in unit_tuple
     }
