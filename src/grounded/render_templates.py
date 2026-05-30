@@ -293,16 +293,26 @@ DEFAULT_TEMPLATES: dict[str, str] = {
       {% set visible_backlinks = visible_link_nodes(spec, backlinks) %}
       <div class="pd-links-row">
         <div class="pd-links-col">
-          <h3 class="pd-links-head">Outgoing</h3>
-          <div class="link-list">
-            {% for node in visible_outgoing %}{{ grounded_link(node.type, node.id, node.label, "plain") | safe }}{% else %}<span class="tag t-opt">None</span>{% endfor %}
+          <h3 class="pd-links-head">Outgoing Typed Edges</h3>
+          {% for group in grouped_edge_nodes(spec, visible_outgoing) %}
+          <div class="edge-group">
+            <p class="story-kicker">{{ group["label"] }}</p>
+            <div class="link-list">
+              {% for node in group["items"] %}{{ grounded_link(node.type, node.id, node.label, "plain") | safe }}{% endfor %}
+            </div>
           </div>
+          {% else %}<span class="tag t-opt">None</span>{% endfor %}
         </div>
         <div class="pd-links-col">
-          <h3 class="pd-links-head">Backlinks</h3>
-          <div class="link-list">
-            {% for node in visible_backlinks %}{{ grounded_link(node.type, node.id, node.label, "plain") | safe }}{% else %}<span class="tag t-opt">None</span>{% endfor %}
+          <h3 class="pd-links-head">Incoming Typed Edges</h3>
+          {% for group in grouped_edge_nodes(spec, visible_backlinks) %}
+          <div class="edge-group">
+            <p class="story-kicker">{{ group["label"] }}</p>
+            <div class="link-list">
+              {% for node in group["items"] %}{{ grounded_link(node.type, node.id, node.label, "plain") | safe }}{% endfor %}
+            </div>
           </div>
+          {% else %}<span class="tag t-opt">None</span>{% endfor %}
         </div>
       </div>
     </grounded-links-panel>

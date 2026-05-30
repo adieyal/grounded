@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-EDGE-012",
+  "kind": "guardrail",
+  "name": "Legacy fields normalize into typed edges",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines compatibility between existing relationship fields and the normalized typed-edge model.",
+  "summary": "Legacy fields remain valid but normalize to typed edges: references/examples to mentions, tests to tests, verification_refs to verified_by, generated-artifact source_refs to derives_from, non-generated source_refs to mentions, section/document/members to contains, generated-artifact asset_refs to contains, and non-generated asset_refs to illustrated_by.",
+  "references": [
+    "GROUNDED-DECISION-066"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

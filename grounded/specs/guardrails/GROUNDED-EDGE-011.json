@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-EDGE-011",
+  "kind": "guardrail",
+  "name": "Manual backlinks are legacy compatibility",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the backlink ownership rule so inverse relationships are computed from normalized edges instead of maintained by hand.",
+  "summary": "Fields such as used_by and backlinks are legacy/manual backlink candidates and should emit audit warnings rather than becoming preferred relationship sources.",
+  "references": [
+    "GROUNDED-EDGE-012"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

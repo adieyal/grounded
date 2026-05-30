@@ -31,6 +31,8 @@ class SearchRecord:
     references: tuple[str, ...] = ()
     used_by: tuple[str, ...] = ()
     tests: tuple[str, ...] = ()
+    outgoing_edges: tuple[str, ...] = ()
+    incoming_edges: tuple[str, ...] = ()
     search_text: str = field(default="", repr=False)
 
 
@@ -50,14 +52,8 @@ def tokens(value: str) -> set[str]:
 
 
 def build_search_records(registry: SpecRegistry) -> list[SearchRecord]:
-    backlinks: dict[str, list[str]] = {spec.id: [] for spec in registry.active_specs}
-    for spec in registry.active_specs:
-        for reference in spec.references:
-            if reference in backlinks:
-                backlinks[reference].append(spec.id)
-
     return sorted(
-        (_record_for_spec(spec, registry, backlinks) for spec in registry.active_specs),
+        (_record_for_spec(spec, registry) for spec in registry.active_specs),
         key=lambda record: (record.kind, record.id),
     )
 
@@ -174,6 +170,10 @@ def print_records(records: list[SearchRecord], *, verbose: bool = False) -> int:
             print(f"  used_by: {', '.join(record.used_by[:8])}")
         if record.tests:
             print(f"  tests: {', '.join(record.tests[:8])}")
+        if record.outgoing_edges:
+            print(f"  outgoing_edges: {', '.join(record.outgoing_edges[:8])}")
+        if record.incoming_edges:
+            print(f"  incoming_edges: {', '.join(record.incoming_edges[:8])}")
         if verbose and record.aliases:
             print(f"  aliases: {', '.join(record.aliases)}")
     return 0
@@ -246,10 +246,17 @@ def record_payload(record: SearchRecord) -> dict[str, Any]:
 def _record_for_spec(
     spec: Spec,
     registry: SpecRegistry,
-    backlinks: dict[str, list[str]],
 ) -> SearchRecord:
     type_def = registry.type_definition_for(spec)
     aliases = _aliases_for(spec)
+    outgoing_edges = tuple(
+        f"{edge.edge_type}:{edge.target_id}"
+        for edge in registry.outgoing_edges_for(spec.id)
+    )
+    incoming_edges = tuple(
+        f"{edge.edge_type}:{edge.source_id}"
+        for edge in registry.incoming_edges_for(spec.id)
+    )
     text_parts = [
         spec.id,
         spec.kind,
@@ -260,6 +267,8 @@ def _record_for_spec(
         *spec.tags,
         *spec.references,
         *spec.tests,
+        *outgoing_edges,
+        *incoming_edges,
     ]
     if type_def is not None:
         for field_name in type_def.search_fields:
@@ -274,8 +283,12 @@ def _record_for_spec(
         aliases=aliases,
         tags=spec.tags,
         references=spec.references,
-        used_by=tuple(sorted(backlinks.get(spec.id, ()))),
+        used_by=tuple(
+            sorted({edge.source_id for edge in registry.incoming_edges_for(spec.id)})
+        ),
         tests=spec.tests,
+        outgoing_edges=outgoing_edges,
+        incoming_edges=incoming_edges,
         search_text=normalize(" ".join(text_parts)),
     )
 

@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-DECISION-066",
+  "kind": "decision",
+  "name": "Introduce minimal typed edges",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Documents the P3 edge-model decision so Grounded can normalize important relationships without replacing every field with graph machinery.",
+  "decision": "Grounded will keep legacy relationship fields valid while normalizing them into a small typed-edge model. Authored specs may optionally use an edges array with canonical edge types. The normalized model preserves source, target, edge type, source field, and whether the edge was authored. Backlinks are computed from normalized edges. Strong edge types such as verified_by, derives_from, illustrated_by, implements, and depends_on carry validation semantics; mentions remains weak and must not satisfy proof or trust requirements. Legacy source_refs are category-aware: generated artifacts derive_from source specs, while authored and registry-infrastructure specs only mention source_refs so evidentiary source links do not become projection edges.",
+  "references": [
+    "GROUNDED-DECISION-065"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

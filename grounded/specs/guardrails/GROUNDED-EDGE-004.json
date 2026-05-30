@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-EDGE-004",
+  "kind": "guardrail",
+  "name": "Authored edge targets must resolve",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the target-resolution rule for authored and normalized edges.",
+  "summary": "Every typed edge target must resolve to a known active or inactive spec before stronger edge semantics can be evaluated.",
+  "references": [
+    "GROUNDED-EDGE-002"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

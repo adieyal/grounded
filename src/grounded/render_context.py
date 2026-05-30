@@ -37,6 +37,7 @@ from .render_display import (
     field_type_display,
     field_value,
     generated_documents,
+    grouped_edge_nodes,
     grouped_related_nodes,
     grounded_link,
     list_values,
@@ -92,6 +93,7 @@ def template_environment(config: GroundedConfig) -> Environment:
     env.globals["enum_values"] = enum_values
     env.globals["enum_value_descriptions"] = enum_value_descriptions
     env.globals["generated_documents"] = generated_documents
+    env.globals["grouped_edge_nodes"] = grouped_edge_nodes
     env.globals["grouped_related_nodes"] = grouped_related_nodes
     env.globals["list_values"] = list_values
     env.globals["tag_values"] = tag_values

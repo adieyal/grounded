@@ -1,0 +1,17 @@
+{
+  "id": "GROUNDED-EDGE-005",
+  "kind": "guardrail",
+  "name": "Verified by edges target active proof specs",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the verified_by edge semantics so proof-bearing relationships cannot point at arbitrary specs.",
+  "summary": "A verified_by edge must target an active verification or test_binding, and target fields on those proof specs must match the source claim when present.",
+  "references": [
+    "GROUNDED-TRUST-002",
+    "GROUNDED-TRUST-003",
+    "GROUNDED-TRUST-004"
+  ],
+  "tests": [
+    "GROUNDED-TEST-034"
+  ]
+}

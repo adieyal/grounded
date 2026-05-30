@@ -115,11 +115,27 @@ class ProjectMemoryUnit:
 
 
 @dataclass(frozen=True)
+class NormalizedEdge:
+    source_id: str
+    target_id: str
+    edge_type: str
+    source_field: str | None = None
+    authored: bool = False
+
+
+@dataclass(frozen=True)
 class ProjectMemory:
     units: tuple[ProjectMemoryUnit, ...]
     types: ProjectMemoryTypes
     issues: tuple[ProjectMemoryIssue, ...]
     backlinks_by_id: Mapping[str, tuple[str, ...]]
+    normalized_edges: tuple[NormalizedEdge, ...] = ()
+    outgoing_edges_by_id: Mapping[str, tuple[NormalizedEdge, ...]] = field(
+        default_factory=dict
+    )
+    incoming_edges_by_id: Mapping[str, tuple[NormalizedEdge, ...]] = field(
+        default_factory=dict
+    )
 
     @property
     def by_id(self) -> dict[str, ProjectMemoryUnit]:
@@ -143,10 +159,24 @@ class ProjectMemory:
         types: ProjectMemoryTypes,
         issues: tuple[ProjectMemoryIssue, ...],
         references_by_id: Mapping[str, tuple[str, ...]],
+        normalized_edges: tuple[NormalizedEdge, ...] | None = None,
     ) -> "ProjectMemory":
         backlinks: dict[str, list[str]] = defaultdict(list)
+        outgoing_edges: dict[str, list[NormalizedEdge]] = defaultdict(list)
+        incoming_edges: dict[str, list[NormalizedEdge]] = defaultdict(list)
         unit_ids = {unit.id for unit in units}
-        for source_id, targets in references_by_id.items():
+        edge_targets_by_source: dict[str, list[str]] = defaultdict(list)
+        edge_tuple = normalized_edges or ()
+        for edge in edge_tuple:
+            if edge.source_id in unit_ids and edge.target_id in unit_ids:
+                outgoing_edges[edge.source_id].append(edge)
+                incoming_edges[edge.target_id].append(edge)
+                edge_targets_by_source[edge.source_id].append(edge.target_id)
+
+        backlink_source = (
+            edge_targets_by_source if normalized_edges is not None else references_by_id
+        )
+        for source_id, targets in backlink_source.items():
             for target_id in targets:
                 if target_id in unit_ids:
                     backlinks[target_id].append(source_id)
@@ -155,6 +185,36 @@ class ProjectMemory:
             types=types,
             issues=issues,
             backlinks_by_id={
-                unit.id: tuple(sorted(backlinks.get(unit.id, ()))) for unit in units
+                unit.id: tuple(sorted(set(backlinks.get(unit.id, ()))))
+                for unit in units
+            },
+            normalized_edges=edge_tuple,
+            outgoing_edges_by_id={
+                unit.id: tuple(
+                    sorted(
+                        outgoing_edges.get(unit.id, ()),
+                        key=lambda edge: (
+                            edge.edge_type,
+                            edge.target_id,
+                            edge.source_field or "",
+                            edge.authored,
+                        ),
+                    )
+                )
+                for unit in units
+            },
+            incoming_edges_by_id={
+                unit.id: tuple(
+                    sorted(
+                        incoming_edges.get(unit.id, ()),
+                        key=lambda edge: (
+                            edge.edge_type,
+                            edge.source_id,
+                            edge.source_field or "",
+                            edge.authored,
+                        ),
+                    )
+                )
+                for unit in units
             },
         )
