@@ -37,7 +37,7 @@ class GroundedTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
 
-        self.assertEqual("1.1.0", pyproject["project"]["version"])
+        self.assertEqual("1.2.0", pyproject["project"]["version"])
         self.assertEqual(pyproject["project"]["version"], __version__)
 
     def test_pypi_metadata_and_publish_workflow_are_declared(self) -> None:

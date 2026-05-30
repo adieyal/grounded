@@ -1,0 +1,18 @@
+{
+  "decision": "The package version is bumped to 1.2.0 for declared-binding context lookup, including grounded context --changed-files PATH [PATH ...], project-relative and project-absolute changed-file normalization, distance-0 context seeds from matched file-binding owners, deterministic multi-file seed ordering, no-match failure behavior, Markdown and JSON output support, include-bindings compatibility, focused documentation updates, and executable changed-file context coverage.",
+  "id": "GROUNDED-DECISION-073",
+  "kind": "decision",
+  "name": "Release changed-file context lookup as 1.2.0",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-070",
+    "GROUNDED-DECISION-072",
+    "GROUNDED-TEST-038"
+  ],
+  "tests": [
+    "GROUNDED-TEST-030",
+    "GROUNDED-TEST-038"
+  ],
+  "status": "active",
+  "description": "Documents the 1.2.0 version bump so declared-binding changed-file context lookup has a canonical Grounded owner."
+}
