@@ -20,7 +20,8 @@
     { "command": "grounded specs --uses QUERY", "description": "Shows specs related to a matching entity or spec." },
     { "command": "grounded check-new NAME", "description": "Checks whether a proposed entity or concept probably already exists." },
     { "command": "grounded registry", "description": "Lists merged registry types and authored specs." },
-    { "command": "grounded verify", "description": "Runs project-specific verification commands declared in specs." },
+    { "command": "grounded verify", "description": "Runs active verification spec commands." },
+    { "command": "grounded verify --include-test-bindings", "description": "Also runs executable test_binding commands." },
     { "command": "grounded audit", "description": "Checks for drift and missing coverage." },
     { "command": "grounded graph SPEC-ID", "description": "Shows a documentation-oriented Graphviz relationship diagram around one durable fact." }
   ],

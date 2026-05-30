@@ -32,7 +32,8 @@ List the Grounded CLI commands and the canonical workflow decisions that own the
 | `grounded specs --uses QUERY` | Shows specs related to a matching entity or spec. |
 | `grounded check-new NAME` | Checks whether a proposed entity or concept probably already exists. |
 | `grounded registry` | Lists merged registry types and authored specs. |
-| `grounded verify` | Runs project-specific verification commands declared in specs. |
+| `grounded verify` | Runs active verification spec commands. |
+| `grounded verify --include-test-bindings` | Also runs executable test_binding commands. |
 | `grounded audit` | Checks for drift and missing coverage. |
 | `grounded graph SPEC-ID` | Shows a documentation-oriented Graphviz relationship diagram around one durable fact. |
 

@@ -8,9 +8,11 @@ import unittest
 from contextlib import redirect_stdout
 from io import StringIO
 from pathlib import Path
+from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
+import grounded.audit as audit_module
 from grounded.audit import audit
 from grounded import __version__
 from grounded.bootstrap import AGENTS_MARKER_START, init_project
@@ -254,6 +256,21 @@ class GroundedTests(unittest.TestCase):
 
             self.assertFalse(obsolete.exists())
             self.assertFalse(legacy_index.exists())
+
+    def test_audit_reuses_rendered_site(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            config = load_config(root)
+            registry = load_registry(config)
+
+            with patch(
+                "grounded.audit.build_rendered_site",
+                wraps=audit_module.build_rendered_site,
+            ) as build_rendered_site:
+                audit(config, registry)
+
+            self.assertEqual(1, build_rendered_site.call_count)
 
     def test_generated_document_blocks_render_from_specs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:

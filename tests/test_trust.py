@@ -252,6 +252,86 @@ class TrustCredibilityTests(unittest.TestCase):
 
             self.assertIssue(issues, "GROUNDED-VERIFY-004")
 
+    def test_verify_deduplicates_identical_commands(self) -> None:
+        with initialized_project() as root:
+            script = root / "scripts/count.py"
+            counter = root / "counter.txt"
+            script.parent.mkdir(parents=True)
+            script.write_text(
+                (
+                    "from pathlib import Path\n"
+                    "path = Path('counter.txt')\n"
+                    "count = int(path.read_text() or '0') if path.exists() else 0\n"
+                    "path.write_text(str(count + 1))\n"
+                ),
+                encoding="utf-8",
+            )
+            command = "python scripts/count.py"
+            write_spec(root, "examples", claim(CLAIM_ID))
+            write_spec(root, "examples", claim(OTHER_ID))
+            write_spec(
+                root,
+                "verifications",
+                verification(
+                    "-".join(("PROJECT", "VERIFY", "DEDUP", "001")),
+                    target=CLAIM_ID,
+                    command=command,
+                ),
+            )
+            write_spec(
+                root,
+                "verifications",
+                verification(
+                    "-".join(("PROJECT", "VERIFY", "DEDUP", "002")),
+                    target=OTHER_ID,
+                    command=command,
+                ),
+            )
+            config = load_config(root)
+            registry = load_registry(config)
+
+            self.assertEqual([], verify(config, registry))
+
+            self.assertEqual("1", counter.read_text(encoding="utf-8"))
+
+    def test_verify_excludes_test_bindings_by_default(self) -> None:
+        with initialized_project() as root:
+            enable_test_binding_type(root)
+            write_spec(root, "examples", claim(CLAIM_ID))
+            write_spec(
+                root,
+                "test_bindings",
+                binding_spec(
+                    "-".join(("PROJECT", "TEST", "VERIFY", "001")),
+                    target=CLAIM_ID,
+                    test="python -c 'raise SystemExit(3)'",
+                ),
+            )
+            config = load_config(root)
+            registry = load_registry(config)
+
+            self.assertEqual([], verify(config, registry))
+
+    def test_verify_can_include_test_bindings(self) -> None:
+        with initialized_project() as root:
+            enable_test_binding_type(root)
+            write_spec(root, "examples", claim(CLAIM_ID))
+            write_spec(
+                root,
+                "test_bindings",
+                binding_spec(
+                    "-".join(("PROJECT", "TEST", "VERIFY", "001")),
+                    target=CLAIM_ID,
+                    test="python -c 'raise SystemExit(3)'",
+                ),
+            )
+            config = load_config(root)
+            registry = load_registry(config)
+
+            issues = verify(config, registry, include_test_bindings=True)
+
+            self.assertIssue(issues, "GROUNDED-VERIFY-001")
+
     def test_verified_claim_with_failing_verification_fails_verify(self) -> None:
         with initialized_project() as root:
             write_spec(
@@ -413,6 +493,41 @@ def verification(
         "target": target,
         "command": command,
     }
+
+
+def binding_spec(spec_id: str, *, target: str, test: str) -> dict[str, object]:
+    return {
+        "id": spec_id,
+        "kind": "test_binding",
+        "name": "Claim test binding",
+        "owner": "project",
+        "status": "active",
+        "description": "A test binding for a claim.",
+        "target": target,
+        "test": test,
+    }
+
+
+def enable_test_binding_type(root: Path) -> None:
+    type_registry_path = root / ".grounded/registry/spec-types.json"
+    type_registry = json.loads(type_registry_path.read_text(encoding="utf-8"))
+    type_registry["test_binding"] = {
+        "extends": "knowledge_unit",
+        "renderer": "test_binding.html.j2",
+        "required": [
+            "id",
+            "kind",
+            "name",
+            "owner",
+            "status",
+            "description",
+            "target",
+            "test",
+        ],
+        "single_reference_fields": ["target"],
+        "verification_fields": ["test"],
+    }
+    type_registry_path.write_text(json.dumps(type_registry), encoding="utf-8")
 
 
 def write_spec(root: Path, folder: str, data: dict[str, object]) -> Path:
