@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-TRUST-006",
+  "kind": "guardrail",
+  "name": "Checkable claims need a structural path",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the checkable trust-status guardrail so checkable claims either link to a targeted verification or explain why the verification is not wired yet.",
+  "summary": "An active claim-bearing spec with trust_status checkable must declare an active targeted verification_ref or a trust_basis.",
+  "references": [
+    "GROUNDED-TRUST-STATUS-001"
+  ],
+  "tests": [
+    "GROUNDED-TEST-033"
+  ]
+}

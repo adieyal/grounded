@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-SEMANTIC-001",
+  "kind": "guardrail",
+  "name": "Public vocabulary stays compressed",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the public vocabulary boundary so generated documentation presents Grounded through a small set of user-facing concepts.",
+  "summary": "Public docs should prefer Spec, Registry Type, Generated Artifact, and Verification while reserving registry_unit and knowledge_unit for registry-internal reference material.",
+  "references": [
+    "GROUNDED-DECISION-065"
+  ],
+  "tests": [
+    "GROUNDED-TEST-033"
+  ]
+}

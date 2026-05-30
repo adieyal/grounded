@@ -5,6 +5,7 @@
   "owner": "grounded",
   "status": "active",
   "trust_status": "checkable",
+  "trust_basis": "This guardrail is covered by trust validation tests but is not itself the direct target of a verification spec.",
   "description": "Defines the verification timeout guardrail so runtime verification cannot hang indefinitely.",
   "summary": "grounded verify must apply a timeout to verification command execution and report timed-out commands.",
   "references": [

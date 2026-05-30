@@ -5,6 +5,7 @@
   "owner": "grounded",
   "status": "active",
   "trust_status": "checkable",
+  "trust_basis": "This guardrail is covered by trust validation tests but is not itself the direct target of a verification spec.",
   "description": "Defines the invalid trust-status guardrail so validation can report claim credibility values outside the governed vocabulary.",
   "summary": "Specs that declare trust_status must use the governed trust-status vocabulary.",
   "references": [

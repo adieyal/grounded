@@ -30,7 +30,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
       <grounded-search></grounded-search>
       <grounded-theme-toggle></grounded-theme-toggle>
     </grounded-top-bar>
-    <grounded-sidebar slot="nav" aria-label="Knowledge units">
+    <grounded-sidebar slot="nav" aria-label="Specs">
       <grounded-nav-group>
         <span slot="label">Views</span>
         <grounded-nav-item tone="flow"><a class="plain-nav-link" href="{{ docs_home_href }}">Overview</a></grounded-nav-item>
@@ -69,7 +69,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 {% if docs %}
 <section class="story-band">
   <div>
-    <p class="story-kicker">Generated views</p>
+    <p class="story-kicker">Generated artifacts</p>
     <h2>These files are projections over Grounded specs.</h2>
     <p>Start with the documents, then follow each document into the sections, source specs, and governed assets that explain why the page exists.</p>
   </div>
@@ -97,7 +97,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
     <grounded-unit-card>
       <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ grounded_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
       <p class="pd-card-desc">{{ rich_text(primary_statement(spec), registry) | safe }}</p>
-      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
+      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ type_label(spec.kind) }}</span></div>
     </grounded-unit-card>
   {% endfor %}
   </div>
@@ -111,7 +111,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
     <grounded-unit-card>
       <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ grounded_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
       <p class="pd-card-desc">{{ rich_text(spec.description, registry) | safe }}</p>
-      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
+      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ type_label(spec.kind) }}</span></div>
     </grounded-unit-card>
   {% endfor %}
   </div>
@@ -150,7 +150,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
     <grounded-unit-card>
       <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ grounded_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
       <p class="pd-card-desc">{{ rich_text(spec.description, registry) | safe }}</p>
-      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
+      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ type_label(spec.kind) }}</span></div>
     </grounded-unit-card>
   {% endfor %}
   </div>
@@ -165,7 +165,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 {% set page_tag = page_component(spec.kind) %}
 <{{ page_tag }}>
 <grounded-doc-header slot="hero">
-  <span slot="eyebrow">{{ spec.kind | field_label }}</span>
+  <span slot="eyebrow">{{ type_label(spec.kind) }}</span>
   <span slot="title">{{ data.name }}</span>
   <span slot="lead">{{ rich_text(spec.description, registry) | safe }}</span>
   <grounded-copy-id slot="actions" value="{{ spec.id }}"></grounded-copy-id>
@@ -178,6 +178,13 @@ DEFAULT_TEMPLATES: dict[str, str] = {
     {% for tag in tags %}{{ grounded_link("tag", tag, tag, "tag") | safe }}{% endfor %}
   </div>
 </div>
+{% endif %}
+{% set trust = trust_status_detail(spec) %}
+{% if trust %}
+<section class="semantic-section trust-panel">
+  <grounded-section-heading>Trust Status</grounded-section-heading>
+  <p><span class="tag t-meta">{{ trust["label"] }}</span> {{ trust["description"] }}</p>
+</section>
 {% endif %}
 <div slot="fields">
     {% block semantic_body %}
@@ -327,7 +334,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
     <grounded-unit-card>
       <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ grounded_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
       <p class="pd-card-desc">{{ rich_text(spec.description, registry) | safe }}</p>
-      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
+      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ type_label(spec.kind) }}</span></div>
     </grounded-unit-card>
   {% endfor %}
   </div>
@@ -373,7 +380,10 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 <section class="semantic-section">
   <grounded-section-heading>Values</grounded-section-heading>
   <div class="allowed-values enum-values">
-    {% for value in values %}<span class="tag t-type field-value">{{ value }}</span>{% endfor %}
+    {% for item in enum_value_descriptions(spec) %}
+    <span class="tag t-type field-value">{{ item["value"] }}</span>
+    {% if item["description"] %}<span class="enum-value-description">{{ item["description"] }}</span>{% endif %}
+    {% endfor %}
   </div>
 </section>
 {% endif %}
@@ -390,7 +400,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
     "generated_document.html.j2": """{% extends "unit.html.j2" %}
 {% block semantic_body %}
 <section class="semantic-lead-card artifact-hero">
-  <p class="story-kicker">Generated Document</p>
+  <p class="story-kicker">Generated Artifact</p>
   <p>{{ rich_text(field_value(spec, "purpose", spec.description), registry) | safe }}</p>
   <div class="artifact-facts">
     <span><strong>Output</strong>{{ field_value(spec, "output_path") }}</span>
@@ -402,7 +412,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 {% set sections = specs_for_refs(spec, registry, "section_refs") %}
 {% if sections %}
 <section class="semantic-section">
-  <grounded-section-heading>Document Sections</grounded-section-heading>
+  <grounded-section-heading>Projection Sections</grounded-section-heading>
   <ol class="timeline-list">
   {% for section in sections %}
     <li>
@@ -440,7 +450,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
     "document_section.html.j2": """{% extends "unit.html.j2" %}
 {% block semantic_body %}
 <section class="semantic-lead-card">
-  <p class="story-kicker">Reusable Section</p>
+  <p class="story-kicker">Projection Assembly</p>
   <p>{{ rich_text(field_value(spec, "intro", spec.description), registry) | safe }}</p>
   <div class="artifact-facts">
     <span><strong>Heading</strong>{{ field_value(spec, "heading") }}</span>

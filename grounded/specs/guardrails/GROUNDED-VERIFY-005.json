@@ -5,6 +5,7 @@
   "owner": "grounded",
   "status": "active",
   "trust_status": "checkable",
+  "trust_basis": "This guardrail is covered by trust validation tests but is not itself the direct target of a verification spec.",
   "description": "Defines the runtime verification target-mismatch guardrail so grounded verify can report proof linked to the wrong target.",
   "summary": "grounded verify must not treat a verification result as proof for a spec unless the verification target equals that spec ID.",
   "references": [

@@ -534,10 +534,10 @@ class GroundedTests(unittest.TestCase):
                 root / ".grounded/generated/docs/artifact-index.html"
             ).read_text(encoding="utf-8")
 
-            self.assertIn("Generated Document", doc_html)
-            self.assertIn("Document Sections", doc_html)
+            self.assertIn("Generated Artifact", doc_html)
+            self.assertIn("Projection Sections", doc_html)
             self.assertLess(
-                doc_html.index("Generated Document"), doc_html.index("Metadata fields")
+                doc_html.index("Generated Artifact"), doc_html.index("Metadata fields")
             )
             self.assertIn("Decision", decision_html)
             self.assertIn("Proof Obligations", decision_html)

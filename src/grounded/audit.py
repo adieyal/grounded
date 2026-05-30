@@ -25,10 +25,13 @@ def audit(config: GroundedConfig, registry: SpecRegistry) -> list[Issue]:
     issues.extend(audit_test_coverage(config, registry))
     issues.extend(audit_unknown_artifact_references(config, registry))
     issues.extend(audit_possible_duplicate_statements(registry))
+    issues.extend(audit_semantic_compression_boundaries(registry))
     return issues
 
 
-def audit_generated_views(config: GroundedConfig, registry: SpecRegistry) -> list[Issue]:
+def audit_generated_views(
+    config: GroundedConfig, registry: SpecRegistry
+) -> list[Issue]:
     stale = render_all(config, registry, check=True)
     return [
         Issue(
@@ -321,6 +324,121 @@ def audit_possible_duplicate_statements(registry: SpecRegistry) -> list[Issue]:
                 )
             )
     return issues
+
+
+def audit_semantic_compression_boundaries(registry: SpecRegistry) -> list[Issue]:
+    issues: list[Issue] = []
+    for spec in registry.active_specs:
+        if spec.kind == "concept":
+            issues.extend(_audit_concept_specificity(spec))
+        elif spec.kind == "decision":
+            issues.extend(_audit_decision_shape(spec))
+        elif spec.kind == "document_section":
+            issues.extend(_audit_document_section_truth_boundary(spec))
+    return issues
+
+
+def _audit_concept_specificity(spec: Spec) -> list[Issue]:
+    definition = spec.data.get("definition")
+    summary = spec.data.get("summary")
+    if isinstance(definition, str) and definition.strip():
+        return []
+    if isinstance(summary, str) and len(summary.strip().split()) >= 12:
+        return []
+    return [
+        Issue(
+            "GROUNDED-CONCEPT-001",
+            (
+                f"concept {spec.id} should have a sharp definition or substantial "
+                "summary so concept does not become a catch-all type"
+            ),
+            spec.path,
+            severity="warning",
+        )
+    ]
+
+
+DECISION_ALLOWED_FIELDS = frozenset(
+    {
+        "id",
+        "type",
+        "kind",
+        "name",
+        "owner",
+        "status",
+        "description",
+        "summary",
+        "context",
+        "problem",
+        "decision",
+        "consequences",
+        "references",
+        "tests",
+        "examples",
+        "links",
+        "tags",
+        "trust_status",
+        "verification_refs",
+        "trust_basis",
+        "observed_basis",
+        "evidence",
+    }
+)
+
+
+def _audit_decision_shape(spec: Spec) -> list[Issue]:
+    extra_fields = sorted(set(spec.data) - DECISION_ALLOWED_FIELDS)
+    if not extra_fields:
+        return []
+    return [
+        Issue(
+            "GROUNDED-DECISION-SHAPE-001",
+            (f"decision {spec.id} has non-decision fields: {', '.join(extra_fields)}"),
+            spec.path,
+            severity="warning",
+        )
+    ]
+
+
+CLAIM_WORD_PATTERN = re.compile(
+    r"\b(?:must|should|required|requires|guarantees|proves|verified|canonical|source of truth)\b",
+    re.IGNORECASE,
+)
+
+
+def _audit_document_section_truth_boundary(spec: Spec) -> list[Issue]:
+    if _has_source_refs(spec):
+        return []
+    text_parts = [
+        value
+        for value in (
+            spec.data.get("intro"),
+            spec.data.get("outro"),
+            spec.data.get("description"),
+        )
+        if isinstance(value, str)
+    ]
+    text = " ".join(text_parts)
+    if not CLAIM_WORD_PATTERN.search(text):
+        return []
+    return [
+        Issue(
+            "GROUNDED-DOC-GRAPH-005",
+            (
+                f"document_section {spec.id} appears to contain canonical claim "
+                "language but has no source_refs"
+            ),
+            spec.path,
+            severity="warning",
+        )
+    ]
+
+
+def _has_source_refs(spec: Spec) -> bool:
+    source_refs = spec.data.get("source_refs", [])
+    return isinstance(source_refs, list) and any(
+        isinstance(ref, str) and ref for ref in source_refs
+    )
 
 
 def _normalize_statement(statement: str) -> str:

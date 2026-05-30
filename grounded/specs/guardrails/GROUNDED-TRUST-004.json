@@ -5,6 +5,7 @@
   "owner": "grounded",
   "status": "active",
   "trust_status": "checkable",
+  "trust_basis": "This guardrail is covered by trust validation tests but is not itself the direct target of a verification spec.",
   "description": "Defines the verification target-mismatch guardrail so validation can report verified claims linked to proof for a different target.",
   "summary": "A verification spec only proves the spec named by its target field.",
   "references": [

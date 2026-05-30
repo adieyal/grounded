@@ -1,0 +1,18 @@
+{
+  "id": "GROUNDED-DECISION-065",
+  "kind": "decision",
+  "name": "Compress public semantics for P2",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Documents the P2 semantic compression boundary so Grounded exposes fewer public modeling concepts while preserving internal registry precision.",
+  "decision": "Grounded public docs should describe authored knowledge as specs, type/schema definitions as registry types, projected outputs as generated artifacts, and executable proof as verification. Registry types may carry one of three internal semantic categories: authored_knowledge, generated_artifact, or registry_infrastructure. Verification specs are registry infrastructure because they provide proof machinery rather than ordinary authored knowledge. Generated artifacts are projection and assembly nodes, not canonical truth owners; checkable and observed trust statuses require structural support; trust_basis, observed_basis, and evidence are cross-cutting trust metadata fields rather than domain-specific claim fields; concepts are audited for catch-all drift; decisions remain narrow; and document section specs organize generated artifacts without owning durable claims.",
+  "references": [
+    "GROUNDED-DECISION-001",
+    "GROUNDED-DECISION-057",
+    "GROUNDED-DECISION-060",
+    "GROUNDED-TRUST-STATUS-001"
+  ],
+  "tests": [
+    "GROUNDED-TEST-033"
+  ]
+}

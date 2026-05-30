@@ -5,6 +5,7 @@
   "owner": "grounded",
   "status": "active",
   "trust_status": "checkable",
+  "trust_basis": "This guardrail is covered by trust validation tests but is not itself the direct target of a verification spec.",
   "description": "Defines the verified-claim runtime proof guardrail so grounded verify fails when linked verification results do not pass.",
   "summary": "A spec with trust_status verified is not runtime-proven unless its linked targeted verification result passes in the same grounded verify run.",
   "references": [

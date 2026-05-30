@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-TYPE-012",
+  "kind": "guardrail",
+  "name": "Invalid semantic category",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the semantic category validation guardrail so registry type definitions cannot introduce unapproved type families.",
+  "summary": "Type definitions that declare semantic_category must use authored_knowledge, generated_artifact, or registry_infrastructure.",
+  "references": [
+    "GROUNDED-SEMANTIC-002"
+  ],
+  "tests": [
+    "GROUNDED-TEST-033"
+  ]
+}

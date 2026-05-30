@@ -1,0 +1,15 @@
+{
+  "id": "GROUNDED-SEMANTIC-002",
+  "kind": "guardrail",
+  "name": "Semantic categories stay small",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the semantic category guardrail so registry types can be grouped without introducing a large public inheritance hierarchy.",
+  "summary": "Registry types may use only authored_knowledge, generated_artifact, or registry_infrastructure as semantic_category values.",
+  "references": [
+    "GROUNDED-DECISION-065"
+  ],
+  "tests": [
+    "GROUNDED-TEST-033"
+  ]
+}

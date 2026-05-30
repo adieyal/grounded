@@ -8,6 +8,7 @@ from .models import Spec
 from .registry import SpecRegistry
 from .render_paths import slugify
 from .tags import tag_keys
+from .trust_policy import TRUST_STATUS_DESCRIPTIONS
 
 
 def grounded_link(
@@ -62,10 +63,10 @@ TYPE_NAV_LABELS = {
     "domain_object": "Domain",
     "concept": "Concepts",
     "decision": "Decisions",
-    "document_section": "Document Sections",
-    "documentation_set": "Documentation Sets",
+    "document_section": "Generated Artifacts",
+    "documentation_set": "Generated Artifacts",
     "enum": "Enums",
-    "generated_document": "Generated Documents",
+    "generated_document": "Generated Artifacts",
     "guardrail": "Guardrails",
     "lifecycle_type": "Lifecycle Types",
     "lifecycle_value": "Lifecycle Values",
@@ -78,6 +79,16 @@ TYPE_NAV_LABELS = {
     "spec_type": "Grounded Types",
 }
 
+TYPE_LABELS = {
+    "asset": "Generated Artifact",
+    "document_section": "Generated Artifact",
+    "documentation_set": "Generated Artifact",
+    "generated_document": "Generated Artifact",
+    "registry_type": "Registry Type",
+    "spec_type": "Registry Type",
+    "verification": "Verification",
+}
+
 
 def type_tone(type_name: object) -> str:
     return TYPE_TONES.get(str(type_name), "meta")
@@ -85,6 +96,10 @@ def type_tone(type_name: object) -> str:
 
 def type_nav_label(type_name: object) -> str:
     return TYPE_NAV_LABELS.get(str(type_name), field_label(str(type_name)))
+
+
+def type_label(type_name: object) -> str:
+    return TYPE_LABELS.get(str(type_name), field_label(str(type_name)))
 
 
 def page_component(type_name: object) -> str:
@@ -233,6 +248,27 @@ def enum_values(spec: Spec) -> list[str]:
     if not isinstance(values, list):
         return []
     return [value for value in values if isinstance(value, str)]
+
+
+def enum_value_descriptions(spec: Spec) -> list[dict[str, str]]:
+    values = enum_values(spec)
+    if spec.id != "GROUNDED-TRUST-STATUS-001":
+        return [{"value": value, "description": ""} for value in values]
+    return [
+        {"value": value, "description": TRUST_STATUS_DESCRIPTIONS.get(value, "")}
+        for value in values
+    ]
+
+
+def trust_status_detail(spec: Spec) -> dict[str, str] | None:
+    value = spec.data.get("trust_status")
+    if not isinstance(value, str) or not value:
+        return None
+    return {
+        "value": value,
+        "label": field_label(value),
+        "description": TRUST_STATUS_DESCRIPTIONS.get(value, ""),
+    }
 
 
 def field_anchor(unit_id: object, field_name: object) -> str:

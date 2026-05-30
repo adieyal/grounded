@@ -26,10 +26,10 @@ These source specs describe the current Grounded value proposition without makin
 - One canonical owner for each durable project fact.
 - Stable IDs that docs, tests, code, prompts, and plans can reference.
 - Structured JSON specs so important knowledge has a predictable shape.
-- A small metamodel for registry types, value types, and generated views.
-- A crisp split between registry_type definitions, registry_unit structure, knowledge_unit specs, and authored spec instances.
+- A small public vocabulary: Spec, Registry Type, Generated Artifact, and Verification.
+- A crisp split between authored specs, registry type definitions, generated artifacts, and executable verification.
 - Generated docs for humans and generated context for LLM agents.
-- Validation for broken references, verification commands for project checks, and audits for stale generated views.
+- Validation for broken references, verification commands for project checks, and audits for stale generated artifacts.
 
 ## A tiny example
 
@@ -69,11 +69,11 @@ From a checkout today. After the first PyPI release, install with `pipx install 
 
 ## Migration path
 
-README.md is now a full-file generated_document output. The same path can be used for docs pages as their durable claims move into source specs and their document_section graphs become complete.
+README.md is now a full-file generated artifact. The same path can be used for docs pages as their durable claims move into source specs and their projection graphs become complete.
 
 - `GROUNDED-DECISION-037`: Slice specs define explicit, scoped documentation views with their own metadata, generated index.html page, optional index template override, and optional stylesheet. Slice pages render only their declared members in navigation and search while preserving links into the full Grounded graph.
-- `GROUNDED-DECISION-060`: Grounded documentation is generated from a documentation graph. Durable knowledge lives in source specs; generated_document specs define output artifacts; document_section specs define ordered projections over source specs; documentation_set specs group generated documents; asset specs govern static and generated media. README.md and docs pages should move toward generated views rather than independent sources of truth.
-- `GROUNDED-DECISION-061`: Generated document specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated_document own the entire output path once the source specs and section graph are mature enough. README.md is now generated in full_file mode from GROUNDED-DOC-001.
+- `GROUNDED-DECISION-060`: Grounded documentation is generated from a documentation graph. Durable knowledge lives in source specs; generated artifact specs define output files, projection sections, documentation sets, and governed assets. README.md and docs pages should move toward generated artifacts rather than independent sources of truth.
+- `GROUNDED-DECISION-061`: Generated artifact specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated artifact own the entire output path once the source specs and projection graph are mature enough. README.md is now generated in full_file mode from GROUNDED-DOC-001.
 
 ## Your first useful spec
 
