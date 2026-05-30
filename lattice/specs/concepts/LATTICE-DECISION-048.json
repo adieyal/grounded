@@ -1,5 +1,5 @@
 {
-  "decision": "The package version is bumped to 0.7.0 for the Graphviz relationship graph CLI, including bounded traversal from a starting knowledge-unit ID, outgoing and backlink relationships, optional type include/exclude filters, stdout output, and file output.",
+  "decision": "The package version is bumped to 0.7.0 for the Graphviz relationship graph CLI, including bounded traversal from a starting spec ID, outgoing and backlink relationships, optional type include/exclude filters, stdout output, and file output.",
   "id": "LATTICE-DECISION-048",
   "kind": "decision",
   "name": "Release Graphviz graph export as 0.7.0",

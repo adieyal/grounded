@@ -48,7 +48,7 @@ def graphviz_dot_for(
         raise KeyError(start_id)
     if not _type_is_included(registry.by_id[start_id], include_types, exclude_types):
         raise ValueError(
-            f"starting knowledge-unit type {registry.by_id[start_id].kind} is excluded by type filters"
+            f"starting spec type {registry.by_id[start_id].kind} is excluded by type filters"
         )
 
     active_ids = {
@@ -112,7 +112,7 @@ def _presentation_dot(
     collapsed_value_ids = {
         value_id for value_ids in lifecycle_values.values() for value_id in value_ids
     }
-    hide_kinds = {"data_type", "spec_type"}
+    hide_kinds = {"data_type", "registry_type", "spec_type"}
     if profile == "compact":
         hide_kinds.update({"schema_gap", "test_binding", "verification"})
 

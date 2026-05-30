@@ -6,6 +6,22 @@ last_updated: 2026-05-30
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
+## Unreleased
+
+- Clarified the metamodel nomenclature so governed top-level kinds are
+  described as `registry_type` units and generated views render them as
+  `Lattice Types`.
+- Kept `spec_type` as a compatibility spelling in older registries and example
+  projects while the docs and UI move to the registry_type wording.
+- Clarified the `spec` / `registry_type` / `knowledge_unit` hierarchy so the
+  docs distinguish authored instances from the governing type definitions and
+  the shared base contract.
+- Added `registry_unit` as the minimal root concept and demoted
+  `knowledge_unit` to the documented human-facing extension so evidence fields
+  are no longer treated as part of the root base.
+- Made reference and evidence fields opt-in on specific registry types instead
+  of implicit behavior inherited from `registry_unit` or `knowledge_unit`.
+
 ## 0.12.2 - 2026-05-30
 
 - Removed the non-core `PROJECT-DOMAIN-001` canonical project fact and

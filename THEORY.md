@@ -1,5 +1,5 @@
 ---
-last_updated: 2026-05-23
+last_updated: 2026-05-30
 ---
 
 # Theory of Lattice
@@ -33,6 +33,16 @@ implementation is schema-driven. JSON schemas precisely define each unit of
 knowledge, and references between those units form a graph of project meaning.
 That graph is what lets Lattice validate not only document shape, but also
 relationships between concepts, rules, examples, tests, and other artifacts.
+Within that metamodel, governed top-level kinds are registry types, nested
+shapes are value types, and generated docs are downstream views rather than the
+authoritative source.
+
+The clean relationship is:
+
+- `registry_type` defines the kind.
+- `registry_unit` defines the minimal base shape.
+- `knowledge_unit` is the documented human-facing extension.
+- `spec` is an authored instance.
 
 ## Why It Exists
 
@@ -59,6 +69,16 @@ Lattice separates four concerns that are often blurred together:
 - Tests are behavioral proof.
 - Canonical specs are semantic intent and ownership.
 - Generated docs and context packs are views over the canonical registry.
+
+The core metamodel is intentionally smaller than most project vocabularies. A
+repo can define its own domain terms on top of Lattice, but the kernel should
+stay focused on registry units, registry types, value types, references, and
+generated views.
+
+Put another way: a spec is an authored file or unit; its registry type defines
+what it may contain; `registry_unit` supplies only identity, type, lifecycle,
+and optional owner/summary metadata; and `knowledge_unit` adds the prose fields
+used by human-facing types.
 
 This boundary matters. A Lattice spec can say that a business rule exists, name
 the surfaces it affects, link examples, and require verification. It should not
@@ -102,11 +122,12 @@ The long-term aim is not more documentation. It is less semantic ambiguity.
 
 Lattice should stay boring in implementation and ambitious in effect.
 
-The core should know about documents, schemas, IDs, references, checks, reports,
-and generated views. More opinionated ideas, such as business-module schemas or
-import-boundary linting, should live as profiles or integrations. That keeps the
-base system useful across projects without forcing every project into one
-architectural style.
+The core should know about schemas, IDs, lifecycle state, checks, reports, and
+generated views. Documentation and evidence fields should be opt-in type
+features rather than universal root fields. More opinionated ideas, such as
+business-module schemas or import-boundary linting, should live as profiles or
+integrations. That keeps the base system useful across projects without forcing
+every project into one architectural style.
 
 Checks should also be honest about what they prove. Deterministic validation can
 prove that a referenced ID exists, a required field is present, or a generated

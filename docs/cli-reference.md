@@ -1,5 +1,5 @@
 ---
-last_updated: 2026-05-27
+last_updated: 2026-05-30
 ---
 
 # CLI Reference
@@ -139,7 +139,7 @@ Search ranks exact ID/name matches, aliases such as `short_name`, text matches, 
 
 ## `lattice entities`
 
-List entity-like knowledge units, including concepts, domain objects, enums, lifecycle types, and lifecycle values.
+List entity-like specs, including concepts, domain objects, enums, lifecycle types, and lifecycle values.
 
 ```bash
 uv run lattice entities
@@ -182,7 +182,7 @@ uv run lattice check-new "todo item"
 uv run lattice check-new "supplier alias" --json
 ```
 
-The command reports closest entity matches, relevant specs, and a recommendation. It is designed for maintainers and LLM agents before they create a new knowledge unit.
+The command reports closest entity matches, relevant specs, and a recommendation. It is designed for maintainers and LLM agents before they create a new spec.
 
 ## `lattice graph`
 

@@ -2,7 +2,7 @@
 
 # Lattice LLM Context Pack
 
-Use these canonical knowledge units as the source of truth. Do not duplicate or invent competing facts.
+Use these canonical specs as the source of truth. Do not duplicate or invent competing facts.
 
 - `TODO-ITEM-001` (business_entity, owner: example): Defines the TodoItem business entity and explains how it is used in the modeled domain. A single task or reminder that can move through a todo status until it is done or removed.
   Links: TODO-LIST-001, TODO-DATA-TYPE-001, TODO-DATA-TYPE-002, TODO-DATA-TYPE-003, TODO-LIFECYCLE-001, TODO-CONCEPT-002, TODO-CONCEPT-003, TODO-CONCEPT-004
@@ -34,6 +34,6 @@ Use these canonical knowledge units as the source of truth. Do not duplicate or 
   Links: TODO-LIFECYCLE-001
 - `TODO-STATUS-005` (lifecycle_value, owner: example): Defines the Removed lifecycle value and explains how it is used in the modeled domain. Removed means the TodoItem is no longer part of the active list, while its historical record may remain traceable.
   Links: TODO-LIFECYCLE-001
-- `TODO-TYPE-001` (spec_type, owner: example): Defines the business_entity type spec type and explains how it is used in the modeled domain. A project-defined Lattice type for business entities such as todo tasks. It is validated by the business_entity type registry entry and rendered by the generic unit renderer.
+- `TODO-TYPE-001` (registry_type, owner: example): Defines the business_entity registry type and explains how it is used in the modeled domain. A project-defined Lattice registry type for business entities such as todo tasks. It is validated by the business_entity registry type entry and rendered by the generic unit renderer.
 - `TODO-WORKFLOW-001` (workflow, owner: example): Describes the Capture and complete a todo workflow so agents and maintainers can follow the expected process. A user adds a TodoItem to a TodoList, updates its TodoStatus as work changes, and marks it done when complete.
   Links: TODO-LIST-001, TODO-ITEM-001, TODO-LIFECYCLE-001

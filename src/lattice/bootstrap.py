@@ -17,7 +17,7 @@ AGENTS_SECTION = f"""\
 
 Lattice is the primary source of truth for durable project specs, decisions,
 business rules, workflows, examples, and LLM-readable context.
-Lattice knowledge units are strongly typed, schema-validated, linked nodes.
+Lattice registry units are strongly typed, schema-validated nodes.
 
 The agent is responsible for using, creating, and maintaining this knowledge
 base as part of normal project work. Do not treat Lattice as optional
@@ -29,12 +29,12 @@ Before implementing or documenting a non-trivial change:
 2. Search existing Lattice specs for the owner of the idea.
 3. Update the existing canonical fact instead of duplicating it.
 4. Create a new fact only when no existing owner exists.
-5. Use the type registry before inventing a new knowledge-unit type.
+5. Use the type registry before inventing a new registry type.
 6. If the current schema cannot express the fact cleanly, create a `schema_gap`
    instead of smuggling meaning into prose.
 7. Reference facts by stable ID from tests, code, docs, and plans.
 8. Use domain_object units for durable domain nouns instead of inventing synonyms.
-9. Give every knowledge unit a `description` that explains what it is and what
+9. Give every documented unit a `description` that explains what it is and what
    it is used for.
 10. If the change introduces or changes a durable rule, workflow, decision,
    domain object, example, invariant, or assumption, update Lattice in the same
@@ -192,9 +192,9 @@ def _spec_schema() -> str:
     return _json(
         {
             "$schema": "https://json-schema.org/draft/2020-12/schema",
-            "title": "Lattice canonical knowledge unit",
+            "title": "Lattice registry unit",
             "type": "object",
-            "required": ["id", "name", "owner", "status", "description"],
+            "required": ["id", "name", "status"],
             "anyOf": [{"required": ["type"]}, {"required": ["kind"]}],
             "additionalProperties": True,
             "properties": {
@@ -207,6 +207,7 @@ def _spec_schema() -> str:
                 "name": {"type": "string"},
                 "owner": {"type": "string"},
                 "status": {"type": "string", "enum": ["active", "draft", "retired"]},
+                "summary": {"type": "string"},
                 "description": {"type": "string", "minLength": 1},
                 "tags": {
                     "type": "array",
@@ -232,7 +233,6 @@ def _spec_schema() -> str:
                 "open_questions": {"type": "array", "items": {"type": "string"}},
                 "gap": {"type": "string"},
                 "suggested_improvement": {"type": "string"},
-                "summary": {"type": "string"},
                 "references": {
                     "type": "array",
                     "items": {"type": "string"},
@@ -352,10 +352,10 @@ def _schema_gap() -> str:
             "name": "Project-specific fact shapes belong in the type registry",
             "owner": "project",
             "status": "active",
-            "description": "Records how project-specific fact shapes should move from schema gaps into the type registry.",
+            "description": "Records the registry_type schema gap for project-specific fact shapes so future registry or renderer work has a canonical owner.",
             "gap": "When a durable project fact does not fit existing kinds, agents need a canonical way to capture the mismatch without duplicating meaning elsewhere.",
             "suggested_improvement": "Record the mismatch as a schema_gap, then evolve the configured type registry and templates when the shape becomes stable.",
-            "affected_kind": "spec_type",
+            "affected_kind": "registry_type",
             "references": [],
             "tests": ["PROJECT-VERIFY-001"],
         }
@@ -421,10 +421,10 @@ description: Use Lattice as the primary source of truth for specs, durable proje
 3. Identify the single canonical owner for each idea before editing.
 4. Update an existing spec when the fact already has an owner.
 5. Create a new spec only when no owner exists.
-6. Check the configured type registry before inventing a knowledge-unit type.
+6. Check the configured type registry before inventing a registry type.
 7. Capture unmet schema needs as `schema_gap` specs.
 8. Check `domain_object` units before naming durable domain concepts in code or docs.
-9. Give every knowledge unit a `description` that explains what it is and what it is used for.
+9. Give every documented unit a `description` that explains what it is and what it is used for.
 10. Use `short_name` when a durable unit needs a concise display alias in generated views.
 11. Model closed value sets as `enum` where the current registry supports it.
 12. Model scoped documentation views as `slice` units with explicit `members`, slice metadata, and optional `index_template` or `style_path`.

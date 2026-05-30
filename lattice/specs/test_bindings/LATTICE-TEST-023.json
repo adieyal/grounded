@@ -1,0 +1,13 @@
+{
+  "id": "LATTICE-TEST-023",
+  "kind": "test_binding",
+  "name": "Registry types render as Lattice Types",
+  "owner": "lattice",
+  "references": [
+    "LATTICE-DECISION-057"
+  ],
+  "status": "active",
+  "description": "Binds LATTICE-DECISION-057 to an executable test so Lattice can verify the documented naming behavior.",
+  "target": "LATTICE-DECISION-057",
+  "test": "uv run pytest tests/test_lattice.py::LatticeTests::test_registry_type_label_uses_lattice_types -q"
+}

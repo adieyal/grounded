@@ -25,7 +25,7 @@ class LatticeConfig:
     docs_title: str = "Project Memory"
     docs_eyebrow: str = "Project memory"
     docs_description: str = (
-        "Generated from typed Lattice knowledge units. Search, backlinks, and "
+        "Generated from typed Lattice specs. Search, backlinks, and "
         "links are derived from the same registry."
     )
     docs_nav_label: str = "Project Docs"

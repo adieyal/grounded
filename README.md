@@ -1,5 +1,5 @@
 ---
-last_updated: 2026-05-27
+last_updated: 2026-05-30
 ---
 
 # Lattice
@@ -33,6 +33,10 @@ Lattice treats that as drift.
 - One canonical owner for each durable project fact.
 - Stable IDs that docs, tests, code, prompts, and plans can reference.
 - Structured JSON specs so important knowledge has a predictable shape.
+- A small metamodel for registry types, value types, and generated views so
+  repos can extend the kernel without redefining the core vocabulary.
+- A crisp split between `registry_type` definitions, minimal `registry_unit`
+  structure, documented `knowledge_unit` specs, and authored `spec` instances.
 - Typed tags for validation-sensitive classifications such as
   `EntityType:BusinessEntity`.
 - Generated docs for humans.
@@ -112,7 +116,7 @@ Start with one fact. Give it a stable ID. Link other docs, tests, plans, and pro
 | `lattice render` | Generates human docs and LLM context from the specs. |
 | `lattice render --check` | Fails if generated outputs are stale. |
 | `lattice search QUERY` | Searches project memory by ID, name, aliases, text, and relationships. |
-| `lattice entities` | Lists entity-like knowledge units for discovery before creating new facts. |
+| `lattice entities` | Lists entity-like specs for discovery before creating new facts. |
 | `lattice specs --uses QUERY` | Shows specs related to a matching entity or spec. |
 | `lattice check-new NAME` | Checks whether a proposed entity or concept probably already exists. |
 | `lattice verify` | Runs project-specific verification commands declared in specs. |
@@ -145,6 +149,14 @@ Projects can declare typed tag vocabularies in the type registry and require
 reference fields to point only at targets with a specific typed tag. That lets a
 workplan requirement say “these references must be business entities” while the
 target specs themselves own the `EntityType:BusinessEntity` assertion.
+
+The registry itself is part of the metamodel: governed top-level kinds are
+registry types, and the generated documentation is a view over those specs
+rather than the thing being governed.
+
+In the cleanest shorthand: `registry_type` defines the kind, `registry_unit`
+provides the minimal base contract, `knowledge_unit` is the documented
+human-facing extension, and `spec` is the authored instance.
 
 ## Adopt incrementally
 
@@ -201,7 +213,7 @@ Lattice is probably too much if:
 
 - [Todo example](examples/todo/README.md): a small domain showing terms, lifecycle states, rules, links, and generated docs.
 
-<img src="docs/images/generate_docs.png" alt="Generated Todo documentation showing stable IDs, knowledge units, links, backlinks, and searchable project memory." width="900">
+<img src="docs/images/generate_docs.png" alt="Generated Todo documentation showing stable IDs, specs, links, backlinks, and searchable project memory." width="900">
 
 ## Deeper docs
 

@@ -42,6 +42,8 @@ TYPE_TONES = {
     "lifecycle_value": "enu",
     "data_type": "type",
     "workflow": "flow",
+    "registry_type": "type",
+    "spec_type": "type",
 }
 
 
@@ -54,7 +56,8 @@ TYPE_NAV_LABELS = {
     "lifecycle_value": "Lifecycle Values",
     "data_type": "Data Types",
     "workflow": "Workflows",
-    "spec_type": "Types",
+    "registry_type": "Lattice Types",
+    "spec_type": "Lattice Types",
 }
 
 

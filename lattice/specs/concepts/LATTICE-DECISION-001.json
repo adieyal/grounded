@@ -1,17 +1,19 @@
 {
-  "decision": "Lattice core models project memory as strongly typed knowledge units derived from a generic knowledge_unit parent. Every knowledge unit must include a description that explains what the spec is and what it is used for. Type-specific JSON Schemas, verification bindings, rendering templates, graph links, and search fields are configured by type definitions rather than hardcoded domain semantics.",
+  "decision": "Lattice core models project memory as authored specs that use registry_type definitions. A spec is an authored instance of one registry_type; a registry_type describes what that class of specs is allowed or expected to contain; registry_unit is the minimal base contract for every authored Lattice unit; and knowledge_unit is a richer documented registry_unit for human-facing concepts, rules, types, and decisions. The registry_unit base requires stable identity, type or kind, name, and lifecycle status, with optional owner and summary metadata. Documentation fields such as description and tags belong on documented types. Evidence and relationship fields such as references, examples, tests, and generic links must be opted into by specific registry types rather than inherited from the root base or knowledge_unit. Type-specific JSON Schemas, verification bindings, rendering templates, graph links, and search fields are configured by registry_type definitions rather than hardcoded domain semantics.",
   "id": "LATTICE-DECISION-001",
   "kind": "decision",
-  "name": "Typed knowledge unit core",
+  "name": "Registry unit core",
   "owner": "lattice",
   "references": [
     "LATTICE-THEORY-001",
+    "LATTICE-DECISION-057",
     "PROJECT-CONCEPT-001"
   ],
   "status": "active",
-  "description": "Documents the typed knowledge unit core so maintainers know the base fields and extension points shared by every spec.",
+  "description": "Documents the spec, registry_type, registry_unit, and knowledge_unit relationship so maintainers know the minimal base contract and documented extension shape for authored Lattice units.",
   "tests": [
     "PROJECT-TEST-001",
-    "LATTICE-TEST-010"
+    "LATTICE-TEST-010",
+    "LATTICE-TEST-024"
   ]
 }

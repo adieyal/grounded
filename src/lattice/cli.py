@@ -67,12 +67,12 @@ def main(argv: list[str] | None = None) -> int:
     subcommands.add_parser("audit", help="Run drift and coverage audits.")
     subcommands.add_parser(
         "verify",
-        help="Run project-specific verification commands declared by knowledge units.",
+        help="Run project-specific verification commands declared by specs.",
     )
     graph_parser = subcommands.add_parser(
         "graph", help="Generate a Graphviz DOT relationship graph."
     )
-    graph_parser.add_argument("start", help="Starting knowledge-unit ID.")
+    graph_parser.add_argument("start", help="Starting spec ID.")
     graph_parser.add_argument(
         "--depth",
         type=int,
@@ -116,7 +116,7 @@ def main(argv: list[str] | None = None) -> int:
     search_parser.add_argument("--json", action="store_true")
 
     entities_parser = subcommands.add_parser(
-        "entities", help="List entity-like knowledge units."
+        "entities", help="List entity-like specs."
     )
     entities_parser.add_argument("--json", action="store_true")
     entities_parser.add_argument("--verbose", action="store_true")
@@ -207,7 +207,7 @@ def main(argv: list[str] | None = None) -> int:
                 profile=args.profile,
             )
         except KeyError:
-            print(f"unknown starting knowledge-unit ID: {args.start}", file=sys.stderr)
+            print(f"unknown starting spec ID: {args.start}", file=sys.stderr)
             return 1
         except ValueError as exc:
             print(str(exc), file=sys.stderr)

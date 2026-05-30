@@ -141,7 +141,7 @@ class LatticeLink extends LitElement {
     :host([type="tag"]) { --lattice-link-fg: var(--color-text-secondary); --lattice-link-bg: var(--color-bg-secondary); --lattice-link-border: var(--color-border-tertiary); }
     :host([type="workflow"]) { --lattice-link-fg: var(--color-concept); --lattice-link-bg: var(--color-concept-bg); --lattice-link-border: var(--color-border-tertiary); }
     :host([type="data_type"]) { --lattice-link-fg: var(--color-entity-dark); --lattice-link-bg: var(--color-type-bg); --lattice-link-border: var(--color-border-tertiary); }
-    :host([type="decision"]), :host([type="business_rule"]), :host([type="guardrail"]), :host([type="schema_gap"]), :host([type="spec_type"]), :host([type="test_binding"]) { --lattice-link-fg: var(--color-text-secondary); --lattice-link-bg: var(--color-bg-secondary); --lattice-link-border: var(--color-border-tertiary); }
+    :host([type="decision"]), :host([type="business_rule"]), :host([type="guardrail"]), :host([type="schema_gap"]), :host([type="registry_type"]), :host([type="spec_type"]), :host([type="test_binding"]) { --lattice-link-fg: var(--color-text-secondary); --lattice-link-bg: var(--color-bg-secondary); --lattice-link-border: var(--color-border-tertiary); }
     a { align-items: center; background: var(--lattice-link-bg); border: var(--border-width) solid var(--lattice-link-border); border-radius: var(--radius-sm); color: var(--lattice-link-fg); display: inline-flex; font: var(--font-weight-medium) var(--font-size-xs)/1.2 var(--font-mono); max-width: 100%; padding: var(--space-2xs) var(--space-sm); text-decoration: none; }
     a:hover, a:focus { filter: saturate(1.08) brightness(0.98); color: var(--lattice-link-fg); }
     a:focus-visible { outline: 2px solid var(--lattice-link-fg); outline-offset: 2px; }
@@ -247,7 +247,7 @@ class LatticeSearch extends LitElement {
   render() {
     return html`
       <span class="icon" aria-hidden="true">/</span>
-      <input type="search" placeholder="Search knowledge units..." aria-label="Search knowledge units" .value=${this.query} @input=${(event) => { this.query = event.target.value; }}>
+      <input type="search" placeholder="Search specs..." aria-label="Search specs" .value=${this.query} @input=${(event) => { this.query = event.target.value; }}>
       ${this.results.length ? html`<ul>${this.results.map((item) => html`<li><a href=${item.href}><strong>${item.name}</strong><span>${item.type} - ${item.id}</span></a></li>`)}</ul>` : nothing}
     `;
   }

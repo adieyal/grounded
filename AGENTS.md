@@ -1,5 +1,5 @@
 ---
-last_updated: 2026-05-27
+last_updated: 2026-05-30
 ---
 
 # Agent Instructions
@@ -8,8 +8,8 @@ last_updated: 2026-05-27
 ## Lattice Project Memory
 
 Lattice is the primary source of truth for durable project specs, decisions,
-rules, workflows, examples, and LLM-readable context. Lattice knowledge units
-are strongly typed, schema-validated, linked nodes.
+rules, workflows, examples, and LLM-readable context. Lattice registry units
+are strongly typed, schema-validated nodes.
 
 The agent is responsible for using, creating, and maintaining this knowledge
 base as part of normal project work. Do not treat Lattice as optional
@@ -21,12 +21,12 @@ Before implementing or documenting a non-trivial change:
 2. Search existing Lattice specs for the owner of the idea.
 3. Update the existing canonical fact instead of duplicating it.
 4. Create a new fact only when no existing owner exists.
-5. Use the type registry before inventing a new knowledge-unit type.
+5. Use the type registry before inventing a new registry type.
 6. If the current schema cannot express the fact cleanly, create a `schema_gap`
    instead of smuggling meaning into prose.
 7. Reference facts by stable ID from tests, code, docs, and plans.
 8. Use domain_object units for durable domain nouns instead of inventing synonyms.
-9. Give every knowledge unit a `description` that explains what it is and what
+9. Give every documented unit a `description` that explains what it is and what
    it is used for.
 10. If the change introduces or changes a durable rule, workflow, decision,
    domain object, example, invariant, or assumption, update Lattice in the same

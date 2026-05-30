@@ -1,10 +1,10 @@
 {
-  "definition": "A project-defined Lattice type for business entities such as todo tasks. It is validated by the business_entity type registry entry and rendered by the generic unit renderer.",
+  "definition": "A project-defined Lattice registry type for business entities such as todo tasks. It is validated by the business_entity registry type entry and rendered by the generic unit renderer.",
   "id": "TODO-TYPE-001",
-  "name": "business_entity type",
+  "name": "business_entity registry type",
   "owner": "example",
   "references": [],
   "status": "active",
-  "description": "Defines the business_entity type spec type and explains how it is used in the modeled domain.",
-  "type": "spec_type"
+  "description": "Defines the business_entity registry type and explains how it is used in the modeled domain.",
+  "type": "registry_type"
 }

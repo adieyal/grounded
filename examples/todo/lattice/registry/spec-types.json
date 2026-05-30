@@ -132,7 +132,7 @@
       "summary"
     ]
   },
-  "spec_type": {
+  "registry_type": {
     "extends": "knowledge_unit",
     "list_fields": [
       "references",

@@ -13,7 +13,7 @@ def render_markdown(registry: SpecRegistry) -> str:
         "",
         "# Project Memory",
         "",
-        "This file is generated from Lattice canonical knowledge units.",
+        "This file is generated from Lattice canonical specs.",
         "",
     ]
     for type_name, specs in specs_by_type(registry.active_specs).items():
@@ -29,7 +29,7 @@ def render_llm_pack(registry: SpecRegistry) -> str:
         "",
         "# Lattice LLM Context Pack",
         "",
-        "Use these canonical knowledge units as the source of truth. Do not duplicate or invent competing facts.",
+        "Use these canonical specs as the source of truth. Do not duplicate or invent competing facts.",
         "",
     ]
     for spec in sorted(registry.active_specs, key=lambda item: (item.kind, item.id)):

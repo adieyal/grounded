@@ -1,5 +1,5 @@
 {
-  "decision": "Concrete domain nouns with identity, fields, and lifecycle should be modeled as business_entity units rather than one-off domain-specific Lattice types, so the entity name does not get conflated with the knowledge-unit type name.",
+  "decision": "Concrete domain nouns with identity, fields, and lifecycle should be modeled as business_entity specs rather than one-off domain-specific Lattice types, so the entity name does not get conflated with the registry type name.",
   "id": "LATTICE-DECISION-013",
   "kind": "decision",
   "name": "Model concrete nouns as business entities",

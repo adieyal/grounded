@@ -20,17 +20,24 @@ from ...modules.project_memory.domain.model import (
 )
 
 
-BASE_REQUIRED_FIELDS = ("id", "name", "owner", "status", "description")
+REGISTRY_UNIT_REQUIRED_FIELDS = ("id", "name", "status")
+DOCUMENTED_REQUIRED_FIELDS = (
+    "id",
+    "name",
+    "owner",
+    "status",
+    "description",
+)
 BASE_LINK_FIELDS = ("references", "tests", "examples")
 
 
 DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
-    "knowledge_unit": {
+    "registry_unit": {
         "extends": None,
         "schema": {
             "$schema": "https://json-schema.org/draft/2020-12/schema",
             "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS],
+            "required": [*REGISTRY_UNIT_REQUIRED_FIELDS],
             "anyOf": [{"required": ["type"]}, {"required": ["kind"]}],
             "properties": {
                 "id": {"type": "string", "minLength": 1},
@@ -40,58 +47,40 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 "owner": {"type": "string", "minLength": 1},
                 "status": {"type": "string", "enum": ["active", "draft", "retired"]},
                 "summary": {"type": "string"},
+            },
+            "additionalProperties": True,
+        },
+        "renderer": "unit.html.j2",
+        "required": [*REGISTRY_UNIT_REQUIRED_FIELDS],
+        "search_fields": ["id", "name", "summary"],
+        "reference_fields": [],
+    },
+    "knowledge_unit": {
+        "extends": "registry_unit",
+        "schema": {
+            "$schema": "https://json-schema.org/draft/2020-12/schema",
+            "type": "object",
+            "required": ["description"],
+            "properties": {
                 "description": {"type": "string", "minLength": 1},
                 "tags": {
                     "type": "array",
                     "items": TAG_SCHEMA,
                     "uniqueItems": True,
                 },
-                "references": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "uniqueItems": True,
-                },
-                "tests": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "uniqueItems": True,
-                },
-                "examples": {
-                    "type": "array",
-                    "items": {"type": "string"},
-                    "uniqueItems": True,
-                },
-                "links": {
-                    "type": "array",
-                    "items": {
-                        "oneOf": [
-                            {"type": "string"},
-                            {
-                                "type": "object",
-                                "required": ["target_id"],
-                                "properties": {
-                                    "target_id": {"type": "string", "minLength": 1},
-                                    "target_type": {"type": "string", "minLength": 1},
-                                    "relationship": {"type": "string", "minLength": 1},
-                                },
-                                "additionalProperties": True,
-                            },
-                        ]
-                    },
-                },
             },
             "additionalProperties": True,
         },
         "renderer": "unit.html.j2",
-        "required": [*BASE_REQUIRED_FIELDS],
+        "required": [*DOCUMENTED_REQUIRED_FIELDS],
         "search_fields": ["id", "name", "summary", "description"],
-        "reference_fields": [*BASE_LINK_FIELDS],
+        "reference_fields": [],
     },
     "domain_object": {
         "extends": "knowledge_unit",
         "schema": {
             "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS],
+            "required": [*DOCUMENTED_REQUIRED_FIELDS],
             "properties": {
                 "type": {"const": "domain_object"},
                 "kind": {"const": "domain_object"},
@@ -100,7 +89,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "additionalProperties": True,
         },
         "renderer": "domain_object.html.j2",
-        "required": [*BASE_REQUIRED_FIELDS],
+        "required": [*DOCUMENTED_REQUIRED_FIELDS],
         "search_fields": ["id", "name", "definition", "summary", "description"],
         "reference_fields": [*BASE_LINK_FIELDS],
     },
@@ -108,7 +97,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "extends": "knowledge_unit",
         "schema": {
             "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "values"],
+            "required": [*DOCUMENTED_REQUIRED_FIELDS, "values"],
             "properties": {
                 "type": {"const": "enum"},
                 "kind": {"const": "enum"},
@@ -122,7 +111,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "additionalProperties": True,
         },
         "renderer": "enum.html.j2",
-        "required": [*BASE_REQUIRED_FIELDS],
+        "required": [*DOCUMENTED_REQUIRED_FIELDS],
         "search_fields": [
             "id",
             "name",
@@ -137,7 +126,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "extends": "knowledge_unit",
         "schema": {
             "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "target", "command"],
+            "required": [*DOCUMENTED_REQUIRED_FIELDS, "target", "command"],
             "properties": {
                 "type": {"const": "verification"},
                 "kind": {"const": "verification"},
@@ -148,7 +137,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "additionalProperties": True,
         },
         "renderer": "verification.html.j2",
-        "required": [*BASE_REQUIRED_FIELDS, "target", "command"],
+        "required": [*DOCUMENTED_REQUIRED_FIELDS, "target", "command"],
         "search_fields": ["id", "name", "target", "command", "summary", "description"],
         "reference_fields": ["references"],
         "single_reference_fields": ["target"],
@@ -158,7 +147,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "extends": "knowledge_unit",
         "schema": {
             "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "gap", "suggested_improvement"],
+            "required": [*DOCUMENTED_REQUIRED_FIELDS, "gap", "suggested_improvement"],
             "properties": {
                 "type": {"const": "schema_gap"},
                 "kind": {"const": "schema_gap"},
@@ -168,7 +157,11 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "additionalProperties": True,
         },
         "renderer": "schema_gap.html.j2",
-        "required": [*BASE_REQUIRED_FIELDS, "gap", "suggested_improvement"],
+        "required": [
+            *DOCUMENTED_REQUIRED_FIELDS,
+            "gap",
+            "suggested_improvement",
+        ],
         "search_fields": [
             "id",
             "name",
@@ -183,7 +176,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
         "extends": "knowledge_unit",
         "schema": {
             "type": "object",
-            "required": [*BASE_REQUIRED_FIELDS, "members"],
+            "required": [*DOCUMENTED_REQUIRED_FIELDS, "members"],
             "properties": {
                 "type": {"const": "slice"},
                 "kind": {"const": "slice"},
@@ -200,7 +193,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             "additionalProperties": True,
         },
         "renderer": "unit.html.j2",
-        "required": [*BASE_REQUIRED_FIELDS],
+        "required": [*DOCUMENTED_REQUIRED_FIELDS],
         "search_fields": ["id", "name", "description", "summary"],
         "reference_fields": [*BASE_LINK_FIELDS, "members"],
         "list_fields": ["members"],
@@ -276,9 +269,7 @@ class JsonTypeSource:
                     value.get("search_fields", ("id", "name", "summary", "description"))
                 ),
                 verification_fields=_string_tuple(value.get("verification_fields", ())),
-                reference_fields=_string_tuple(
-                    value.get("reference_fields", ("references",))
-                ),
+                reference_fields=_string_tuple(value.get("reference_fields", ())),
                 single_reference_fields=_string_tuple(
                     value.get("single_reference_fields", ())
                 ),

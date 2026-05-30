@@ -15,7 +15,13 @@ from lattice.bootstrap import AGENTS_MARKER_START, init_project
 from lattice.cli import main
 from lattice.config import load_config
 from lattice.registry import default_type_registry_json, load_registry
-from lattice.render import default_css, field_type_target, lattice_link, render_all
+from lattice.render import (
+    default_css,
+    field_type_target,
+    lattice_link,
+    render_all,
+    type_nav_label,
+)
 from lattice.verify import verify
 
 
@@ -41,6 +47,7 @@ class LatticeTests(unittest.TestCase):
                     "domain_object",
                     "enum",
                     "knowledge_unit",
+                    "registry_unit",
                     "schema_gap",
                     "slice",
                     "verification",
@@ -229,6 +236,10 @@ class LatticeTests(unittest.TestCase):
 
             self.assertIsNotNone(field_type_target("Todo Item", registry))
 
+    def test_registry_type_label_uses_lattice_types(self) -> None:
+        self.assertEqual("Lattice Types", type_nav_label("registry_type"))
+        self.assertEqual("Lattice Types", type_nav_label("spec_type"))
+
     def test_render_rejects_slug_collisions(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -288,6 +299,7 @@ class LatticeTests(unittest.TestCase):
                 "domain_object",
                 "enum",
                 "knowledge_unit",
+                "registry_unit",
                 "schema_gap",
                 "slice",
                 "verification",
@@ -296,6 +308,29 @@ class LatticeTests(unittest.TestCase):
         )
         self.assertNotIn("business_entity", type_registry)
         self.assertNotIn("lifecycle_type", type_registry)
+
+    def test_registry_unit_is_minimal_base(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            spec_id = "".join(["BASE", "-UNIT-001"])
+            spec_path = root / ".lattice/specs/examples" / f"{spec_id}.json"
+            spec_path.parent.mkdir(parents=True, exist_ok=True)
+            spec_path.write_text(
+                json.dumps(
+                    {
+                        "id": spec_id,
+                        "type": "registry_unit",
+                        "name": "Base Unit",
+                        "status": "active",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            registry = load_registry(load_config(root))
+
+            self.assertEqual([], registry.issues)
 
     def test_search_cli_finds_entities_and_related_specs(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -357,7 +392,7 @@ class LatticeTests(unittest.TestCase):
             )
             self.assertEqual(item_id, payload["entity_matches"][0]["id"])
 
-    def test_knowledge_units_require_description(self) -> None:
+    def test_documented_units_require_description(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)

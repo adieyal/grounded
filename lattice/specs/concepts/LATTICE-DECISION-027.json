@@ -1,5 +1,5 @@
 {
-  "decision": "The built-in type registry is limited to core Lattice infrastructure types: knowledge_unit, domain_object, enum, schema_gap, and verification. Richer modeling vocabularies such as business rules, decisions, workflows, business entities, data types, and lifecycle values must be declared by the project or by an add-on/example registry.",
+  "decision": "The built-in type registry is limited to core Lattice infrastructure types: registry_unit, knowledge_unit, domain_object, enum, schema_gap, slice, and verification. Evidence fields are not part of the registry_unit root; richer modeling vocabularies such as business rules, decisions, workflows, business entities, data types, lifecycle values, and evidence-specific shapes must be declared by the project or by an add-on/example registry.",
   "id": "LATTICE-DECISION-027",
   "kind": "decision",
   "name": "Keep built-in types minimal",
