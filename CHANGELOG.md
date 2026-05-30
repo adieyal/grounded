@@ -6,7 +6,7 @@ last_updated: 2026-05-30
 
 All notable Grounded changes are recorded here starting with `0.3.0`.
 
-## Unreleased
+## 1.0.0 - 2026-05-30
 
 - Added documentation-graph registry types for generated documents, document
   sections, documentation sets, and governed assets.
@@ -24,6 +24,10 @@ All notable Grounded changes are recorded here starting with `0.3.0`.
   objects so pages explain meaning and graph ownership before raw metadata.
 - Added generated document graph and artifact index pages to make generated
   documentation provenance inspectable.
+- Prepared the package for PyPI publication with PyPI-facing project metadata,
+  Apache-2.0 license metadata, sdist inclusion rules, a typed-package marker,
+  ignored build artifacts, and a trusted-publishing GitHub Actions workflow.
+- Bumped the package to the first major release version, `1.0.0`.
 
 ## 0.13.0 - 2026-05-30
 

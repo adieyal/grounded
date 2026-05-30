@@ -147,6 +147,10 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: GROUNDED-DECISION-060, GROUNDED-DOC-001, GROUNDED-TEST-026
 - `GROUNDED-DECISION-062` (decision, owner: grounded): Documents the generated documentation redesign so Grounded pages communicate the underlying graph and source meaning before showing implementation metadata. Generated HTML documentation should use semantic templates for important Grounded types instead of leading with generic metadata tables. Generated documents, document sections, documentation sets, assets, decisions, guardrails, test bindings, schema gaps, verification specs, enums, and domain objects should render their source meaning, artifact ownership, relationships, and proof obligations before exposing raw field metadata.
   Links: GROUNDED-DECISION-060, GROUNDED-TEST-028
+- `GROUNDED-DECISION-063` (decision, owner: grounded): Documents the PyPI publication preparation so package metadata, release workflow behavior, and trusted-publishing setup have a canonical Grounded owner. Grounded is prepared for PyPI publication by declaring package discovery, PyPI-facing metadata, Apache-2.0 license metadata and license file inclusion, project URLs, Python version classifiers, a PEP 561 py.typed marker, sdist contents, and a GitHub Actions workflow that builds with uv and publishes through PyPI trusted publishing on release publication or manual dispatch. The workflow requires PyPI trusted publisher configuration for the adieyal/grounded repository, the .github/workflows/pypi.yml workflow, and the pypi environment before an actual release can upload artifacts.
+  Links: GROUNDED-DECISION-052, GROUNDED-DECISION-059
+- `GROUNDED-DECISION-064` (decision, owner: grounded): Documents the 1.0.0 major version bump so the PyPI-ready release has a canonical Grounded owner. The package version is bumped to 1.0.0 for the first major Grounded release, including generated-document graph ownership, full-file generated README and docs, PyPI publication preparation, Apache-2.0 licensing, PEP 561 typed package metadata, and trusted-publishing workflow support.
+  Links: GROUNDED-DECISION-060, GROUNDED-DECISION-062, GROUNDED-DECISION-063
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as grounded-links decision and explains how it guides Grounded behavior or project maintenance. Member pages should render the semantic slices they belong to as grounded-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
 - `GROUNDED-DOC-SECTION-001` (document_section, owner: grounded): Defines the README problem section from governed source specs and the before-and-after diagram asset.
@@ -345,6 +349,10 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: GROUNDED-DOC-GRAPH-001, GROUNDED-DOC-GRAPH-002, GROUNDED-DOC-GRAPH-003, GROUNDED-DOC-GRAPH-004
 - `GROUNDED-TEST-028` (test_binding, owner: grounded): Binds the semantic generated-docs redesign to an executable renderer test proving generated documents, decisions, the document graph, and the artifact index render content-first views.
   Links: GROUNDED-DECISION-062
+- `GROUNDED-TEST-029` (test_binding, owner: grounded): Binds PyPI publishing preparation to an executable test proving package metadata, Apache-2.0 license declaration, project URLs, typed-package marker, console entry point, and trusted-publishing workflow configuration are declared.
+  Links: GROUNDED-DECISION-063
+- `GROUNDED-TEST-030` (test_binding, owner: grounded): Binds the 1.0.0 major release decision to an executable test proving pyproject metadata and the package __version__ value stay synchronized.
+  Links: GROUNDED-DECISION-064
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Grounded can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Grounded can verify the documented behavior.

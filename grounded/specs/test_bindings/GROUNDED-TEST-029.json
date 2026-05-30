@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-029",
+  "kind": "test_binding",
+  "name": "PyPI package metadata and publish workflow are declared",
+  "owner": "grounded",
+  "status": "active",
+  "references": [
+    "GROUNDED-DECISION-063"
+  ],
+  "description": "Binds PyPI publishing preparation to an executable test proving package metadata, Apache-2.0 license declaration, project URLs, typed-package marker, console entry point, and trusted-publishing workflow configuration are declared.",
+  "target": "GROUNDED-DECISION-063",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_pypi_metadata_and_publish_workflow_are_declared -q"
+}

@@ -11,7 +11,7 @@ Start a project with Grounded, add one useful spec, and run the basic validation
 
 ## Quick start
 
-From a checkout:
+From a checkout today. After the first PyPI release, install with `pipx install grounded` or run one-off commands with `uvx grounded`.
 
 1. Run `uv sync`.
 2. Run `uv run grounded init`.

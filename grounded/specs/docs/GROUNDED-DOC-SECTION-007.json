@@ -10,7 +10,7 @@
   "order": 40,
   "renderer": "ordered_steps",
   "content_mode": "mixed",
-  "intro": "From a checkout:",
+  "intro": "From a checkout today. After the first PyPI release, install with `pipx install grounded` or run one-off commands with `uvx grounded`.",
   "steps": [
     "Run `uv sync`.",
     "Run `uv run grounded init`.",
@@ -21,6 +21,7 @@
   ],
   "source_refs": [
     "GROUNDED-DECISION-025",
+    "GROUNDED-DECISION-063",
     "PROJECT-RULE-002"
   ],
   "references": [

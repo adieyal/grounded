@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import sys
 import tempfile
+import tomllib
 import unittest
 from contextlib import redirect_stdout
 from io import StringIO
@@ -11,6 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from grounded.audit import audit
+from grounded import __version__
 from grounded.bootstrap import AGENTS_MARKER_START, init_project
 from grounded.cli import main
 from grounded.config import load_config
@@ -26,6 +28,43 @@ from grounded.verify import verify
 
 
 class GroundedTests(unittest.TestCase):
+    def test_package_version_is_synchronized(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
+
+        self.assertEqual("1.0.0", pyproject["project"]["version"])
+        self.assertEqual(pyproject["project"]["version"], __version__)
+
+    def test_pypi_metadata_and_publish_workflow_are_declared(self) -> None:
+        root = Path(__file__).resolve().parents[1]
+        pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
+        project = pyproject["project"]
+
+        self.assertEqual("grounded", project["name"])
+        self.assertEqual("README.md", project["readme"])
+        self.assertIn("project-memory", project["keywords"])
+        self.assertIn("Topic :: Documentation", project["classifiers"])
+        self.assertEqual("Apache-2.0", project["license"])
+        self.assertEqual(["LICENSE"], project["license-files"])
+        self.assertIn(
+            "License :: OSI Approved :: Apache Software License",
+            project["classifiers"],
+        )
+        self.assertIn(
+            "Apache License",
+            (root / "LICENSE").read_text(encoding="utf-8"),
+        )
+        self.assertTrue((root / "src/grounded/py.typed").exists())
+        self.assertEqual(
+            "https://github.com/adieyal/grounded", project["urls"]["Repository"]
+        )
+        self.assertEqual("grounded.cli:main", project["scripts"]["grounded"])
+
+        workflow = (root / ".github/workflows/pypi.yml").read_text(encoding="utf-8")
+        self.assertIn("id-token: write", workflow)
+        self.assertIn("uv build", workflow)
+        self.assertIn("pypa/gh-action-pypi-publish@release/v1", workflow)
+
     def test_init_creates_specs_and_skill_without_agents_by_default(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -36,11 +75,15 @@ class GroundedTests(unittest.TestCase):
                 (root / ".grounded/specs/schema_gaps/PROJECT-GAP-001.json").exists()
             )
             self.assertTrue(
-                (root / ".grounded/specs/verifications/PROJECT-VERIFY-001.json").exists()
+                (
+                    root / ".grounded/specs/verifications/PROJECT-VERIFY-001.json"
+                ).exists()
             )
             self.assertTrue((root / ".grounded/registry/spec-types.json").exists())
             type_registry = json.loads(
-                (root / ".grounded/registry/spec-types.json").read_text(encoding="utf-8")
+                (root / ".grounded/registry/spec-types.json").read_text(
+                    encoding="utf-8"
+                )
             )
             self.assertEqual(
                 [
@@ -1491,9 +1534,9 @@ class GroundedTests(unittest.TestCase):
                 html.index('<details class="raw-unit">'),
             )
 
-            component_js = (root / ".grounded/generated/docs/grounded-link.js").read_text(
-                encoding="utf-8"
-            )
+            component_js = (
+                root / ".grounded/generated/docs/grounded-link.js"
+            ).read_text(encoding="utf-8")
             self.assertIn("class GroundedDocHeader extends LitElement", component_js)
             self.assertIn("class GroundedSection extends LitElement", component_js)
             self.assertIn("class GroundedPillLinkList extends LitElement", component_js)
@@ -1865,7 +1908,8 @@ class GroundedTests(unittest.TestCase):
 
             self.assertFalse(
                 any(
-                    issue.code.startswith("GROUNDED-DOMAIN") for issue in registry.issues
+                    issue.code.startswith("GROUNDED-DOMAIN")
+                    for issue in registry.issues
                 )
             )
 
@@ -1873,7 +1917,9 @@ class GroundedTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
-            verification = root / ".grounded/specs/verifications/PROJECT-VERIFY-001.json"
+            verification = (
+                root / ".grounded/specs/verifications/PROJECT-VERIFY-001.json"
+            )
             data = json.loads(verification.read_text(encoding="utf-8"))
             data["command"] = "python -c 'raise SystemExit(3)'"
             verification.write_text(json.dumps(data), encoding="utf-8")
@@ -1882,7 +1928,9 @@ class GroundedTests(unittest.TestCase):
             registry = load_registry(config)
             issues = verify(config, registry)
 
-            self.assertTrue(any(issue.code == "GROUNDED-VERIFY-001" for issue in issues))
+            self.assertTrue(
+                any(issue.code == "GROUNDED-VERIFY-001" for issue in issues)
+            )
 
 
 if __name__ == "__main__":

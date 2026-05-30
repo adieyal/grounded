@@ -1,0 +1,16 @@
+{
+  "decision": "Grounded is prepared for PyPI publication by declaring package discovery, PyPI-facing metadata, Apache-2.0 license metadata and license file inclusion, project URLs, Python version classifiers, a PEP 561 py.typed marker, sdist contents, and a GitHub Actions workflow that builds with uv and publishes through PyPI trusted publishing on release publication or manual dispatch. The workflow requires PyPI trusted publisher configuration for the adieyal/grounded repository, the .github/workflows/pypi.yml workflow, and the pypi environment before an actual release can upload artifacts.",
+  "id": "GROUNDED-DECISION-063",
+  "kind": "decision",
+  "name": "Prepare PyPI package publishing",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-052",
+    "GROUNDED-DECISION-059"
+  ],
+  "tests": [
+    "GROUNDED-TEST-029"
+  ],
+  "status": "active",
+  "description": "Documents the PyPI publication preparation so package metadata, release workflow behavior, and trusted-publishing setup have a canonical Grounded owner."
+}

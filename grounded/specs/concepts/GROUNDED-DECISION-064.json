@@ -1,0 +1,17 @@
+{
+  "decision": "The package version is bumped to 1.0.0 for the first major Grounded release, including generated-document graph ownership, full-file generated README and docs, PyPI publication preparation, Apache-2.0 licensing, PEP 561 typed package metadata, and trusted-publishing workflow support.",
+  "id": "GROUNDED-DECISION-064",
+  "kind": "decision",
+  "name": "Release PyPI-ready Grounded as 1.0.0",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-060",
+    "GROUNDED-DECISION-062",
+    "GROUNDED-DECISION-063"
+  ],
+  "tests": [
+    "GROUNDED-TEST-030"
+  ],
+  "status": "active",
+  "description": "Documents the 1.0.0 major version bump so the PyPI-ready release has a canonical Grounded owner."
+}
