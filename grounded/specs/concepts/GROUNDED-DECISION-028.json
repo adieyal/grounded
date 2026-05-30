@@ -1,0 +1,16 @@
+{
+  "decision": "The default documentation stylesheet is packaged as a Python package asset and loaded through importlib.resources. Projects may still override styles through their configured styles_dir, but fresh scaffolds and renders no longer depend on the source checkout's grounded/styles directory being present.",
+  "id": "GROUNDED-DECISION-028",
+  "kind": "decision",
+  "name": "Bundle default stylesheet",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-022",
+    "GROUNDED-DECISION-023"
+  ],
+  "status": "active",
+  "description": "Documents the Bundle default stylesheet decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

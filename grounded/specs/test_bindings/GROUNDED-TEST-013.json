@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-013",
+  "kind": "test_binding",
+  "name": "Bundled stylesheet uses readable font scale",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-043"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-043 to an executable render test so Grounded can verify the generated bundled stylesheet includes the readable design-brief body font token.",
+  "target": "GROUNDED-DECISION-043",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_validate_and_render_check_round_trip -q"
+}

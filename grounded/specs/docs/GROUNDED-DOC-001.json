@@ -1,0 +1,42 @@
+{
+  "id": "GROUNDED-DOC-001",
+  "kind": "generated_document",
+  "name": "README generated document",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the generated README view so the repository entrypoint can be assembled from Grounded source specs.",
+  "output_path": "README.md",
+  "format": "markdown",
+  "write_mode": "full_file",
+  "front_matter": {
+    "last_updated": "2026-05-30"
+  },
+  "title": "Grounded",
+  "audience": "new users and maintainers",
+  "purpose": "Grounded helps teams keep project knowledge from drifting by giving durable facts one source of truth and generating documentation, LLM context, validation, verification checks, and drift reports from that registry.",
+  "stability": "experimental",
+  "section_refs": [
+    "GROUNDED-DOC-SECTION-001",
+    "GROUNDED-DOC-SECTION-003",
+    "GROUNDED-DOC-SECTION-006",
+    "GROUNDED-DOC-SECTION-007",
+    "GROUNDED-DOC-SECTION-008",
+    "GROUNDED-DOC-SECTION-009",
+    "GROUNDED-DOC-SECTION-010",
+    "GROUNDED-DOC-SECTION-011",
+    "GROUNDED-DOC-SECTION-012",
+    "GROUNDED-DOC-SECTION-013",
+    "GROUNDED-DOC-SECTION-014",
+    "GROUNDED-DOC-SECTION-015",
+    "GROUNDED-DOC-SECTION-016",
+    "GROUNDED-DOC-SECTION-002",
+    "GROUNDED-DOC-SECTION-004",
+    "GROUNDED-DOC-SECTION-005"
+  ],
+  "source_refs": [
+    "GROUNDED-DECISION-060"
+  ],
+  "references": [
+    "GROUNDED-DECISION-060"
+  ]
+}

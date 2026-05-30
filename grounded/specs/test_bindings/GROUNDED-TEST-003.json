@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-003",
+  "kind": "test_binding",
+  "name": "Knowledge unit short names are used for rendered labels",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-031"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-031 to an executable test so Grounded can verify the documented behavior.",
+  "target": "GROUNDED-DECISION-031",
+  "test": "uv run pytest tests/test_grounded.py -q"
+}

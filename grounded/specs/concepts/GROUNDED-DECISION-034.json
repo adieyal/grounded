@@ -1,0 +1,15 @@
+{
+  "decision": "Enum specs model a closed list of string values. Enum pages should render those values explicitly so the allowed set is visible in generated docs and downstream readers do not need to inspect raw JSON to understand the boundary.",
+  "id": "GROUNDED-DECISION-034",
+  "kind": "decision",
+  "name": "Render enum values on enum pages",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-027"
+  ],
+  "status": "active",
+  "description": "Documents the Render enum values on enum pages decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "GROUNDED-TEST-006"
+  ]
+}

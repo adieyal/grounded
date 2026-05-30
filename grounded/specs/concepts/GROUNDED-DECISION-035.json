@@ -1,0 +1,16 @@
+{
+  "decision": "Knowledge units and their field definitions may include an optional tags array containing legacy string tags or typed tag objects with type and value fields. Tags are rendered as clickable grounded-links to generated tag pages, and each tag page groups matching members by type. Projects may declare tag_types in the type registry and may use reference_tag_constraints on reference fields so a source spec can require referenced targets to carry a specific typed tag, such as EntityType:BusinessEntity.",
+  "id": "GROUNDED-DECISION-035",
+  "kind": "decision",
+  "name": "Support project-defined tags with tag pages",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-027"
+  ],
+  "status": "active",
+  "description": "Documents the Support project-defined tags with tag pages decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "GROUNDED-TEST-007",
+    "GROUNDED-TEST-020"
+  ]
+}

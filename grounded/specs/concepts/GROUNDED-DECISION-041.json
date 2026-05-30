@@ -1,0 +1,18 @@
+{
+  "decision": "Generated documentation includes grounded-compact-list and grounded-compact-item Lit components for compact repeated items that need a name, description, and optional link. Compact lists are intended for dense contexts that would otherwise use grounded-unit-card but do not need a full card frame.",
+  "id": "GROUNDED-DECISION-041",
+  "kind": "decision",
+  "name": "Render compact linked item lists",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-022",
+    "GROUNDED-DECISION-023",
+    "GROUNDED-DECISION-029",
+    "GROUNDED-DECISION-039"
+  ],
+  "status": "active",
+  "description": "Documents the compact list components so generated docs can show dense linked name-and-description rows without full unit cards.",
+  "tests": [
+    "GROUNDED-TEST-012"
+  ]
+}

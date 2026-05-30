@@ -1,0 +1,22 @@
+{
+  "id": "GROUNDED-DOC-SECTION-018",
+  "kind": "document_section",
+  "name": "Agent workflow section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the LLM workflows guide section that explains agent responsibilities from canonical rules and decisions.",
+  "heading": "Agent workflow",
+  "heading_level": 2,
+  "order": 10,
+  "renderer": "source_summary",
+  "content_mode": "sourced",
+  "source_refs": [
+    "PROJECT-RULE-001",
+    "PROJECT-RULE-002",
+    "GROUNDED-DECISION-054",
+    "GROUNDED-DECISION-056"
+  ],
+  "references": [
+    "GROUNDED-DOC-006"
+  ]
+}

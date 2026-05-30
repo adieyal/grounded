@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-026",
+  "kind": "test_binding",
+  "name": "Generated document blocks render from specs",
+  "owner": "grounded",
+  "status": "active",
+  "references": [
+    "GROUNDED-DECISION-060"
+  ],
+  "description": "Binds GROUNDED-DECISION-060 to an executable renderer test proving generated_document specs write protected README blocks and manifest entries.",
+  "target": "GROUNDED-DECISION-060",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_generated_document_blocks_render_from_specs -q"
+}

@@ -1,0 +1,16 @@
+{
+  "decision": "The CLI includes a registry command that prints the merged registry_type definitions and authored specs loaded for the active Grounded project. The command supports JSON output for tools and human-readable text for maintainers who need to inspect the active metamodel and registry contents.",
+  "id": "GROUNDED-DECISION-058",
+  "kind": "decision",
+  "name": "List registry types and specs from the CLI",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001",
+    "GROUNDED-DECISION-057"
+  ],
+  "status": "active",
+  "description": "Documents the registry inspection CLI command so maintainers and agents can see both registry types and authored specs from one entry point.",
+  "tests": [
+    "GROUNDED-TEST-025"
+  ]
+}

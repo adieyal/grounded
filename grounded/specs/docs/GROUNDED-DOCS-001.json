@@ -1,0 +1,22 @@
+{
+  "id": "GROUNDED-DOCS-001",
+  "kind": "documentation_set",
+  "name": "Public documentation set",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Groups the generated public documentation artifacts that Grounded should render and check together.",
+  "default_output_dir": ".",
+  "document_refs": [
+    "GROUNDED-DOC-001",
+    "GROUNDED-DOC-002",
+    "GROUNDED-DOC-003",
+    "GROUNDED-DOC-004",
+    "GROUNDED-DOC-005",
+    "GROUNDED-DOC-006",
+    "GROUNDED-DOC-007",
+    "GROUNDED-DOC-008"
+  ],
+  "references": [
+    "GROUNDED-DECISION-060"
+  ]
+}

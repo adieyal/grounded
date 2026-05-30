@@ -1,0 +1,34 @@
+{
+  "id": "GROUNDED-DOC-SECTION-014",
+  "kind": "document_section",
+  "name": "Examples and deeper docs section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the README link list for examples and deeper documentation.",
+  "heading": "Examples and deeper docs",
+  "heading_level": 2,
+  "order": 110,
+  "renderer": "doc_link_list",
+  "content_mode": "mixed",
+  "links": [
+    { "label": "Todo example", "href": "examples/todo/README.md" },
+    { "label": "Getting started", "href": "docs/getting-started.md" },
+    { "label": "Core concepts", "href": "docs/concepts.md" },
+    { "label": "Incremental adoption", "href": "docs/incremental-adoption.md" },
+    { "label": "LLM workflows", "href": "docs/llm-workflows.md" },
+    { "label": "Drift checks", "href": "docs/drift-checks.md" },
+    { "label": "CLI reference", "href": "docs/cli-reference.md" },
+    { "label": "Publishing notes", "href": "docs/PUBLISHING.md" },
+    { "label": "Changelog", "href": "CHANGELOG.md" }
+  ],
+  "asset_refs": [
+    "GROUNDED-ASSET-004"
+  ],
+  "source_refs": [
+    "GROUNDED-DECISION-024",
+    "GROUNDED-DECISION-049"
+  ],
+  "references": [
+    "GROUNDED-DOC-001"
+  ]
+}

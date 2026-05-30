@@ -2,9 +2,9 @@
 last_updated: 2026-05-27
 ---
 
-# Todo Lattice Example
+# Todo Grounded Example
 
-This example shows how Lattice keeps a small app's project knowledge in sync.
+This example shows how Grounded keeps a small app's project knowledge in sync.
 
 The Todo domain includes:
 
@@ -21,9 +21,9 @@ The point is not todos. The point is that the vocabulary, rules, examples, and g
 Run the example from the repository root:
 
 ```sh
-uv run lattice --root examples/todo validate
-uv run lattice --root examples/todo render
-uv run lattice --root examples/todo audit
+uv run grounded --root examples/todo validate
+uv run grounded --root examples/todo render
+uv run grounded --root examples/todo audit
 ```
 
 The generated documentation is written to `examples/todo/site`.

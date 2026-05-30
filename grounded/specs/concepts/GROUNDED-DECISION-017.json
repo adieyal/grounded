@@ -1,0 +1,16 @@
+{
+  "decision": "Status values should be modeled as lifecycle_value units rather than concept units because they are members of a lifecycle vocabulary.",
+  "id": "GROUNDED-DECISION-017",
+  "kind": "decision",
+  "name": "Model status values as lifecycle values",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-005",
+    "GROUNDED-DECISION-016"
+  ],
+  "status": "active",
+  "description": "Documents the Model status values as lifecycle values decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

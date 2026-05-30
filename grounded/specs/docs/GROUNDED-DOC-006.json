@@ -1,0 +1,30 @@
+{
+  "id": "GROUNDED-DOC-006",
+  "kind": "generated_document",
+  "name": "LLM workflows generated document",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the generated LLM workflows guide from agent maintenance and search workflow source specs.",
+  "output_path": "docs/llm-workflows.md",
+  "format": "markdown",
+  "write_mode": "full_file",
+  "front_matter": {
+    "last_updated": "2026-05-30"
+  },
+  "title": "LLM Workflows",
+  "audience": "LLM agents and maintainers",
+  "purpose": "Explain how agents should use Grounded search, specs, generated context, and audits during project work.",
+  "stability": "experimental",
+  "section_refs": [
+    "GROUNDED-DOC-SECTION-018",
+    "GROUNDED-DOC-SECTION-004",
+    "GROUNDED-DOC-SECTION-009"
+  ],
+  "source_refs": [
+    "PROJECT-RULE-002",
+    "GROUNDED-DECISION-054"
+  ],
+  "references": [
+    "GROUNDED-DECISION-060"
+  ]
+}

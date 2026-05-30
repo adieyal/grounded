@@ -1,0 +1,18 @@
+{
+  "decision": "Reusable documentation patterns identified from project-specific mocks are implemented as neutral bundled Lit components that consume Grounded design tokens. The reusable set includes grounded-doc-header, grounded-section, grounded-pill-link-list, grounded-detail-list, and grounded-detail-row; project-specific analytics concepts remain data or template content rather than core components.",
+  "id": "GROUNDED-DECISION-045",
+  "kind": "decision",
+  "name": "Generalize reusable documentation components",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-022",
+    "GROUNDED-DECISION-023",
+    "GROUNDED-DECISION-028",
+    "GROUNDED-DECISION-041"
+  ],
+  "status": "active",
+  "description": "Documents the reusable Lit component extraction from a project-specific analytics documentation mock.",
+  "tests": [
+    "GROUNDED-TEST-015"
+  ]
+}

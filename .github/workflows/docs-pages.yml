@@ -10,8 +10,8 @@ on:
       - "README.md"
       - "docs/**"
       - "examples/todo/**"
-      - "lattice/**"
-      - "lattice.yml"
+      - "grounded/**"
+      - "grounded.yml"
       - "pyproject.toml"
       - "scripts/build-pages-site.sh"
       - "src/**"
@@ -45,26 +45,26 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Validate Lattice docs
-        run: uv run lattice validate
+      - name: Validate Grounded docs
+        run: uv run grounded validate
 
-      - name: Render Lattice docs
-        run: uv run lattice render
+      - name: Render Grounded docs
+        run: uv run grounded render
 
-      - name: Audit Lattice docs
-        run: uv run lattice audit
+      - name: Audit Grounded docs
+        run: uv run grounded audit
 
-      - name: Check rendered Lattice docs
-        run: uv run lattice render --check
+      - name: Check rendered Grounded docs
+        run: uv run grounded render --check
 
-      - name: Validate Todo Lattice
-        run: uv run lattice --root examples/todo validate
+      - name: Validate Todo Grounded
+        run: uv run grounded --root examples/todo validate
 
       - name: Render Todo docs
-        run: uv run lattice --root examples/todo render
+        run: uv run grounded --root examples/todo render
 
       - name: Check rendered Todo docs
-        run: uv run lattice --root examples/todo render --check
+        run: uv run grounded --root examples/todo render --check
 
       - name: Assemble Pages site
         run: scripts/build-pages-site.sh

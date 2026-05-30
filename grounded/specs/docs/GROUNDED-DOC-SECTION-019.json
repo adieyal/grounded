@@ -1,0 +1,21 @@
+{
+  "id": "GROUNDED-DOC-SECTION-019",
+  "kind": "document_section",
+  "name": "Release publishing section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the publishing guide section that summarizes publishing and generated documentation release decisions.",
+  "heading": "Release and publishing notes",
+  "heading_level": 2,
+  "order": 20,
+  "renderer": "source_summary",
+  "content_mode": "sourced",
+  "source_refs": [
+    "GROUNDED-DECISION-049",
+    "GROUNDED-DECISION-052",
+    "GROUNDED-DECISION-053"
+  ],
+  "references": [
+    "GROUNDED-DOC-008"
+  ]
+}

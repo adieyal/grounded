@@ -1,0 +1,14 @@
+{
+  "id": "GROUNDED-TEST-010",
+  "kind": "test_binding",
+  "name": "Documented units require descriptions",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001",
+    "GROUNDED-SCHEMA-003"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-001 to an executable test so Grounded can verify documented units declare their purpose while the registry_unit base stays minimal.",
+  "target": "GROUNDED-DECISION-001",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_documented_units_require_description -q"
+}

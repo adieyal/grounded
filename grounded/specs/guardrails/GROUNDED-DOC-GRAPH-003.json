@@ -1,0 +1,9 @@
+{
+  "id": "GROUNDED-DOC-GRAPH-003",
+  "kind": "guardrail",
+  "name": "Generated document lacks explicit write mode",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the generated document write-mode guardrail so each generated output declares whether Grounded owns a protected block or the entire file.",
+  "summary": "A generated_document must declare write_mode as protected_block or full_file."
+}

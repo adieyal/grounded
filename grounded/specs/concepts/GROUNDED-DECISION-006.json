@@ -1,0 +1,16 @@
+{
+  "decision": "Generated HTML documentation includes the search interface and embedded search index in the shared shell template so every page can search the primary project-domain documentation without requiring a web server.",
+  "id": "GROUNDED-DECISION-006",
+  "kind": "decision",
+  "name": "Provide search on every generated HTML page",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-002",
+    "GROUNDED-DECISION-003"
+  ],
+  "status": "active",
+  "description": "Documents the Provide search on every generated HTML page decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-SCHEMA-006",
+  "kind": "guardrail",
+  "name": "Type-specific schema validation failed",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "description": "Defines the Type-specific schema validation failed guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "Each knowledge unit must satisfy the JSON Schemas declared by its type and parent types."
+}

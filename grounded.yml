@@ -1,0 +1,11 @@
+# Grounded registry configuration.
+specs_dir: grounded/specs
+type_registry_path: grounded/registry/spec-types.json
+schemas_dir: grounded/schemas
+templates_dir: grounded/renderers/templates
+styles_dir: grounded/styles
+generated_docs_dir: grounded/generated/docs
+generated_llm_dir: grounded/generated/llm
+search_index_path: grounded/generated/docs/search-index.json
+required_test_kinds: business_rule,example
+audit_roots: src,tests,docs,README.md,AGENTS.md,THEORY.md

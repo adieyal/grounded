@@ -4,14 +4,14 @@ last_updated: 2026-05-30
 
 # Changelog
 
-All notable Lattice changes are recorded here starting with `0.3.0`.
+All notable Grounded changes are recorded here starting with `0.3.0`.
 
 ## Unreleased
 
 - Added documentation-graph registry types for generated documents, document
   sections, documentation sets, and governed assets.
 - Added generated Markdown protected blocks and a generated artifact manifest
-  so root docs such as `README.md` can migrate toward Lattice ownership.
+  so root docs such as `README.md` can migrate toward Grounded ownership.
 - Added full-file generated document write mode so mature documentation graph
   outputs can own their entire target path.
 - Converted `README.md` and public Markdown files under `docs/` to full-file
@@ -27,11 +27,11 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
 
 ## 0.13.0 - 2026-05-30
 
-- Added `lattice registry` to list merged registry types and authored specs,
+- Added `grounded registry` to list merged registry types and authored specs,
   with human-friendly grouped output and JSON output for tooling.
 - Clarified the metamodel nomenclature so governed top-level kinds are
   described as `registry_type` units and generated views render them as
-  `Lattice Types`.
+  `Grounded Types`.
 - Kept `spec_type` as a compatibility spelling in older registries and example
   projects while the docs and UI move to the registry_type wording.
 - Clarified the `spec` / `registry_type` / `knowledge_unit` hierarchy so the
@@ -60,7 +60,7 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
 
 ## 0.12.1 - 2026-05-27
 
-- Updated generated documentation tooltips so rich-text Lattice references in
+- Updated generated documentation tooltips so rich-text Grounded references in
   target descriptions render as clickable links instead of raw bracket syntax.
 - Kept hoisted tooltips interactive long enough for readers to move from the
   source link into tooltip links.
@@ -68,7 +68,7 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
 ## 0.12.0 - 2026-05-27
 
 - Added generated documentation link tooltips. Hovering or focusing a
-  `lattice-link` now shows the referenced unit's label, stable ID, type, and
+  `grounded-link` now shows the referenced unit's label, stable ID, type, and
   short description, or tag counts for tag links.
 
 ## 0.11.0 - 2026-05-27
@@ -88,19 +88,19 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
 ## 0.10.0 - 2026-05-27
 
 - Added CLI project-memory search commands for maintainer and LLM workflows:
-  `lattice search`, `lattice entities`, `lattice specs`, `lattice spec`, and
-  `lattice check-new`.
+  `grounded search`, `grounded entities`, `grounded specs`, `grounded spec`, and
+  `grounded check-new`.
 - Search results rank exact ID/name matches, aliases, text matches, token
   overlap, and fuzzy name matches, with JSON output for automation.
 - Added `specs --uses` to find specs related to a matching entity or spec.
 - Documented the search workflow in the README, CLI reference, and LLM workflow
   guide.
-- Added Lattice coverage for the search workflow through
-  `LATTICE-DECISION-054` and `LATTICE-TEST-019`.
+- Added Grounded coverage for the search workflow through
+  `GROUNDED-DECISION-054` and `GROUNDED-TEST-019`.
 
 ## 0.9.0 - 2026-05-27
 
-- Added graph output profiles for `lattice graph`: `docs`, `compact`, and
+- Added graph output profiles for `grounded graph`: `docs`, `compact`, and
   `debug`, with `docs` now the default.
 - Improved documentation graph output with structured Graphviz HTML labels,
   focus-node highlighting, softer layout styling, kind grouping, edge labels,
@@ -108,14 +108,14 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
 - Updated generated docs sidebar navigation so section items are collapsed under
   accordion headings by default, with the active unit section opened on unit
   pages.
-- Added content-hash query strings to the generated `lattice-link.js` module URL
+- Added content-hash query strings to the generated `grounded-link.js` module URL
   so browsers do not keep stale bundled component behavior after rendering.
 - Added generated Todo graph DOT/PNG artifacts for docs, compact, and debug
   graph profiles.
 
 ## 0.8.0 - 2026-05-27
 
-- Added a bundled `lattice-theme-toggle` Lit component to generated docs.
+- Added a bundled `grounded-theme-toggle` Lit component to generated docs.
 - Generated docs now persist explicit light/dark theme choices locally while
   continuing to follow the system color scheme when no preference is set.
 - Updated the default generated documentation stylesheet to follow `DESIGN.md`
@@ -126,8 +126,8 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
 
 ## 0.7.0 - 2026-05-27
 
-- Added `lattice graph SPEC-ID` to emit Graphviz DOT relationship graphs from
-  the canonical Lattice registry.
+- Added `grounded graph SPEC-ID` to emit Graphviz DOT relationship graphs from
+  the canonical Grounded registry.
 - Graph export traverses outgoing references and backlinks from a starting
   knowledge unit with configurable `--depth`.
 - Added `--include-type` and `--exclude-type` filters for graph node kinds, plus
@@ -136,16 +136,16 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
 ## 0.6.0 - 2026-05-27
 
 - Added reusable bundled Lit components for documentation pages:
-  `lattice-doc-header`, `lattice-section`, `lattice-pill-link-list`,
-  `lattice-detail-list`, and `lattice-detail-row`.
-- Updated unit pages to use `lattice-doc-header` for type badge, title,
+  `grounded-doc-header`, `grounded-section`, `grounded-pill-link-list`,
+  `grounded-detail-list`, and `grounded-detail-row`.
+- Updated unit pages to use `grounded-doc-header` for type badge, title,
   rich lead text, and copy-ID actions.
 - Increased the bundled documentation font token scale so generated docs use
   readable `1rem` body text by default.
 
 ## 0.5.0 - 2026-05-27
 
-- Added `lattice-compact-list` and `lattice-compact-item` Lit components for
+- Added `grounded-compact-list` and `grounded-compact-item` Lit components for
   dense name-and-description rows with optional internal links.
 - Render tag member pages with compact item lists instead of full unit cards.
 - Documented the compact list components in the generated project feature list.
@@ -156,7 +156,7 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
 - Added internal link syntax: `[[SPEC-ID]]`, `[[SPEC-ID|label]]`, and
   `[[SPEC-ID#fragment|label]]`.
 - Added tag link syntax: `[[tag:name|label]]`.
-- Render inline rich text as safe `lattice-link`, `strong`, `em`, and `code`
+- Render inline rich text as safe `grounded-link`, `strong`, `em`, and `code`
   markup in generated HTML.
 - Treat inline spec links as graph references for validation, backlinks, and
   generated context.

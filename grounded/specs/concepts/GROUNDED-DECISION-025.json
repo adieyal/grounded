@@ -1,0 +1,16 @@
+{
+  "decision": "New projects initialized with grounded init store project-local Grounded files under .grounded by default. Projects can override that location during initialization, and the generated grounded.yml records explicit paths so existing projects with a grounded directory continue to work.",
+  "id": "GROUNDED-DECISION-025",
+  "kind": "decision",
+  "name": "Initialize project files under .grounded",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001",
+    "GROUNDED-DECISION-024"
+  ],
+  "status": "active",
+  "description": "Documents the Initialize project files under .grounded decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

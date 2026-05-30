@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-017",
+  "kind": "test_binding",
+  "name": "Generated docs include a theme toggle",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-050"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-050 to executable render tests so Grounded can verify the theme toggle is emitted with stylesheet token support.",
+  "target": "GROUNDED-DECISION-050",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_validate_and_render_check_round_trip tests/test_grounded.py::GroundedTests::test_unit_page_renders_fields_before_collapsed_raw_json -q"
+}

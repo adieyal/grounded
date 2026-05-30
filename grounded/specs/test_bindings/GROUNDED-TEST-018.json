@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-018",
+  "kind": "test_binding",
+  "name": "Bundled stylesheet follows DESIGN.md tokens",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-051"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-051 to executable render tests so Grounded can verify the bundled stylesheet includes DESIGN.md color, type, and radius tokens.",
+  "target": "GROUNDED-DECISION-051",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_validate_and_render_check_round_trip tests/test_grounded.py::GroundedTests::test_default_css_is_bundled_with_package -q"
+}

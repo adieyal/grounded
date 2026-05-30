@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-005",
+  "kind": "test_binding",
+  "name": "Field types resolve exactly and slug collisions fail fast",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-033"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-033 to an executable test so Grounded can verify the documented behavior.",
+  "target": "GROUNDED-DECISION-033",
+  "test": "uv run pytest tests/test_grounded.py -q"
+}

@@ -1,0 +1,16 @@
+# Grounded registry configuration for the standalone Todo example.
+specs_dir: grounded/specs
+type_registry_path: grounded/registry/spec-types.json
+schemas_dir: grounded/schemas
+templates_dir: ../../grounded/renderers/templates
+styles_dir: ../../grounded/styles
+generated_docs_dir: site
+generated_llm_dir: generated/llm
+search_index_path: site/search-index.json
+docs_title: Todo system
+docs_eyebrow: Example domain
+docs_description: A minimal typed knowledge graph for a todo domain. Search, backlinks, and links are derived from the same Grounded registry.
+docs_nav_label: Todo Docs
+docs_background_description: These units explain the documentation system, guardrails, and generated metadata that support the example domain.
+required_test_kinds:
+audit_roots: README.md,grounded

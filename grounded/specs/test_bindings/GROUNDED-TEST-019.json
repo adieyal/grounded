@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-019",
+  "kind": "test_binding",
+  "name": "CLI search finds entities and related specs",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-054"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-054 to executable CLI tests so Grounded can verify search, specs --uses, and check-new behavior.",
+  "target": "GROUNDED-DECISION-054",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_search_cli_finds_entities_and_related_specs -q"
+}

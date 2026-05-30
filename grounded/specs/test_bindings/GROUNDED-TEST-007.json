@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-007",
+  "kind": "test_binding",
+  "name": "Tagged objects and fields render tag links and grouped tag pages",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-035"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-035 to an executable test so Grounded can verify the documented behavior.",
+  "target": "GROUNDED-DECISION-035",
+  "test": "uv run pytest tests/test_grounded.py -q"
+}

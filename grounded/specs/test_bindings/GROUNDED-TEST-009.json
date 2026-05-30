@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-009",
+  "kind": "test_binding",
+  "name": "Slice pages render scoped members with overrides",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-037"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-037 to an executable test so Grounded can verify the documented behavior.",
+  "target": "GROUNDED-DECISION-037",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_slice_pages_render_scoped_members_with_metadata_and_overrides -q"
+}

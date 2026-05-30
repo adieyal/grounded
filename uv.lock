@@ -69,7 +69,7 @@ wheels = [
 ]
 
 [[package]]
-name = "lattice"
+name = "grounded"
 version = "0.13.0"
 source = { editable = "." }
 dependencies = [

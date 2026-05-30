@@ -1,0 +1,12 @@
+{
+  "id": "GROUNDED-SCHEMA-004",
+  "kind": "guardrail",
+  "name": "Reference field is not a list",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the Reference field is not a list guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "List-shaped reference fields must be encoded as JSON arrays.",
+  "references": [
+    "PROJECT-RULE-001"
+  ]
+}

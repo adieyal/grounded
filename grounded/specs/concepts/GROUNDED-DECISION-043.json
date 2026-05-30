@@ -1,0 +1,16 @@
+{
+  "decision": "The bundled documentation stylesheet uses a readable font token scale derived from DESIGN.md, with body-sized text at the Notion design brief's body-md size of 1rem and compact labels scaled to remain legible. Generated documentation should prefer readable default prose over an overly dense small-text interface.",
+  "id": "GROUNDED-DECISION-043",
+  "kind": "decision",
+  "name": "Increase bundled stylesheet font scale",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-028",
+    "GROUNDED-STYLE-002"
+  ],
+  "status": "active",
+  "description": "Documents the default documentation font-size token scale so the bundled stylesheet remains readable and aligned with the design brief without project overrides.",
+  "tests": [
+    "GROUNDED-TEST-013"
+  ]
+}

@@ -7,6 +7,6 @@ cd "$repo_root"
 rm -rf pages-site
 mkdir -p pages-site/todo
 
-cp -R lattice/generated/docs/. pages-site/
+cp -R grounded/generated/docs/. pages-site/
 cp -R examples/todo/site/. pages-site/todo/
 touch pages-site/.nojekyll

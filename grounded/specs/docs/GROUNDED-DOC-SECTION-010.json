@@ -1,0 +1,23 @@
+{
+  "id": "GROUNDED-DOC-SECTION-010",
+  "kind": "document_section",
+  "name": "Typed tags section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the README section that introduces typed tags and constrained references.",
+  "heading": "Typed tags and constrained references",
+  "heading_level": 2,
+  "order": 70,
+  "renderer": "json_example",
+  "content_mode": "mixed",
+  "intro": "Plain string tags are useful for loose grouping. Use typed tags when the classification should be validated.",
+  "example": "{\n  \"tags\": [\n    { \"type\": \"EntityType\", \"value\": \"BusinessEntity\" }\n  ]\n}",
+  "outro": "Projects can declare typed tag vocabularies in the type registry and require reference fields to point only at targets with a specific typed tag.",
+  "source_refs": [
+    "GROUNDED-DECISION-001",
+    "GROUNDED-DECISION-057"
+  ],
+  "references": [
+    "GROUNDED-DOC-001"
+  ]
+}

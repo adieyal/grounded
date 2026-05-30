@@ -1,0 +1,14 @@
+{
+  "id": "GROUNDED-TYPE-011",
+  "kind": "guardrail",
+  "name": "Type hierarchy cycle",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001",
+    "GROUNDED-DECISION-056",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "description": "Defines the Type hierarchy cycle guardrail so validation and maintenance work can recognize circular type inheritance in the merged type registry.",
+  "summary": "A type definition inheritance chain must not cycle back to a type that already appears in the chain."
+}

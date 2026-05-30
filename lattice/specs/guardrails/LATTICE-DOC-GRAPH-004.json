@@ -1,9 +1,0 @@
-{
-  "id": "LATTICE-DOC-GRAPH-004",
-  "kind": "guardrail",
-  "name": "Documentation file is not generated",
-  "owner": "lattice",
-  "status": "active",
-  "description": "Defines the generated documentation coverage guardrail so README.md and Markdown files under docs are owned by generated_document specs instead of drifting as independent sources of truth.",
-  "summary": "README.md and docs/*.md must be managed by generated_document specs."
-}

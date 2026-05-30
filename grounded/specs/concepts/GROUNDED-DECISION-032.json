@@ -1,0 +1,17 @@
+{
+  "decision": "Generated HTML must escape JSON embedded in script tags so hostile spec text cannot terminate the script block. Render checks must report stale or missing outputs plus obsolete generated unit, tag, and legacy entry pages, and generated text artifacts should not carry hard-coded last_updated metadata.",
+  "id": "GROUNDED-DECISION-032",
+  "kind": "decision",
+  "name": "Harden generated outputs and render checks",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-022",
+    "GROUNDED-DECISION-023",
+    "GROUNDED-DECISION-030"
+  ],
+  "status": "active",
+  "description": "Documents the Harden generated outputs and render checks decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "GROUNDED-TEST-004"
+  ]
+}

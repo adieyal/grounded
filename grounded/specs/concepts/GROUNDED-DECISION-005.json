@@ -1,0 +1,15 @@
+{
+  "decision": "Status values should be represented as explicit lifecycle_value units with stable IDs, definitions, and links to the lifecycle types or typed units that use them, rather than embedded as lifecycle-state strings.",
+  "id": "GROUNDED-DECISION-005",
+  "kind": "decision",
+  "name": "Model statuses as lifecycle values",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-004"
+  ],
+  "status": "active",
+  "description": "Documents the Model statuses as lifecycle values decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

@@ -5,28 +5,28 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from lattice.config import load_config
-from lattice.infrastructure.project_memory_json import (
+from grounded.config import load_config
+from grounded.infrastructure.project_memory_json import (
     FilesystemUnitSource,
     JsonProjectMemoryShapeValidator,
     JsonTypeSource,
     spec_registry_from_project_memory,
 )
-from lattice.modules.project_memory import (
+from grounded.modules.project_memory import (
     ProjectMemory,
     ProjectMemoryTypes,
     ProjectMemoryUnit,
     RawProjectMemoryUnit,
     SourceLocation,
 )
-from lattice.registry import load_registry, load_type_registry
+from grounded.registry import load_registry, load_type_registry
 
 
 class ProjectMemoryJsonAdapterTests(unittest.TestCase):
     def test_filesystem_unit_source_loads_json_units_and_read_issues(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            specs_dir = root / ".lattice/specs/examples"
+            specs_dir = root / ".grounded/specs/examples"
             specs_dir.mkdir(parents=True)
             (specs_dir / "UNIT-001.json").write_text(
                 json.dumps(
@@ -47,14 +47,14 @@ class ProjectMemoryJsonAdapterTests(unittest.TestCase):
 
             self.assertEqual(["UNIT-001"], [unit.data["id"] for unit in result.units])
             self.assertTrue(
-                any(issue.code == "LATTICE-JSON-001" for issue in result.issues)
+                any(issue.code == "GROUNDED-JSON-001" for issue in result.issues)
             )
 
     def test_json_type_source_loads_registry_schema_paths(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            registry_dir = root / ".lattice/registry"
-            schema_dir = root / ".lattice/schemas"
+            registry_dir = root / ".grounded/registry"
+            schema_dir = root / ".grounded/schemas"
             registry_dir.mkdir(parents=True)
             schema_dir.mkdir(parents=True)
             (schema_dir / "custom.schema.json").write_text(
@@ -66,7 +66,7 @@ class ProjectMemoryJsonAdapterTests(unittest.TestCase):
                     {
                         "custom": {
                             "extends": "knowledge_unit",
-                            "schema_path": ".lattice/schemas/custom.schema.json",
+                            "schema_path": ".grounded/schemas/custom.schema.json",
                             "required": ["id", "kind", "name", "custom"],
                         }
                     }
@@ -79,7 +79,7 @@ class ProjectMemoryJsonAdapterTests(unittest.TestCase):
             self.assertEqual((), result.issues)
             self.assertIn("custom", result.types.definitions)
             self.assertEqual(
-                ".lattice/schemas/custom.schema.json",
+                ".grounded/schemas/custom.schema.json",
                 result.types.definitions["custom"].schema_path,
             )
             self.assertEqual(
@@ -108,7 +108,7 @@ class ProjectMemoryJsonAdapterTests(unittest.TestCase):
 
             self.assertTrue(
                 any(
-                    issue.code == "LATTICE-SCHEMA-006"
+                    issue.code == "GROUNDED-SCHEMA-006"
                     and "enum schema" in issue.message
                     and "values" in issue.message
                     for issue in issues
@@ -118,7 +118,7 @@ class ProjectMemoryJsonAdapterTests(unittest.TestCase):
     def test_load_type_registry_preserves_semantic_type_issues(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            registry_dir = root / ".lattice/registry"
+            registry_dir = root / ".grounded/registry"
             registry_dir.mkdir(parents=True)
             (registry_dir / "spec-types.json").write_text(
                 json.dumps(
@@ -156,15 +156,15 @@ class ProjectMemoryJsonAdapterTests(unittest.TestCase):
             _, _, issues = load_type_registry(load_config(root))
             codes = {issue.code for issue in issues}
 
-            self.assertIn("LATTICE-TYPE-004", codes)
-            self.assertIn("LATTICE-TYPE-010", codes)
-            self.assertIn("LATTICE-TAG-001", codes)
-            self.assertIn("LATTICE-TAG-002", codes)
+            self.assertIn("GROUNDED-TYPE-004", codes)
+            self.assertIn("GROUNDED-TYPE-010", codes)
+            self.assertIn("GROUNDED-TAG-001", codes)
+            self.assertIn("GROUNDED-TAG-002", codes)
 
     def test_load_type_registry_reports_type_hierarchy_cycles_once(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            registry_dir = root / ".lattice/registry"
+            registry_dir = root / ".grounded/registry"
             registry_dir.mkdir(parents=True)
             (registry_dir / "spec-types.json").write_text(
                 json.dumps(
@@ -178,7 +178,7 @@ class ProjectMemoryJsonAdapterTests(unittest.TestCase):
 
             _, _, issues = load_type_registry(load_config(root))
             cycle_issues = [
-                issue for issue in issues if issue.code == "LATTICE-TYPE-011"
+                issue for issue in issues if issue.code == "GROUNDED-TYPE-011"
             ]
 
             self.assertEqual(1, len(cycle_issues))
@@ -187,7 +187,7 @@ class ProjectMemoryJsonAdapterTests(unittest.TestCase):
     def test_load_registry_reports_major_graph_and_shape_issue_codes(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            specs_dir = root / ".lattice/specs/examples"
+            specs_dir = root / ".grounded/specs/examples"
             specs_dir.mkdir(parents=True)
             unit = {
                 "id": "UNIT-001",
@@ -204,13 +204,13 @@ class ProjectMemoryJsonAdapterTests(unittest.TestCase):
             registry = load_registry(load_config(root))
             codes = {issue.code for issue in registry.issues}
 
-            self.assertIn("LATTICE-ID-001", codes)
-            self.assertIn("LATTICE-REF-001", codes)
+            self.assertIn("GROUNDED-ID-001", codes)
+            self.assertIn("GROUNDED-REF-001", codes)
 
     def test_load_registry_keeps_retired_specs_out_of_active_specs_only(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
-            specs_dir = root / ".lattice/specs/examples"
+            specs_dir = root / ".grounded/specs/examples"
             specs_dir.mkdir(parents=True)
             for spec_id, status in [
                 ("ACTIVE-001", "active"),
@@ -264,7 +264,7 @@ class ProjectMemoryJsonAdapterTests(unittest.TestCase):
 
         self.assertEqual([], registry.specs)
         self.assertTrue(
-            any(issue.code == "LATTICE-COMPAT-001" for issue in registry.issues)
+            any(issue.code == "GROUNDED-COMPAT-001" for issue in registry.issues)
         )
 
 

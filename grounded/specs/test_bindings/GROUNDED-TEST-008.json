@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-008",
+  "kind": "test_binding",
+  "name": "Project templates can extend unit-core and the core unit page renders collection-aware field links",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-036"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-036 to an executable test so Grounded can verify the documented behavior.",
+  "target": "GROUNDED-DECISION-036",
+  "test": "uv run pytest tests/test_grounded.py -q"
+}

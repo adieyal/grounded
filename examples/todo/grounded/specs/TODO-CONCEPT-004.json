@@ -1,0 +1,13 @@
+{
+  "id": "TODO-CONCEPT-004",
+  "concept_role": "invariant",
+  "name": "Completed TodoItem remains traceable",
+  "owner": "example",
+  "references": [
+    "TODO-ITEM-001"
+  ],
+  "status": "active",
+  "description": "Explains the Completed TodoItem remains traceable concept and how it should be used as canonical Grounded knowledge.",
+  "summary": "A TodoItem marked done remains traceable until explicitly removed.",
+  "type": "concept"
+}

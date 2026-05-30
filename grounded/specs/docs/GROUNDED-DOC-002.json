@@ -1,0 +1,31 @@
+{
+  "id": "GROUNDED-DOC-002",
+  "kind": "generated_document",
+  "name": "Getting started generated document",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the generated getting-started guide as a projection over setup, first-spec, command, and layout sections.",
+  "output_path": "docs/getting-started.md",
+  "format": "markdown",
+  "write_mode": "full_file",
+  "front_matter": {
+    "last_updated": "2026-05-30"
+  },
+  "title": "Getting Started",
+  "audience": "new users",
+  "purpose": "Start a project with Grounded, add one useful spec, and run the basic validation and rendering loop.",
+  "stability": "experimental",
+  "section_refs": [
+    "GROUNDED-DOC-SECTION-007",
+    "GROUNDED-DOC-SECTION-008",
+    "GROUNDED-DOC-SECTION-009",
+    "GROUNDED-DOC-SECTION-015"
+  ],
+  "source_refs": [
+    "GROUNDED-DECISION-025",
+    "PROJECT-RULE-002"
+  ],
+  "references": [
+    "GROUNDED-DECISION-060"
+  ]
+}

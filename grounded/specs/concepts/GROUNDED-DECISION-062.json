@@ -1,0 +1,13 @@
+{
+  "decision": "Generated HTML documentation should use semantic templates for important Grounded types instead of leading with generic metadata tables. Generated documents, document sections, documentation sets, assets, decisions, guardrails, test bindings, schema gaps, verification specs, enums, and domain objects should render their source meaning, artifact ownership, relationships, and proof obligations before exposing raw field metadata.",
+  "id": "GROUNDED-DECISION-062",
+  "kind": "decision",
+  "name": "Render generated docs as semantic views",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-060",
+    "GROUNDED-TEST-028"
+  ],
+  "status": "active",
+  "description": "Documents the generated documentation redesign so Grounded pages communicate the underlying graph and source meaning before showing implementation metadata."
+}

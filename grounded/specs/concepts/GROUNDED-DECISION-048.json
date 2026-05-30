@@ -1,0 +1,13 @@
+{
+  "decision": "The package version is bumped to 0.7.0 for the Graphviz relationship graph CLI, including bounded traversal from a starting spec ID, outgoing and backlink relationships, optional type include/exclude filters, stdout output, and file output.",
+  "id": "GROUNDED-DECISION-048",
+  "kind": "decision",
+  "name": "Release Graphviz graph export as 0.7.0",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-046",
+    "GROUNDED-DECISION-047"
+  ],
+  "status": "active",
+  "description": "Documents the 0.7.0 version bump so the Graphviz relationship graph CLI release has a canonical Grounded owner."
+}

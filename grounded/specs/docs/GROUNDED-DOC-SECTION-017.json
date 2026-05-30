@@ -1,0 +1,24 @@
+{
+  "id": "GROUNDED-DOC-SECTION-017",
+  "kind": "document_section",
+  "name": "Drift guardrails section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the drift checks guide section that lists the main validation, audit, and verification guardrails.",
+  "heading": "What Grounded checks",
+  "heading_level": 2,
+  "order": 10,
+  "renderer": "source_list",
+  "content_mode": "sourced",
+  "source_refs": [
+    "GROUNDED-DRIFT-001",
+    "GROUNDED-COVERAGE-001",
+    "GROUNDED-REF-001",
+    "GROUNDED-REF-004",
+    "GROUNDED-SCHEMA-003",
+    "GROUNDED-VERIFY-001"
+  ],
+  "references": [
+    "GROUNDED-DOC-007"
+  ]
+}

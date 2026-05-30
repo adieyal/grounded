@@ -1,0 +1,19 @@
+{
+  "id": "GROUNDED-DOC-SECTION-002",
+  "kind": "document_section",
+  "name": "Registry inspection section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the README section that points readers to the registry inspection command as a way to understand the active documentation graph.",
+  "heading": "Inspect the graph",
+  "heading_level": 2,
+  "order": 20,
+  "renderer": "source_list",
+  "content_mode": "sourced",
+  "source_refs": [
+    "GROUNDED-DECISION-058"
+  ],
+  "references": [
+    "GROUNDED-DOC-001"
+  ]
+}

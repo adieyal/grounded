@@ -1,0 +1,13 @@
+{
+  "id": "TODO-CONCEPT-003",
+  "concept_role": "invariant",
+  "name": "TodoItem has one current status",
+  "owner": "example",
+  "references": [
+    "TODO-ITEM-001"
+  ],
+  "status": "active",
+  "description": "Explains the TodoItem has one current status concept and how it should be used as canonical Grounded knowledge.",
+  "summary": "A TodoItem has exactly one current TodoStatus.",
+  "type": "concept"
+}

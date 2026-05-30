@@ -1,0 +1,13 @@
+{
+  "decision": "The GitHub Pages deployment workflow builds the root Grounded registry docs and the standalone Todo example docs during deployment, validates and audits the root registry, validates the Todo registry, verifies rendered outputs are current, assembles the generated root docs at the Pages site root and the generated Todo site under pages-site/todo, uploads that assembled site as a Pages artifact, and deploys it with the official GitHub Pages deployment action. Rendered site output remains out of version control.",
+  "id": "GROUNDED-DECISION-049",
+  "kind": "decision",
+  "name": "Prepare documentation site for GitHub Pages",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-032",
+    "GROUNDED-DECISION-046"
+  ],
+  "status": "active",
+  "description": "Documents the GitHub Pages preparation for generated Grounded documentation and the Todo demo so publishing uses generated artifacts without committing rendered site files."
+}

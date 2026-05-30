@@ -1,0 +1,16 @@
+{
+  "decision": "The package version is bumped to 0.2.0 for the typed renderer and project layout changes. New grounded init runs do not update AGENTS.md by default; projects must opt in with --update-agents when they want the scaffold to add or refresh agent instructions.",
+  "id": "GROUNDED-DECISION-026",
+  "kind": "decision",
+  "name": "Make AGENTS updates opt-in",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-023",
+    "GROUNDED-DECISION-025"
+  ],
+  "status": "active",
+  "description": "Documents the Make AGENTS updates opt-in decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

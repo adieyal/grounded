@@ -1,0 +1,13 @@
+{
+  "command": "grounded validate && grounded audit",
+  "id": "PROJECT-VERIFY-001",
+  "kind": "verification",
+  "name": "Bootstrap validation",
+  "owner": "grounded",
+  "references": [
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "description": "Defines the verification command for PROJECT-RULE-001 so project checks can be run consistently.",
+  "target": "PROJECT-RULE-001"
+}

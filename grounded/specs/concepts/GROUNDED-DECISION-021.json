@@ -1,0 +1,16 @@
+{
+  "decision": "Business entities should link to lifecycle types rather than directly linking to every lifecycle value. The lifecycle type owns and renders the values, keeping entity pages focused on fields and invariants while preserving the full status vocabulary on the lifecycle page.",
+  "id": "GROUNDED-DECISION-021",
+  "kind": "decision",
+  "name": "Keep status values on lifecycle page",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-005",
+    "GROUNDED-DECISION-017"
+  ],
+  "status": "active",
+  "description": "Documents the Keep status values on lifecycle page decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

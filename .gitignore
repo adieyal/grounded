@@ -3,8 +3,8 @@
 __pycache__/
 *.py[cod]
 
-# Rendered Lattice sites
-/lattice/generated/docs/
+# Rendered Grounded sites
+/grounded/generated/docs/
 /examples/todo/site/
 # Assembled GitHub Pages deployment output
 /pages-site/

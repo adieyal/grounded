@@ -1,0 +1,17 @@
+{
+  "id": "PROJECT-DECISION-001",
+  "kind": "decision",
+  "name": "Render slice memberships as grounded-links",
+  "owner": "project",
+  "references": [
+    "PROJECT-CONCEPT-003",
+    "PROJECT-RULE-003",
+    "PROJECT-GAP-002"
+  ],
+  "status": "active",
+  "description": "Documents the Render slice memberships as grounded-links decision and explains how it guides Grounded behavior or project maintenance.",
+  "decision": "Member pages should render the semantic slices they belong to as grounded-links so overlapping slice membership is visible and navigable in the UI.",
+  "tests": [
+    "PROJECT-TEST-003"
+  ]
+}

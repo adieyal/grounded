@@ -1,0 +1,12 @@
+{
+  "id": "GROUNDED-STYLE-001",
+  "kind": "guardrail",
+  "name": "Missing central stylesheet",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the Missing central stylesheet guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "Generated documentation must have a central style.css source of truth.",
+  "references": [
+    "PROJECT-RULE-001"
+  ]
+}

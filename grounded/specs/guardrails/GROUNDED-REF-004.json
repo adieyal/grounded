@@ -1,0 +1,12 @@
+{
+  "id": "GROUNDED-REF-004",
+  "kind": "guardrail",
+  "name": "Unknown artifact reference",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the Unknown artifact reference guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "A declared audit artifact references a Grounded-shaped ID that has no canonical owner.",
+  "references": [
+    "PROJECT-RULE-001"
+  ]
+}

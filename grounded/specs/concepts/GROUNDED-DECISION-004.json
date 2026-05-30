@@ -1,0 +1,15 @@
+{
+  "decision": "Invariants should be represented as explicit Grounded concepts with stable IDs and links to the units they constrain, rather than embedded as anonymous strings inside another unit.",
+  "id": "GROUNDED-DECISION-004",
+  "kind": "decision",
+  "name": "Model invariants as explicit concepts",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001"
+  ],
+  "status": "active",
+  "description": "Documents the Model invariants as explicit concepts decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

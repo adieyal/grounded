@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-VERIFY-001",
+  "kind": "guardrail",
+  "name": "Verification command failed",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "description": "Defines the Verification command failed guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "Project-specific verification commands declared by registry type definitions must pass when grounded verify runs."
+}

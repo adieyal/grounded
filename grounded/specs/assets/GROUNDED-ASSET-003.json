@@ -1,0 +1,19 @@
+{
+  "id": "GROUNDED-ASSET-003",
+  "kind": "asset",
+  "name": "Incremental adoption diagram",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Governs the README diagram that shows Grounded's incremental adoption ladder.",
+  "asset_kind": "source_asset",
+  "path": "docs/images/adoption.png",
+  "media_type": "image/png",
+  "width": "900",
+  "alt": "A lightweight four-level adoption ladder: canonical glossary, rules and decisions, generated docs and LLM context, then verification and drift checks.",
+  "used_by": [
+    "GROUNDED-DOC-001"
+  ],
+  "references": [
+    "GROUNDED-DECISION-060"
+  ]
+}

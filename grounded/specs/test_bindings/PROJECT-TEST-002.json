@@ -1,0 +1,13 @@
+{
+  "id": "PROJECT-TEST-002",
+  "kind": "test_binding",
+  "name": "Semantic slice nesting is covered by Grounded validation",
+  "owner": "project",
+  "references": [
+    "PROJECT-RULE-003"
+  ],
+  "status": "active",
+  "description": "Binds PROJECT-RULE-003 to an executable test so Grounded can verify the documented behavior.",
+  "target": "PROJECT-RULE-003",
+  "test": "grounded validate && grounded audit"
+}

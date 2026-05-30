@@ -1,0 +1,15 @@
+{
+  "decision": "Concrete domain nouns with identity, fields, and lifecycle should be modeled as business_entity specs rather than one-off domain-specific Grounded types, so the entity name does not get conflated with the registry type name.",
+  "id": "GROUNDED-DECISION-013",
+  "kind": "decision",
+  "name": "Model concrete nouns as business entities",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001"
+  ],
+  "status": "active",
+  "description": "Documents the Model concrete nouns as business entities decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

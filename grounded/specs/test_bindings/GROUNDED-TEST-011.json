@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-011",
+  "kind": "test_binding",
+  "name": "Rich text links render and validate as references",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-039"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-039 to an executable test so Grounded can verify inline rich-text links render safely and participate in reference validation.",
+  "target": "GROUNDED-DECISION-039",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_rich_text_links_render_and_validate_as_references -q"
+}

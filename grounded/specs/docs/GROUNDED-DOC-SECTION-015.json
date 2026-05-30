@@ -1,0 +1,22 @@
+{
+  "id": "GROUNDED-DOC-SECTION-015",
+  "kind": "document_section",
+  "name": "Project layout section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the README section that shows the default Grounded project layout.",
+  "heading": "Project layout",
+  "heading_level": 2,
+  "order": 120,
+  "renderer": "project_layout",
+  "content_mode": "mixed",
+  "layout": "grounded.yml\n.grounded/\n  specs/\n  registry/\n  schemas/\n  templates/\n  renderers/\n    templates/\n  generated/\n    docs/\n    llm/",
+  "outro": "`grounded init` creates this layout. Use `grounded init --grounded-dir path/to/memory` to choose a different project directory. Use `grounded init --update-agents` to add a Grounded section to `AGENTS.md`.",
+  "source_refs": [
+    "GROUNDED-DECISION-025",
+    "GROUNDED-DECISION-026"
+  ],
+  "references": [
+    "GROUNDED-DOC-001"
+  ]
+}

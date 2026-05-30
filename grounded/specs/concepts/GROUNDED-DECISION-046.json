@@ -1,0 +1,14 @@
+{
+  "decision": "The package version is bumped to 0.6.0 for reusable bundled Lit documentation components, unit-page adoption of grounded-doc-header, and the readable bundled font token scale.",
+  "id": "GROUNDED-DECISION-046",
+  "kind": "decision",
+  "name": "Release reusable documentation components as 0.6.0",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-042",
+    "GROUNDED-DECISION-043",
+    "GROUNDED-DECISION-045"
+  ],
+  "status": "active",
+  "description": "Documents the 0.6.0 version bump so the reusable documentation component release has a canonical Grounded owner."
+}

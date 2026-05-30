@@ -1,0 +1,35 @@
+{
+  "id": "GROUNDED-DOC-SECTION-003",
+  "kind": "document_section",
+  "name": "Grounded value proposition section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the README section that summarizes Grounded's source-of-truth value from canonical source specs.",
+  "heading": "What Grounded gives you",
+  "heading_level": 2,
+  "order": 30,
+  "renderer": "bullet_list",
+  "content_mode": "mixed",
+  "intro": "These source specs describe the current Grounded value proposition without making README.md the durable owner of those claims.",
+  "items": [
+    "One canonical owner for each durable project fact.",
+    "Stable IDs that docs, tests, code, prompts, and plans can reference.",
+    "Structured JSON specs so important knowledge has a predictable shape.",
+    "A small metamodel for registry types, value types, and generated views.",
+    "A crisp split between registry_type definitions, registry_unit structure, knowledge_unit specs, and authored spec instances.",
+    "Generated docs for humans and generated context for LLM agents.",
+    "Validation for broken references, verification commands for project checks, and audits for stale generated views."
+  ],
+  "source_refs": [
+    "GROUNDED-THEORY-001",
+    "PROJECT-CONCEPT-001",
+    "PROJECT-RULE-001",
+    "PROJECT-RULE-002"
+  ],
+  "asset_refs": [
+    "GROUNDED-ASSET-001"
+  ],
+  "references": [
+    "GROUNDED-DOC-001"
+  ]
+}

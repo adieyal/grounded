@@ -1,0 +1,12 @@
+{
+  "id": "GROUNDED-OWNERSHIP-001",
+  "kind": "guardrail",
+  "name": "Possible duplicate fact ownership",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the Possible duplicate fact ownership guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "Specs with duplicate normalized statements are flagged because every durable fact should have one owner.",
+  "references": [
+    "PROJECT-RULE-001"
+  ]
+}

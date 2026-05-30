@@ -1,0 +1,17 @@
+{
+  "decision": "Project-memory loading is adapter-backed: the project_memory module owns Grounded graph semantics such as unit indexing, lifecycle views, reference extraction, backlink derivation, duplicate IDs, and unknown-reference issues, while filesystem JSON loading, type-registry JSON loading, and JSON Schema execution live in project_memory_json infrastructure adapters. The legacy registry API remains a compatibility wrapper for this migration slice.",
+  "id": "GROUNDED-DECISION-056",
+  "kind": "decision",
+  "name": "Adapter-backed project-memory loading",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001",
+    "GROUNDED-DECISION-047",
+    "GROUNDED-DECISION-054"
+  ],
+  "status": "active",
+  "description": "Documents the project-memory module boundary so graph semantics remain independently testable and JSON, filesystem, and JSON Schema mechanics can be replaced by adapters.",
+  "tests": [
+    "GROUNDED-TEST-022"
+  ]
+}

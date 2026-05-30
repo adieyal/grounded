@@ -1,0 +1,15 @@
+{
+  "decision": "Named collections with identity and relationships should be modeled as business_entity units rather than domain_object units when they are concrete business entities, not only glossary-style domain nouns.",
+  "id": "GROUNDED-DECISION-014",
+  "kind": "decision",
+  "name": "Model collections as business entities",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-013"
+  ],
+  "status": "active",
+  "description": "Documents the Model collections as business entities decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

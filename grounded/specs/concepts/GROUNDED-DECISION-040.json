@@ -1,0 +1,13 @@
+{
+  "decision": "The package version is bumped to 0.4.0 for constrained inline rich text, inline Grounded links in prose fields, tag links in prose, and validation/backlink support for inline spec references.",
+  "id": "GROUNDED-DECISION-040",
+  "kind": "decision",
+  "name": "Release inline rich text as 0.4.0",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-038",
+    "GROUNDED-DECISION-039"
+  ],
+  "status": "active",
+  "description": "Documents the 0.4.0 version bump so the inline rich-text release has a canonical Grounded owner."
+}

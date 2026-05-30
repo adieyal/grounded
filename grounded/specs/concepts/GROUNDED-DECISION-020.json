@@ -1,0 +1,16 @@
+{
+  "decision": "Generated field tables render field type names as Grounded links. Field types should be modeled as canonical data_type or lifecycle_type units when the project wants every displayed type to have a link target.",
+  "id": "GROUNDED-DECISION-020",
+  "kind": "decision",
+  "name": "Link resolvable field types",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-003",
+    "GROUNDED-DECISION-009"
+  ],
+  "status": "active",
+  "description": "Documents the Link resolvable field types decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

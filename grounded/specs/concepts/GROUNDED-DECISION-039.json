@@ -1,0 +1,19 @@
+{
+  "decision": "Grounded prose fields support constrained inline rich text. The syntax renders `[[SPEC-ID]]`, `[[SPEC-ID|label]]`, `[[SPEC-ID#fragment|label]]`, and `[[tag:name|label]]` as safe Grounded links, supports small inline formatting such as code, strong text, and emphasis, and treats spec links as graph references for validation and backlinks.",
+  "id": "GROUNDED-DECISION-039",
+  "kind": "decision",
+  "name": "Support constrained inline rich text",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001",
+    "GROUNDED-DECISION-029",
+    "GROUNDED-DECISION-030",
+    "GROUNDED-DECISION-032",
+    "GROUNDED-DECISION-035"
+  ],
+  "status": "active",
+  "description": "Documents the constrained inline rich-text syntax so prose fields can link to canonical Grounded units without allowing arbitrary HTML.",
+  "tests": [
+    "GROUNDED-TEST-011"
+  ]
+}

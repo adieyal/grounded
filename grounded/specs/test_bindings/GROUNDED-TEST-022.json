@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-022",
+  "kind": "test_binding",
+  "name": "Project-memory loading is adapter-backed",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-056"
+  ],
+  "status": "active",
+  "description": "Binds the adapter-backed project-memory loading decision to focused business-module and JSON adapter tests.",
+  "target": "GROUNDED-DECISION-056",
+  "test": "uv run pytest tests/modules/test_project_memory.py tests/infrastructure/test_project_memory_json.py -q"
+}

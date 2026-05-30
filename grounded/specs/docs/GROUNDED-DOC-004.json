@@ -1,0 +1,31 @@
+{
+  "id": "GROUNDED-DOC-004",
+  "kind": "generated_document",
+  "name": "CLI reference generated document",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the generated CLI reference as a projection over command and CLI workflow sections.",
+  "output_path": "docs/cli-reference.md",
+  "format": "markdown",
+  "write_mode": "full_file",
+  "front_matter": {
+    "last_updated": "2026-05-30"
+  },
+  "title": "CLI Reference",
+  "audience": "maintainers and LLM agents",
+  "purpose": "List the Grounded CLI commands and the canonical workflow decisions that own their behavior.",
+  "stability": "experimental",
+  "section_refs": [
+    "GROUNDED-DOC-SECTION-009",
+    "GROUNDED-DOC-SECTION-004",
+    "GROUNDED-DOC-SECTION-002"
+  ],
+  "source_refs": [
+    "GROUNDED-DECISION-047",
+    "GROUNDED-DECISION-054",
+    "GROUNDED-DECISION-058"
+  ],
+  "references": [
+    "GROUNDED-DECISION-060"
+  ]
+}

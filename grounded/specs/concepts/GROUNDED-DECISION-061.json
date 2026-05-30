@@ -1,0 +1,14 @@
+{
+  "decision": "Generated document specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated_document own the entire output path once the source specs and section graph are mature enough. README.md is now generated in full_file mode from GROUNDED-DOC-001.",
+  "id": "GROUNDED-DECISION-061",
+  "kind": "decision",
+  "name": "Support full-file generated document ownership",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-060",
+    "GROUNDED-DOC-001",
+    "GROUNDED-TEST-026"
+  ],
+  "status": "active",
+  "description": "Documents generated document write modes so Grounded can migrate safely from protected generated blocks to fully generated documentation files."
+}

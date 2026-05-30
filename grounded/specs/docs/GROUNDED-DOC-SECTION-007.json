@@ -1,0 +1,29 @@
+{
+  "id": "GROUNDED-DOC-SECTION-007",
+  "kind": "document_section",
+  "name": "Quick start section",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the README quick start section as ordered setup and render steps.",
+  "heading": "Quick start",
+  "heading_level": 2,
+  "order": 40,
+  "renderer": "ordered_steps",
+  "content_mode": "mixed",
+  "intro": "From a checkout:",
+  "steps": [
+    "Run `uv sync`.",
+    "Run `uv run grounded init`.",
+    "Run `uv run grounded validate`.",
+    "Run `uv run grounded render`.",
+    "Add one durable project fact: a domain term, business rule, architecture decision, workflow, or verification command.",
+    "Run `uv run grounded validate`, `uv run grounded render --check`, and `uv run grounded audit`."
+  ],
+  "source_refs": [
+    "GROUNDED-DECISION-025",
+    "PROJECT-RULE-002"
+  ],
+  "references": [
+    "GROUNDED-DOC-001"
+  ]
+}

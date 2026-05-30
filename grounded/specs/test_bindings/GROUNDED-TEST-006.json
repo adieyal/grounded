@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-006",
+  "kind": "test_binding",
+  "name": "Enum pages render closed value lists",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-034"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-034 to an executable test so Grounded can verify the documented behavior.",
+  "target": "GROUNDED-DECISION-034",
+  "test": "uv run pytest tests/test_grounded.py -q"
+}

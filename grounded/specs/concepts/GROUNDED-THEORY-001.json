@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-THEORY-001",
+  "kind": "concept",
+  "name": "Grounded theory",
+  "owner": "grounded",
+  "references": [
+    "PROJECT-CONCEPT-001",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "description": "Explains the Grounded theory concept and how it should be used as canonical Grounded knowledge.",
+  "summary": "Grounded is executable project memory: a schema-validated coordination layer that gives durable project knowledge one canonical owner, models specs as a reference graph, and uses deterministic validation wherever possible to prevent drift between specs, docs, tests, code, and LLM context."
+}

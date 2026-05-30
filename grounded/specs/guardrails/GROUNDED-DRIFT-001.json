@@ -1,0 +1,12 @@
+{
+  "id": "GROUNDED-DRIFT-001",
+  "kind": "guardrail",
+  "name": "Generated view is stale",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the Generated view is stale guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "Generated Grounded views must match the current canonical registry.",
+  "references": [
+    "PROJECT-RULE-001"
+  ]
+}

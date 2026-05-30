@@ -1,0 +1,12 @@
+{
+  "id": "GROUNDED-COVERAGE-001",
+  "kind": "guardrail",
+  "name": "Required canonical fact lacks declared test coverage",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the Required canonical fact lacks declared test coverage guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "Specs whose kind requires executable proof must declare a test directly or through a test_binding.",
+  "references": [
+    "PROJECT-RULE-001"
+  ]
+}

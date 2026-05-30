@@ -1,0 +1,13 @@
+{
+  "id": "PROJECT-TEST-003",
+  "kind": "test_binding",
+  "name": "Slice memberships render as grounded-links",
+  "owner": "project",
+  "references": [
+    "PROJECT-DECISION-001"
+  ],
+  "status": "active",
+  "description": "Binds PROJECT-DECISION-001 to an executable test so Grounded can verify the documented behavior.",
+  "target": "PROJECT-DECISION-001",
+  "test": "grounded validate && grounded audit"
+}

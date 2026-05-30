@@ -1,0 +1,17 @@
+{
+  "decision": "The grounded-link component should accept an optional label attribute that overrides the visible link text while keeping the grounded-id as the canonical reference target. Existing slot text remains a fallback for backward compatibility.",
+  "id": "GROUNDED-DECISION-029",
+  "kind": "decision",
+  "name": "Add optional grounded-link label",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-009",
+    "GROUNDED-DECISION-022",
+    "PROJECT-DECISION-001"
+  ],
+  "status": "active",
+  "description": "Documents the Add optional grounded-link label decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "GROUNDED-TEST-001"
+  ]
+}

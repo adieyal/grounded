@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TYPE-008",
+  "kind": "guardrail",
+  "name": "Invalid JSON Schema for type",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-001",
+    "PROJECT-RULE-001"
+  ],
+  "status": "active",
+  "description": "Defines the Invalid JSON Schema for type guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "A type definition schema must itself be a valid Draft 2020-12 JSON Schema."
+}

@@ -1,0 +1,18 @@
+{
+  "decision": "Knowledge units may include an optional short_name field. Renderers should prefer short_name for link labels, backlinks, navigation, and search-visible titles while preserving the full name as the canonical unit name.",
+  "id": "GROUNDED-DECISION-031",
+  "kind": "decision",
+  "name": "Use optional short names for display",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-009",
+    "GROUNDED-DECISION-022",
+    "GROUNDED-DECISION-029",
+    "GROUNDED-DECISION-030"
+  ],
+  "status": "active",
+  "description": "Documents the Use optional short names for display decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "GROUNDED-TEST-003"
+  ]
+}

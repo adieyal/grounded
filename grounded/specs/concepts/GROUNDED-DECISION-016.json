@@ -1,0 +1,16 @@
+{
+  "decision": "Status value labels should be friendly value names such as Open, In progress, Blocked, Done, and Removed because lifecycle pages and Status Values sections already provide the status context.",
+  "id": "GROUNDED-DECISION-016",
+  "kind": "decision",
+  "name": "Use friendly status value labels",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-005",
+    "GROUNDED-DECISION-011"
+  ],
+  "status": "active",
+  "description": "Documents the Use friendly status value labels decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

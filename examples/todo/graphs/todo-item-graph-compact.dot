@@ -1,4 +1,4 @@
-digraph lattice {
+digraph grounded {
   graph [
     rankdir="LR",
     bgcolor="#fffefb",

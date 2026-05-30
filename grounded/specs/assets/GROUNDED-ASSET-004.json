@@ -1,0 +1,19 @@
+{
+  "id": "GROUNDED-ASSET-004",
+  "kind": "asset",
+  "name": "Generated Todo documentation diagram",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Governs the README image that previews generated Todo example documentation.",
+  "asset_kind": "source_asset",
+  "path": "docs/images/generate_docs.png",
+  "media_type": "image/png",
+  "width": "900",
+  "alt": "Generated Todo documentation showing stable IDs, specs, links, backlinks, and searchable project memory.",
+  "used_by": [
+    "GROUNDED-DOC-001"
+  ],
+  "references": [
+    "GROUNDED-DECISION-060"
+  ]
+}

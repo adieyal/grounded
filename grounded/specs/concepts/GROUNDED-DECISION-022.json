@@ -1,0 +1,19 @@
+{
+  "decision": "Generated HTML documentation adopts the compact project-docs shell from the downloaded design while preserving the Grounded rendering infrastructure. The shared shell owns top search and sidebar navigation; unit, index, and background templates reuse the same shell, design tokens, and grounded-link variants instead of reimplementing page chrome. Sidebar navigation groups render as accordions: unit lists are collapsed under their section titles by default, clicking a title toggles that section, and the section containing the current unit opens on unit pages. Grounded links use registry and tag-index metadata to expose hover/focus tooltips with the target name, stable ID, type, and short description so readers can understand a referenced unit without navigating away. Generated HTML references the bundled component script with a content hash query string so browser module caches do not keep stale navigation behavior after render.",
+  "id": "GROUNDED-DECISION-022",
+  "kind": "decision",
+  "name": "Adopt compact docs shell",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-003",
+    "GROUNDED-DECISION-006",
+    "GROUNDED-DECISION-009",
+    "GROUNDED-DECISION-019"
+  ],
+  "status": "active",
+  "description": "Documents the Adopt compact docs shell decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001",
+    "GROUNDED-TEST-021"
+  ]
+}

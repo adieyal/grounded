@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-002",
+  "kind": "test_binding",
+  "name": "Field rows expose anchors and fragment links",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-030"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-030 to an executable test so Grounded can verify the documented behavior.",
+  "target": "GROUNDED-DECISION-030",
+  "test": "uv run pytest tests/test_grounded.py -q"
+}

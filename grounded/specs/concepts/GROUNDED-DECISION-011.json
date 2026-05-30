@@ -1,0 +1,17 @@
+{
+  "decision": "Generated unit pages group linked typed context into dedicated sections such as Invariants and Status Values. Invariants are concept units with explicit concept roles; status values are lifecycle_value units. Uncategorized concept links retain a Related Concepts fallback outside business entity pages.",
+  "id": "GROUNDED-DECISION-011",
+  "kind": "decision",
+  "name": "Render typed context as dedicated sections",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-004",
+    "GROUNDED-DECISION-005",
+    "GROUNDED-DECISION-008"
+  ],
+  "status": "active",
+  "description": "Documents the Render typed context as dedicated sections decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

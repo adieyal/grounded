@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-004",
+  "kind": "test_binding",
+  "name": "Generated outputs are HTML-safe and render checks report obsolete pages",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-032"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-032 to an executable test so Grounded can verify the documented behavior.",
+  "target": "GROUNDED-DECISION-032",
+  "test": "uv run pytest tests/test_grounded.py -q"
+}

@@ -5,11 +5,11 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from lattice.bootstrap import init_project
-from lattice.cli import main
-from lattice.config import load_config
-from lattice.graphviz import graphviz_dot_for
-from lattice.registry import load_registry
+from grounded.bootstrap import init_project
+from grounded.cli import main
+from grounded.config import load_config
+from grounded.graphviz import graphviz_dot_for
+from grounded.registry import load_registry
 
 
 class GraphvizCliTests(unittest.TestCase):
@@ -17,7 +17,7 @@ class GraphvizCliTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
-            registry_path = root / ".lattice/registry/spec-types.json"
+            registry_path = root / ".grounded/registry/spec-types.json"
             type_registry = json.loads(registry_path.read_text(encoding="utf-8"))
             type_registry["lifecycle_type"] = {
                 "extends": "knowledge_unit",
@@ -43,7 +43,7 @@ class GraphvizCliTests(unittest.TestCase):
                 },
             }
             registry_path.write_text(json.dumps(type_registry), encoding="utf-8")
-            specs_dir = root / ".lattice/specs/examples"
+            specs_dir = root / ".grounded/specs/examples"
             specs_dir.mkdir(parents=True)
             item_id = "TODO" + "-ITEM-001"
             list_id = "TODO" + "-LIST-001"
@@ -131,7 +131,7 @@ class GraphvizCliTests(unittest.TestCase):
 
             self.assertEqual(0, result)
             dot = output.read_text(encoding="utf-8")
-            self.assertIn("digraph lattice", dot)
+            self.assertIn("digraph grounded", dot)
             self.assertIn(f'"{list_id}" -> "{status_id}";', dot)
             self.assertNotIn(rule_id, dot)
 
@@ -139,7 +139,7 @@ class GraphvizCliTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
-            specs_dir = root / ".lattice/specs/examples"
+            specs_dir = root / ".grounded/specs/examples"
             specs_dir.mkdir(parents=True)
             item_id = "TODO" + "-ITEM-001"
             list_id = "TODO" + "-LIST-001"
@@ -183,7 +183,7 @@ class GraphvizCliTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
             init_project(root)
-            specs_dir = root / ".lattice/specs/examples"
+            specs_dir = root / ".grounded/specs/examples"
             specs_dir.mkdir(parents=True)
             item_id = "TODO" + "-ITEM-001"
             status_type_id = "TODO" + "-STATUS" + "-TYPE-001"

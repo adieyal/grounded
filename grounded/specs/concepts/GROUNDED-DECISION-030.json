@@ -1,0 +1,16 @@
+{
+  "decision": "Generated field tables should render each field row with a stable fragment anchor derived from the parent unit and field name. The grounded-link component may use an optional fragment attribute to deep-link to those anchors.",
+  "id": "GROUNDED-DECISION-030",
+  "kind": "decision",
+  "name": "Field rows expose stable anchors",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-029",
+    "GROUNDED-DECISION-023"
+  ],
+  "status": "active",
+  "description": "Documents the Field rows expose stable anchors decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "GROUNDED-TEST-002"
+  ]
+}

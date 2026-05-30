@@ -1,0 +1,1174 @@
+{
+  "artifacts": {
+    "README.md": {
+      "artifact_kind": "file",
+      "bytes": 10255,
+      "generated": true,
+      "owner": "GROUNDED-DOC-001"
+    },
+    "docs/PUBLISHING.md": {
+      "artifact_kind": "file",
+      "bytes": 2097,
+      "generated": true,
+      "owner": "GROUNDED-DOC-008"
+    },
+    "docs/cli-reference.md": {
+      "artifact_kind": "file",
+      "bytes": 2360,
+      "generated": true,
+      "owner": "GROUNDED-DOC-004"
+    },
+    "docs/concepts.md": {
+      "artifact_kind": "file",
+      "bytes": 2772,
+      "generated": true,
+      "owner": "GROUNDED-DOC-003"
+    },
+    "docs/drift-checks.md": {
+      "artifact_kind": "file",
+      "bytes": 2630,
+      "generated": true,
+      "owner": "GROUNDED-DOC-007"
+    },
+    "docs/getting-started.md": {
+      "artifact_kind": "file",
+      "bytes": 2668,
+      "generated": true,
+      "owner": "GROUNDED-DOC-002"
+    },
+    "docs/incremental-adoption.md": {
+      "artifact_kind": "file",
+      "bytes": 2162,
+      "generated": true,
+      "owner": "GROUNDED-DOC-005"
+    },
+    "docs/llm-workflows.md": {
+      "artifact_kind": "file",
+      "bytes": 3319,
+      "generated": true,
+      "owner": "GROUNDED-DOC-006"
+    },
+    "grounded/generated/docs/artifact-index.html": {
+      "artifact_kind": "file",
+      "bytes": 361350,
+      "generated": true,
+      "owner": "artifact index page"
+    },
+    "grounded/generated/docs/document-graph.html": {
+      "artifact_kind": "file",
+      "bytes": 394037,
+      "generated": true,
+      "owner": "document graph page"
+    },
+    "grounded/generated/docs/grounded-background.html": {
+      "artifact_kind": "file",
+      "bytes": 310380,
+      "generated": true,
+      "owner": "background page"
+    },
+    "grounded/generated/docs/grounded-link.js": {
+      "artifact_kind": "file",
+      "bytes": 34621,
+      "generated": true,
+      "owner": "grounded-link.js"
+    },
+    "grounded/generated/docs/index.html": {
+      "artifact_kind": "file",
+      "bytes": 466291,
+      "generated": true,
+      "owner": "index html"
+    },
+    "grounded/generated/docs/project-memory.md": {
+      "artifact_kind": "file",
+      "bytes": 75302,
+      "generated": true,
+      "owner": "project-memory markdown"
+    },
+    "grounded/generated/docs/search-index.json": {
+      "artifact_kind": "file",
+      "bytes": 144804,
+      "generated": true,
+      "owner": "search-index.json"
+    },
+    "grounded/generated/docs/style.css": {
+      "artifact_kind": "file",
+      "bytes": 20881,
+      "generated": true,
+      "owner": "style.css"
+    },
+    "grounded/generated/docs/units/grounded-asset-001.html": {
+      "artifact_kind": "file",
+      "bytes": 360577,
+      "generated": true,
+      "owner": "asset:GROUNDED-ASSET-001"
+    },
+    "grounded/generated/docs/units/grounded-asset-002.html": {
+      "artifact_kind": "file",
+      "bytes": 360688,
+      "generated": true,
+      "owner": "asset:GROUNDED-ASSET-002"
+    },
+    "grounded/generated/docs/units/grounded-asset-003.html": {
+      "artifact_kind": "file",
+      "bytes": 360396,
+      "generated": true,
+      "owner": "asset:GROUNDED-ASSET-003"
+    },
+    "grounded/generated/docs/units/grounded-asset-004.html": {
+      "artifact_kind": "file",
+      "bytes": 360280,
+      "generated": true,
+      "owner": "asset:GROUNDED-ASSET-004"
+    },
+    "grounded/generated/docs/units/grounded-compat-001.html": {
+      "artifact_kind": "file",
+      "bytes": 358200,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-COMPAT-001"
+    },
+    "grounded/generated/docs/units/grounded-coverage-001.html": {
+      "artifact_kind": "file",
+      "bytes": 358035,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-COVERAGE-001"
+    },
+    "grounded/generated/docs/units/grounded-decision-001.html": {
+      "artifact_kind": "file",
+      "bytes": 367720,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-001"
+    },
+    "grounded/generated/docs/units/grounded-decision-002.html": {
+      "artifact_kind": "file",
+      "bytes": 359536,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-002"
+    },
+    "grounded/generated/docs/units/grounded-decision-003.html": {
+      "artifact_kind": "file",
+      "bytes": 359406,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-003"
+    },
+    "grounded/generated/docs/units/grounded-decision-004.html": {
+      "artifact_kind": "file",
+      "bytes": 359014,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-004"
+    },
+    "grounded/generated/docs/units/grounded-decision-005.html": {
+      "artifact_kind": "file",
+      "bytes": 359694,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-005"
+    },
+    "grounded/generated/docs/units/grounded-decision-006.html": {
+      "artifact_kind": "file",
+      "bytes": 359358,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-006"
+    },
+    "grounded/generated/docs/units/grounded-decision-007.html": {
+      "artifact_kind": "file",
+      "bytes": 359045,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-007"
+    },
+    "grounded/generated/docs/units/grounded-decision-008.html": {
+      "artifact_kind": "file",
+      "bytes": 359416,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-008"
+    },
+    "grounded/generated/docs/units/grounded-decision-009.html": {
+      "artifact_kind": "file",
+      "bytes": 359802,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-009"
+    },
+    "grounded/generated/docs/units/grounded-decision-010.html": {
+      "artifact_kind": "file",
+      "bytes": 358476,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-010"
+    },
+    "grounded/generated/docs/units/grounded-decision-011.html": {
+      "artifact_kind": "file",
+      "bytes": 360069,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-011"
+    },
+    "grounded/generated/docs/units/grounded-decision-012.html": {
+      "artifact_kind": "file",
+      "bytes": 358913,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-012"
+    },
+    "grounded/generated/docs/units/grounded-decision-013.html": {
+      "artifact_kind": "file",
+      "bytes": 358972,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-013"
+    },
+    "grounded/generated/docs/units/grounded-decision-014.html": {
+      "artifact_kind": "file",
+      "bytes": 358759,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-014"
+    },
+    "grounded/generated/docs/units/grounded-decision-015.html": {
+      "artifact_kind": "file",
+      "bytes": 359576,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-015"
+    },
+    "grounded/generated/docs/units/grounded-decision-016.html": {
+      "artifact_kind": "file",
+      "bytes": 358905,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-016"
+    },
+    "grounded/generated/docs/units/grounded-decision-017.html": {
+      "artifact_kind": "file",
+      "bytes": 358743,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-017"
+    },
+    "grounded/generated/docs/units/grounded-decision-018.html": {
+      "artifact_kind": "file",
+      "bytes": 358986,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-018"
+    },
+    "grounded/generated/docs/units/grounded-decision-019.html": {
+      "artifact_kind": "file",
+      "bytes": 359246,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-019"
+    },
+    "grounded/generated/docs/units/grounded-decision-020.html": {
+      "artifact_kind": "file",
+      "bytes": 359116,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-020"
+    },
+    "grounded/generated/docs/units/grounded-decision-021.html": {
+      "artifact_kind": "file",
+      "bytes": 359011,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-021"
+    },
+    "grounded/generated/docs/units/grounded-decision-022.html": {
+      "artifact_kind": "file",
+      "bytes": 363837,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-022"
+    },
+    "grounded/generated/docs/units/grounded-decision-023.html": {
+      "artifact_kind": "file",
+      "bytes": 361034,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-023"
+    },
+    "grounded/generated/docs/units/grounded-decision-024.html": {
+      "artifact_kind": "file",
+      "bytes": 359670,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-024"
+    },
+    "grounded/generated/docs/units/grounded-decision-025.html": {
+      "artifact_kind": "file",
+      "bytes": 359322,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-025"
+    },
+    "grounded/generated/docs/units/grounded-decision-026.html": {
+      "artifact_kind": "file",
+      "bytes": 358919,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-026"
+    },
+    "grounded/generated/docs/units/grounded-decision-027.html": {
+      "artifact_kind": "file",
+      "bytes": 360381,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-027"
+    },
+    "grounded/generated/docs/units/grounded-decision-028.html": {
+      "artifact_kind": "file",
+      "bytes": 359744,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-028"
+    },
+    "grounded/generated/docs/units/grounded-decision-029.html": {
+      "artifact_kind": "file",
+      "bytes": 359970,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-029"
+    },
+    "grounded/generated/docs/units/grounded-decision-030.html": {
+      "artifact_kind": "file",
+      "bytes": 359726,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-030"
+    },
+    "grounded/generated/docs/units/grounded-decision-031.html": {
+      "artifact_kind": "file",
+      "bytes": 359807,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-031"
+    },
+    "grounded/generated/docs/units/grounded-decision-032.html": {
+      "artifact_kind": "file",
+      "bytes": 360152,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-032"
+    },
+    "grounded/generated/docs/units/grounded-decision-033.html": {
+      "artifact_kind": "file",
+      "bytes": 359168,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-033"
+    },
+    "grounded/generated/docs/units/grounded-decision-034.html": {
+      "artifact_kind": "file",
+      "bytes": 359089,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-034"
+    },
+    "grounded/generated/docs/units/grounded-decision-035.html": {
+      "artifact_kind": "file",
+      "bytes": 361822,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-035"
+    },
+    "grounded/generated/docs/units/grounded-decision-036.html": {
+      "artifact_kind": "file",
+      "bytes": 361556,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-036"
+    },
+    "grounded/generated/docs/units/grounded-decision-037.html": {
+      "artifact_kind": "file",
+      "bytes": 360549,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-037"
+    },
+    "grounded/generated/docs/units/grounded-decision-038.html": {
+      "artifact_kind": "file",
+      "bytes": 359206,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-038"
+    },
+    "grounded/generated/docs/units/grounded-decision-039.html": {
+      "artifact_kind": "file",
+      "bytes": 360713,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-039"
+    },
+    "grounded/generated/docs/units/grounded-decision-040.html": {
+      "artifact_kind": "file",
+      "bytes": 358244,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-040"
+    },
+    "grounded/generated/docs/units/grounded-decision-041.html": {
+      "artifact_kind": "file",
+      "bytes": 360023,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-041"
+    },
+    "grounded/generated/docs/units/grounded-decision-042.html": {
+      "artifact_kind": "file",
+      "bytes": 358000,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-042"
+    },
+    "grounded/generated/docs/units/grounded-decision-043.html": {
+      "artifact_kind": "file",
+      "bytes": 359778,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-043"
+    },
+    "grounded/generated/docs/units/grounded-decision-045.html": {
+      "artifact_kind": "file",
+      "bytes": 360707,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-045"
+    },
+    "grounded/generated/docs/units/grounded-decision-046.html": {
+      "artifact_kind": "file",
+      "bytes": 358692,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-046"
+    },
+    "grounded/generated/docs/units/grounded-decision-047.html": {
+      "artifact_kind": "file",
+      "bytes": 360763,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-047"
+    },
+    "grounded/generated/docs/units/grounded-decision-048.html": {
+      "artifact_kind": "file",
+      "bytes": 358311,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-048"
+    },
+    "grounded/generated/docs/units/grounded-decision-049.html": {
+      "artifact_kind": "file",
+      "bytes": 359459,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-049"
+    },
+    "grounded/generated/docs/units/grounded-decision-050.html": {
+      "artifact_kind": "file",
+      "bytes": 360225,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-050"
+    },
+    "grounded/generated/docs/units/grounded-decision-051.html": {
+      "artifact_kind": "file",
+      "bytes": 360460,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-051"
+    },
+    "grounded/generated/docs/units/grounded-decision-052.html": {
+      "artifact_kind": "file",
+      "bytes": 358513,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-052"
+    },
+    "grounded/generated/docs/units/grounded-decision-053.html": {
+      "artifact_kind": "file",
+      "bytes": 358212,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-053"
+    },
+    "grounded/generated/docs/units/grounded-decision-054.html": {
+      "artifact_kind": "file",
+      "bytes": 359933,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-054"
+    },
+    "grounded/generated/docs/units/grounded-decision-055.html": {
+      "artifact_kind": "file",
+      "bytes": 357909,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-055"
+    },
+    "grounded/generated/docs/units/grounded-decision-056.html": {
+      "artifact_kind": "file",
+      "bytes": 360330,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-056"
+    },
+    "grounded/generated/docs/units/grounded-decision-057.html": {
+      "artifact_kind": "file",
+      "bytes": 360328,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-057"
+    },
+    "grounded/generated/docs/units/grounded-decision-058.html": {
+      "artifact_kind": "file",
+      "bytes": 359451,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-058"
+    },
+    "grounded/generated/docs/units/grounded-decision-059.html": {
+      "artifact_kind": "file",
+      "bytes": 358478,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-059"
+    },
+    "grounded/generated/docs/units/grounded-decision-060.html": {
+      "artifact_kind": "file",
+      "bytes": 362091,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-060"
+    },
+    "grounded/generated/docs/units/grounded-decision-061.html": {
+      "artifact_kind": "file",
+      "bytes": 358936,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-061"
+    },
+    "grounded/generated/docs/units/grounded-decision-062.html": {
+      "artifact_kind": "file",
+      "bytes": 359179,
+      "generated": true,
+      "owner": "decision:GROUNDED-DECISION-062"
+    },
+    "grounded/generated/docs/units/grounded-doc-001.html": {
+      "artifact_kind": "file",
+      "bytes": 372081,
+      "generated": true,
+      "owner": "generated_document:GROUNDED-DOC-001"
+    },
+    "grounded/generated/docs/units/grounded-doc-002.html": {
+      "artifact_kind": "file",
+      "bytes": 362244,
+      "generated": true,
+      "owner": "generated_document:GROUNDED-DOC-002"
+    },
+    "grounded/generated/docs/units/grounded-doc-003.html": {
+      "artifact_kind": "file",
+      "bytes": 363785,
+      "generated": true,
+      "owner": "generated_document:GROUNDED-DOC-003"
+    },
+    "grounded/generated/docs/units/grounded-doc-004.html": {
+      "artifact_kind": "file",
+      "bytes": 363037,
+      "generated": true,
+      "owner": "generated_document:GROUNDED-DOC-004"
+    },
+    "grounded/generated/docs/units/grounded-doc-005.html": {
+      "artifact_kind": "file",
+      "bytes": 361562,
+      "generated": true,
+      "owner": "generated_document:GROUNDED-DOC-005"
+    },
+    "grounded/generated/docs/units/grounded-doc-006.html": {
+      "artifact_kind": "file",
+      "bytes": 362038,
+      "generated": true,
+      "owner": "generated_document:GROUNDED-DOC-006"
+    },
+    "grounded/generated/docs/units/grounded-doc-007.html": {
+      "artifact_kind": "file",
+      "bytes": 361501,
+      "generated": true,
+      "owner": "generated_document:GROUNDED-DOC-007"
+    },
+    "grounded/generated/docs/units/grounded-doc-008.html": {
+      "artifact_kind": "file",
+      "bytes": 361847,
+      "generated": true,
+      "owner": "generated_document:GROUNDED-DOC-008"
+    },
+    "grounded/generated/docs/units/grounded-doc-graph-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357974,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-DOC-GRAPH-001"
+    },
+    "grounded/generated/docs/units/grounded-doc-graph-002.html": {
+      "artifact_kind": "file",
+      "bytes": 357854,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-DOC-GRAPH-002"
+    },
+    "grounded/generated/docs/units/grounded-doc-graph-003.html": {
+      "artifact_kind": "file",
+      "bytes": 357909,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-DOC-GRAPH-003"
+    },
+    "grounded/generated/docs/units/grounded-doc-graph-004.html": {
+      "artifact_kind": "file",
+      "bytes": 357941,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-DOC-GRAPH-004"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-001.html": {
+      "artifact_kind": "file",
+      "bytes": 360018,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-001"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-002.html": {
+      "artifact_kind": "file",
+      "bytes": 358928,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-002"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-003.html": {
+      "artifact_kind": "file",
+      "bytes": 362515,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-003"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-004.html": {
+      "artifact_kind": "file",
+      "bytes": 360668,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-004"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-005.html": {
+      "artifact_kind": "file",
+      "bytes": 360659,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-005"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-006.html": {
+      "artifact_kind": "file",
+      "bytes": 360595,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-006"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-007.html": {
+      "artifact_kind": "file",
+      "bytes": 360381,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-007"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-008.html": {
+      "artifact_kind": "file",
+      "bytes": 360099,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-008"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-009.html": {
+      "artifact_kind": "file",
+      "bytes": 365563,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-009"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-010.html": {
+      "artifact_kind": "file",
+      "bytes": 361212,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-010"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-011.html": {
+      "artifact_kind": "file",
+      "bytes": 358957,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-011"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-012.html": {
+      "artifact_kind": "file",
+      "bytes": 361662,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-012"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-013.html": {
+      "artifact_kind": "file",
+      "bytes": 360968,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-013"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-014.html": {
+      "artifact_kind": "file",
+      "bytes": 361080,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-014"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-015.html": {
+      "artifact_kind": "file",
+      "bytes": 360229,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-015"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-016.html": {
+      "artifact_kind": "file",
+      "bytes": 359454,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-016"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-017.html": {
+      "artifact_kind": "file",
+      "bytes": 360484,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-017"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-018.html": {
+      "artifact_kind": "file",
+      "bytes": 360498,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-018"
+    },
+    "grounded/generated/docs/units/grounded-doc-section-019.html": {
+      "artifact_kind": "file",
+      "bytes": 360113,
+      "generated": true,
+      "owner": "document_section:GROUNDED-DOC-SECTION-019"
+    },
+    "grounded/generated/docs/units/grounded-docs-001.html": {
+      "artifact_kind": "file",
+      "bytes": 360075,
+      "generated": true,
+      "owner": "documentation_set:GROUNDED-DOCS-001"
+    },
+    "grounded/generated/docs/units/grounded-drift-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357788,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-DRIFT-001"
+    },
+    "grounded/generated/docs/units/grounded-extension-001.html": {
+      "artifact_kind": "file",
+      "bytes": 358445,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-EXTENSION-001"
+    },
+    "grounded/generated/docs/units/grounded-id-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357777,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-ID-001"
+    },
+    "grounded/generated/docs/units/grounded-json-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357806,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-JSON-001"
+    },
+    "grounded/generated/docs/units/grounded-kind-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357794,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-KIND-001"
+    },
+    "grounded/generated/docs/units/grounded-ownership-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357961,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-OWNERSHIP-001"
+    },
+    "grounded/generated/docs/units/grounded-ref-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357761,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-REF-001"
+    },
+    "grounded/generated/docs/units/grounded-ref-002.html": {
+      "artifact_kind": "file",
+      "bytes": 357861,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-REF-002"
+    },
+    "grounded/generated/docs/units/grounded-ref-003.html": {
+      "artifact_kind": "file",
+      "bytes": 357789,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-REF-003"
+    },
+    "grounded/generated/docs/units/grounded-ref-004.html": {
+      "artifact_kind": "file",
+      "bytes": 357854,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-REF-004"
+    },
+    "grounded/generated/docs/units/grounded-ref-005.html": {
+      "artifact_kind": "file",
+      "bytes": 358087,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-REF-005"
+    },
+    "grounded/generated/docs/units/grounded-schema-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357767,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-SCHEMA-001"
+    },
+    "grounded/generated/docs/units/grounded-schema-002.html": {
+      "artifact_kind": "file",
+      "bytes": 357730,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-SCHEMA-002"
+    },
+    "grounded/generated/docs/units/grounded-schema-003.html": {
+      "artifact_kind": "file",
+      "bytes": 357899,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-SCHEMA-003"
+    },
+    "grounded/generated/docs/units/grounded-schema-004.html": {
+      "artifact_kind": "file",
+      "bytes": 357800,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-SCHEMA-004"
+    },
+    "grounded/generated/docs/units/grounded-schema-005.html": {
+      "artifact_kind": "file",
+      "bytes": 357848,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-SCHEMA-005"
+    },
+    "grounded/generated/docs/units/grounded-schema-006.html": {
+      "artifact_kind": "file",
+      "bytes": 357966,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-SCHEMA-006"
+    },
+    "grounded/generated/docs/units/grounded-specs-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357779,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-SPECS-001"
+    },
+    "grounded/generated/docs/units/grounded-style-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357812,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-STYLE-001"
+    },
+    "grounded/generated/docs/units/grounded-style-002.html": {
+      "artifact_kind": "file",
+      "bytes": 357826,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-STYLE-002"
+    },
+    "grounded/generated/docs/units/grounded-style-003.html": {
+      "artifact_kind": "file",
+      "bytes": 357986,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-STYLE-003"
+    },
+    "grounded/generated/docs/units/grounded-tag-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357877,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TAG-001"
+    },
+    "grounded/generated/docs/units/grounded-tag-002.html": {
+      "artifact_kind": "file",
+      "bytes": 357910,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TAG-002"
+    },
+    "grounded/generated/docs/units/grounded-tag-003.html": {
+      "artifact_kind": "file",
+      "bytes": 357962,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TAG-003"
+    },
+    "grounded/generated/docs/units/grounded-test-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357264,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-001"
+    },
+    "grounded/generated/docs/units/grounded-test-002.html": {
+      "artifact_kind": "file",
+      "bytes": 357237,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-002"
+    },
+    "grounded/generated/docs/units/grounded-test-003.html": {
+      "artifact_kind": "file",
+      "bytes": 357278,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-003"
+    },
+    "grounded/generated/docs/units/grounded-test-004.html": {
+      "artifact_kind": "file",
+      "bytes": 357338,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-004"
+    },
+    "grounded/generated/docs/units/grounded-test-005.html": {
+      "artifact_kind": "file",
+      "bytes": 357306,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-005"
+    },
+    "grounded/generated/docs/units/grounded-test-006.html": {
+      "artifact_kind": "file",
+      "bytes": 357213,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-006"
+    },
+    "grounded/generated/docs/units/grounded-test-007.html": {
+      "artifact_kind": "file",
+      "bytes": 357319,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-007"
+    },
+    "grounded/generated/docs/units/grounded-test-008.html": {
+      "artifact_kind": "file",
+      "bytes": 357407,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-008"
+    },
+    "grounded/generated/docs/units/grounded-test-009.html": {
+      "artifact_kind": "file",
+      "bytes": 357433,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-009"
+    },
+    "grounded/generated/docs/units/grounded-test-010.html": {
+      "artifact_kind": "file",
+      "bytes": 357573,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-010"
+    },
+    "grounded/generated/docs/units/grounded-test-011.html": {
+      "artifact_kind": "file",
+      "bytes": 357508,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-011"
+    },
+    "grounded/generated/docs/units/grounded-test-012.html": {
+      "artifact_kind": "file",
+      "bytes": 357412,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-012"
+    },
+    "grounded/generated/docs/units/grounded-test-013.html": {
+      "artifact_kind": "file",
+      "bytes": 357496,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-013"
+    },
+    "grounded/generated/docs/units/grounded-test-015.html": {
+      "artifact_kind": "file",
+      "bytes": 357526,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-015"
+    },
+    "grounded/generated/docs/units/grounded-test-016.html": {
+      "artifact_kind": "file",
+      "bytes": 357393,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-016"
+    },
+    "grounded/generated/docs/units/grounded-test-017.html": {
+      "artifact_kind": "file",
+      "bytes": 357598,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-017"
+    },
+    "grounded/generated/docs/units/grounded-test-018.html": {
+      "artifact_kind": "file",
+      "bytes": 357644,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-018"
+    },
+    "grounded/generated/docs/units/grounded-test-019.html": {
+      "artifact_kind": "file",
+      "bytes": 357414,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-019"
+    },
+    "grounded/generated/docs/units/grounded-test-020.html": {
+      "artifact_kind": "file",
+      "bytes": 357621,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-020"
+    },
+    "grounded/generated/docs/units/grounded-test-021.html": {
+      "artifact_kind": "file",
+      "bytes": 357427,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-021"
+    },
+    "grounded/generated/docs/units/grounded-test-022.html": {
+      "artifact_kind": "file",
+      "bytes": 357381,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-022"
+    },
+    "grounded/generated/docs/units/grounded-test-023.html": {
+      "artifact_kind": "file",
+      "bytes": 357384,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-023"
+    },
+    "grounded/generated/docs/units/grounded-test-024.html": {
+      "artifact_kind": "file",
+      "bytes": 357349,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-024"
+    },
+    "grounded/generated/docs/units/grounded-test-025.html": {
+      "artifact_kind": "file",
+      "bytes": 357405,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-025"
+    },
+    "grounded/generated/docs/units/grounded-test-026.html": {
+      "artifact_kind": "file",
+      "bytes": 357490,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-026"
+    },
+    "grounded/generated/docs/units/grounded-test-027.html": {
+      "artifact_kind": "file",
+      "bytes": 358951,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-027"
+    },
+    "grounded/generated/docs/units/grounded-test-028.html": {
+      "artifact_kind": "file",
+      "bytes": 357604,
+      "generated": true,
+      "owner": "test_binding:GROUNDED-TEST-028"
+    },
+    "grounded/generated/docs/units/grounded-theory-001.html": {
+      "artifact_kind": "file",
+      "bytes": 358923,
+      "generated": true,
+      "owner": "concept:GROUNDED-THEORY-001"
+    },
+    "grounded/generated/docs/units/grounded-type-001.html": {
+      "artifact_kind": "file",
+      "bytes": 358104,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-001"
+    },
+    "grounded/generated/docs/units/grounded-type-002.html": {
+      "artifact_kind": "file",
+      "bytes": 358026,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-002"
+    },
+    "grounded/generated/docs/units/grounded-type-003.html": {
+      "artifact_kind": "file",
+      "bytes": 358032,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-003"
+    },
+    "grounded/generated/docs/units/grounded-type-004.html": {
+      "artifact_kind": "file",
+      "bytes": 357940,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-004"
+    },
+    "grounded/generated/docs/units/grounded-type-005.html": {
+      "artifact_kind": "file",
+      "bytes": 357938,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-005"
+    },
+    "grounded/generated/docs/units/grounded-type-006.html": {
+      "artifact_kind": "file",
+      "bytes": 357788,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-006"
+    },
+    "grounded/generated/docs/units/grounded-type-007.html": {
+      "artifact_kind": "file",
+      "bytes": 357854,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-007"
+    },
+    "grounded/generated/docs/units/grounded-type-008.html": {
+      "artifact_kind": "file",
+      "bytes": 357868,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-008"
+    },
+    "grounded/generated/docs/units/grounded-type-009.html": {
+      "artifact_kind": "file",
+      "bytes": 357912,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-009"
+    },
+    "grounded/generated/docs/units/grounded-type-010.html": {
+      "artifact_kind": "file",
+      "bytes": 358100,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-010"
+    },
+    "grounded/generated/docs/units/grounded-type-011.html": {
+      "artifact_kind": "file",
+      "bytes": 357995,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-TYPE-011"
+    },
+    "grounded/generated/docs/units/grounded-verify-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357986,
+      "generated": true,
+      "owner": "guardrail:GROUNDED-VERIFY-001"
+    },
+    "grounded/generated/docs/units/project-concept-001.html": {
+      "artifact_kind": "file",
+      "bytes": 359697,
+      "generated": true,
+      "owner": "concept:PROJECT-CONCEPT-001"
+    },
+    "grounded/generated/docs/units/project-concept-002.html": {
+      "artifact_kind": "file",
+      "bytes": 359679,
+      "generated": true,
+      "owner": "concept:PROJECT-CONCEPT-002"
+    },
+    "grounded/generated/docs/units/project-concept-003.html": {
+      "artifact_kind": "file",
+      "bytes": 360156,
+      "generated": true,
+      "owner": "concept:PROJECT-CONCEPT-003"
+    },
+    "grounded/generated/docs/units/project-decision-001.html": {
+      "artifact_kind": "file",
+      "bytes": 359867,
+      "generated": true,
+      "owner": "decision:PROJECT-DECISION-001"
+    },
+    "grounded/generated/docs/units/project-gap-001.html": {
+      "artifact_kind": "file",
+      "bytes": 358683,
+      "generated": true,
+      "owner": "schema_gap:PROJECT-GAP-001"
+    },
+    "grounded/generated/docs/units/project-gap-002.html": {
+      "artifact_kind": "file",
+      "bytes": 358763,
+      "generated": true,
+      "owner": "schema_gap:PROJECT-GAP-002"
+    },
+    "grounded/generated/docs/units/project-rule-001-ex001.html": {
+      "artifact_kind": "file",
+      "bytes": 358439,
+      "generated": true,
+      "owner": "example:PROJECT-RULE-001-EX001"
+    },
+    "grounded/generated/docs/units/project-rule-001.html": {
+      "artifact_kind": "file",
+      "bytes": 365491,
+      "generated": true,
+      "owner": "business_rule:PROJECT-RULE-001"
+    },
+    "grounded/generated/docs/units/project-rule-002.html": {
+      "artifact_kind": "file",
+      "bytes": 359308,
+      "generated": true,
+      "owner": "business_rule:PROJECT-RULE-002"
+    },
+    "grounded/generated/docs/units/project-rule-003.html": {
+      "artifact_kind": "file",
+      "bytes": 359469,
+      "generated": true,
+      "owner": "business_rule:PROJECT-RULE-003"
+    },
+    "grounded/generated/docs/units/project-test-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357580,
+      "generated": true,
+      "owner": "test_binding:PROJECT-TEST-001"
+    },
+    "grounded/generated/docs/units/project-test-002.html": {
+      "artifact_kind": "file",
+      "bytes": 357411,
+      "generated": true,
+      "owner": "test_binding:PROJECT-TEST-002"
+    },
+    "grounded/generated/docs/units/project-test-003.html": {
+      "artifact_kind": "file",
+      "bytes": 357251,
+      "generated": true,
+      "owner": "test_binding:PROJECT-TEST-003"
+    },
+    "grounded/generated/docs/units/project-verify-001.html": {
+      "artifact_kind": "file",
+      "bytes": 357129,
+      "generated": true,
+      "owner": "verification:PROJECT-VERIFY-001"
+    },
+    "grounded/generated/docs/units/project-workflow-001.html": {
+      "artifact_kind": "file",
+      "bytes": 358940,
+      "generated": true,
+      "owner": "workflow:PROJECT-WORKFLOW-001"
+    },
+    "grounded/generated/llm/context-pack.md": {
+      "artifact_kind": "file",
+      "bytes": 64473,
+      "generated": true,
+      "owner": "LLM context pack"
+    }
+  }
+}

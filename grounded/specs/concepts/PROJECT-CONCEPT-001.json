@@ -1,0 +1,10 @@
+{
+  "id": "PROJECT-CONCEPT-001",
+  "kind": "concept",
+  "name": "Grounded project memory",
+  "owner": "project",
+  "references": [],
+  "status": "active",
+  "description": "Explains the Grounded project memory concept and how it should be used as canonical Grounded knowledge.",
+  "summary": "Durable project knowledge is owned by canonical Grounded specs and referenced by other artifacts."
+}

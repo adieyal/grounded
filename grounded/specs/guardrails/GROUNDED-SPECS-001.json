@@ -1,0 +1,12 @@
+{
+  "id": "GROUNDED-SPECS-001",
+  "kind": "guardrail",
+  "name": "Specs directory is missing",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the Specs directory is missing guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "A configured Grounded registry must have a specs directory.",
+  "references": [
+    "PROJECT-RULE-001"
+  ]
+}

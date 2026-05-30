@@ -1,0 +1,16 @@
+{
+  "decision": "Grounded links are color-coded by referenced unit type. Dense navigation areas such as outgoing links and backlinks use the text-only grounded-link variant to preserve scanability while keeping type color.",
+  "id": "GROUNDED-DECISION-009",
+  "kind": "decision",
+  "name": "Color-code links by unit type",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-006",
+    "GROUNDED-DECISION-008"
+  ],
+  "status": "active",
+  "description": "Documents the Color-code links by unit type decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

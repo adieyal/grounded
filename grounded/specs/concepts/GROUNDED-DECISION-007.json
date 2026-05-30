@@ -1,0 +1,16 @@
+{
+  "decision": "Generated unit pages avoid prominent implementation metadata such as unit type and owner in the hero. The stable item ID remains available through an unobtrusive copy control.",
+  "id": "GROUNDED-DECISION-007",
+  "kind": "decision",
+  "name": "Keep unit metadata unobtrusive",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-003",
+    "GROUNDED-DECISION-006"
+  ],
+  "status": "active",
+  "description": "Documents the Keep unit metadata unobtrusive decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

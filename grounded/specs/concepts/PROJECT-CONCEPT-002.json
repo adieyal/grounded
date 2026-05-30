@@ -1,0 +1,14 @@
+{
+  "id": "PROJECT-CONCEPT-002",
+  "kind": "concept",
+  "name": "Bounded modeling slice",
+  "owner": "project",
+  "references": [
+    "PROJECT-CONCEPT-001",
+    "PROJECT-CONCEPT-003",
+    "PROJECT-RULE-002"
+  ],
+  "status": "active",
+  "description": "Explains the Bounded modeling slice concept and how it should be used as canonical Grounded knowledge.",
+  "summary": "Model only the smallest coherent subset of a codebase that serves the current goal, with explicit in-scope and out-of-scope boundaries, so Grounded can stay partial without becoming misleading."
+}

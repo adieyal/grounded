@@ -1,0 +1,16 @@
+{
+  "decision": "Field type resolution should only use exact canonical identifiers or exact display names and must not fall back to matching by kind. Generated unit output paths must reject slug collisions instead of silently overwriting one page with another.",
+  "id": "GROUNDED-DECISION-033",
+  "kind": "decision",
+  "name": "Require exact type matches and collision checks",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-020",
+    "GROUNDED-DECISION-031"
+  ],
+  "status": "active",
+  "description": "Documents the Require exact type matches and collision checks decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "GROUNDED-TEST-005"
+  ]
+}

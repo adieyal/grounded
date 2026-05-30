@@ -1,0 +1,12 @@
+{
+  "id": "GROUNDED-REF-001",
+  "kind": "guardrail",
+  "name": "Unknown reference",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the Unknown reference guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "A spec references another spec ID that does not exist in the registry.",
+  "references": [
+    "PROJECT-RULE-001"
+  ]
+}

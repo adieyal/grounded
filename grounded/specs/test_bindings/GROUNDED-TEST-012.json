@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-012",
+  "kind": "test_binding",
+  "name": "Tag pages render compact item lists",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-041"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-041 to an executable test so Grounded can verify compact list components render linked names and descriptions.",
+  "target": "GROUNDED-DECISION-041",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_tag_pages_render_and_group_members_by_type -q"
+}

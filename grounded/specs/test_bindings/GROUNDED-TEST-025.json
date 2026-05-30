@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-025",
+  "kind": "test_binding",
+  "name": "Registry CLI lists types and specs",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-058"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-058 to an executable CLI test proving registry output includes registry types and authored specs.",
+  "target": "GROUNDED-DECISION-058",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_registry_cli_lists_registry_types_and_specs -q"
+}

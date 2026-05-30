@@ -1,0 +1,18 @@
+{
+  "decision": "The bundled generated-documentation stylesheet adopts DESIGN.md as its default visual token source. The default rendered HTML uses the Notion design brief's neutral canvas and surface colors, purple primary accent, blue link accent, Notion Sans typography with Inter/system fallbacks, 8px controls, 12px cards, pastel metadata badges, and 4px-based spacing scale. Project styles may still override these tokens through the configured styles_dir.",
+  "id": "GROUNDED-DECISION-051",
+  "kind": "decision",
+  "name": "Adopt DESIGN.md default documentation styling",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-028",
+    "GROUNDED-DECISION-043",
+    "GROUNDED-DECISION-045",
+    "GROUNDED-DECISION-050"
+  ],
+  "status": "active",
+  "description": "Documents DESIGN.md as the default rendered HTML styling source so bundled docs styling has a canonical owner.",
+  "tests": [
+    "GROUNDED-TEST-018"
+  ]
+}

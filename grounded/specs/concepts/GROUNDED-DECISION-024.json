@@ -1,0 +1,17 @@
+{
+  "decision": "Example domains are packaged as standalone Grounded projects under examples instead of living in the distribution's own grounded/specs tree. The distribution docs should describe Grounded itself by default, while each example owns its domain units, generated docs, and local grounded.yml configuration.",
+  "id": "GROUNDED-DECISION-024",
+  "kind": "decision",
+  "name": "Package examples as standalone projects",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-002",
+    "GROUNDED-DECISION-022",
+    "GROUNDED-DECISION-023"
+  ],
+  "status": "active",
+  "description": "Documents the Package examples as standalone projects decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

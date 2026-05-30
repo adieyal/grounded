@@ -1,0 +1,16 @@
+{
+  "id": "PROJECT-RULE-002",
+  "kind": "business_rule",
+  "name": "Agents maintain Grounded during project work",
+  "owner": "project",
+  "references": [
+    "PROJECT-CONCEPT-001",
+    "PROJECT-RULE-001"
+  ],
+  "statement": "Agents must use, create, and maintain Grounded specs whenever project work changes durable knowledge.",
+  "status": "active",
+  "description": "Defines the Agents maintain Grounded during project work rule so agents and maintainers know when and how to apply it.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

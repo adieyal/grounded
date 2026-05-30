@@ -1,0 +1,30 @@
+{
+  "id": "GROUNDED-DOC-005",
+  "kind": "generated_document",
+  "name": "Incremental adoption generated document",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the generated incremental adoption guide as a projection over adoption and first-spec sections.",
+  "output_path": "docs/incremental-adoption.md",
+  "format": "markdown",
+  "write_mode": "full_file",
+  "front_matter": {
+    "last_updated": "2026-05-30"
+  },
+  "title": "Incremental Adoption",
+  "audience": "teams evaluating Grounded",
+  "purpose": "Show how to adopt Grounded in small steps without turning the whole project into documentation theatre.",
+  "stability": "experimental",
+  "section_refs": [
+    "GROUNDED-DOC-SECTION-012",
+    "GROUNDED-DOC-SECTION-008",
+    "GROUNDED-DOC-SECTION-013"
+  ],
+  "source_refs": [
+    "PROJECT-RULE-001",
+    "PROJECT-RULE-002"
+  ],
+  "references": [
+    "GROUNDED-DECISION-060"
+  ]
+}

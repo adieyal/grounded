@@ -1,0 +1,12 @@
+{
+  "decision": "The package version is bumped to 0.10.0 for CLI project-memory search commands, including search, entities, specs, spec, and check-new workflows with deterministic ranking and JSON output.",
+  "id": "GROUNDED-DECISION-055",
+  "kind": "decision",
+  "name": "Release CLI project-memory search as 0.10.0",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-054"
+  ],
+  "status": "active",
+  "description": "Documents the 0.10.0 version bump so the CLI project-memory search release has a canonical Grounded owner."
+}

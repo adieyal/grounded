@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-015",
+  "kind": "test_binding",
+  "name": "Reusable documentation components are bundled",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-045"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-045 to an executable render test so Grounded can verify reusable Lit documentation components are emitted and consume design tokens.",
+  "target": "GROUNDED-DECISION-045",
+  "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_unit_page_renders_fields_before_collapsed_raw_json -q"
+}

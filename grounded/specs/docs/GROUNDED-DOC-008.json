@@ -1,0 +1,29 @@
+{
+  "id": "GROUNDED-DOC-008",
+  "kind": "generated_document",
+  "name": "Publishing generated document",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the generated publishing guide from GitHub Pages and release-oriented documentation decisions.",
+  "output_path": "docs/PUBLISHING.md",
+  "format": "markdown",
+  "write_mode": "full_file",
+  "front_matter": {
+    "last_updated": "2026-05-30"
+  },
+  "title": "Publishing",
+  "audience": "maintainers",
+  "purpose": "Explain how generated documentation and the Todo demo are built and published.",
+  "stability": "experimental",
+  "section_refs": [
+    "GROUNDED-DOC-SECTION-016",
+    "GROUNDED-DOC-SECTION-019"
+  ],
+  "source_refs": [
+    "GROUNDED-DECISION-049",
+    "GROUNDED-DECISION-052"
+  ],
+  "references": [
+    "GROUNDED-DECISION-060"
+  ]
+}

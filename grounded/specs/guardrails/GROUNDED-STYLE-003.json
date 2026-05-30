@@ -1,0 +1,12 @@
+{
+  "id": "GROUNDED-STYLE-003",
+  "kind": "guardrail",
+  "name": "Hard-coded presentation outside style source",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the Hard-coded presentation outside style source guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "Presentation values outside the central stylesheet should be replaced with reusable design tokens.",
+  "references": [
+    "PROJECT-RULE-001"
+  ]
+}

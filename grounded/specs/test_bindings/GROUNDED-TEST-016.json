@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TEST-016",
+  "kind": "test_binding",
+  "name": "Graph command emits relationship DOT",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-047"
+  ],
+  "status": "active",
+  "description": "Binds GROUNDED-DECISION-047 to an executable CLI test so Grounded can verify Graphviz DOT export includes outgoing and incoming relationships with bounded depth and type filters.",
+  "target": "GROUNDED-DECISION-047",
+  "test": "uv run pytest tests/test_graphviz_cli.py -q"
+}

@@ -1,0 +1,17 @@
+{
+  "decision": "Generated business entity pages should render constraining invariant concepts in an explicit Invariants section by combining outgoing concept links with typed concept backlinks, and should not render a generic Related Concepts fallback for untyped concept context.",
+  "id": "GROUNDED-DECISION-015",
+  "kind": "decision",
+  "name": "Render entity invariants from backlinks",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-011",
+    "GROUNDED-DECISION-013",
+    "GROUNDED-DECISION-014"
+  ],
+  "status": "active",
+  "description": "Documents the Render entity invariants from backlinks decision and explains how it guides Grounded behavior or project maintenance.",
+  "tests": [
+    "PROJECT-TEST-001"
+  ]
+}

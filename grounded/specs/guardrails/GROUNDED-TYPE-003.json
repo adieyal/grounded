@@ -1,0 +1,13 @@
+{
+  "id": "GROUNDED-TYPE-003",
+  "kind": "guardrail",
+  "name": "Invalid type definition",
+  "owner": "grounded",
+  "status": "active",
+  "description": "Defines the Invalid type definition guardrail so validation, audit, and maintenance work can recognize this class of drift.",
+  "summary": "Each type registry entry must define its kind shape with an object.",
+  "references": [
+    "PROJECT-GAP-001",
+    "PROJECT-RULE-001"
+  ]
+}

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import unittest
 
-from lattice.modules.project_memory import (
+from grounded.modules.project_memory import (
     ProjectMemoryFacade,
     ProjectMemoryIssue,
     ProjectMemoryType,
@@ -10,7 +10,7 @@ from lattice.modules.project_memory import (
     RawProjectMemoryUnit,
     SourceLocation,
 )
-from lattice.modules.project_memory.application.ports import (
+from grounded.modules.project_memory.application.ports import (
     TypeSourceResult,
     UnitSourceResult,
 )
@@ -95,7 +95,7 @@ class ProjectMemoryTests(unittest.TestCase):
     def test_duplicate_ids_are_detected_without_filesystem_access(self) -> None:
         memory = self.load([raw_unit("UNIT-001"), raw_unit("UNIT-001")])
 
-        self.assertEqual(["LATTICE-ID-001"], [issue.code for issue in memory.issues])
+        self.assertEqual(["GROUNDED-ID-001"], [issue.code for issue in memory.issues])
         self.assertEqual(["UNIT-001"], [unit.id for unit in memory.units])
 
     def test_active_units_exclude_retired_but_all_units_remain_loaded(self) -> None:
@@ -122,7 +122,7 @@ class ProjectMemoryTests(unittest.TestCase):
 
         self.assertTrue(
             any(
-                issue.code == "LATTICE-REF-001" and "MISSING-001" in issue.message
+                issue.code == "GROUNDED-REF-001" and "MISSING-001" in issue.message
                 for issue in memory.issues
             )
         )

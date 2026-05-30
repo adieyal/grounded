@@ -1,0 +1,17 @@
+{
+  "decision": "Generated documentation includes a bundled grounded-theme-toggle Lit component in the shared top bar. The toggle switches between explicit light and dark themes, persists the preference in localStorage under grounded-theme, and applies the selected mode by setting data-theme on the document root. When no explicit preference is stored, generated docs follow the user's system color scheme.",
+  "id": "GROUNDED-DECISION-050",
+  "kind": "decision",
+  "name": "Add generated docs theme toggle",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-022",
+    "GROUNDED-DECISION-028",
+    "GROUNDED-DECISION-045"
+  ],
+  "status": "active",
+  "description": "Documents the light and dark theme toggle for generated Grounded documentation so theme behavior has a canonical owner.",
+  "tests": [
+    "GROUNDED-TEST-017"
+  ]
+}
