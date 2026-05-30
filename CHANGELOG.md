@@ -1,13 +1,18 @@
 ---
-last_updated: 2026-05-28
+last_updated: 2026-05-30
 ---
 
 # Changelog
 
 All notable Lattice changes are recorded here starting with `0.3.0`.
 
-## Unreleased - 2026-05-28
+## 0.12.2 - 2026-05-30
 
+- Removed the non-core `PROJECT-DOMAIN-001` canonical project fact and
+  trimmed project-memory prose to match the remaining bootstrap shape.
+- Updated the bootstrap seed, generated LLM context, and tests so the
+  core-only project-memory flow still renders, validates, audits, and verifies
+  cleanly.
 - Extracted project-memory loading from `registry.py` into a
   `project_memory` business module with JSON/filesystem infrastructure
   adapters and a `SpecRegistry` compatibility layer.
