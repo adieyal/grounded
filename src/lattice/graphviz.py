@@ -307,9 +307,7 @@ def _human_kind(kind: str) -> str:
 def _html_label(node: DotNode) -> str:
     border_width = "2" if node.accent else "1"
     rows = [
-        "<TR><TD>"
-        f'<FONT POINT-SIZE="16"><B>{escape(node.title)}</B></FONT>'
-        "</TD></TR>",
+        f'<TR><TD><FONT POINT-SIZE="16"><B>{escape(node.title)}</B></FONT></TD></TR>',
         "<TR><TD>"
         f'<FONT FACE="monospace" POINT-SIZE="10">{escape(node.spec_id)}</FONT>'
         "</TD></TR>",
@@ -326,7 +324,7 @@ def _html_label(node: DotNode) -> str:
     return (
         f'<TABLE BORDER="{border_width}" CELLBORDER="0" CELLSPACING="0" '
         f'CELLPADDING="8" COLOR="{node.border}" BGCOLOR="{node.fill}">'
-        f'{"".join(rows)}</TABLE>'
+        f"{''.join(rows)}</TABLE>"
     )
 
 
@@ -345,14 +343,12 @@ def _clustered_node_lines(nodes: list[DotNode]) -> list[str]:
                 '    color="#ede9e4";',
                 '    style="rounded";',
                 '    fontname="Inter";',
-                '    fontsize=11;',
+                "    fontsize=11;",
                 '    fontcolor="#605d52";',
             ]
         )
         for node in group:
-            lines.append(
-                f'    "{_dot_escape(node.id)}" [label=<{_html_label(node)}>];'
-            )
+            lines.append(f'    "{_dot_escape(node.id)}" [label=<{_html_label(node)}>];')
         lines.append("  }")
     return lines
 
@@ -394,14 +390,17 @@ def _field_summary(spec: Spec) -> str | None:
             continue
         name = field.get("name")
         field_type = field.get("type")
-        if isinstance(name, str) and name and isinstance(field_type, str) and field_type:
+        if (
+            isinstance(name, str)
+            and name
+            and isinstance(field_type, str)
+            and field_type
+        ):
             labels.append(f"{name}: {field_type}")
     return " | ".join(labels) if labels else None
 
 
-def _edge_label(
-    registry: SpecRegistry, start_id: str, source: str, target: str
-) -> str:
+def _edge_label(registry: SpecRegistry, start_id: str, source: str, target: str) -> str:
     source_spec = registry.by_id[source]
     target_spec = registry.by_id[target]
     if target_spec.kind == "lifecycle_type":

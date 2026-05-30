@@ -172,7 +172,9 @@ class GraphvizCliTests(unittest.TestCase):
             self.assertIn("shape=plain", dot)
             self.assertIn("subgraph cluster_domain_object", dot)
             self.assertIn("<B>TodoItem</B>", dot)
-            self.assertIn(f'<FONT FACE="monospace" POINT-SIZE="10">{item_id}</FONT>', dot)
+            self.assertIn(
+                f'<FONT FACE="monospace" POINT-SIZE="10">{item_id}</FONT>', dot
+            )
             self.assertIn("domain object", dot)
             self.assertIn('COLOR="#ff6a00"', dot)
             self.assertNotIn(f'label="TodoItem\\\\ndomain_object\\\\n{item_id}"', dot)

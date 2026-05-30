@@ -1,0 +1,13 @@
+{
+  "id": "LATTICE-TEST-028",
+  "kind": "test_binding",
+  "name": "Semantic documentation templates render content first",
+  "owner": "lattice",
+  "status": "active",
+  "references": [
+    "LATTICE-DECISION-062"
+  ],
+  "description": "Binds the semantic generated-docs redesign to an executable renderer test proving generated documents, decisions, the document graph, and the artifact index render content-first views.",
+  "target": "LATTICE-DECISION-062",
+  "test": "uv run pytest tests/test_lattice.py::LatticeTests::test_semantic_document_templates_render_content_first_views -q"
+}

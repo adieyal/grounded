@@ -48,15 +48,27 @@
       "generated": true,
       "owner": "LATTICE-DOC-006"
     },
+    "lattice/generated/docs/artifact-index.html": {
+      "artifact_kind": "file",
+      "bytes": 356849,
+      "generated": true,
+      "owner": "artifact index page"
+    },
+    "lattice/generated/docs/document-graph.html": {
+      "artifact_kind": "file",
+      "bytes": 388790,
+      "generated": true,
+      "owner": "document graph page"
+    },
     "lattice/generated/docs/index.html": {
       "artifact_kind": "file",
-      "bytes": 442116,
+      "bytes": 460364,
       "generated": true,
       "owner": "index html"
     },
     "lattice/generated/docs/lattice-background.html": {
       "artifact_kind": "file",
-      "bytes": 302128,
+      "bytes": 307062,
       "generated": true,
       "owner": "background page"
     },
@@ -68,1081 +80,1093 @@
     },
     "lattice/generated/docs/project-memory.md": {
       "artifact_kind": "file",
-      "bytes": 73223,
+      "bytes": 74319,
       "generated": true,
       "owner": "project-memory markdown"
     },
     "lattice/generated/docs/search-index.json": {
       "artifact_kind": "file",
-      "bytes": 141353,
+      "bytes": 143337,
       "generated": true,
       "owner": "search-index.json"
     },
     "lattice/generated/docs/style.css": {
       "artifact_kind": "file",
-      "bytes": 16290,
+      "bytes": 20880,
       "generated": true,
       "owner": "style.css"
     },
     "lattice/generated/docs/units/lattice-asset-001.html": {
       "artifact_kind": "file",
-      "bytes": 350566,
+      "bytes": 356093,
       "generated": true,
       "owner": "asset:LATTICE-ASSET-001"
     },
     "lattice/generated/docs/units/lattice-asset-002.html": {
       "artifact_kind": "file",
-      "bytes": 350657,
+      "bytes": 356204,
       "generated": true,
       "owner": "asset:LATTICE-ASSET-002"
     },
     "lattice/generated/docs/units/lattice-asset-003.html": {
       "artifact_kind": "file",
-      "bytes": 350454,
+      "bytes": 355918,
       "generated": true,
       "owner": "asset:LATTICE-ASSET-003"
     },
     "lattice/generated/docs/units/lattice-asset-004.html": {
       "artifact_kind": "file",
-      "bytes": 350387,
+      "bytes": 355805,
       "generated": true,
       "owner": "asset:LATTICE-ASSET-004"
     },
     "lattice/generated/docs/units/lattice-compat-001.html": {
       "artifact_kind": "file",
-      "bytes": 348123,
+      "bytes": 353731,
       "generated": true,
       "owner": "guardrail:LATTICE-COMPAT-001"
     },
     "lattice/generated/docs/units/lattice-coverage-001.html": {
       "artifact_kind": "file",
-      "bytes": 347993,
+      "bytes": 353567,
       "generated": true,
       "owner": "guardrail:LATTICE-COVERAGE-001"
     },
     "lattice/generated/docs/units/lattice-decision-001.html": {
       "artifact_kind": "file",
-      "bytes": 355558,
+      "bytes": 363076,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-001"
     },
     "lattice/generated/docs/units/lattice-decision-002.html": {
       "artifact_kind": "file",
-      "bytes": 349050,
+      "bytes": 355031,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-002"
     },
     "lattice/generated/docs/units/lattice-decision-003.html": {
       "artifact_kind": "file",
-      "bytes": 348974,
+      "bytes": 354905,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-003"
     },
     "lattice/generated/docs/units/lattice-decision-004.html": {
       "artifact_kind": "file",
-      "bytes": 348615,
+      "bytes": 354518,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-004"
     },
     "lattice/generated/docs/units/lattice-decision-005.html": {
       "artifact_kind": "file",
-      "bytes": 349254,
+      "bytes": 355189,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-005"
     },
     "lattice/generated/docs/units/lattice-decision-006.html": {
       "artifact_kind": "file",
-      "bytes": 348923,
+      "bytes": 354858,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-006"
     },
     "lattice/generated/docs/units/lattice-decision-007.html": {
       "artifact_kind": "file",
-      "bytes": 348652,
+      "bytes": 354551,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-007"
     },
     "lattice/generated/docs/units/lattice-decision-008.html": {
       "artifact_kind": "file",
-      "bytes": 348974,
+      "bytes": 354917,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-008"
     },
     "lattice/generated/docs/units/lattice-decision-009.html": {
       "artifact_kind": "file",
-      "bytes": 349357,
+      "bytes": 355284,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-009"
     },
     "lattice/generated/docs/units/lattice-decision-010.html": {
       "artifact_kind": "file",
-      "bytes": 348095,
+      "bytes": 353995,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-010"
     },
     "lattice/generated/docs/units/lattice-decision-011.html": {
       "artifact_kind": "file",
-      "bytes": 349536,
+      "bytes": 355562,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-011"
     },
     "lattice/generated/docs/units/lattice-decision-012.html": {
       "artifact_kind": "file",
-      "bytes": 348484,
+      "bytes": 354427,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-012"
     },
     "lattice/generated/docs/units/lattice-decision-013.html": {
       "artifact_kind": "file",
-      "bytes": 348533,
+      "bytes": 354480,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-013"
     },
     "lattice/generated/docs/units/lattice-decision-014.html": {
       "artifact_kind": "file",
-      "bytes": 348346,
+      "bytes": 354274,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-014"
     },
     "lattice/generated/docs/units/lattice-decision-015.html": {
       "artifact_kind": "file",
-      "bytes": 349089,
+      "bytes": 355077,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-015"
     },
     "lattice/generated/docs/units/lattice-decision-016.html": {
       "artifact_kind": "file",
-      "bytes": 348500,
+      "bytes": 354415,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-016"
     },
     "lattice/generated/docs/units/lattice-decision-017.html": {
       "artifact_kind": "file",
-      "bytes": 348395,
+      "bytes": 354253,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-017"
     },
     "lattice/generated/docs/units/lattice-decision-018.html": {
       "artifact_kind": "file",
-      "bytes": 348521,
+      "bytes": 354500,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-018"
     },
     "lattice/generated/docs/units/lattice-decision-019.html": {
       "artifact_kind": "file",
-      "bytes": 348722,
+      "bytes": 354756,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-019"
     },
     "lattice/generated/docs/units/lattice-decision-020.html": {
       "artifact_kind": "file",
-      "bytes": 348687,
+      "bytes": 354619,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-020"
     },
     "lattice/generated/docs/units/lattice-decision-021.html": {
       "artifact_kind": "file",
-      "bytes": 348529,
+      "bytes": 354525,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-021"
     },
     "lattice/generated/docs/units/lattice-decision-022.html": {
       "artifact_kind": "file",
-      "bytes": 352198,
+      "bytes": 359277,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-022"
     },
     "lattice/generated/docs/units/lattice-decision-023.html": {
       "artifact_kind": "file",
-      "bytes": 350366,
+      "bytes": 356507,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-023"
     },
     "lattice/generated/docs/units/lattice-decision-024.html": {
       "artifact_kind": "file",
-      "bytes": 349128,
+      "bytes": 355155,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-024"
     },
     "lattice/generated/docs/units/lattice-decision-025.html": {
       "artifact_kind": "file",
-      "bytes": 348805,
+      "bytes": 354808,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-025"
     },
     "lattice/generated/docs/units/lattice-decision-026.html": {
       "artifact_kind": "file",
-      "bytes": 348449,
+      "bytes": 354428,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-026"
     },
     "lattice/generated/docs/units/lattice-decision-027.html": {
       "artifact_kind": "file",
-      "bytes": 349725,
+      "bytes": 355867,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-027"
     },
     "lattice/generated/docs/units/lattice-decision-028.html": {
       "artifact_kind": "file",
-      "bytes": 349210,
+      "bytes": 355239,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-028"
     },
     "lattice/generated/docs/units/lattice-decision-029.html": {
       "artifact_kind": "file",
-      "bytes": 349473,
+      "bytes": 355443,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-029"
     },
     "lattice/generated/docs/units/lattice-decision-030.html": {
       "artifact_kind": "file",
-      "bytes": 349272,
+      "bytes": 355214,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-030"
     },
     "lattice/generated/docs/units/lattice-decision-031.html": {
       "artifact_kind": "file",
-      "bytes": 349338,
+      "bytes": 355296,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-031"
     },
     "lattice/generated/docs/units/lattice-decision-032.html": {
       "artifact_kind": "file",
-      "bytes": 349552,
+      "bytes": 355626,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-032"
     },
     "lattice/generated/docs/units/lattice-decision-033.html": {
       "artifact_kind": "file",
-      "bytes": 348689,
+      "bytes": 354677,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-033"
     },
     "lattice/generated/docs/units/lattice-decision-034.html": {
       "artifact_kind": "file",
-      "bytes": 348664,
+      "bytes": 354595,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-034"
     },
     "lattice/generated/docs/units/lattice-decision-035.html": {
       "artifact_kind": "file",
-      "bytes": 350501,
+      "bytes": 357286,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-035"
     },
     "lattice/generated/docs/units/lattice-decision-036.html": {
       "artifact_kind": "file",
-      "bytes": 350629,
+      "bytes": 357035,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-036"
     },
     "lattice/generated/docs/units/lattice-decision-037.html": {
       "artifact_kind": "file",
-      "bytes": 349932,
+      "bytes": 356031,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-037"
     },
     "lattice/generated/docs/units/lattice-decision-038.html": {
       "artifact_kind": "file",
-      "bytes": 349309,
+      "bytes": 354705,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-038"
     },
     "lattice/generated/docs/units/lattice-decision-039.html": {
       "artifact_kind": "file",
-      "bytes": 350006,
+      "bytes": 356186,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-039"
     },
     "lattice/generated/docs/units/lattice-decision-040.html": {
       "artifact_kind": "file",
-      "bytes": 348384,
+      "bytes": 353762,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-040"
     },
     "lattice/generated/docs/units/lattice-decision-041.html": {
       "artifact_kind": "file",
-      "bytes": 349446,
+      "bytes": 355504,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-041"
     },
     "lattice/generated/docs/units/lattice-decision-042.html": {
       "artifact_kind": "file",
-      "bytes": 348219,
+      "bytes": 353521,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-042"
     },
     "lattice/generated/docs/units/lattice-decision-043.html": {
       "artifact_kind": "file",
-      "bytes": 349188,
+      "bytes": 355280,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-043"
     },
     "lattice/generated/docs/units/lattice-decision-045.html": {
       "artifact_kind": "file",
-      "bytes": 349996,
+      "bytes": 356173,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-045"
     },
     "lattice/generated/docs/units/lattice-decision-046.html": {
       "artifact_kind": "file",
-      "bytes": 348821,
+      "bytes": 354183,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-046"
     },
     "lattice/generated/docs/units/lattice-decision-047.html": {
       "artifact_kind": "file",
-      "bytes": 349959,
+      "bytes": 356261,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-047"
     },
     "lattice/generated/docs/units/lattice-decision-048.html": {
       "artifact_kind": "file",
-      "bytes": 348408,
+      "bytes": 353836,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-048"
     },
     "lattice/generated/docs/units/lattice-decision-049.html": {
       "artifact_kind": "file",
-      "bytes": 348855,
+      "bytes": 354395,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-049"
     },
     "lattice/generated/docs/units/lattice-decision-050.html": {
       "artifact_kind": "file",
-      "bytes": 349464,
+      "bytes": 355712,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-050"
     },
     "lattice/generated/docs/units/lattice-decision-051.html": {
       "artifact_kind": "file",
-      "bytes": 349652,
+      "bytes": 355954,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-051"
     },
     "lattice/generated/docs/units/lattice-decision-052.html": {
       "artifact_kind": "file",
-      "bytes": 348615,
+      "bytes": 354015,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-052"
     },
     "lattice/generated/docs/units/lattice-decision-053.html": {
       "artifact_kind": "file",
-      "bytes": 348362,
+      "bytes": 353737,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-053"
     },
     "lattice/generated/docs/units/lattice-decision-054.html": {
       "artifact_kind": "file",
-      "bytes": 349253,
+      "bytes": 355437,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-054"
     },
     "lattice/generated/docs/units/lattice-decision-055.html": {
       "artifact_kind": "file",
-      "bytes": 348063,
+      "bytes": 353439,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-055"
     },
     "lattice/generated/docs/units/lattice-decision-056.html": {
       "artifact_kind": "file",
-      "bytes": 349607,
+      "bytes": 355826,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-056"
     },
     "lattice/generated/docs/units/lattice-decision-057.html": {
       "artifact_kind": "file",
-      "bytes": 349621,
+      "bytes": 355809,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-057"
     },
     "lattice/generated/docs/units/lattice-decision-058.html": {
       "artifact_kind": "file",
-      "bytes": 348902,
+      "bytes": 354954,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-058"
     },
     "lattice/generated/docs/units/lattice-decision-059.html": {
       "artifact_kind": "file",
-      "bytes": 348587,
+      "bytes": 353998,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-059"
     },
     "lattice/generated/docs/units/lattice-decision-060.html": {
       "artifact_kind": "file",
-      "bytes": 351747,
+      "bytes": 357539,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-060"
     },
     "lattice/generated/docs/units/lattice-decision-061.html": {
       "artifact_kind": "file",
-      "bytes": 348914,
+      "bytes": 354453,
       "generated": true,
       "owner": "decision:LATTICE-DECISION-061"
     },
+    "lattice/generated/docs/units/lattice-decision-062.html": {
+      "artifact_kind": "file",
+      "bytes": 354697,
+      "generated": true,
+      "owner": "decision:LATTICE-DECISION-062"
+    },
     "lattice/generated/docs/units/lattice-doc-001.html": {
       "artifact_kind": "file",
-      "bytes": 356735,
+      "bytes": 367358,
       "generated": true,
       "owner": "generated_document:LATTICE-DOC-001"
     },
     "lattice/generated/docs/units/lattice-doc-002.html": {
       "artifact_kind": "file",
-      "bytes": 353105,
+      "bytes": 357727,
       "generated": true,
       "owner": "generated_document:LATTICE-DOC-002"
     },
     "lattice/generated/docs/units/lattice-doc-003.html": {
       "artifact_kind": "file",
-      "bytes": 353100,
+      "bytes": 359266,
       "generated": true,
       "owner": "generated_document:LATTICE-DOC-003"
     },
     "lattice/generated/docs/units/lattice-doc-004.html": {
       "artifact_kind": "file",
-      "bytes": 353067,
+      "bytes": 358526,
       "generated": true,
       "owner": "generated_document:LATTICE-DOC-004"
     },
     "lattice/generated/docs/units/lattice-doc-005.html": {
       "artifact_kind": "file",
-      "bytes": 353072,
+      "bytes": 357058,
       "generated": true,
       "owner": "generated_document:LATTICE-DOC-005"
     },
     "lattice/generated/docs/units/lattice-doc-006.html": {
       "artifact_kind": "file",
-      "bytes": 353151,
+      "bytes": 357530,
       "generated": true,
       "owner": "generated_document:LATTICE-DOC-006"
     },
     "lattice/generated/docs/units/lattice-doc-007.html": {
       "artifact_kind": "file",
-      "bytes": 353092,
+      "bytes": 356990,
       "generated": true,
       "owner": "generated_document:LATTICE-DOC-007"
     },
     "lattice/generated/docs/units/lattice-doc-008.html": {
       "artifact_kind": "file",
-      "bytes": 352978,
+      "bytes": 357070,
       "generated": true,
       "owner": "generated_document:LATTICE-DOC-008"
     },
     "lattice/generated/docs/units/lattice-doc-graph-001.html": {
       "artifact_kind": "file",
-      "bytes": 347951,
+      "bytes": 353505,
       "generated": true,
       "owner": "guardrail:LATTICE-DOC-GRAPH-001"
     },
     "lattice/generated/docs/units/lattice-doc-graph-002.html": {
       "artifact_kind": "file",
-      "bytes": 347830,
+      "bytes": 353385,
       "generated": true,
       "owner": "guardrail:LATTICE-DOC-GRAPH-002"
     },
     "lattice/generated/docs/units/lattice-doc-graph-003.html": {
       "artifact_kind": "file",
-      "bytes": 347885,
+      "bytes": 353438,
       "generated": true,
       "owner": "guardrail:LATTICE-DOC-GRAPH-003"
     },
     "lattice/generated/docs/units/lattice-doc-graph-004.html": {
       "artifact_kind": "file",
-      "bytes": 347928,
+      "bytes": 353472,
       "generated": true,
       "owner": "guardrail:LATTICE-DOC-GRAPH-004"
     },
     "lattice/generated/docs/units/lattice-doc-section-001.html": {
       "artifact_kind": "file",
-      "bytes": 352050,
+      "bytes": 355515,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-001"
     },
     "lattice/generated/docs/units/lattice-doc-section-002.html": {
       "artifact_kind": "file",
-      "bytes": 350483,
+      "bytes": 354439,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-002"
     },
     "lattice/generated/docs/units/lattice-doc-section-003.html": {
       "artifact_kind": "file",
-      "bytes": 353825,
+      "bytes": 357982,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-003"
     },
     "lattice/generated/docs/units/lattice-doc-section-004.html": {
       "artifact_kind": "file",
-      "bytes": 350528,
+      "bytes": 356161,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-004"
     },
     "lattice/generated/docs/units/lattice-doc-section-005.html": {
       "artifact_kind": "file",
-      "bytes": 351469,
+      "bytes": 356154,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-005"
     },
     "lattice/generated/docs/units/lattice-doc-section-006.html": {
       "artifact_kind": "file",
-      "bytes": 353541,
+      "bytes": 356105,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-006"
     },
     "lattice/generated/docs/units/lattice-doc-section-007.html": {
       "artifact_kind": "file",
-      "bytes": 352308,
+      "bytes": 355865,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-007"
     },
     "lattice/generated/docs/units/lattice-doc-section-008.html": {
       "artifact_kind": "file",
-      "bytes": 353007,
+      "bytes": 355606,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-008"
     },
     "lattice/generated/docs/units/lattice-doc-section-009.html": {
       "artifact_kind": "file",
-      "bytes": 355521,
+      "bytes": 361010,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-009"
     },
     "lattice/generated/docs/units/lattice-doc-section-010.html": {
       "artifact_kind": "file",
-      "bytes": 352792,
+      "bytes": 356712,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-010"
     },
     "lattice/generated/docs/units/lattice-doc-section-011.html": {
       "artifact_kind": "file",
-      "bytes": 351541,
+      "bytes": 354463,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-011"
     },
     "lattice/generated/docs/units/lattice-doc-section-012.html": {
       "artifact_kind": "file",
-      "bytes": 353310,
+      "bytes": 357163,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-012"
     },
     "lattice/generated/docs/units/lattice-doc-section-013.html": {
       "artifact_kind": "file",
-      "bytes": 353217,
+      "bytes": 356456,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-013"
     },
     "lattice/generated/docs/units/lattice-doc-section-014.html": {
       "artifact_kind": "file",
-      "bytes": 352092,
+      "bytes": 356396,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-014"
     },
     "lattice/generated/docs/units/lattice-doc-section-015.html": {
       "artifact_kind": "file",
-      "bytes": 352211,
+      "bytes": 355713,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-015"
     },
     "lattice/generated/docs/units/lattice-doc-section-016.html": {
       "artifact_kind": "file",
-      "bytes": 351210,
+      "bytes": 354586,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-016"
     },
     "lattice/generated/docs/units/lattice-doc-section-017.html": {
       "artifact_kind": "file",
-      "bytes": 350746,
+      "bytes": 355960,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-017"
     },
     "lattice/generated/docs/units/lattice-doc-section-018.html": {
       "artifact_kind": "file",
-      "bytes": 350628,
+      "bytes": 355993,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-018"
     },
     "lattice/generated/docs/units/lattice-doc-section-019.html": {
       "artifact_kind": "file",
-      "bytes": 350604,
+      "bytes": 355435,
       "generated": true,
       "owner": "document_section:LATTICE-DOC-SECTION-019"
     },
     "lattice/generated/docs/units/lattice-docs-001.html": {
       "artifact_kind": "file",
-      "bytes": 348531,
+      "bytes": 355567,
       "generated": true,
       "owner": "documentation_set:LATTICE-DOCS-001"
     },
     "lattice/generated/docs/units/lattice-drift-001.html": {
       "artifact_kind": "file",
-      "bytes": 347775,
+      "bytes": 353317,
       "generated": true,
       "owner": "guardrail:LATTICE-DRIFT-001"
     },
     "lattice/generated/docs/units/lattice-extension-001.html": {
       "artifact_kind": "file",
-      "bytes": 348318,
+      "bytes": 353969,
       "generated": true,
       "owner": "guardrail:LATTICE-EXTENSION-001"
     },
     "lattice/generated/docs/units/lattice-id-001.html": {
       "artifact_kind": "file",
-      "bytes": 347765,
+      "bytes": 353309,
       "generated": true,
       "owner": "guardrail:LATTICE-ID-001"
     },
     "lattice/generated/docs/units/lattice-json-001.html": {
       "artifact_kind": "file",
-      "bytes": 347778,
+      "bytes": 353338,
       "generated": true,
       "owner": "guardrail:LATTICE-JSON-001"
     },
     "lattice/generated/docs/units/lattice-kind-001.html": {
       "artifact_kind": "file",
-      "bytes": 347770,
+      "bytes": 353326,
       "generated": true,
       "owner": "guardrail:LATTICE-KIND-001"
     },
     "lattice/generated/docs/units/lattice-ownership-001.html": {
       "artifact_kind": "file",
-      "bytes": 347913,
+      "bytes": 353493,
       "generated": true,
       "owner": "guardrail:LATTICE-OWNERSHIP-001"
     },
     "lattice/generated/docs/units/lattice-ref-001.html": {
       "artifact_kind": "file",
-      "bytes": 347747,
+      "bytes": 353293,
       "generated": true,
       "owner": "guardrail:LATTICE-REF-001"
     },
     "lattice/generated/docs/units/lattice-ref-002.html": {
       "artifact_kind": "file",
-      "bytes": 347832,
+      "bytes": 353393,
       "generated": true,
       "owner": "guardrail:LATTICE-REF-002"
     },
     "lattice/generated/docs/units/lattice-ref-003.html": {
       "artifact_kind": "file",
-      "bytes": 347779,
+      "bytes": 353321,
       "generated": true,
       "owner": "guardrail:LATTICE-REF-003"
     },
     "lattice/generated/docs/units/lattice-ref-004.html": {
       "artifact_kind": "file",
-      "bytes": 347822,
+      "bytes": 353383,
       "generated": true,
       "owner": "guardrail:LATTICE-REF-004"
     },
     "lattice/generated/docs/units/lattice-ref-005.html": {
       "artifact_kind": "file",
-      "bytes": 348019,
+      "bytes": 353618,
       "generated": true,
       "owner": "guardrail:LATTICE-REF-005"
     },
     "lattice/generated/docs/units/lattice-schema-001.html": {
       "artifact_kind": "file",
-      "bytes": 347769,
+      "bytes": 353299,
       "generated": true,
       "owner": "guardrail:LATTICE-SCHEMA-001"
     },
     "lattice/generated/docs/units/lattice-schema-002.html": {
       "artifact_kind": "file",
-      "bytes": 347731,
+      "bytes": 353262,
       "generated": true,
       "owner": "guardrail:LATTICE-SCHEMA-002"
     },
     "lattice/generated/docs/units/lattice-schema-003.html": {
       "artifact_kind": "file",
-      "bytes": 347897,
+      "bytes": 353427,
       "generated": true,
       "owner": "guardrail:LATTICE-SCHEMA-003"
     },
     "lattice/generated/docs/units/lattice-schema-004.html": {
       "artifact_kind": "file",
-      "bytes": 347796,
+      "bytes": 353332,
       "generated": true,
       "owner": "guardrail:LATTICE-SCHEMA-004"
     },
     "lattice/generated/docs/units/lattice-schema-005.html": {
       "artifact_kind": "file",
-      "bytes": 347848,
+      "bytes": 353380,
       "generated": true,
       "owner": "guardrail:LATTICE-SCHEMA-005"
     },
     "lattice/generated/docs/units/lattice-schema-006.html": {
       "artifact_kind": "file",
-      "bytes": 347933,
+      "bytes": 353497,
       "generated": true,
       "owner": "guardrail:LATTICE-SCHEMA-006"
     },
     "lattice/generated/docs/units/lattice-specs-001.html": {
       "artifact_kind": "file",
-      "bytes": 347774,
+      "bytes": 353308,
       "generated": true,
       "owner": "guardrail:LATTICE-SPECS-001"
     },
     "lattice/generated/docs/units/lattice-style-001.html": {
       "artifact_kind": "file",
-      "bytes": 347798,
+      "bytes": 353344,
       "generated": true,
       "owner": "guardrail:LATTICE-STYLE-001"
     },
     "lattice/generated/docs/units/lattice-style-002.html": {
       "artifact_kind": "file",
-      "bytes": 347799,
+      "bytes": 353358,
       "generated": true,
       "owner": "guardrail:LATTICE-STYLE-002"
     },
     "lattice/generated/docs/units/lattice-style-003.html": {
       "artifact_kind": "file",
-      "bytes": 347944,
+      "bytes": 353518,
       "generated": true,
       "owner": "guardrail:LATTICE-STYLE-003"
     },
     "lattice/generated/docs/units/lattice-tag-001.html": {
       "artifact_kind": "file",
-      "bytes": 347842,
+      "bytes": 353408,
       "generated": true,
       "owner": "guardrail:LATTICE-TAG-001"
     },
     "lattice/generated/docs/units/lattice-tag-002.html": {
       "artifact_kind": "file",
-      "bytes": 347867,
+      "bytes": 353441,
       "generated": true,
       "owner": "guardrail:LATTICE-TAG-002"
     },
     "lattice/generated/docs/units/lattice-tag-003.html": {
       "artifact_kind": "file",
-      "bytes": 347888,
+      "bytes": 353493,
       "generated": true,
       "owner": "guardrail:LATTICE-TAG-003"
     },
     "lattice/generated/docs/units/lattice-test-001.html": {
       "artifact_kind": "file",
-      "bytes": 348173,
+      "bytes": 352785,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-001"
     },
     "lattice/generated/docs/units/lattice-test-002.html": {
       "artifact_kind": "file",
-      "bytes": 348149,
+      "bytes": 352763,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-002"
     },
     "lattice/generated/docs/units/lattice-test-003.html": {
       "artifact_kind": "file",
-      "bytes": 348182,
+      "bytes": 352804,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-003"
     },
     "lattice/generated/docs/units/lattice-test-004.html": {
       "artifact_kind": "file",
-      "bytes": 348230,
+      "bytes": 352864,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-004"
     },
     "lattice/generated/docs/units/lattice-test-005.html": {
       "artifact_kind": "file",
-      "bytes": 348188,
+      "bytes": 352832,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-005"
     },
     "lattice/generated/docs/units/lattice-test-006.html": {
       "artifact_kind": "file",
-      "bytes": 348125,
+      "bytes": 352739,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-006"
     },
     "lattice/generated/docs/units/lattice-test-007.html": {
       "artifact_kind": "file",
-      "bytes": 348209,
+      "bytes": 352845,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-007"
     },
     "lattice/generated/docs/units/lattice-test-008.html": {
       "artifact_kind": "file",
-      "bytes": 348311,
+      "bytes": 352933,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-008"
     },
     "lattice/generated/docs/units/lattice-test-009.html": {
       "artifact_kind": "file",
-      "bytes": 348325,
+      "bytes": 352957,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-009"
     },
     "lattice/generated/docs/units/lattice-test-010.html": {
       "artifact_kind": "file",
-      "bytes": 348506,
+      "bytes": 353092,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-010"
     },
     "lattice/generated/docs/units/lattice-test-011.html": {
       "artifact_kind": "file",
-      "bytes": 348410,
+      "bytes": 353032,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-011"
     },
     "lattice/generated/docs/units/lattice-test-012.html": {
       "artifact_kind": "file",
-      "bytes": 348322,
+      "bytes": 352936,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-012"
     },
     "lattice/generated/docs/units/lattice-test-013.html": {
       "artifact_kind": "file",
-      "bytes": 348394,
+      "bytes": 353020,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-013"
     },
     "lattice/generated/docs/units/lattice-test-015.html": {
       "artifact_kind": "file",
-      "bytes": 348412,
+      "bytes": 353050,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-015"
     },
     "lattice/generated/docs/units/lattice-test-016.html": {
       "artifact_kind": "file",
-      "bytes": 348297,
+      "bytes": 352921,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-016"
     },
     "lattice/generated/docs/units/lattice-test-017.html": {
       "artifact_kind": "file",
-      "bytes": 348506,
+      "bytes": 353118,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-017"
     },
     "lattice/generated/docs/units/lattice-test-018.html": {
       "artifact_kind": "file",
-      "bytes": 348524,
+      "bytes": 353164,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-018"
     },
     "lattice/generated/docs/units/lattice-test-019.html": {
       "artifact_kind": "file",
-      "bytes": 348320,
+      "bytes": 352938,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-019"
     },
     "lattice/generated/docs/units/lattice-test-020.html": {
       "artifact_kind": "file",
-      "bytes": 348509,
+      "bytes": 353145,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-020"
     },
     "lattice/generated/docs/units/lattice-test-021.html": {
       "artifact_kind": "file",
-      "bytes": 348357,
+      "bytes": 352955,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-021"
     },
     "lattice/generated/docs/units/lattice-test-022.html": {
       "artifact_kind": "file",
-      "bytes": 348289,
+      "bytes": 352913,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-022"
     },
     "lattice/generated/docs/units/lattice-test-023.html": {
       "artifact_kind": "file",
-      "bytes": 348263,
+      "bytes": 352903,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-023"
     },
     "lattice/generated/docs/units/lattice-test-024.html": {
       "artifact_kind": "file",
-      "bytes": 348289,
+      "bytes": 352875,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-024"
     },
     "lattice/generated/docs/units/lattice-test-025.html": {
       "artifact_kind": "file",
-      "bytes": 348297,
+      "bytes": 352931,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-025"
     },
     "lattice/generated/docs/units/lattice-test-026.html": {
       "artifact_kind": "file",
-      "bytes": 348368,
+      "bytes": 353016,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-026"
     },
     "lattice/generated/docs/units/lattice-test-027.html": {
       "artifact_kind": "file",
-      "bytes": 349809,
+      "bytes": 354448,
       "generated": true,
       "owner": "test_binding:LATTICE-TEST-027"
     },
+    "lattice/generated/docs/units/lattice-test-028.html": {
+      "artifact_kind": "file",
+      "bytes": 353132,
+      "generated": true,
+      "owner": "test_binding:LATTICE-TEST-028"
+    },
     "lattice/generated/docs/units/lattice-theory-001.html": {
       "artifact_kind": "file",
-      "bytes": 348928,
+      "bytes": 354429,
       "generated": true,
       "owner": "concept:LATTICE-THEORY-001"
     },
     "lattice/generated/docs/units/lattice-type-001.html": {
       "artifact_kind": "file",
-      "bytes": 348071,
+      "bytes": 353633,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-001"
     },
     "lattice/generated/docs/units/lattice-type-002.html": {
       "artifact_kind": "file",
-      "bytes": 348019,
+      "bytes": 353555,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-002"
     },
     "lattice/generated/docs/units/lattice-type-003.html": {
       "artifact_kind": "file",
-      "bytes": 348018,
+      "bytes": 353561,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-003"
     },
     "lattice/generated/docs/units/lattice-type-004.html": {
       "artifact_kind": "file",
-      "bytes": 347882,
+      "bytes": 353471,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-004"
     },
     "lattice/generated/docs/units/lattice-type-005.html": {
       "artifact_kind": "file",
-      "bytes": 347889,
+      "bytes": 353469,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-005"
     },
     "lattice/generated/docs/units/lattice-type-006.html": {
       "artifact_kind": "file",
-      "bytes": 347789,
+      "bytes": 353319,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-006"
     },
     "lattice/generated/docs/units/lattice-type-007.html": {
       "artifact_kind": "file",
-      "bytes": 347833,
+      "bytes": 353385,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-007"
     },
     "lattice/generated/docs/units/lattice-type-008.html": {
       "artifact_kind": "file",
-      "bytes": 347849,
+      "bytes": 353399,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-008"
     },
     "lattice/generated/docs/units/lattice-type-009.html": {
       "artifact_kind": "file",
-      "bytes": 347876,
+      "bytes": 353443,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-009"
     },
     "lattice/generated/docs/units/lattice-type-010.html": {
       "artifact_kind": "file",
-      "bytes": 348032,
+      "bytes": 353631,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-010"
     },
     "lattice/generated/docs/units/lattice-type-011.html": {
       "artifact_kind": "file",
-      "bytes": 347949,
+      "bytes": 353525,
       "generated": true,
       "owner": "guardrail:LATTICE-TYPE-011"
     },
     "lattice/generated/docs/units/lattice-verify-001.html": {
       "artifact_kind": "file",
-      "bytes": 347926,
+      "bytes": 353514,
       "generated": true,
       "owner": "guardrail:LATTICE-VERIFY-001"
     },
     "lattice/generated/docs/units/project-concept-001.html": {
       "artifact_kind": "file",
-      "bytes": 349870,
+      "bytes": 355179,
       "generated": true,
       "owner": "concept:PROJECT-CONCEPT-001"
     },
     "lattice/generated/docs/units/project-concept-002.html": {
       "artifact_kind": "file",
-      "bytes": 349767,
+      "bytes": 355172,
       "generated": true,
       "owner": "concept:PROJECT-CONCEPT-002"
     },
     "lattice/generated/docs/units/project-concept-003.html": {
       "artifact_kind": "file",
-      "bytes": 350155,
+      "bytes": 355648,
       "generated": true,
       "owner": "concept:PROJECT-CONCEPT-003"
     },
     "lattice/generated/docs/units/project-decision-001.html": {
       "artifact_kind": "file",
-      "bytes": 349490,
+      "bytes": 355352,
       "generated": true,
       "owner": "decision:PROJECT-DECISION-001"
     },
     "lattice/generated/docs/units/project-gap-001.html": {
       "artifact_kind": "file",
-      "bytes": 349872,
+      "bytes": 354205,
       "generated": true,
       "owner": "schema_gap:PROJECT-GAP-001"
     },
     "lattice/generated/docs/units/project-gap-002.html": {
       "artifact_kind": "file",
-      "bytes": 349797,
+      "bytes": 354286,
       "generated": true,
       "owner": "schema_gap:PROJECT-GAP-002"
     },
     "lattice/generated/docs/units/project-rule-001-ex001.html": {
       "artifact_kind": "file",
-      "bytes": 348658,
+      "bytes": 353974,
       "generated": true,
       "owner": "example:PROJECT-RULE-001-EX001"
     },
     "lattice/generated/docs/units/project-rule-001.html": {
       "artifact_kind": "file",
-      "bytes": 355946,
+      "bytes": 360829,
       "generated": true,
       "owner": "business_rule:PROJECT-RULE-001"
     },
     "lattice/generated/docs/units/project-rule-002.html": {
       "artifact_kind": "file",
-      "bytes": 349915,
+      "bytes": 354798,
       "generated": true,
       "owner": "business_rule:PROJECT-RULE-002"
     },
     "lattice/generated/docs/units/project-rule-003.html": {
       "artifact_kind": "file",
-      "bytes": 350080,
+      "bytes": 354963,
       "generated": true,
       "owner": "business_rule:PROJECT-RULE-003"
     },
     "lattice/generated/docs/units/project-test-001.html": {
       "artifact_kind": "file",
-      "bytes": 348491,
+      "bytes": 353106,
       "generated": true,
       "owner": "test_binding:PROJECT-TEST-001"
     },
     "lattice/generated/docs/units/project-test-002.html": {
       "artifact_kind": "file",
-      "bytes": 348310,
+      "bytes": 352937,
       "generated": true,
       "owner": "test_binding:PROJECT-TEST-002"
     },
     "lattice/generated/docs/units/project-test-003.html": {
       "artifact_kind": "file",
-      "bytes": 348146,
+      "bytes": 352778,
       "generated": true,
       "owner": "test_binding:PROJECT-TEST-003"
     },
     "lattice/generated/docs/units/project-verify-001.html": {
       "artifact_kind": "file",
-      "bytes": 348220,
+      "bytes": 352660,
       "generated": true,
       "owner": "verification:PROJECT-VERIFY-001"
     },
     "lattice/generated/docs/units/project-workflow-001.html": {
       "artifact_kind": "file",
-      "bytes": 348986,
+      "bytes": 354458,
       "generated": true,
       "owner": "workflow:PROJECT-WORKFLOW-001"
     },
     "lattice/generated/llm/context-pack.md": {
       "artifact_kind": "file",
-      "bytes": 62561,
+      "bytes": 63516,
       "generated": true,
       "owner": "LLM context pack"
     }

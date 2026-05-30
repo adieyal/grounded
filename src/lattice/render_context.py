@@ -28,12 +28,23 @@ from .render_display import (
     detail_sections,
     display_fields,
     display_name,
+    document_artifacts,
+    documentation_sets,
     enum_values,
     field_anchor,
     field_label,
     field_type_display,
+    field_value,
+    generated_documents,
+    grouped_related_nodes,
     lattice_link,
+    list_values,
     page_component,
+    primary_statement,
+    primary_story_specs,
+    specs_for_refs,
+    specs_of_kind,
+    specs_referencing,
     type_nav_label,
     type_tone,
     visible_link_nodes,
@@ -71,10 +82,21 @@ def template_environment(config: LatticeConfig) -> Environment:
     env.globals["concept_sections"] = concept_sections
     env.globals["field_anchor"] = field_anchor
     env.globals["display_name"] = display_name
+    env.globals["document_artifacts"] = document_artifacts
+    env.globals["documentation_sets"] = documentation_sets
     env.globals["field_type_display"] = field_type_display
+    env.globals["field_value"] = field_value
     env.globals["enum_values"] = enum_values
+    env.globals["generated_documents"] = generated_documents
+    env.globals["grouped_related_nodes"] = grouped_related_nodes
+    env.globals["list_values"] = list_values
     env.globals["tag_values"] = tag_values
     env.globals["page_component"] = page_component
+    env.globals["primary_statement"] = primary_statement
+    env.globals["primary_story_specs"] = primary_story_specs
+    env.globals["specs_for_refs"] = specs_for_refs
+    env.globals["specs_of_kind"] = specs_of_kind
+    env.globals["specs_referencing"] = specs_referencing
     env.globals["type_tone"] = type_tone
     env.globals["type_nav_label"] = type_nav_label
     env.globals["visible_link_nodes"] = visible_link_nodes
@@ -133,6 +155,15 @@ def base_context(
         "extra_css_href": None,
         "docs_home_href": href_for(
             output_path, config.generated_docs_dir / INDEX_FILENAME
+        ),
+        "artifact_index_href": href_for(
+            output_path, config.generated_docs_dir / "artifact-index.html"
+        ),
+        "document_graph_href": href_for(
+            output_path, config.generated_docs_dir / "document-graph.html"
+        ),
+        "background_href": href_for(
+            output_path, config.generated_docs_dir / "lattice-background.html"
         ),
         "link_component_href": _versioned_href(
             href_for(output_path, config.generated_docs_dir / LINK_COMPONENT_FILENAME),

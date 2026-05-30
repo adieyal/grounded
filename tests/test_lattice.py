@@ -143,7 +143,7 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("lattice-registry", html)
             self.assertIn("lattice-theme", html)
             self.assertIn("lattice-link.js", html)
-            self.assertRegex(html, r'lattice-link\.js\?v=[0-9a-f]{12}')
+            self.assertRegex(html, r"lattice-link\.js\?v=[0-9a-f]{12}")
             self.assertIn("Bootstrap Item", html)
             self.assertNotIn("Todo system", html)
             self.assertIn('href="style.css"', html)
@@ -274,13 +274,9 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("## Generated from Lattice", text)
             self.assertIn("`PROJECT-GAP-001`", text)
             manifest = json.loads(
-                (root / ".lattice/generated/manifest.json").read_text(
-                    encoding="utf-8"
-                )
+                (root / ".lattice/generated/manifest.json").read_text(encoding="utf-8")
             )
-            self.assertEqual(
-                doc_id, manifest["artifacts"]["README.md"]["owner"]
-            )
+            self.assertEqual(doc_id, manifest["artifacts"]["README.md"]["owner"])
             self.assertEqual(
                 "protected_block",
                 manifest["artifacts"]["README.md"]["artifact_kind"],
@@ -353,14 +349,160 @@ class LatticeTests(unittest.TestCase):
             self.assertNotIn("lattice:generated:start", text)
             self.assertIn("## Full file", text)
             manifest = json.loads(
-                (root / ".lattice/generated/manifest.json").read_text(
-                    encoding="utf-8"
-                )
+                (root / ".lattice/generated/manifest.json").read_text(encoding="utf-8")
             )
             self.assertEqual(
                 "file", manifest["artifacts"]["docs/generated.md"]["artifact_kind"]
             )
-            self.assertEqual(doc_id, manifest["artifacts"]["docs/generated.md"]["owner"])
+            self.assertEqual(
+                doc_id, manifest["artifacts"]["docs/generated.md"]["owner"]
+            )
+
+    def test_semantic_document_templates_render_content_first_views(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            type_registry_path = root / ".lattice/registry/spec-types.json"
+            type_registry = json.loads(type_registry_path.read_text(encoding="utf-8"))
+            type_registry["decision"] = {
+                "extends": "knowledge_unit",
+                "renderer": "decision.html.j2",
+                "required": [
+                    "id",
+                    "kind",
+                    "name",
+                    "owner",
+                    "status",
+                    "description",
+                    "decision",
+                ],
+                "reference_fields": ["tests"],
+                "list_fields": ["tests"],
+            }
+            type_registry["test_binding"] = {
+                "extends": "knowledge_unit",
+                "renderer": "test_binding.html.j2",
+                "required": [
+                    "id",
+                    "kind",
+                    "name",
+                    "owner",
+                    "status",
+                    "description",
+                    "target",
+                    "test",
+                ],
+                "single_reference_fields": ["target"],
+            }
+            type_registry_path.write_text(json.dumps(type_registry), encoding="utf-8")
+            docs_dir = root / ".lattice/specs/docs"
+            docs_dir.mkdir(parents=True)
+            decision_dir = root / ".lattice/specs/concepts"
+            decision_dir.mkdir(parents=True)
+            test_dir = root / ".lattice/specs/test_bindings"
+            test_dir.mkdir(parents=True)
+            doc_id = "".join(["PROJECT", "-DOC-001"])
+            section_id = "".join(["PROJECT", "-DOC", "-SECTION-001"])
+            decision_id = "".join(["PROJECT", "-DECISION-001"])
+            test_id = "".join(["PROJECT", "-TEST-001"])
+            (docs_dir / f"{doc_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": doc_id,
+                        "kind": "generated_document",
+                        "name": "Generated README",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Defines a generated README artifact.",
+                        "output_path": "README.md",
+                        "format": "markdown",
+                        "write_mode": "protected_block",
+                        "audience": "maintainers",
+                        "purpose": "Explain the project from governed specs.",
+                        "section_refs": [section_id],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (docs_dir / f"{section_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": section_id,
+                        "kind": "document_section",
+                        "name": "Decision section",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Defines a section sourced from a decision.",
+                        "heading": "Decision",
+                        "heading_level": 2,
+                        "order": 10,
+                        "renderer": "source_summary",
+                        "content_mode": "sourced",
+                        "source_refs": [decision_id],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (decision_dir / f"{decision_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": decision_id,
+                        "kind": "decision",
+                        "name": "Generate docs from specs",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Documents the generated docs decision.",
+                        "decision": "Docs should explain durable source specs before metadata.",
+                        "tests": [test_id],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            (test_dir / f"{test_id}.json").write_text(
+                json.dumps(
+                    {
+                        "id": test_id,
+                        "kind": "test_binding",
+                        "name": "Semantic template test",
+                        "owner": "project",
+                        "status": "active",
+                        "description": "Binds the semantic template decision to a renderer test.",
+                        "target": decision_id,
+                        "test": "Render generated_document and decision pages as semantic views.",
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            config = load_config(root)
+            registry = load_registry(config)
+            render_all(config, registry)
+
+            doc_html = (
+                root / ".lattice/generated/docs/units/project-doc-001.html"
+            ).read_text(encoding="utf-8")
+            decision_html = (
+                root / ".lattice/generated/docs/units/project-decision-001.html"
+            ).read_text(encoding="utf-8")
+            graph_html = (
+                root / ".lattice/generated/docs/document-graph.html"
+            ).read_text(encoding="utf-8")
+            artifact_html = (
+                root / ".lattice/generated/docs/artifact-index.html"
+            ).read_text(encoding="utf-8")
+
+            self.assertIn("Generated Document", doc_html)
+            self.assertIn("Document Sections", doc_html)
+            self.assertLess(
+                doc_html.index("Generated Document"), doc_html.index("Metadata fields")
+            )
+            self.assertIn("Decision", decision_html)
+            self.assertIn("Proof Obligations", decision_html)
+            self.assertIn(test_id, decision_html)
+            self.assertIn("Docs are projections, not sources.", graph_html)
+            self.assertIn("Decision section", graph_html)
+            self.assertIn("Artifact Manifest", artifact_html)
+            self.assertIn("README.md", artifact_html)
 
     def test_audit_checks_documentation_graph_edges(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -664,12 +806,18 @@ class LatticeTests(unittest.TestCase):
                 "suggested_improvement": "Add a lifecycle rule type.",
                 "references": [item_id],
             }
-            (specs_dir / f"{item_id}.json").write_text(json.dumps(item), encoding="utf-8")
-            (specs_dir / f"{rule_id}.json").write_text(json.dumps(rule), encoding="utf-8")
+            (specs_dir / f"{item_id}.json").write_text(
+                json.dumps(item), encoding="utf-8"
+            )
+            (specs_dir / f"{rule_id}.json").write_text(
+                json.dumps(rule), encoding="utf-8"
+            )
 
             output = StringIO()
             with redirect_stdout(output):
-                result = main(["--root", str(root), "search", "task", "--kind", "entities"])
+                result = main(
+                    ["--root", str(root), "search", "task", "--kind", "entities"]
+                )
 
             self.assertEqual(0, result)
             self.assertIn("Todo Item", output.getvalue())
@@ -1356,7 +1504,9 @@ class LatticeTests(unittest.TestCase):
             self.assertIn(":host([open]) .items { display: block; }", component_js)
             self.assertIn("tooltipFor(target, label)", component_js)
             self.assertIn("aria-description=${tooltip || nothing}", component_js)
-            self.assertIn("aria-describedby=${tooltip ? tooltipId : nothing}", component_js)
+            self.assertIn(
+                "aria-describedby=${tooltip ? tooltipId : nothing}", component_js
+            )
             self.assertIn("appendTooltipRichText(tooltip, text)", component_js)
             self.assertIn("document.createElement('a')", component_js)
             self.assertIn("link.href = `${target.href}${fragment}`", component_js)
@@ -1366,7 +1516,9 @@ class LatticeTests(unittest.TestCase):
             self.assertIn("position: 'fixed'", component_js)
             self.assertIn("background: '#ffffff'", component_js)
             self.assertIn("border: '1px solid #000000'", component_js)
-            self.assertIn("boxShadow: '0 0.375rem 1rem rgba(0, 0, 0, 0.16)'", component_js)
+            self.assertIn(
+                "boxShadow: '0 0.375rem 1rem rgba(0, 0, 0, 0.16)'", component_js
+            )
             self.assertIn("target.summary", component_js)
             self.assertIn("define('lattice-theme-toggle'", component_js)
             self.assertIn("lattice-theme", component_js)
@@ -1703,9 +1855,7 @@ class LatticeTests(unittest.TestCase):
                         "owner": "todo",
                         "status": "active",
                         "description": "A placeholder domain object.",
-                        "fields": [
-                            {"name": "id", "type": "string", "required": "yes"}
-                        ],
+                        "fields": [{"name": "id", "type": "string", "required": "yes"}],
                     }
                 ),
                 encoding="utf-8",

@@ -71,9 +71,10 @@ def search_records(
 ) -> list[SearchResult]:
     scoped = filter_records(records, kind)
     results = [result for record in scoped if (result := score_record(query, record))]
-    return sorted(results, key=lambda result: (-result.score, result.record.kind, result.record.id))[
-        :limit
-    ]
+    return sorted(
+        results,
+        key=lambda result: (-result.score, result.record.kind, result.record.id),
+    )[:limit]
 
 
 def filter_records(records: list[SearchRecord], kind: str | None) -> list[SearchRecord]:
@@ -119,7 +120,10 @@ def score_record(query: str, record: SearchRecord) -> SearchResult | None:
         )
 
     best_ratio = max(
-        (SequenceMatcher(None, normalized_query, name).ratio() for name in normalized_names),
+        (
+            SequenceMatcher(None, normalized_query, name).ratio()
+            for name in normalized_names
+        ),
         default=0.0,
     )
     if best_ratio >= 0.62:
@@ -182,7 +186,11 @@ def records_json(records: list[SearchRecord]) -> str:
 def results_json(results: list[SearchResult]) -> str:
     return json.dumps(
         [
-            {"score": result.score, "reason": result.reason, **record_payload(result.record)}
+            {
+                "score": result.score,
+                "reason": result.reason,
+                **record_payload(result.record),
+            }
             for result in results
         ],
         indent=2,
@@ -211,11 +219,19 @@ def check_new_payload(
         "query": name,
         "recommendation": recommendation,
         "entity_matches": [
-            {"score": result.score, "reason": result.reason, **record_payload(result.record)}
+            {
+                "score": result.score,
+                "reason": result.reason,
+                **record_payload(result.record),
+            }
             for result in entity_matches
         ],
         "spec_matches": [
-            {"score": result.score, "reason": result.reason, **record_payload(result.record)}
+            {
+                "score": result.score,
+                "reason": result.reason,
+                **record_payload(result.record),
+            }
             for result in spec_matches
         ],
     }
@@ -277,5 +293,7 @@ def _string_values(value: object) -> tuple[str, ...]:
     if isinstance(value, str) and value.strip():
         return (value.strip(),)
     if isinstance(value, list):
-        return tuple(item.strip() for item in value if isinstance(item, str) and item.strip())
+        return tuple(
+            item.strip() for item in value if isinstance(item, str) and item.strip()
+        )
     return ()

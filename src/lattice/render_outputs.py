@@ -5,7 +5,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from .models import LatticeConfig
-from .render_documents import current_protected_block, protected_block, replace_protected_block
+from .render_documents import (
+    current_protected_block,
+    protected_block,
+    replace_protected_block,
+)
 
 
 @dataclass(frozen=True)

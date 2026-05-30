@@ -115,14 +115,14 @@ def main(argv: list[str] | None = None) -> int:
     search_parser.add_argument("--limit", type=int, default=8)
     search_parser.add_argument("--json", action="store_true")
 
-    entities_parser = subcommands.add_parser(
-        "entities", help="List entity-like specs."
-    )
+    entities_parser = subcommands.add_parser("entities", help="List entity-like specs.")
     entities_parser.add_argument("--json", action="store_true")
     entities_parser.add_argument("--verbose", action="store_true")
 
     specs_parser = subcommands.add_parser("specs", help="List available specs.")
-    specs_parser.add_argument("--kind", default="all", help="Restrict to one spec kind.")
+    specs_parser.add_argument(
+        "--kind", default="all", help="Restrict to one spec kind."
+    )
     specs_parser.add_argument(
         "--uses",
         help="Only show specs that reference the matching entity or spec.",
@@ -282,7 +282,9 @@ def main(argv: list[str] | None = None) -> int:
         records = build_search_records(registry)
         results = [
             result
-            for result in search_records(records, args.query, kind="specs", limit=args.limit)
+            for result in search_records(
+                records, args.query, kind="specs", limit=args.limit
+            )
             if result.record.kind not in ENTITY_KINDS
         ]
         if args.json:
@@ -293,7 +295,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.command == "check-new":
         if registry.issues:
             return _print_issues(config.root, registry.issues)
-        payload = check_new_payload(build_search_records(registry), args.name, limit=args.limit)
+        payload = check_new_payload(
+            build_search_records(registry), args.name, limit=args.limit
+        )
         if args.json:
             print(json.dumps(payload, indent=2))
             return 0
@@ -370,8 +374,7 @@ def _registry_type_payload(type_name: str, type_def: object) -> dict[str, object
             getattr(type_def, "single_reference_fields", ())
         ),
         "nested_reference_fields": [
-            ".".join(path)
-            for path in getattr(type_def, "nested_reference_fields", ())
+            ".".join(path) for path in getattr(type_def, "nested_reference_fields", ())
         ],
         "verification_fields": list(getattr(type_def, "verification_fields", ())),
         "search_fields": list(getattr(type_def, "search_fields", ())),
@@ -401,10 +404,7 @@ def _print_registry(root: Path, registry: object) -> int:
         specs_by_type.setdefault(str(spec["type"]), []).append(spec)
 
     print("Lattice registry")
-    print(
-        f"{len(registry_types)} registry types, "
-        f"{len(specs)} authored specs"
-    )
+    print(f"{len(registry_types)} registry types, {len(specs)} authored specs")
     print()
     print("Registry types")
     for item in registry_types:

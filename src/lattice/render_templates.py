@@ -31,6 +31,13 @@ DEFAULT_TEMPLATES: dict[str, str] = {
       <lattice-theme-toggle></lattice-theme-toggle>
     </lattice-top-bar>
     <lattice-sidebar slot="nav" aria-label="Knowledge units">
+      <lattice-nav-group>
+        <span slot="label">Views</span>
+        <lattice-nav-item tone="flow"><a class="plain-nav-link" href="{{ docs_home_href }}">Overview</a></lattice-nav-item>
+        <lattice-nav-item tone="flow"><a class="plain-nav-link" href="{{ document_graph_href }}">Document Graph</a></lattice-nav-item>
+        <lattice-nav-item tone="flow"><a class="plain-nav-link" href="{{ artifact_index_href }}">Artifacts</a></lattice-nav-item>
+        <lattice-nav-item tone="meta"><a class="plain-nav-link" href="{{ background_href }}">Background</a></lattice-nav-item>
+      </lattice-nav-group>
       {% for type_name, units in by_type.items() %}
       <lattice-nav-group{% if current_spec and current_spec.kind == type_name %} open{% endif %}>
         <span slot="label">{{ type_nav_label(type_name) }}</span>
@@ -56,8 +63,46 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   <span slot="eyebrow">{{ docs_eyebrow }}</span>
   <span slot="title">{{ docs_title }}</span>
   <span slot="description">{{ docs_description }}</span>
-  <p slot="actions" class="background-link"><a href="{{ background_href }}">Lattice background and generated metadata</a></p>
+  <p slot="actions" class="background-link"><a href="{{ document_graph_href }}">Explore the documentation graph</a> <a href="{{ artifact_index_href }}">Generated artifacts</a> <a href="{{ background_href }}">Background registry</a></p>
 </lattice-page-hero>
+{% set docs = generated_documents(registry) %}
+{% if docs %}
+<section class="story-band">
+  <div>
+    <p class="story-kicker">Generated views</p>
+    <h2>These files are projections over Lattice specs.</h2>
+    <p>Start with the documents, then follow each document into the sections, source specs, and governed assets that explain why the page exists.</p>
+  </div>
+  <div class="artifact-grid">
+  {% for doc in docs %}
+    <article class="artifact-card">
+      <p class="artifact-path">{{ field_value(doc, "output_path") }}</p>
+      <h3>{{ lattice_link(doc.kind, doc.id, display_name(doc), "plain") | safe }}</h3>
+      <p>{{ rich_text(field_value(doc, "purpose", doc.description), registry) | safe }}</p>
+      <div class="mini-metrics">
+        <span>{{ list_values(doc, "section_refs") | length }} sections</span>
+        <span>{{ field_value(doc, "write_mode", "protected_block") }}</span>
+      </div>
+    </article>
+  {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% set story_specs = primary_story_specs(registry) %}
+{% if story_specs %}
+<lattice-unit-section aria-labelledby="story-specs-title">
+  <lattice-section-heading divider id="story-specs-title">What The Graph Says</lattice-section-heading>
+  <div class="pd-cards semantic-cards">
+  {% for spec in story_specs %}
+    <lattice-unit-card>
+      <h3 class="pd-card-name nm-{{ type_tone(spec.kind) }}">{{ lattice_link(spec.kind, spec.id, display_name(spec), "card-title") | safe }}</h3>
+      <p class="pd-card-desc">{{ rich_text(primary_statement(spec), registry) | safe }}</p>
+      <div class="pd-card-foot"><span class="tag t-{{ type_tone(spec.kind) }}">{{ spec.kind }}</span></div>
+    </lattice-unit-card>
+  {% endfor %}
+  </div>
+</lattice-unit-section>
+{% endif %}
 {% for type_name, units in by_type.items() %}
 <lattice-unit-section aria-labelledby="{{ type_name }}-title">
   <lattice-section-heading divider id="{{ type_name }}-title">{{ type_nav_label(type_name) }}</lattice-section-heading>
@@ -83,8 +128,20 @@ DEFAULT_TEMPLATES: dict[str, str] = {
   <span slot="eyebrow">Background</span>
   <span slot="title">{{ docs_background_title }}</span>
   <span slot="description">{{ docs_background_description }}</span>
-  <p slot="actions" class="background-link"><a href="{{ main_href }}">Back to {{ docs_title }}</a></p>
+  <p slot="actions" class="background-link"><a href="{{ main_href }}">Back to {{ docs_title }}</a> <a href="{{ document_graph_href }}">Document graph</a></p>
 </lattice-page-hero>
+<section class="story-band">
+  <div>
+    <p class="story-kicker">Metamodel layer</p>
+    <h2>Background specs explain the machinery behind the project docs.</h2>
+    <p>This view keeps Lattice core definitions, guardrails, and support specs available without forcing them to compete with the primary project narrative.</p>
+  </div>
+  <div class="metric-strip">
+  {% for type_name, count in type_counts.items() %}
+    <span><strong>{{ count }}</strong>{{ type_nav_label(type_name) }}</span>
+  {% endfor %}
+  </div>
+</section>
 {% for type_name, units in by_type.items() %}
 <lattice-unit-section aria-labelledby="{{ type_name }}-background-title">
   <lattice-section-heading divider id="{{ type_name }}-background-title">{{ type_nav_label(type_name) }}</lattice-section-heading>
@@ -123,7 +180,18 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 </div>
 {% endif %}
 <div slot="fields">
+    {% block semantic_body %}
+    {% set statement = primary_statement(spec) %}
+    {% if statement %}
+    <section class="semantic-lead-card">
+      <p class="story-kicker">Source Meaning</p>
+      <p>{{ rich_text(statement, registry) | safe }}</p>
+    </section>
+    {% endif %}
+    {% endblock %}
     {% set rows = display_fields(spec) %}
+    <details class="metadata-unit">
+    <summary>Metadata fields</summary>
     <lattice-section-heading>Fields</lattice-section-heading>
     <lattice-field-table>
     <table class="pd-ft field-table">
@@ -184,6 +252,7 @@ DEFAULT_TEMPLATES: dict[str, str] = {
       </tbody>
     </table>
     </lattice-field-table>
+    </details>
     {% set sections = detail_sections(spec) %}
     {% if sections %}
     <div class="detail-panels">
@@ -294,19 +363,316 @@ DEFAULT_TEMPLATES: dict[str, str] = {
 {% endblock %}
 """,
     "enum.html.j2": """{% extends "unit.html.j2" %}
-{% block after_fields %}
+{% block semantic_body %}
+<section class="semantic-lead-card">
+  <p class="story-kicker">Controlled Vocabulary</p>
+  <p>{{ rich_text(primary_statement(spec), registry) | safe }}</p>
+</section>
 {% set values = enum_values(spec) %}
 {% if values %}
-<lattice-unit-section slot="before-context">
+<section class="semantic-section">
   <lattice-section-heading>Values</lattice-section-heading>
   <div class="allowed-values enum-values">
     {% for value in values %}<span class="tag t-type field-value">{{ value }}</span>{% endfor %}
   </div>
-</lattice-unit-section>
+</section>
 {% endif %}
 {% endblock %}
 """,
-    "domain_object.html.j2": """{% extends "unit.html.j2" %}""",
-    "schema_gap.html.j2": """{% extends "unit.html.j2" %}""",
-    "verification.html.j2": """{% extends "unit.html.j2" %}""",
+    "domain_object.html.j2": """{% extends "unit.html.j2" %}
+{% block semantic_body %}
+<section class="semantic-lead-card">
+  <p class="story-kicker">Domain Meaning</p>
+  <p>{{ rich_text(primary_statement(spec), registry) | safe }}</p>
+</section>
+{% endblock %}
+""",
+    "generated_document.html.j2": """{% extends "unit.html.j2" %}
+{% block semantic_body %}
+<section class="semantic-lead-card artifact-hero">
+  <p class="story-kicker">Generated Document</p>
+  <p>{{ rich_text(field_value(spec, "purpose", spec.description), registry) | safe }}</p>
+  <div class="artifact-facts">
+    <span><strong>Output</strong>{{ field_value(spec, "output_path") }}</span>
+    <span><strong>Format</strong>{{ field_value(spec, "format") }}</span>
+    <span><strong>Write mode</strong>{{ field_value(spec, "write_mode", "protected_block") }}</span>
+    {% if field_value(spec, "audience") %}<span><strong>Audience</strong>{{ field_value(spec, "audience") }}</span>{% endif %}
+  </div>
+</section>
+{% set sections = specs_for_refs(spec, registry, "section_refs") %}
+{% if sections %}
+<section class="semantic-section">
+  <lattice-section-heading>Document Sections</lattice-section-heading>
+  <ol class="timeline-list">
+  {% for section in sections %}
+    <li>
+      <span class="timeline-number">{{ loop.index }}</span>
+      <div>
+        <h3>{{ lattice_link(section.kind, section.id, display_name(section), "plain") | safe }}</h3>
+        <p>{{ rich_text(field_value(section, "intro", section.description), registry) | safe }}</p>
+        <div class="mini-metrics">
+          <span>{{ field_value(section, "renderer") }}</span>
+          <span>{{ field_value(section, "content_mode") }}</span>
+          <span>{{ list_values(section, "source_refs") | length }} sources</span>
+        </div>
+      </div>
+    </li>
+  {% endfor %}
+  </ol>
+</section>
+{% endif %}
+{% set sources = specs_for_refs(spec, registry, "source_refs") %}
+{% if sources %}
+<section class="semantic-section">
+  <lattice-section-heading>Document Sources</lattice-section-heading>
+  <lattice-compact-list>
+  {% for source in sources %}
+    <lattice-compact-item>
+      <span slot="name">{{ lattice_link(source.kind, source.id, display_name(source), "plain") | safe }}</span>
+      <span slot="description">{{ rich_text(primary_statement(source), registry) | safe }}</span>
+    </lattice-compact-item>
+  {% endfor %}
+  </lattice-compact-list>
+</section>
+{% endif %}
+{% endblock %}
+""",
+    "document_section.html.j2": """{% extends "unit.html.j2" %}
+{% block semantic_body %}
+<section class="semantic-lead-card">
+  <p class="story-kicker">Reusable Section</p>
+  <p>{{ rich_text(field_value(spec, "intro", spec.description), registry) | safe }}</p>
+  <div class="artifact-facts">
+    <span><strong>Heading</strong>{{ field_value(spec, "heading") }}</span>
+    <span><strong>Renderer</strong>{{ field_value(spec, "renderer") }}</span>
+    <span><strong>Content mode</strong>{{ field_value(spec, "content_mode") }}</span>
+    <span><strong>Order</strong>{{ field_value(spec, "order") }}</span>
+  </div>
+</section>
+{% set sources = specs_for_refs(spec, registry, "source_refs") %}
+{% if sources %}
+<section class="semantic-section">
+  <lattice-section-heading>Source Specs</lattice-section-heading>
+  <lattice-compact-list>
+  {% for source in sources %}
+    <lattice-compact-item>
+      <span slot="name">{{ lattice_link(source.kind, source.id, display_name(source), "plain") | safe }}</span>
+      <span slot="description">{{ rich_text(primary_statement(source), registry) | safe }}</span>
+    </lattice-compact-item>
+  {% endfor %}
+  </lattice-compact-list>
+</section>
+{% endif %}
+{% set assets = specs_for_refs(spec, registry, "asset_refs") %}
+{% if assets %}
+<section class="semantic-section">
+  <lattice-section-heading>Assets</lattice-section-heading>
+  <div class="pd-cards semantic-cards">
+  {% for asset in assets %}
+    <lattice-unit-card>
+      <h3 class="pd-card-name">{{ lattice_link(asset.kind, asset.id, display_name(asset), "card-title") | safe }}</h3>
+      <p class="pd-card-desc">{{ field_value(asset, "path") }}</p>
+    </lattice-unit-card>
+  {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% set consumers = specs_referencing(registry, spec.id, field="section_refs") %}
+{% if consumers %}
+<section class="semantic-section">
+  <lattice-section-heading>Used By Documents</lattice-section-heading>
+  <div class="link-list">
+  {% for consumer in consumers %}{{ lattice_link(consumer.kind, consumer.id, display_name(consumer), "plain") | safe }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+""",
+    "documentation_set.html.j2": """{% extends "unit.html.j2" %}
+{% block semantic_body %}
+<section class="semantic-lead-card">
+  <p class="story-kicker">Documentation Set</p>
+  <p>{{ rich_text(primary_statement(spec), registry) | safe }}</p>
+  <div class="artifact-facts">
+    <span><strong>Output root</strong>{{ field_value(spec, "default_output_dir") }}</span>
+    <span><strong>Documents</strong>{{ list_values(spec, "document_refs") | length }}</span>
+  </div>
+</section>
+{% set docs = specs_for_refs(spec, registry, "document_refs") %}
+{% if docs %}
+<section class="semantic-section">
+  <lattice-section-heading>Documents In This Set</lattice-section-heading>
+  <ol class="timeline-list">
+  {% for doc in docs %}
+    <li>
+      <span class="timeline-number">{{ loop.index }}</span>
+      <div>
+        <h3>{{ lattice_link(doc.kind, doc.id, display_name(doc), "plain") | safe }}</h3>
+        <p>{{ field_value(doc, "output_path") }}</p>
+      </div>
+    </li>
+  {% endfor %}
+  </ol>
+</section>
+{% endif %}
+{% endblock %}
+""",
+    "asset.html.j2": """{% extends "unit.html.j2" %}
+{% block semantic_body %}
+<section class="semantic-lead-card">
+  <p class="story-kicker">Governed Asset</p>
+  <p>{{ rich_text(primary_statement(spec), registry) | safe }}</p>
+  <div class="artifact-facts">
+    <span><strong>Path</strong>{{ field_value(spec, "path") }}</span>
+    <span><strong>Kind</strong>{{ field_value(spec, "asset_kind") }}</span>
+    <span><strong>Media</strong>{{ field_value(spec, "media_type") }}</span>
+  </div>
+  {% if field_value(spec, "alt") %}<p class="asset-alt"><strong>Alt text:</strong> {{ field_value(spec, "alt") }}</p>{% endif %}
+</section>
+{% set used_by = specs_for_refs(spec, registry, "used_by") %}
+{% if used_by %}
+<section class="semantic-section">
+  <lattice-section-heading>Used By</lattice-section-heading>
+  <div class="link-list">
+  {% for target in used_by %}{{ lattice_link(target.kind, target.id, display_name(target), "plain") | safe }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+""",
+    "decision.html.j2": """{% extends "unit.html.j2" %}
+{% block semantic_body %}
+<section class="semantic-lead-card decision-card">
+  <p class="story-kicker">Decision</p>
+  <p>{{ rich_text(field_value(spec, "decision"), registry) | safe }}</p>
+</section>
+{% set tests = specs_for_refs(spec, registry, "tests") %}
+{% if tests %}
+<section class="semantic-section">
+  <lattice-section-heading>Proof Obligations</lattice-section-heading>
+  <lattice-compact-list>
+  {% for test in tests %}
+    <lattice-compact-item>
+      <span slot="name">{{ lattice_link(test.kind, test.id, display_name(test), "plain") | safe }}</span>
+      <span slot="description">{{ rich_text(field_value(test, "test", test.description), registry) | safe }}</span>
+    </lattice-compact-item>
+  {% endfor %}
+  </lattice-compact-list>
+</section>
+{% endif %}
+{% endblock %}
+""",
+    "guardrail.html.j2": """{% extends "unit.html.j2" %}
+{% block semantic_body %}
+<section class="semantic-lead-card">
+  <p class="story-kicker">Guardrail</p>
+  <p>{{ rich_text(primary_statement(spec), registry) | safe }}</p>
+</section>
+<section class="semantic-section fix-panel">
+  <lattice-section-heading>How To Fix Drift</lattice-section-heading>
+  <p>Update the source spec that owns the rule, regenerate the affected view, then run the validation/audit command named by the linked test binding or verification spec.</p>
+</section>
+{% set tests = specs_for_refs(spec, registry, "tests") %}
+{% if tests %}
+<section class="semantic-section">
+  <lattice-section-heading>Checked By</lattice-section-heading>
+  <div class="link-list">
+  {% for test in tests %}{{ lattice_link(test.kind, test.id, display_name(test), "plain") | safe }}{% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}
+""",
+    "test_binding.html.j2": """{% extends "unit.html.j2" %}
+{% block semantic_body %}
+<section class="semantic-lead-card">
+  <p class="story-kicker">Executable Proof</p>
+  <p>{{ rich_text(field_value(spec, "test", spec.description), registry) | safe }}</p>
+  <div class="artifact-facts">
+    {% set target = specs_for_refs(spec, registry, "target") %}
+    {% if target %}<span><strong>Target</strong>{{ lattice_link(target[0].kind, target[0].id, display_name(target[0]), "plain") | safe }}</span>{% endif %}
+  </div>
+</section>
+{% endblock %}
+""",
+    "schema_gap.html.j2": """{% extends "unit.html.j2" %}
+{% block semantic_body %}
+<section class="semantic-lead-card">
+  <p class="story-kicker">Schema Gap</p>
+  <p>{{ rich_text(field_value(spec, "gap"), registry) | safe }}</p>
+</section>
+<section class="semantic-section fix-panel">
+  <lattice-section-heading>Suggested Improvement</lattice-section-heading>
+  <p>{{ rich_text(field_value(spec, "suggested_improvement"), registry) | safe }}</p>
+</section>
+{% endblock %}
+""",
+    "verification.html.j2": """{% extends "unit.html.j2" %}
+{% block semantic_body %}
+<section class="semantic-lead-card">
+  <p class="story-kicker">Verification</p>
+  <p>{{ rich_text(primary_statement(spec), registry) | safe }}</p>
+  <pre class="command-block"><code>{{ field_value(spec, "command") }}</code></pre>
+</section>
+{% endblock %}
+""",
+    "artifact-index.html.j2": """{% extends "shell.html.j2" %}
+{% block title %}Generated Artifacts · {{ docs_title }}{% endblock %}
+{% block content %}
+<lattice-index-page>
+<lattice-page-hero>
+  <span slot="eyebrow">Artifacts</span>
+  <span slot="title">Generated artifacts</span>
+  <span slot="description">Every emitted documentation file should have an owning Lattice spec and a path readers can inspect.</span>
+  <p slot="actions" class="background-link"><a href="{{ docs_home_href }}">Overview</a> <a href="{{ document_graph_href }}">Document graph</a></p>
+</lattice-page-hero>
+<lattice-unit-section>
+  <lattice-section-heading divider>Artifact Manifest</lattice-section-heading>
+  <lattice-compact-list>
+  {% for artifact in document_artifacts(registry) %}
+    <lattice-compact-item>
+      <span slot="name">{{ lattice_link(artifact.spec.kind, artifact.spec.id, artifact.path, "plain") | safe }}</span>
+      <span slot="description">{{ artifact.format }} · {{ artifact.write_mode }} · {{ artifact.section_count }} sections</span>
+    </lattice-compact-item>
+  {% endfor %}
+  </lattice-compact-list>
+</lattice-unit-section>
+</lattice-index-page>
+{% endblock %}
+""",
+    "document-graph.html.j2": """{% extends "shell.html.j2" %}
+{% block title %}Document Graph · {{ docs_title }}{% endblock %}
+{% block content %}
+<lattice-index-page>
+<lattice-page-hero>
+  <span slot="eyebrow">Document Graph</span>
+  <span slot="title">Docs are projections, not sources.</span>
+  <span slot="description">Generated documents point to ordered sections. Sections point to durable source specs and governed assets.</span>
+  <p slot="actions" class="background-link"><a href="{{ docs_home_href }}">Overview</a> <a href="{{ artifact_index_href }}">Artifacts</a></p>
+</lattice-page-hero>
+{% for doc in generated_documents(registry) %}
+<lattice-unit-section>
+  <lattice-section-heading divider>{{ field_value(doc, "output_path") }}</lattice-section-heading>
+  <ol class="timeline-list">
+  {% for section in specs_for_refs(doc, registry, "section_refs") %}
+    <li>
+      <span class="timeline-number">{{ loop.index }}</span>
+      <div>
+        <h3>{{ lattice_link(section.kind, section.id, display_name(section), "plain") | safe }}</h3>
+        <p>{{ rich_text(field_value(section, "intro", section.description), registry) | safe }}</p>
+        {% set sources = specs_for_refs(section, registry, "source_refs") %}
+        {% if sources %}
+        <div class="link-list source-links">
+        {% for source in sources %}{{ lattice_link(source.kind, source.id, display_name(source), "plain") | safe }}{% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </li>
+  {% endfor %}
+  </ol>
+</lattice-unit-section>
+{% endfor %}
+</lattice-index-page>
+{% endblock %}
+""",
 }

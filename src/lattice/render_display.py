@@ -34,13 +34,22 @@ def field_label(value: str) -> str:
 
 
 TYPE_TONES = {
+    "asset": "flow",
     "business_entity": "ent",
     "domain_object": "ent",
     "concept": "con",
+    "decision": "con",
+    "document_section": "flow",
+    "documentation_set": "flow",
     "enum": "enu",
+    "generated_document": "flow",
+    "guardrail": "meta",
     "lifecycle_type": "enu",
     "lifecycle_value": "enu",
     "data_type": "type",
+    "schema_gap": "meta",
+    "test_binding": "meta",
+    "verification": "meta",
     "workflow": "flow",
     "registry_type": "type",
     "spec_type": "type",
@@ -48,13 +57,22 @@ TYPE_TONES = {
 
 
 TYPE_NAV_LABELS = {
+    "asset": "Assets",
     "business_entity": "Business Entities",
     "domain_object": "Domain",
     "concept": "Concepts",
+    "decision": "Decisions",
+    "document_section": "Document Sections",
+    "documentation_set": "Documentation Sets",
     "enum": "Enums",
+    "generated_document": "Generated Documents",
+    "guardrail": "Guardrails",
     "lifecycle_type": "Lifecycle Types",
     "lifecycle_value": "Lifecycle Values",
     "data_type": "Data Types",
+    "schema_gap": "Schema Gaps",
+    "test_binding": "Test Bindings",
+    "verification": "Verification",
     "workflow": "Workflows",
     "registry_type": "Lattice Types",
     "spec_type": "Lattice Types",
@@ -80,6 +98,12 @@ def page_component(type_name: object) -> str:
 
 
 DETAIL_FIELD_EXCLUDES = {
+    "asset_refs",
+    "audience",
+    "command",
+    "content_mode",
+    "default_output_dir",
+    "document_refs",
     "id",
     "type",
     "kind",
@@ -94,6 +118,25 @@ DETAIL_FIELD_EXCLUDES = {
     "examples",
     "links",
     "fields",
+    "format",
+    "gap",
+    "heading",
+    "heading_level",
+    "intro",
+    "order",
+    "outro",
+    "output_path",
+    "purpose",
+    "renderer",
+    "section_refs",
+    "source_refs",
+    "stability",
+    "statement",
+    "suggested_improvement",
+    "target",
+    "test",
+    "used_by",
+    "write_mode",
 }
 
 
@@ -278,6 +321,124 @@ def visible_link_nodes(spec: Spec, nodes: list[dict[str, Any]]) -> list[dict[str
     if spec.kind == "decision":
         return nodes
     return [node for node in nodes if node.get("type") != "decision"]
+
+
+def primary_statement(spec: Spec) -> str:
+    for key in (
+        "decision",
+        "statement",
+        "purpose",
+        "gap",
+        "suggested_improvement",
+        "summary",
+        "definition",
+        "command",
+        "test",
+        "intro",
+    ):
+        value = spec.data.get(key)
+        if isinstance(value, str) and value.strip():
+            return value
+    return spec.description
+
+
+def field_value(spec: Spec, key: str, default: str = "") -> str:
+    value = spec.data.get(key, default)
+    if value is None:
+        return default
+    return display_value(value)
+
+
+def list_values(spec: Spec, key: str) -> list[str]:
+    value = spec.data.get(key, [])
+    if value is None:
+        return []
+    if not isinstance(value, list):
+        value = [value]
+    return [str(item) for item in value if isinstance(item, str) and item]
+
+
+def specs_for_refs(spec: Spec, registry: SpecRegistry, key: str) -> list[Spec]:
+    return specs_for_ids(list_values(spec, key), registry)
+
+
+def specs_for_ids(ids: list[str], registry: SpecRegistry) -> list[Spec]:
+    specs: list[Spec] = []
+    for spec_id in ids:
+        target = registry.by_id.get(spec_id)
+        if target is not None:
+            specs.append(target)
+    return specs
+
+
+def specs_of_kind(registry: SpecRegistry, kind: str) -> list[Spec]:
+    return sorted(
+        [spec for spec in registry.active_specs if spec.kind == kind],
+        key=lambda spec: spec.id,
+    )
+
+
+def specs_referencing(
+    registry: SpecRegistry, target_id: str, *, field: str | None = None
+) -> list[Spec]:
+    matches: list[Spec] = []
+    for spec in registry.active_specs:
+        fields = [field] if field is not None else spec.data.keys()
+        for key in fields:
+            value = spec.data.get(key)
+            if value == target_id:
+                matches.append(spec)
+                break
+            if isinstance(value, list) and target_id in value:
+                matches.append(spec)
+                break
+    return sorted(matches, key=lambda spec: (spec.kind, spec.id))
+
+
+def grouped_related_nodes(
+    spec: Spec,
+    outgoing: list[dict[str, Any]],
+    backlinks: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    groups = [
+        {"title": "Outgoing References", "items": visible_link_nodes(spec, outgoing)},
+        {"title": "Referenced By", "items": visible_link_nodes(spec, backlinks)},
+    ]
+    return [group for group in groups if group["items"]]
+
+
+def document_artifacts(registry: SpecRegistry) -> list[dict[str, Any]]:
+    artifacts: list[dict[str, Any]] = []
+    for spec in specs_of_kind(registry, "generated_document"):
+        output_path = field_value(spec, "output_path")
+        artifacts.append(
+            {
+                "spec": spec,
+                "path": output_path,
+                "format": field_value(spec, "format", "markdown"),
+                "write_mode": field_value(spec, "write_mode", "protected_block"),
+                "section_count": len(list_values(spec, "section_refs")),
+            }
+        )
+    return sorted(artifacts, key=lambda item: item["path"])
+
+
+def documentation_sets(registry: SpecRegistry) -> list[Spec]:
+    return specs_of_kind(registry, "documentation_set")
+
+
+def generated_documents(registry: SpecRegistry) -> list[Spec]:
+    return specs_of_kind(registry, "generated_document")
+
+
+def primary_story_specs(registry: SpecRegistry) -> list[Spec]:
+    preferred = [
+        *specs_of_kind(registry, "generated_document"),
+        *specs_of_kind(registry, "decision"),
+        *specs_of_kind(registry, "guardrail"),
+        *specs_of_kind(registry, "workflow"),
+    ]
+    return preferred[:12]
 
 
 def value_type_name(value: object) -> str:

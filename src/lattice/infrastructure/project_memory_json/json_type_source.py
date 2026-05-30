@@ -237,7 +237,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             },
             "additionalProperties": True,
         },
-        "renderer": "unit.html.j2",
+        "renderer": "generated_document.html.j2",
         "required": [
             *DOCUMENTED_REQUIRED_FIELDS,
             "output_path",
@@ -309,7 +309,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             },
             "additionalProperties": True,
         },
-        "renderer": "unit.html.j2",
+        "renderer": "document_section.html.j2",
         "required": [
             *DOCUMENTED_REQUIRED_FIELDS,
             "heading",
@@ -349,7 +349,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
             },
             "additionalProperties": True,
         },
-        "renderer": "unit.html.j2",
+        "renderer": "documentation_set.html.j2",
         "required": [*DOCUMENTED_REQUIRED_FIELDS, "default_output_dir"],
         "search_fields": ["id", "name", "summary", "description"],
         "reference_fields": [*BASE_LINK_FIELDS, "document_refs"],
@@ -391,7 +391,7 @@ DEFAULT_TYPE_REGISTRY: dict[str, dict[str, object]] = {
                 },
             ],
         },
-        "renderer": "unit.html.j2",
+        "renderer": "asset.html.j2",
         "required": [
             *DOCUMENTED_REQUIRED_FIELDS,
             "asset_kind",

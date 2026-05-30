@@ -145,6 +145,8 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: LATTICE-DECISION-001, LATTICE-DECISION-057, LATTICE-DOC-001, LATTICE-TEST-026
 - `LATTICE-DECISION-061` (decision, owner: lattice): Documents generated document write modes so Lattice can migrate safely from protected generated blocks to fully generated documentation files. Generated document specs support explicit write modes. protected_block mode updates a governed block inside an existing file for incremental migration, while full_file mode lets a generated_document own the entire output path once the source specs and section graph are mature enough. README.md is now generated in full_file mode from LATTICE-DOC-001.
   Links: LATTICE-DECISION-060, LATTICE-DOC-001, LATTICE-TEST-026
+- `LATTICE-DECISION-062` (decision, owner: lattice): Documents the generated documentation redesign so Lattice pages communicate the underlying graph and source meaning before showing implementation metadata. Generated HTML documentation should use semantic templates for important Lattice types instead of leading with generic metadata tables. Generated documents, document sections, documentation sets, assets, decisions, guardrails, test bindings, schema gaps, verification specs, enums, and domain objects should render their source meaning, artifact ownership, relationships, and proof obligations before exposing raw field metadata.
+  Links: LATTICE-DECISION-060, LATTICE-TEST-028
 - `PROJECT-DECISION-001` (decision, owner: project): Documents the Render slice memberships as lattice-links decision and explains how it guides Lattice behavior or project maintenance. Member pages should render the semantic slices they belong to as lattice-links so overlapping slice membership is visible and navigable in the UI.
   Links: PROJECT-CONCEPT-003, PROJECT-RULE-003, PROJECT-GAP-002
 - `LATTICE-DOC-SECTION-001` (document_section, owner: lattice): Defines the README problem section from governed source specs and the before-and-after diagram asset.
@@ -341,6 +343,8 @@ Use these canonical specs as the source of truth. Do not duplicate or invent com
   Links: LATTICE-DECISION-060
 - `LATTICE-TEST-027` (test_binding, owner: lattice): Binds documentation graph guardrails to executable audit tests proving wrong typed edges, missing write modes, unmanaged Markdown docs, and ungrounded sourced sections are reported.
   Links: LATTICE-DOC-GRAPH-001, LATTICE-DOC-GRAPH-002, LATTICE-DOC-GRAPH-003, LATTICE-DOC-GRAPH-004
+- `LATTICE-TEST-028` (test_binding, owner: lattice): Binds the semantic generated-docs redesign to an executable renderer test proving generated documents, decisions, the document graph, and the artifact index render content-first views.
+  Links: LATTICE-DECISION-062
 - `PROJECT-TEST-001` (test_binding, owner: project): Binds PROJECT-RULE-001 to an executable test so Lattice can verify the documented behavior.
   Links: PROJECT-RULE-001, PROJECT-RULE-001-EX001
 - `PROJECT-TEST-002` (test_binding, owner: project): Binds PROJECT-RULE-003 to an executable test so Lattice can verify the documented behavior.

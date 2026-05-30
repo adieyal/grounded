@@ -61,6 +61,7 @@
       "tests",
       "examples"
     ],
+    "renderer": "decision.html.j2",
     "required": [
       "id",
       "kind",
@@ -115,6 +116,7 @@
       "tests",
       "examples"
     ],
+    "renderer": "guardrail.html.j2",
     "required": [
       "id",
       "kind",
@@ -133,6 +135,7 @@
     "reference_fields": [
       "references"
     ],
+    "renderer": "test_binding.html.j2",
     "required": [
       "id",
       "kind",

@@ -92,6 +92,8 @@ def build_site(config: LatticeConfig, registry: SpecRegistry) -> dict[Path, str]
 def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> RenderedSite:
     index_path = config.generated_docs_dir / INDEX_FILENAME
     background_path = config.generated_docs_dir / "lattice-background.html"
+    artifact_index_path = config.generated_docs_dir / "artifact-index.html"
+    document_graph_path = config.generated_docs_dir / "document-graph.html"
 
     graph = lattice_registry_for(config, registry, index_path)
     primary_specs = primary_documentation_specs(registry)
@@ -131,10 +133,7 @@ def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> Render
     )
     site.add(
         config.generated_docs_dir / INDEX_FILENAME,
-        env.get_template("index.html.j2").render(
-            **context,
-            background_href=href_for(index_path, background_path),
-        ),
+        env.get_template("index.html.j2").render(**context),
         owner="index html",
     )
     site.add(
@@ -144,6 +143,34 @@ def build_rendered_site(config: LatticeConfig, registry: SpecRegistry) -> Render
             main_href=href_for(background_path, index_path),
         ),
         owner="background page",
+    )
+    site.add(
+        document_graph_path,
+        env.get_template("document-graph.html.j2").render(
+            **base_context(
+                config,
+                registry,
+                lattice_registry_for(config, registry, document_graph_path),
+                document_graph_path,
+                specs=primary_specs,
+                search_specs=primary_specs,
+            )
+        ),
+        owner="document graph page",
+    )
+    site.add(
+        artifact_index_path,
+        env.get_template("artifact-index.html.j2").render(
+            **base_context(
+                config,
+                registry,
+                lattice_registry_for(config, registry, artifact_index_path),
+                artifact_index_path,
+                specs=primary_specs,
+                search_specs=primary_specs,
+            )
+        ),
+        owner="artifact index page",
     )
     site.add(
         config.generated_docs_dir / CSS_FILENAME,

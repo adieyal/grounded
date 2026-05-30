@@ -18,6 +18,12 @@ All notable Lattice changes are recorded here starting with `0.3.0`.
   generated outputs owned by `generated_document` specs.
 - Added an audit guardrail requiring public Markdown documentation to be
   managed by the generated-document graph.
+- Redesigned generated HTML documentation around semantic templates for
+  generated documents, sections, documentation sets, assets, decisions,
+  guardrails, test bindings, schema gaps, verification specs, enums, and domain
+  objects so pages explain meaning and graph ownership before raw metadata.
+- Added generated document graph and artifact index pages to make generated
+  documentation provenance inspectable.
 
 ## 0.13.0 - 2026-05-30
 
