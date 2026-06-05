@@ -18,8 +18,9 @@ Explain how generated documentation and the Todo demo are built and published.
 - `GROUNDED-DECISION-064`: The package version is bumped to 1.0.0 for the first major Grounded release, including generated-document graph ownership, a protected-block README exemplar, full-file generated docs for mature pages, PyPI publication preparation, Apache-2.0 licensing, PEP 561 typed package metadata, and trusted-publishing workflow support.
 - `GROUNDED-DECISION-071`: The package version is bumped to 1.1.0 for the focused LLM context CLI command, including exact-ID and search-based seed resolution, bounded bidirectional graph traversal, Markdown and JSON context output, active-spec filtering, project-relative paths, search-resolution warnings, focused workflow documentation, and executable context CLI coverage.
 - `GROUNDED-DECISION-073`: The package version is bumped to 1.2.0 for declared-binding context lookup, including grounded context --changed-files PATH [PATH ...], project-relative and project-absolute changed-file normalization, distance-0 context seeds from matched file-binding owners, deterministic multi-file seed ordering, no-match failure behavior, Markdown and JSON output support, include-bindings compatibility, focused documentation updates, and executable changed-file context coverage.
+- `GROUNDED-DECISION-074`: The package version is bumped to 1.2.1 for suffix collection field type resolution, including exact canonical type lookup after recognized collection wrapper stripping, slice_ref[] display links that preserve suffix syntax, and regression coverage for list[...] and [] collection forms.
 
-Sources: `GROUNDED-DECISION-049`, `GROUNDED-DECISION-052`, `GROUNDED-DECISION-053`, `GROUNDED-DECISION-063`, `GROUNDED-DECISION-064`, `GROUNDED-DECISION-071`, `GROUNDED-DECISION-073`
+Sources: `GROUNDED-DECISION-049`, `GROUNDED-DECISION-052`, `GROUNDED-DECISION-053`, `GROUNDED-DECISION-063`, `GROUNDED-DECISION-064`, `GROUNDED-DECISION-071`, `GROUNDED-DECISION-073`, `GROUNDED-DECISION-074`
 
 ## Documentation publishing
 

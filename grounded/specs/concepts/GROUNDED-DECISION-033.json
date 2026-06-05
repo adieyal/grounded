@@ -1,5 +1,5 @@
 {
-  "decision": "Field type resolution should only use exact canonical identifiers or exact display names and must not fall back to matching by kind. Generated unit output paths must reject slug collisions instead of silently overwriting one page with another.",
+  "decision": "Field type resolution should only use exact canonical identifiers or exact display names after stripping recognized collection wrappers, and must not fall back to matching by kind. Generated unit output paths must reject slug collisions instead of silently overwriting one page with another.",
   "id": "GROUNDED-DECISION-033",
   "kind": "decision",
   "name": "Require exact type matches and collision checks",

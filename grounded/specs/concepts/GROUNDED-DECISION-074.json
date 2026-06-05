@@ -1,0 +1,17 @@
+{
+  "decision": "The package version is bumped to 1.2.1 for suffix collection field type resolution, including exact canonical type lookup after recognized collection wrapper stripping, slice_ref[] display links that preserve suffix syntax, and regression coverage for list[...] and [] collection forms.",
+  "id": "GROUNDED-DECISION-074",
+  "kind": "decision",
+  "name": "Release suffix collection field type links as 1.2.1",
+  "owner": "grounded",
+  "references": [
+    "GROUNDED-DECISION-020",
+    "GROUNDED-DECISION-033"
+  ],
+  "tests": [
+    "GROUNDED-TEST-005",
+    "GROUNDED-TEST-030"
+  ],
+  "status": "active",
+  "description": "Documents the 1.2.1 version bump so suffix collection field type linking has a canonical Grounded owner."
+}

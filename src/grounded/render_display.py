@@ -222,20 +222,24 @@ def display_fields(spec: Spec) -> list[dict[str, Any]]:
 
 def field_type_display(field_type: object, registry: SpecRegistry) -> str:
     type_name = str(field_type)
-    stripped_type_name, is_collection = _split_field_type(type_name)
+    stripped_type_name, collection_style = _split_field_type(type_name)
     if stripped_type_name == "dict":
         return '<span class="pill field-type">dict</span>'
 
     target = field_type_target(stripped_type_name, registry)
     if target is None:
         rendered = escape(stripped_type_name)
-        if is_collection:
+        if collection_style == "list":
             rendered = f"list[{rendered}]"
+        elif collection_style == "suffix":
+            rendered = f"{rendered}[]"
         return f'<span class="pill field-type">{rendered}</span>'
 
     rendered = grounded_link(target.kind, target.id, display_name(target), "field-type")
-    if is_collection:
+    if collection_style == "list":
         return f"list[{rendered}]"
+    if collection_style == "suffix":
+        return f"{rendered}[]"
     return rendered
 
 
@@ -276,10 +280,11 @@ def field_anchor(unit_id: object, field_name: object) -> str:
 
 
 def field_type_target(type_name: str, registry: SpecRegistry) -> Spec | None:
-    if type_name in registry.by_id:
-        return registry.by_id[type_name]
+    normalized_type_name, _ = _split_field_type(type_name)
+    if normalized_type_name in registry.by_id:
+        return registry.by_id[normalized_type_name]
 
-    normalized_type = type_name.casefold()
+    normalized_type = normalized_type_name.casefold()
     matches: list[Spec] = []
 
     for spec in registry.active_specs:
@@ -299,14 +304,15 @@ def field_type_target(type_name: str, registry: SpecRegistry) -> Spec | None:
     return None
 
 
-def _split_field_type(type_name: str) -> tuple[str, bool]:
+def _split_field_type(type_name: str) -> tuple[str, str | None]:
     stripped = type_name.replace(" | None", "").replace("| None", "").strip()
-    is_collection = stripped.startswith("list[") and stripped.endswith("]")
-    if is_collection:
-        stripped = stripped[5:-1].strip()
+    if stripped.startswith("list[") and stripped.endswith("]"):
+        return stripped[5:-1].strip(), "list"
+    if stripped.endswith("[]"):
+        return stripped[:-2].strip(), "suffix"
     if stripped.startswith("dict["):
-        return "dict", False
-    return stripped, is_collection
+        return "dict", None
+    return stripped, None
 
 
 def detail_sections(spec: Spec) -> list[dict[str, Any]]:
