@@ -23,6 +23,7 @@ from grounded.config import load_config
 from grounded.registry import default_type_registry_json, load_registry
 from grounded.render import (
     default_css,
+    field_type_display,
     field_type_target,
     grounded_link,
     render_all,
@@ -37,7 +38,7 @@ class GroundedTests(unittest.TestCase):
         root = Path(__file__).resolve().parents[1]
         pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
 
-        self.assertEqual("1.2.0", pyproject["project"]["version"])
+        self.assertEqual("1.2.1", pyproject["project"]["version"])
         self.assertEqual(pyproject["project"]["version"], __version__)
 
     def test_pypi_metadata_and_publish_workflow_are_declared(self) -> None:
@@ -1001,6 +1002,63 @@ class GroundedTests(unittest.TestCase):
             registry = load_registry(load_config(root))
 
             self.assertIsNotNone(field_type_target("Todo Item", registry))
+
+    def test_field_type_target_understands_suffix_collection_syntax(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            slice_ref_type_id = "-".join(("SLICE", "REF", "VALUE", "TYPE", "001"))
+            type_spec = {
+                "id": slice_ref_type_id,
+                "kind": "domain_object",
+                "name": "slice_ref",
+                "owner": "project",
+                "status": "active",
+                "description": "A specialized reference value type for page slices.",
+            }
+            (root / ".grounded/specs/concepts").mkdir(parents=True, exist_ok=True)
+            (
+                root / ".grounded/specs/concepts" / f"{slice_ref_type_id}.json"
+            ).write_text(json.dumps(type_spec), encoding="utf-8")
+            registry = load_registry(load_config(root))
+
+            self.assertEqual(
+                slice_ref_type_id,
+                field_type_target("slice_ref[]", registry).id,
+            )
+            self.assertEqual(
+                slice_ref_type_id,
+                field_type_target("list[slice_ref]", registry).id,
+            )
+
+    def test_field_type_display_preserves_suffix_collection_syntax(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            init_project(root)
+            slice_ref_type_id = "-".join(("SLICE", "REF", "VALUE", "TYPE", "001"))
+            type_spec = {
+                "id": slice_ref_type_id,
+                "kind": "domain_object",
+                "name": "slice_ref",
+                "owner": "project",
+                "status": "active",
+                "description": "A specialized reference value type for page slices.",
+            }
+            (root / ".grounded/specs/concepts").mkdir(parents=True, exist_ok=True)
+            (
+                root / ".grounded/specs/concepts" / f"{slice_ref_type_id}.json"
+            ).write_text(json.dumps(type_spec), encoding="utf-8")
+            registry = load_registry(load_config(root))
+
+            suffix_rendered = field_type_display("slice_ref[]", registry)
+            list_rendered = field_type_display("list[slice_ref]", registry)
+
+            self.assertIn(f'grounded-id="{slice_ref_type_id}"', suffix_rendered)
+            self.assertIn(">slice_ref<", suffix_rendered)
+            self.assertTrue(suffix_rendered.endswith("[]"))
+            self.assertIn("list[", list_rendered)
+            self.assertIn(f'grounded-id="{slice_ref_type_id}"', list_rendered)
+            self.assertTrue(list_rendered.endswith("]"))
 
     def test_registry_type_label_uses_grounded_types(self) -> None:
         self.assertEqual("Grounded Types", type_nav_label("registry_type"))

@@ -5,9 +5,9 @@
   "owner": "grounded",
   "status": "active",
   "references": [
-    "GROUNDED-DECISION-071"
+    "GROUNDED-DECISION-074"
   ],
   "description": "Binds the current release decision to an executable test proving pyproject metadata and the package __version__ value stay synchronized.",
-  "target": "GROUNDED-DECISION-071",
+  "target": "GROUNDED-DECISION-074",
   "test": "uv run pytest tests/test_grounded.py::GroundedTests::test_package_version_is_synchronized -q"
 }

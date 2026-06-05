@@ -1,5 +1,5 @@
 {
-  "decision": "Generated field tables render field type names as Grounded links. Field types should be modeled as canonical data_type or lifecycle_type units when the project wants every displayed type to have a link target.",
+  "decision": "Generated field tables render field type names as Grounded links. Field types should be modeled as canonical data_type or lifecycle_type units when the project wants every displayed type to have a link target, and the renderer should resolve recognized collection wrappers such as list[...] and [] before linking so specialized types like slice_ref[] still point at the canonical type page.",
   "id": "GROUNDED-DECISION-020",
   "kind": "decision",
   "name": "Link resolvable field types",
